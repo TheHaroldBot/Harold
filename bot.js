@@ -27,7 +27,7 @@ client.on('message', message => {
 } else if (command === 'args') {
   message.channel.send(args)
 } else if (command === 'help') {
-  message.channel.send('Current Commands:\n**count** - Counts Discord Members\n**ping** - pong)
+  message.channel.send('Current Commands:\n**count** - Counts Discord Members\n**ping** - pong')
 } else if (command === 'spam') {
 if (!args.length) {
   return message.channel.send('u didnt say what to spam')
