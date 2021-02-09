@@ -44,7 +44,7 @@ if (!args.length) {
 	const echo = args
 	message.delete()
 	message.channel.send(echo)
-} else if (command === 'ip') {
+} else if (command === 'serverinfo') {
   const ipEmbed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
 	.setTitle('Connection and Status Info')
