@@ -26,18 +26,8 @@ client.on('message', message => {
   message.channel.send(args[0])
 } else if (command === 'args') {
   message.channel.send(args)
-} else if (command === 'game-request') {
-  if (!args.length) {
-    return message.channel.send('u need a game to request')
-  }
-  const author = message.author.id
-  const game = args[0]
-  const time = args[1]
-	message.delete()
-  client.channels.cache.get('801159055090384896').send(`<@&801161860225040384> Game request from: <@${author}>\nGame: ${game}\nTime: ${time}`)
-  message.channel.send('sent!')
 } else if (command === 'help') {
-  message.channel.send('Current Commands:\n**game-request <game> [time]** - request a game (no spaces please)\n**spam <stuff>** - spam specified word 5 times')
+  message.channel.send('Current Commands:\n**count** - Counts Discord Members\n**ping** - pong)
 } else if (command === 'spam') {
 if (!args.length) {
   return message.channel.send('u didnt say what to spam')
