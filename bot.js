@@ -58,4 +58,4 @@ if (!args.length) {
 
 });
 
-client.login('${{secret.BOT_TOKEN}}');
+client.login('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
