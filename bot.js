@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '/'
+const { token, someApiKey, port } = require('./config.json');
 
 client.once('ready', () => {
 	console.log('Ready!\n');
@@ -51,11 +52,12 @@ if (!args.length) {
 		{ name: 'IP:', value: 'kineticsmp.ddns.net' },
 		{ name: 'Port:', value: '25565' },
 		{ name: 'Check Status in Discord:', value: '<#802204876514787338>' },
-		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000' }
+		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000' },
+		{ name: 'Dynmap:', value: 'http://kineticsmp.ddns.net:8123/' }
 	)
   message.channel.send(ipEmbed)
 }
 
 });
 
-client.login('ODA4NzUwMjI0MDMzMTg1Nzk0.YCLFVw.sjC0yCxdJBtNdNzveyihvCY_93c');
+client.login(token);
