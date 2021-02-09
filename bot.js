@@ -43,6 +43,17 @@ if (!args.length) {
 	const echo = args
 	message.delete()
 	message.channel.send(echo)
+} else if (command === 'ip') {
+  const ipEmbed = new Discord.MessageEmbed()
+	.setColor('#21B8FF')
+	.setTitle('Connection and Status Info')
+	.addFields(
+		{ name: 'IP:', value: 'kineticsmp.ddns.net' },
+		{ name: 'Port:', value: '25565' },
+		{ name: 'Check Status in Discord:', value: '<#802204876514787338>' },
+		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000/' },
+	)
+  message.channel.send(ipEmbed)
 }
 
 });
