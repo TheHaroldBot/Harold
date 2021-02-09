@@ -22,22 +22,10 @@ client.on('message', message => {
 		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 	}
 	message.channel.send(`Command name: ${command}\nArguments: ${args}`);
-} else if (command === 'arg1') {
-  message.channel.send(args[0])
 } else if (command === 'args') {
   message.channel.send(args)
-} else if (command === 'game-request') {
-  if (!args.length) {
-    return message.channel.send('u need a game to request')
-  }
-  const author = message.author.id
-  const game = args[0]
-  const time = args[1]
-	message.delete()
-  client.channels.cache.get('801159055090384896').send(`<@&801161860225040384> Game request from: <@${author}>\nGame: ${game}\nTime: ${time}`)
-  message.channel.send('sent!')
 } else if (command === 'help') {
-  message.channel.send('Current Commands:\n**game-request <game> [time]** - request a game (no spaces please)\n**spam <stuff>** - spam specified word 5 times')
+  message.channel.send('Current Commands:\n**count** - Counts Discord Members\n**ping** - pong')
 } else if (command === 'spam') {
 if (!args.length) {
   return message.channel.send('u didnt say what to spam')
@@ -50,11 +38,22 @@ if (!args.length) {
   message.channel.send(spam)
   message.channel.send(spam)
 } else if (command === 'delete') {
-	message.delete
+	message.delete()
 } else if (command === 'echo') {
-	const echo = args[0]
-	message.delete
+	const echo = args
+	message.delete()
 	message.channel.send(echo)
+} else if (command === 'ip') {
+  const ipEmbed = new Discord.MessageEmbed()
+	.setColor('#21B8FF')
+	.setTitle('Connection and Status Info')
+	.addFields(
+		{ name: 'IP:', value: 'kineticsmp.ddns.net' },
+		{ name: 'Port:', value: '25565' },
+		{ name: 'Check Status in Discord:', value: '<#802204876514787338>' },
+		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000/' }
+	)
+  message.channel.send(ipEmbed)
 }
 
 });
