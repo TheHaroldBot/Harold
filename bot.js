@@ -22,8 +22,6 @@ client.on('message', message => {
 		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 	}
 	message.channel.send(`Command name: ${command}\nArguments: ${args}`);
-} else if (command === 'arg1') {
-  message.channel.send(args[0])
 } else if (command === 'args') {
   message.channel.send(args)
 } else if (command === 'help') {
@@ -40,10 +38,10 @@ if (!args.length) {
   message.channel.send(spam)
   message.channel.send(spam)
 } else if (command === 'delete') {
-	message.delete
+	message.delete()
 } else if (command === 'echo') {
-	const echo = args[0]
-	message.delete
+	const echo = args
+	message.delete()
 	message.channel.send(echo)
 }
 
