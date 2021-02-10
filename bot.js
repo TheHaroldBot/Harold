@@ -83,8 +83,10 @@ if (!args.length) {
 		{ name: 'Name:', value: 'Kinetic SMP Bot' },
 		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, and annoying Nubia' },
 		{ name: 'Commands:', value: 'do /help' },
-		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'}
+		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'},
+		{ name: 'Github:', value: 'https://github.com/johng3587/KineticSMPBot'}
 	)
+	message.delete()
 	message.channel.send(introembed)
 } else if (command === 'shutdown') {
 	if(message.author.id !== ownerid) {
