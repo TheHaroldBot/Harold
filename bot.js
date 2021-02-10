@@ -51,7 +51,7 @@ if (!args.length) {
   return message.channel.send('u didnt say what to spam')
   }
   const spam = args[0]
-	message.delete()
+  message.delete()
   message.channel.send(message.content.replace("/spam", ""));
   message.channel.send(message.content.replace("/spam", ""));
   message.channel.send(message.content.replace("/spam", ""));
@@ -60,6 +60,7 @@ if (!args.length) {
 } else if (command === 'delete') {
 	message.delete()
 } else if (command === 'echo') {
+	message.delete()
 	message.channel.send(message.content.replace("/echo", ""));
 } else if (command === 'serverinfo') {
   const serverinfoembed = new Discord.MessageEmbed()
@@ -93,7 +94,7 @@ if (!args.length) {
 	}
 } else if (command === 'invite') {
 	message.channel.send("https://discord.gg/dRmgSzhbVt")
-}
+} 
 
 });
 
