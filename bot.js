@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fetch = require('node-fetch');
 const client = new Discord.Client();
 const { token, ownerid } = require('./config.json');
 const prefix = "/"
@@ -33,7 +34,7 @@ if (message.content === '/ping') {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos first word typed after command\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id' },
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id' },
 		{ name: 'Abilities:', value: 'Hating Nubia'},
 		{ name: 'Debugging:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot'}
 	)
@@ -102,7 +103,7 @@ if (!args.length) {
 	.setTitle('Github')
 	.setDescription('https://github.com/johng3587/KineticSMPBot')
 	message.channel.send (githubembed)
-} 
+}
 
 });
 
