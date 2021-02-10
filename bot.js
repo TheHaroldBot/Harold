@@ -4,7 +4,6 @@ const fetch = require('node-fetch');
 const client = new Discord.Client();
 const { token, ownerid } = require('./config.json');
 const prefix = "/"
-var hate = "743196563182059572"
 
 client.once('ready', () => {
 	console.log('Ready!\n');
@@ -26,7 +25,7 @@ client.on('message', message => {
   if(message.author.bot) return
  
   if (message.content === '/ping') {
-	message.channel.send('Pong.');
+	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
 } else if (message.content === `${prefix}count`) {
 	message.channel.send(`Current member count: ${message.guild.memberCount}`);
 } else if (message.content === `${prefix}userinfo`) {
@@ -102,7 +101,7 @@ client.on('message', message => {
 	message.channel.send(introembed)
 } else if (command === 'shutdown') {
 	if(message.author.id !== ownerid) {
-		message.channel.send("Sorry! Only the bot owner can do that.")
+		return message.channel.send("Sorry! Only the bot owner can do that.")
 	} else {
 		client.destroy()
 	}
@@ -118,7 +117,7 @@ client.on('message', message => {
 	if (!args.length) {
 		 return message.channel.send('you didnt say a slowmode time')
 	} else if (!message.member.hasPermission('MANAGE_CHANNELS')) {
-		message.channel.send ('you dont have permission to do that')
+		return message.channel.send ('you dont have permission to do that')
 	} else {
 		message.channel.setRateLimitPerUser(args[0], `${message.author.tag} requested a slowmode of ${args[0]} seconds.`)
 		message.channel.send(`Success! Slowmode set to ${args[0]} seconds.`)
@@ -127,7 +126,7 @@ client.on('message', message => {
 	if (!args.length) {
 		return message.channel.send('You didnt say anything to log!')
 	} else if (message.author.id !== ownerid) {
-		message.channel.send ('Only the bot owner can log messages to the console.')
+		return message.channel.send ('Only the bot owner can log messages to the console.')
 	} else {
 		const logcontent = message.content
 		console.log('\x1b[32m\x1b[4m\x1b[1m%s', `Custom log: ${message.content.replace("/log ", "")}`);
@@ -137,7 +136,7 @@ client.on('message', message => {
 	if (!args.length) {
 		message.channel.send ('you need to name a status')
 	} else if (message.author.id !== ownerid) {
-		message.channel.send ('Only the bot owner can change my status.')
+		return message.channel.send ('Only the bot owner can change my status.')
 	} else {
 		client.user.setActivity(message.content.replace("/game ", ""))
 		message.channel.send(`Status set to ${message.content.replace("/game ", "")}`)
@@ -147,7 +146,7 @@ client.on('message', message => {
 	if (!args.length) {
 		message.channel.send ('you need to rovide a url')
 	} else if (message.author.id !== ownerid) {
-		message.channel.send ('Only the owner can change my profile picture')
+		return message.channel.send ('Only the owner can change my profile picture')
 	} else {
 		client.user.setAvatar(args[0])
 		message.channel.send('Avatar changed')
@@ -156,7 +155,7 @@ client.on('message', message => {
 	if (!args.length) {
 		message.channel.send ('You need to provide a presence. Allowed values are:\nonline, idle, invisible, dnd')
 	} else if (message.author.id !== ownerid) {
-		message.channel.send('Only the owner can change my presence')
+		return message.channel.send('Only the owner can change my presence')
 	} else if (args[0] === 'online') {
 		client.user.setPresence({ status: 'online' })
 		message.channel.send(`Presence set to ${args[0]}`)
@@ -171,6 +170,16 @@ client.on('message', message => {
 		message.channel.send(`Presence set to ${args[0]}`)
 	} else {
 		message.channel.send(`Invalid argument: ${args[0]}. Valid arguments are:\nonline, idle, invisible, dnd`)
+	}
+} else if (command === 'ownerhelp') {
+	if (message.author.id !== ownerid) {
+		return message.channel.send ('Only the bot owner can access this command.')
+	} else {
+		const ownerembed = new Discord.MessageEmbed()
+		.setTitle('Owner Help Menu')
+		.setColor('#21B8FF')
+		.setDescription('**presence** - sets the bot presence\n**setavatar** - sets the bot avatar\n**game** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed')
+		message.channel.send (ownerembed)
 	}
 }
 
