@@ -150,6 +150,7 @@ client.on('message', message => {
 		message.channel.send ('Only the owner can change my profile picture')
 	} else {
 		client.user.setAvatar(args[0])
+		message.channel.send('Avatar changed')
 	}
 } else if (command === 'presence') {
 	if (!args.length) {
