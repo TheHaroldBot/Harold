@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { token } = require('./config.json');
+const { token, ownerid } = require('./config.json');
 const prefix = "/"
 var hate = "743196563182059572"
 
@@ -21,7 +21,7 @@ if (message.content === '/ping') {
 	message.channel.send(`Current member count: ${message.guild.memberCount}`);
 } else if (message.content === `${prefix}userinfo`) {
 	message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-} else if (command === 'args-info') {
+} else if (command === 'argsinfo') {
 	if (!args.length) {
 		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 	}
@@ -34,28 +34,35 @@ if (message.content === '/ping') {
 	.setTitle('Help Page')
 	.addFields(
 		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos first word typed after command\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id' },
-		{ name: 'Abilities:', value: 'Hating Nubia'}
+		{ name: 'Abilities:', value: 'Hating Nubia'},
+		{ name: 'Debugging:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot'}
 	)
   message.channel.send(helpembed)
+} else if (command === "debug") {
+	const debugembed = new Discord.MessageEmbed()
+	.setColor('#21B8FF')
+	.setTitle('Debugging')
+	.addFields(
+		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot'}
+	)
+	message.channel.send(debugembed);
 } else if (command === 'spam') {
 if (!args.length) {
   return message.channel.send('u didnt say what to spam')
   }
   const spam = args[0]
 	message.delete()
-  message.channel.send(spam)
-  message.channel.send(spam)
-  message.channel.send(spam)
-  message.channel.send(spam)
-  message.channel.send(spam)
+  message.channel.send(message.content.replace("/spam", ""));
+  message.channel.send(message.content.replace("/spam", ""));
+  message.channel.send(message.content.replace("/spam", ""));
+  message.channel.send(message.content.replace("/spam", ""));
+  message.channel.send(message.content.replace("/spam", ""));
 } else if (command === 'delete') {
 	message.delete()
 } else if (command === 'echo') {
-	const echo = args
-	message.delete()
-	message.channel.send(echo).catch(console.error)
+	message.channel.send(message.content.replace("/echo", ""));
 } else if (command === 'serverinfo') {
-  const ipEmbed = new Discord.MessageEmbed()
+  const serverinfoembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
 	.setTitle('Connection and Status Info')
 	.addFields(
@@ -65,7 +72,7 @@ if (!args.length) {
 		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000' },
 		{ name: 'Dynmap:', value: 'http://kineticsmp.ddns.net:8123/' }
 	)
-  message.channel.send(ipEmbed)
+  message.channel.send(serverinfoembed)
 } else if (command === 'intro') {
 	const introembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
@@ -78,6 +85,14 @@ if (!args.length) {
 		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'}
 	)
 	message.channel.send(introembed)
+} else if (command === 'shutdown') {
+	if(message.author.id !== ownerid) {
+		message.channel.send("Sorry! Only the bot owner can do that.")
+	} else {
+		client.destroy()
+	}
+} else if (command === 'invite') {
+	message.channel.send("https://discord.gg/dRmgSzhbVt")
 }
 
 });
