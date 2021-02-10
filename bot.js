@@ -15,9 +15,6 @@ client.on('message', message => {
   console.log(`From: ${message.author.tag} > ${message.content}`)
   if(message.author.bot) return
   if(message.guild === null) return
-  if(message.author.id === '743196563182059572') {
-	  message.channel.send('shut up nubia')
-  }
 if (message.content === '/ping') {
 	message.channel.send('Pong.');
 } else if (message.content === `${prefix}count`) {
