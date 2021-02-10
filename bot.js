@@ -96,6 +96,12 @@ if (!args.length) {
 	}
 } else if (command === 'invite') {
 	message.channel.send("https://discord.gg/dRmgSzhbVt")
+} else if (command === 'github') {
+	const githubembed = new Discord.MessageEmbed()
+	.setColor('#21B8FF')
+	.setTitle('Github')
+	.setDescription('https://github.com/johng3587/KineticSMPBot')
+	message.channel.send (githubembed)
 } 
 
 });
