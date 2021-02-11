@@ -43,7 +43,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds' },
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules'},
 		{ name: 'Abilities:', value: 'Hating Nubia'}
 	)
   message.channel.send(helpembed)
@@ -133,14 +133,14 @@ client.on('message', message => {
 		console.log('\x1b[32m\x1b[4m\x1b[1m%s', `Custom log: ${message.content.replace("/log ", "")}`);
 		message.channel.send('Message logged!')
 	}
-} else if (command === 'game') {
+} else if (command === 'setgame') {
 	if (!args.length) {
 		message.channel.send ('you need to name a status')
 	} else if (message.author.id !== ownerid) {
 		return message.channel.send ('Only the bot owner can change my status.')
 	} else {
-		client.user.setActivity(message.content.replace("/game ", ""))
-		message.channel.send(`Status set to ${message.content.replace("/game ", "")}`)
+		client.user.setActivity(message.content.replace("/setgame ", ""))
+		message.channel.send(`Game set to ${message.content.replace("/setgame ", "")}`)
 	}
 	 
 } else if (command === 'setavatar') {
@@ -152,23 +152,23 @@ client.on('message', message => {
 		client.user.setAvatar(args[0])
 		message.channel.send('Avatar changed')
 	}
-} else if (command === 'presence') {
+} else if (command === 'setstatus') {
 	if (!args.length) {
-		message.channel.send ('You need to provide a presence. Allowed values are:\nonline, idle, invisible, dnd')
+		message.channel.send ('You need to provide a status. Allowed values are:\nonline, idle, invisible, dnd')
 	} else if (message.author.id !== ownerid) {
 		return message.channel.send('Only the owner can change my presence')
 	} else if (args[0] === 'online') {
 		client.user.setPresence({ status: 'online' })
-		message.channel.send(`Presence set to ${args[0]}`)
+		message.channel.send(`Status set to ${args[0]}`)
 	} else if (args[0] === 'idle') {
 		client.user.setPresence({ status: 'idle' })
-		message.channel.send(`Presence set to ${args[0]}`)
+		message.channel.send(`Status set to ${args[0]}`)
 	} else if (args[0] === 'invisible') {
 		client.user.setPresence({ status: 'invisible' })
-		message.channel.send(`Presence set to ${args[0]}`)
+		message.channel.send(`Status set to ${args[0]}`)
 	} else if (args[0] === 'dnd') {
 		client.user.setPresence({ status: 'dnd' })
-		message.channel.send(`Presence set to ${args[0]}`)
+		message.channel.send(`Status set to ${args[0]}`)
 	} else {
 		message.channel.send(`Invalid argument: ${args[0]}. Valid arguments are:\nonline, idle, invisible, dnd`)
 	}
@@ -179,7 +179,7 @@ client.on('message', message => {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
 		.setColor('#21B8FF')
-		.setDescription('**presence** - sets the bot presence\n**setavatar** - sets the bot avatar\n**game** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed')
+		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed')
 		message.channel.send (ownerembed)
 	}
 } else if (command === 'yesorno') {
@@ -189,6 +189,23 @@ client.on('message', message => {
 	} else {
 		message.channel.send ('No')
 	}
+
+} else if (command === 'rules') {
+		const rulesembed = new Discord.MessageEmbed()
+		.setTitle('Rules of Kinetic SMP')
+		.setColor('#21B8FF')
+		.setDescription(`- No hacking
+		- No greifing
+		- No lagging intentionally
+		- Ask before pvping
+		- No stealing
+		- No raiding people
+		- No asking staff for items
+		- Personal buildings, i.e. houses, should be build at least 200 blocks from spawn
+		- If you leave discord, i remove you from the whitelist.
+		- No 3rd party clients allowed, unless approved by a staff member. Yes, optifine is fine.`)
+		message.channel.send (rulesembed)
+
 } else if (command === 'sudo') {
 	const sudoname = message.mentions.users.first().username
 	if (sudoname === null) {
