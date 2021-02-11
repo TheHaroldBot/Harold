@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const client = new Discord.Client();
-const { token, ownerid } = require('./config.json');
+const { token, ownerid, webhookurl } = require('./config.json');
 const prefix = "/"
 
 client.once('ready', () => {
@@ -13,6 +13,7 @@ client.once('ready', () => {
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
+   if(message.webhookID) return;
    if(message.guild === null) {
 	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
 	  if(message.content.startsWith(prefix)) {
@@ -181,6 +182,43 @@ client.on('message', message => {
 		.setDescription('**presence** - sets the bot presence\n**setavatar** - sets the bot avatar\n**game** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed')
 		message.channel.send (ownerembed)
 	}
+} else if (command === 'yesorno') {
+	const yesorno = (Math.random() < 0.5);
+	if (yesorno === true) {
+		message.channel.send ('Yes')
+	} else {
+		message.channel.send ('No')
+	}
+} else if (command === 'sudo') {
+	const sudoname = message.mentions.users.first().username
+	if (sudoname === null) {
+		return message.channel.send ('you need to mention someone.')
+	}
+	const sudoreplace = message.content.replace('/sudo ', "")
+	const sudoreplace2 = sudoreplace.replace(args[0], "")
+	const webhookpfp = message.mentions.users.first()
+	const webhookpfp2 = webhookpfp.avatarURL()
+	const sudochannel = message.channel.id
+	
+	fetch(
+		webhookurl,
+		{
+		  method: 'post',
+		  headers: {
+			'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify({
+			// the username to be displayed
+			username: sudoname,	
+			// the avatar to be displayed
+			avatar_url:
+			  webhookpfp2,
+			// contents of the message to be sent
+			content:
+			  sudoreplace2,
+		  })
+		}
+	)
 }
 
 });
