@@ -236,6 +236,19 @@ client.on('message', message => {
 		  })
 		}
 	)
+} else if (command === 'profile') {
+	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
+		message.channel.send('Only users with the ADMINISTRATOR permission can do that')
+	} else if (!args.length) {
+		message.channel.send ('You need to mention someone')
+	} else {
+		const pfptarget = message.mentions.users.first()
+		const pfpembed = new Discord.MessageEmbed()
+		.setColor('#21B8FF')
+		.setTitle(`Profile Image for: ${pfptarget.username}`)
+		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
+		message.channel.send(pfpembed)
+	}
 }
 
 });
