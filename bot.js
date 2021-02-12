@@ -1,7 +1,9 @@
 const Discord = require('discord.js');
+const Webhook = require('discord.js');
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const client = new Discord.Client();
+const webhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1ETP_L2ehQdxhKJnqmyf-nMPgkIhOECdUKIpcm5OY5oDS6I384lqw29dCD')
 const { token, ownerid, webhookurl } = require('./config.json');
 const prefix = "/"
 
@@ -217,25 +219,9 @@ client.on('message', message => {
 	const webhookpfp2 = webhookpfp.avatarURL()
 	const sudochannel = message.channel.id
 	
-	fetch(
-		webhookurl,
-		{
-		  method: 'post',
-		  headers: {
-			'Content-Type': 'application/json',
-		  },
-		  body: JSON.stringify({
-			// the username to be displayed
-			username: sudoname,	
-			// the avatar to be displayed
-			avatar_url:
-			  webhookpfp2,
-			// contents of the message to be sent
-			content:
-			  sudoreplace2,
-		  })
-		}
-	)
+	webhook.edit({channel: message.channel})
+	webhook.send(sudoreplace2, {avatarURL: webhookpfp2, username: sudoname})
+
 } else if (command === 'profile') {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
 		message.channel.send('Only users with the ADMINISTRATOR permission can do that')
@@ -249,6 +235,18 @@ client.on('message', message => {
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
 	}
+} else if (message.content.includes('poll2op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+} else if (message.content.includes('poll3op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+	message.react('3️⃣')
+} else if (message.content.includes('poll4op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+	message.react('3️⃣')
+	message.react('4️⃣')
 }
 
 });
