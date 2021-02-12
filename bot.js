@@ -210,6 +210,7 @@ client.on('message', message => {
 		message.channel.send (rulesembed)
 
 } else if (command === 'sudo') {
+	if (message.author.id !== ownerid) return message.channel.send('you cant do that')
 	const sudoname = message.mentions.users.first().username
 	if (sudoname === null) {
 		return message.channel.send ('you need to mention someone.')
@@ -259,7 +260,7 @@ client.on('message', message => {
 		.setDescription(message.content.replace("/report", ""))
 		reportwebhook.send("",{
 		username: 'Kinetic SMP Report Bot',
-		avatarURL: 'https://www.entad.org/wp-content/uploads/2020/05/Caution-symbol.jpg',
+		avatarURL: 'https://image.flaticon.com/icons/png/512/61/61114.png',
 		embeds: [reportembed]
 		})
 		message.delete()
