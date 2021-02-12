@@ -3,16 +3,17 @@ const Webhook = require('discord.js');
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const client = new Discord.Client();
-const webhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1ETP_L2ehQdxhKJnqmyf-nMPgkIhOECdUKIpcm5OY5oDS6I384lqw29dCD')
+const sudowebhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1ETP_L2ehQdxhKJnqmyf-nMPgkIhOECdUKIpcm5OY5oDS6I384lqw29dCD')
+const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const { token, ownerid, webhookurl } = require('./config.json');
 const prefix = "/"
 
 client.once('ready', () => {
 	console.log('Ready!\n');
-	client.channels.cache.get('802206642745507840').send('I have woken');
 });
 
 client.on('message', message => {
+  if (!message.content.startsWith(prefix)) return
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
@@ -219,8 +220,8 @@ client.on('message', message => {
 	const webhookpfp2 = webhookpfp.avatarURL()
 	const sudochannel = message.channel.id
 	
-	webhook.edit({channel: message.channel})
-	webhook.send(sudoreplace2, {avatarURL: webhookpfp2, username: sudoname})
+	sudowebhook.edit({channel: message.channel})
+	sudowebhook.send(sudoreplace2, {avatarURL: webhookpfp2, username: sudoname})
 
 } else if (command === 'profile') {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
@@ -247,6 +248,24 @@ client.on('message', message => {
 	message.react('2️⃣')
 	message.react('3️⃣')
 	message.react('4️⃣')
+} else if (command === 'report') {
+	if (!args.length) {
+		message.delete()
+		message.author.send('you need to say something to report')
+	} else {
+		const reportembed = new Discord.MessageEmbed()
+		.setTitle(`Report from ${message.author.tag}`)
+		.setColor('#ff0000')
+		.setDescription(message.content.replace("/report", ""))
+		reportwebhook.send("",{
+		username: 'Kinetic SMP Report Bot',
+		avatarURL: 'https://www.entad.org/wp-content/uploads/2020/05/Caution-symbol.jpg',
+		embeds: [reportembed]
+		})
+		message.delete()
+		message.author.send(`Your report was sent!\nWhat you reported: "${message.content.replace("/report ", "")}"`)
+	}
+	
 }
 
 });
