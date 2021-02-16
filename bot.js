@@ -13,7 +13,6 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-  if (!message.content.startsWith(prefix)) return
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
@@ -27,7 +26,7 @@ client.on('message', message => {
 	  console.log(`From: ${message.author.tag} > ${message.content}`)
   }
   if(message.author.bot) return
- 
+  if (!message.content.startsWith(prefix)) return
   if (message.content === '/ping') {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
 } else if (message.content === `${prefix}count`) {
@@ -46,7 +45,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules'},
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command'},
 		{ name: 'Abilities:', value: 'Hating Nubia'}
 	)
   message.channel.send(helpembed)
