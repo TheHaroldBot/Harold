@@ -7,6 +7,7 @@ const sudowebhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const { token, ownerid, webhookurl } = require('./config.json');
 const prefix = "/"
+var { blockedUsers } = require('./blocked.json')
 
 client.once('ready', () => {
 	console.log('Ready!\n');
@@ -27,6 +28,7 @@ client.on('message', message => {
   }
   if(message.author.bot) return
   if (!message.content.startsWith(prefix)) return
+  if (blockedUsers.includes(message.author.id)) return
   if (message.content === '/ping') {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
 } else if (message.content === `${prefix}count`) {
@@ -45,7 +47,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command'},
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency'},
 		{ name: 'Abilities:', value: 'Hating Nubia'}
 	)
   message.channel.send(helpembed)
@@ -181,7 +183,7 @@ client.on('message', message => {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
 		.setColor('#21B8FF')
-		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed')
+		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status')
 		message.channel.send (ownerembed)
 	}
 } else if (command === 'yesorno') {
@@ -227,7 +229,12 @@ client.on('message', message => {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
 		message.channel.send('Only users with the ADMINISTRATOR permission can do that')
 	} else if (!args.length) {
-		message.channel.send ('You need to mention someone')
+		const pfptarget = message.author
+		const pfpembed = new Discord.MessageEmbed()
+		.setColor('#21B8FF')
+		.setTitle(`Profile Image for: ${pfptarget.username}`)
+		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
+		message.channel.send(pfpembed)
 	} else {
 		const pfptarget = message.mentions.users.first()
 		const pfpembed = new Discord.MessageEmbed()
@@ -266,6 +273,41 @@ client.on('message', message => {
 		message.author.send(`Your report was sent!\nWhat you reported: "${message.content.replace("/report ", "")}"`)
 	}
 	
+} else if (command === 'guildicon') {
+	const guildicon = new Discord.MessageEmbed()
+	.setColor('#21B8FF')
+	.setTitle(`Guild icon for: ${message.guild.name}`)
+	.setImage(message.guild.iconURL({ dynamic: true, size: 256}))
+	message.channel.send(guildicon)
+} else if (command === 'leaveguild') {
+	if ((!message.member.hasPermission('MANAGE_WEBHOOKS'))) {
+		message.channel.send('You need MANAGE_WEBHOOKS permission to do that!')
+	} else {
+		message.channel.send('Goodbye!')
+		console.log(`Now leaving ${message.guild.name}`)
+		message.guild.leave()
+	}
+} else if (command == 'block') {
+	if (!args.length) {
+		message.channel.send('you need to mention someone to block!')
+	}
+	let user = message.mentions.users.first();
+	if (user && !blockedUsers.includes(user.id)) blockedUsers.push(user.id);
+	message.channel.send(`blocked!`)
+} else if (command === 'setstream') {
+	if (!message.author.id === ownerid) {
+		message.channel.send('only the bot owner can do that')
+		return
+	} else if (args.length <= 2) {
+		message.channel.send('you need to set a stream title *and* a url')
+		return
+	} else {
+		client.user.setActivity(message.content.replace(`/setstream ${args[0]}`, ""), {
+			type: "STREAMING",
+			url: args[0]
+		  });
+		  message.channel.send(`Streaming ${args[1]} on ${args[0]}`)
+	}
 }
 
 });
