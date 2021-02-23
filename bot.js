@@ -306,7 +306,7 @@ client.on('message', message => {
 			type: "STREAMING",
 			url: args[0]
 		  });
-		  message.channel.send(`Streaming ${args[1]} on ${args[0]}`)
+		  message.channel.send(`Streaming ${message.content.replace(`/setstream ${args[0]}`, "")} on ${args[0]}`)
 	}
 }
 
