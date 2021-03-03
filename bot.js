@@ -7,7 +7,6 @@ const sudowebhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const { token, ownerid, webhookurl } = require('./config.json');
 const prefix = "/"
-var { blockedUsers } = require('./blocked.json')
 
 client.once('ready', () => {
 	console.log('Ready!\n');
@@ -15,7 +14,7 @@ client.once('ready', () => {
 
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = prefix + args.shift().toLowerCase();
+  const command = args.shift().toLowerCase();
    if(message.webhookID) return;
    if(message.guild === null) {
 	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
@@ -27,8 +26,7 @@ client.on('message', message => {
 	  console.log(`From: ${message.author.tag} > ${message.content}`)
   }
   if(message.author.bot) return
-  if(!command.startsWith(prefix)) return
-  if (blockedUsers.includes(message.author.id)) return
+  if(!message.content.startsWith(prefix)) return
   if (message.content === '/ping') {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
 } else if (message.content === `${prefix}count`) {
@@ -287,13 +285,6 @@ client.on('message', message => {
 		console.log(`Now leaving ${message.guild.name}`)
 		message.guild.leave()
 	}
-} else if (command == 'block') {
-	if (!args.length) {
-		message.channel.send('you need to mention someone to block!')
-	}
-	let user = message.mentions.users.first();
-	if (user && !blockedUsers.includes(user.id)) blockedUsers.push(user.id);
-	message.channel.send(`blocked!`)
 } else if (command === 'setstream') {
 	if (!message.author.id === ownerid) {
 		message.channel.send('only the bot owner can do that')
