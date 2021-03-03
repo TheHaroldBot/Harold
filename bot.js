@@ -15,7 +15,7 @@ client.once('ready', () => {
 
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+  const command = prefix + args.shift().toLowerCase();
    if(message.webhookID) return;
    if(message.guild === null) {
 	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
@@ -27,7 +27,7 @@ client.on('message', message => {
 	  console.log(`From: ${message.author.tag} > ${message.content}`)
   }
   if(message.author.bot) return
-  if (!message.content.startsWith(prefix)) return
+  if(!command.startsWith(prefix)) return
   if (blockedUsers.includes(message.author.id)) return
   if (message.content === '/ping') {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
