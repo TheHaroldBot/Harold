@@ -294,44 +294,27 @@ client.on('message', message => {
 	}
 } else if (command === 'content') {
 	message.channel.send(message.content)
+
 } else if (command === 'play') {
-	if (!args.length) {
-		var voiceChannel = message.member.voice.channel;
-		if (!voiceChannel) {
-			message.channel.send('You need to join a channel first!')
-			return
+	var voiceChannel = message.member.voice.channel;
+	if (!voiceChannel) {
+		message.channel.send('You need to join a channel first!')
+		return	
+	}
+		var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+		if(!regex .test(args[0])) {
+		  message.channel.send("Please enter valid URL.");
+		  return
 		}
-		voiceChannel.join().then(connection =>{
-			const dispatcher = connection.play('./music/rickroll.mp3');
-			dispatcher.on("end", end => {
-			voiceChannel.leave();
+	voiceChannel.join().then(connection =>{
+		const dispatcher = connection.play(ytdl(args[0]));
+		message.channel.send(`Playing ${args[0]}`)
+		dispatcher.on("end", end => {
+		voiceChannel.leave();
 		});
-		}).catch(err => console.log(err));
-	} else {
-		var musicfiles2 = fs.readdirSync('./music/');
-		if (!musicfiles2.includes(args[0])) {
-			message.channel.send(`Sorry, I don't see that one on my list here, do ${prefix}musiclist to see what i have.`)
-			return
-		}
-		var voiceChannel = message.member.voice.channel;
-		if (!voiceChannel) {
-			message.channel.send('You need to join a channel first!')
-			return	
-		}
-		voiceChannel.join().then(connection =>{
-			const dispatcher = connection.play(`./music/${args[0]}`);
-			message.channel.send(`Playing ${args[0]}`)
-			dispatcher.on("end", end => {
-			voiceChannel.leave();
-			});
-		});
-	}	
-	
-} else if (command === 'musiclist') {
-	var musicfiles1 = fs.readdirSync('./music/');
-	message.author.send(musicfiles1)
-	message.react('📬')
+	});
 }
+
 });
 
 client.on('message', message => {
