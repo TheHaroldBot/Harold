@@ -3,10 +3,10 @@ const Webhook = require('discord.js');
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const client = new Discord.Client();
-const sudowebhook = new Discord.WebhookClient('809807662500937758', 'Q6hWQCykBe1ETP_L2ehQdxhKJnqmyf-nMPgkIhOECdUKIpcm5OY5oDS6I384lqw29dCD')
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
+const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
 const { token, ownerid, webhookurl } = require('./config.json');
-const prefix = "/"
+const prefix = "*"
 
 client.once('ready', () => {
 	console.log('Ready!\n');
@@ -17,7 +17,7 @@ client.on('message', message => {
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
    if(message.guild === null) {
-	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
+	  console.log('\x1b[0m', `DM From: ${message.author.tag} > ${message.content}`)
 	  if(message.content.startsWith(prefix)) {
 		  message.author.send('Commands can only be run from a server, not a dm.')
 	  }
@@ -25,9 +25,9 @@ client.on('message', message => {
   } else {
 	  console.log(`From: ${message.author.tag} > ${message.content}`)
   }
-  if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
-  if (message.content === '/ping') {
+  if(message.author.bot) return
+  if (message.content === `${prefix}ping`) {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
 } else if (message.content === `${prefix}count`) {
 	message.channel.send(`Current member count: ${message.guild.memberCount}`);
@@ -45,7 +45,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency'},
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel'},
 		{ name: 'Abilities:', value: 'Hating Nubia'}
 	)
   message.channel.send(helpembed)
@@ -63,11 +63,11 @@ client.on('message', message => {
   }
   const spam = args[0]
   message.delete()
-  message.channel.send(message.content.replace("/spam", ""));
-  message.channel.send(message.content.replace("/spam", ""));
-  message.channel.send(message.content.replace("/spam", ""));
-  message.channel.send(message.content.replace("/spam", ""));
-  message.channel.send(message.content.replace("/spam", ""));
+  message.channel.send(message.content.replace(`${prefix}spam`, ""));
+  message.channel.send(message.content.replace(`${prefix}spam`, ""));
+  message.channel.send(message.content.replace(`${prefix}spam`, ""));
+  message.channel.send(message.content.replace(`${prefix}spam`, ""));
+  message.channel.send(message.content.replace(`${prefix}spam`, ""));
 } else if (command === 'delete') {
 	message.delete()
 } else if (command === 'echo') {
@@ -75,7 +75,7 @@ client.on('message', message => {
 		return message.channel.send('you didnt say anything to echo')
 	}
 	message.delete()
-	message.channel.send(message.content.replace("/echo", ""));
+	message.channel.send(message.content.replace(`${prefix}echo`, ""));
 } else if (command === 'serverinfo') {
   const serverinfoembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
@@ -96,7 +96,7 @@ client.on('message', message => {
 		{ name: 'Hello!', value: 'Thank you for adding me!'},
 		{ name: 'Name:', value: 'Kinetic SMP Bot' },
 		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, and annoying Nubia' },
-		{ name: 'Commands:', value: 'do /help' },
+		{ name: 'Commands:', value: `do ${prefix}help` },
 		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'},
 		{ name: 'Github:', value: 'https://github.com/johng3587/KineticSMPBot'}
 	)
@@ -132,7 +132,7 @@ client.on('message', message => {
 		return message.channel.send ('Only the bot owner can log messages to the console.')
 	} else {
 		const logcontent = message.content
-		console.log('\x1b[32m\x1b[4m\x1b[1m%s', `Custom log: ${message.content.replace("/log ", "")}`);
+		console.log('\x1b[32m\x1b[4m\x1b[1m%s', `Custom log: ${message.content.replace(`${prefix}log `, "")}`);
 		message.channel.send('Message logged!')
 	}
 } else if (command === 'setgame') {
@@ -141,8 +141,8 @@ client.on('message', message => {
 	} else if (message.author.id !== ownerid) {
 		return message.channel.send ('Only the bot owner can change my status.')
 	} else {
-		client.user.setActivity(message.content.replace("/setgame ", ""))
-		message.channel.send(`Game set to ${message.content.replace("/setgame ", "")}`)
+		client.user.setActivity(message.content.replace(`${prefix}setgame `, ""))
+		message.channel.send(`Game set to ${message.content.replace(`${prefix}setgame `, "")}`)
 	}
 	 
 } else if (command === 'setavatar') {
@@ -208,21 +208,6 @@ client.on('message', message => {
 		- No 3rd party clients allowed, unless approved by a staff member. Yes, optifine is fine.`)
 		message.channel.send (rulesembed)
 
-} else if (command === 'sudo') {
-	if (message.author.id !== ownerid) return message.channel.send('you cant do that')
-	const sudoname = message.mentions.users.first().username
-	if (sudoname === null) {
-		return message.channel.send ('you need to mention someone.')
-	}
-	const sudoreplace = message.content.replace('/sudo ', "")
-	const sudoreplace2 = sudoreplace.replace(args[0], "")
-	const webhookpfp = message.mentions.users.first()
-	const webhookpfp2 = webhookpfp.avatarURL()
-	const sudochannel = message.channel.id
-	
-	sudowebhook.edit({channel: message.channel})
-	sudowebhook.send(sudoreplace2, {avatarURL: webhookpfp2, username: sudoname})
-
 } else if (command === 'profile') {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
 		message.channel.send('Only users with the ADMINISTRATOR permission can do that')
@@ -241,18 +226,6 @@ client.on('message', message => {
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
 	}
-} else if (message.content.includes('poll2op')) {
-	message.react('1️⃣')
-	message.react('2️⃣')
-} else if (message.content.includes('poll3op')) {
-	message.react('1️⃣')
-	message.react('2️⃣')
-	message.react('3️⃣')
-} else if (message.content.includes('poll4op')) {
-	message.react('1️⃣')
-	message.react('2️⃣')
-	message.react('3️⃣')
-	message.react('4️⃣')
 } else if (command === 'report') {
 	if (!args.length) {
 		message.delete()
@@ -261,14 +234,14 @@ client.on('message', message => {
 		const reportembed = new Discord.MessageEmbed()
 		.setTitle(`Report from ${message.author.tag}`)
 		.setColor('#ff0000')
-		.setDescription(message.content.replace("/report", ""))
+		.setDescription(message.content.replace(`${prefix}report`, ""))
 		reportwebhook.send("",{
 		username: 'Kinetic SMP Report Bot',
 		avatarURL: 'https://image.flaticon.com/icons/png/512/61/61114.png',
 		embeds: [reportembed]
 		})
 		message.delete()
-		message.author.send(`Your report was sent!\nWhat you reported: "${message.content.replace("/report ", "")}"`)
+		message.author.send(`Your report was sent!\nWhat you reported: "${message.content.replace(`${prefix}report `, "")}"`)
 	}
 	
 } else if (command === 'guildicon') {
@@ -293,12 +266,49 @@ client.on('message', message => {
 		message.channel.send('you need to set a stream title *and* a url')
 		return
 	} else {
-		client.user.setActivity(message.content.replace(`/setstream ${args[0]}`, ""), {
+		client.user.setActivity(message.content.replace(`${prefix}setstream ${args[0]}`, ""), {
 			type: "STREAMING",
 			url: args[0]
 		  });
-		  message.channel.send(`Streaming ${message.content.replace(`/setstream ${args[0]}`, "")} on ${args[0]}`)
+		  message.channel.send(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, "")} at ${args[0]}`)
 	}
+} else if (command === 'suggest') {
+	if (!args.length) {
+		message.delete()
+		message.author.send('you need to say something to report')
+	} else {
+		const suggestembed = new Discord.MessageEmbed()
+		.setTitle(`Suggestion from ${message.author.tag}`)
+		.setColor('#90fc03')
+		.setDescription(message.content.replace(`${prefix}suggest `, ""))
+		.setThumbnail(message.author.avatarURL())
+		reportwebhook.send("",{
+		username: 'Kinetic SMP Suggestion Bot',
+		avatarURL: 'https://i.pinimg.com/originals/3a/24/a3/3a24a375af42657f11a1eb0d230f179f.png',
+		embeds: [suggestembed]
+		})
+		message.delete()
+		message.author.send(`Your suggestion was sent!\nWhat you suggested: "${message.content.replace(`${prefix}report `, "")}"`)
+	}
+}
+});
+
+client.on('message', message => {
+if(message.author.bot) return
+if (message.content.includes('poll2op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+} else if (message.content.includes('poll3op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+	message.react('3️⃣')
+} else if (message.content.includes('poll4op')) {
+	message.react('1️⃣')
+	message.react('2️⃣')
+	message.react('3️⃣')
+	message.react('4️⃣')
+} else if (message.content.includes('clouded' || 'cloudedrainbow')) {
+	message.channel.send('Clouded thinks im trying to molest them')
 }
 
 });
