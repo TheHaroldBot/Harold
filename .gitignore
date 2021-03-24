@@ -1,4 +1,8 @@
 config.json
 supersecretstuffthattotallyexistsandisntjusthereforshow.json
 blocked.json
-music
+/music
+/node-modules
+/.vscode
+/.github
+/.git
