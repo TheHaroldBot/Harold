@@ -54,7 +54,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Debugging')
 	.addFields(
-		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot'}
+		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot\n**content** - sends the contents of a message'}
 	)
 	message.channel.send(debugembed);
 } else if (command === 'spam') {
@@ -290,6 +290,8 @@ client.on('message', message => {
 		message.delete()
 		message.author.send(`Your suggestion was sent!\nWhat you suggested: "${message.content.replace(`${prefix}report `, "")}"`)
 	}
+} else if (command === 'content') {
+	message.channel.send(message.content)
 }
 });
 
@@ -307,8 +309,8 @@ if (message.content.includes('poll2op')) {
 	message.react('2️⃣')
 	message.react('3️⃣')
 	message.react('4️⃣')
-} else if (message.content.includes('clouded' || 'cloudedrainbow')) {
-	message.channel.send('Clouded thinks im trying to molest them')
+} else if (message.content.includes('cacti' || 'cactus' || 'owner')) {
+	message.channel.send('Cacti is the great one, always and forever')
 }
 
 });
