@@ -282,7 +282,7 @@ client.on('message', message => {
 		.setColor('#90fc03')
 		.setDescription(message.content.replace(`${prefix}suggest `, ""))
 		.setThumbnail(message.author.avatarURL())
-		reportwebhook.send("",{
+		suggestionwebhook.send("",{
 		username: 'Kinetic SMP Suggestion Bot',
 		avatarURL: 'https://i.pinimg.com/originals/3a/24/a3/3a24a375af42657f11a1eb0d230f179f.png',
 		embeds: [suggestembed]
@@ -292,6 +292,19 @@ client.on('message', message => {
 	}
 } else if (command === 'content') {
 	message.channel.send(message.content)
+} else if (command === 'play') {
+	var voiceChannel = message.member.voice.channel;
+	if (!voiceChannel) {
+		message.channel.send('You need to join a channel first!')
+		return
+	}
+	voiceChannel.join().then(connection =>{
+		const dispatcher = connection.play('./rickroll.mp3');
+		dispatcher.on("end", end => {
+		voiceChannel.leave();
+	});
+	}).catch(err => console.log(err));
+	
 }
 });
 
