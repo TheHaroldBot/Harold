@@ -313,6 +313,24 @@ client.on('message', message => {
 		voiceChannel.leave();
 		});
 	});
+
+} else if (command === 'leave') {
+	var voiceChannel = message.member.voice.channel;
+	if (!voiceChannel) {
+		message.channel.send('Join my channel, then try again')
+		return
+	}
+	voiceChannel.leave()
+	message.channel.send('Left your vc')
+
+} else if (command === 'join') {
+	var voiceChannel = message.member.voice.channel;
+	if (!voiceChannel) {
+		message.channel.send(`You are not in a vc, join one and try again!`)
+		return
+	}
+	voiceChannel.join()
+	message.channel.send('Joined your vc')
 }
 
 });
