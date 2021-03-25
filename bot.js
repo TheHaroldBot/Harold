@@ -58,7 +58,8 @@ client.on('message', message => {
 	.addFields(
 		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot\n**content** - sends the contents of a message'}
 	)
-	message.channel.send(debugembed);
+	message.react('📬')
+	message.author.send(debugembed);
 } else if (command === 'spam') {
   if (!args.length) {
   		return message.channel.send('u didnt say what to spam')
