@@ -302,14 +302,18 @@ client.on('message', message => {
 		message.channel.send('You need to join a channel first!')
 		return	
 	}
-		var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-		if(!regex .test(args[0])) {
-		  message.channel.send("Please enter valid URL.");
-		  return
-		}
+	var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+	if (!args[0]) {
+		voiceChannel.join().then(connection =>{
+			const dispatcher = connection.play(ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ'));
+		});
+		return
+	} else if(!regex .test(args[0])) {
+	  message.channel.send("Please enter valid URL.");
+	}
 	voiceChannel.join().then(connection =>{
 		const dispatcher = connection.play(ytdl(args[0]));
-		message.channel.send(`Playing ${args[0]}`)
+		message.channel.send(`Playing \`${args[0]}\``)
 		dispatcher.on("end", end => {
 		voiceChannel.leave();
 		});
