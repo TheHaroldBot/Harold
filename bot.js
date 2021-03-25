@@ -205,10 +205,15 @@ client.on('message', message => {
 		- Ask before pvping
 		- No stealing
 		- No raiding people
-		- No asking staff for items
+		- No asking staff for items, or asking staff to do something for you
 		- Personal buildings, i.e. houses, should be build at least 200 blocks from spawn
 		- If you leave discord, i remove you from the whitelist.
-		- No 3rd party clients allowed, unless approved by a staff member. Yes, optifine is fine.`)
+		- No 3rd party clients allowed, unless approved by a staff member. Yes, optifine, lunar, badlion are ok.
+		- No speaking negatively about other players
+		- Ask staff before fighting the ender dragon again
+		- No xraying
+		- You may enter another person's property (claimed land) but they may ask you to leave and/or refuse service, if they ask you to, you are required to leave.
+		- You must ask for someone's head before you kill them.`)
 		message.channel.send (rulesembed)
 
 } else if (command === 'profile') {
