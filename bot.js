@@ -50,7 +50,8 @@ client.on('message', message => {
 	.addFields(
 		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc'}
 	)
-  message.channel.send(helpembed)
+	message.react('📬')
+	message.author.send(helpembed);
 } else if (command === "debug") {
 	const debugembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
@@ -101,7 +102,7 @@ client.on('message', message => {
 		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, and annoying Nubia' },
 		{ name: 'Commands:', value: `do ${prefix}help` },
 		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'},
-		{ name: 'Github:', value: 'https://github.com/johng3587/KineticSMPBot'}
+		{ name: 'Github:', value: 'https://github.com/Kinetic-SMP/KineticSMPBot'}
 	)
 	message.delete()
 	message.channel.send(introembed)
@@ -117,7 +118,7 @@ client.on('message', message => {
 	const githubembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
 	.setTitle('Github')
-	.setDescription('https://github.com/johng3587/KineticSMPBot')
+	.setDescription('https://github.com/Kinetic-SMP/KineticSMPBot')
 	message.channel.send (githubembed)
 } else if (command === 'slowmode') {
 	if (!args.length) {
