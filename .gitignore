@@ -6,3 +6,5 @@ blocked.json
 /.vscode
 /.github
 /.git
+package.json
+package-lock.json
