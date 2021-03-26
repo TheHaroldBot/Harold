@@ -311,10 +311,12 @@ client.on('message', message => {
 	if (!args[0]) {
 		voiceChannel.join().then(connection =>{
 			const dispatcher = connection.play(ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ'));
+			message.channel.send(`Get rickroll'd`)
 		});
 		return
 	} else if(!regex .test(args[0])) {
 	  message.channel.send("Please enter valid URL.");
+	  return
 	}
 	voiceChannel.join().then(connection =>{
 		const dispatcher = connection.play(ytdl(args[0]));
