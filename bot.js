@@ -102,7 +102,7 @@ client.on('message', message => {
 		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, and annoying Nubia' },
 		{ name: 'Commands:', value: `do ${prefix}help` },
 		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'},
-		{ name: 'Github:', value: 'https://github.com/johng3587/KineticSMPBot'}
+		{ name: 'Github:', value: 'https://github.com/Kinetic-SMP/KineticSMPBot'}
 	)
 	message.delete()
 	message.channel.send(introembed)
@@ -118,7 +118,7 @@ client.on('message', message => {
 	const githubembed = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
 	.setTitle('Github')
-	.setDescription('https://github.com/johng3587/KineticSMPBot')
+	.setDescription('https://github.com/Kinetic-SMP/KineticSMPBot')
 	message.channel.send (githubembed)
 } else if (command === 'slowmode') {
 	if (!args.length) {
