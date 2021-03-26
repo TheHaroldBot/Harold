@@ -344,9 +344,15 @@ client.on('message', message => {
 	}
 	voiceChannel.join()
 	message.channel.send('Joined your vc')
-} else if (command === 'skip') {
-	skip(message, serverQueue);
-    return;
+} else if (command === 'ip') {
+	const ipembed = new Discord.MessageEmbed()
+		.setTitle(`IP and Port`)
+		.setColor('#90fc03')
+		.addFields(
+			{ name: 'IP:', value: 'kineticsmp.ddns.net' },
+			{ name: 'Port:', value: '25565' },
+		)
+	message.channel.send(ipembed)
 }
 
 });
