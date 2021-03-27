@@ -374,7 +374,11 @@ if (message.content.includes('poll2op')) {
 } else if (message.content.includes('cacti' || 'cactus' || 'owner')) {
 	message.channel.send('Cacti is the great one, always and forever')
 } else if (message.content === 'f') {
-	message.channel.send('**f**')
+	message.channel.send('f')
+} else if (message.content.includes('oof')) {
+	message.channel.send('oof')
+} else if (message.content.includes('minecraft')) {
+	message.channel.send('gud')
 }
 
 });
