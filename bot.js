@@ -379,6 +379,8 @@ if (message.content.includes('poll2op')) {
 	message.channel.send('oof')
 } else if (message.content.includes('minecraft')) {
 	message.channel.send('gud')
+} else if (message.content.includes('hehe')) {
+	message.channel.send('hehehe')
 }
 
 });
