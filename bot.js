@@ -28,11 +28,17 @@ const fetch = require('node-fetch');
 const client = new Discord.Client();
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
-const { token, ownerid, webhookurl } = require('./config.json');
+const { token, ownerid, botid } = require('./config.json');
 const prefix = "*"
+const readline = require('readline').createInterface({
+	input: process.stdin,
+	output: process.stdout
+  })
+  
 
 client.once('ready', () => {
-	console.log('Ready!\n');
+	console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
+	console.log('Copyright info: https://github.com/Kinetic-SMP/KineticSMPBot/blob/main/LICENCE\n\n')
 });
 
 client.on('message', message => {
@@ -380,6 +386,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
+if (message.author.id === botid) return
 if (message.content.includes('poll2op')) {
 	message.react('1️⃣')
 	message.react('2️⃣')
@@ -400,6 +407,8 @@ if (message.content.includes('poll2op')) {
 	message.channel.send('gud')
 } else if (message.content.includes('hehe')) {
 	message.channel.send('hehehe')
+} else if (message.content.includes('smae')) {
+	message.channel.send('*same')
 }
 
 });
