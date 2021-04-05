@@ -353,6 +353,8 @@ client.on('message', message => {
 			{ name: 'Port:', value: '25565' },
 		)
 	message.channel.send(ipembed)
+} else if (command === 'seed') {
+	message.channel.send('The seed is: `6563699603574304934`')
 }
 
 });
