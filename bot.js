@@ -358,7 +358,6 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-if(message.author.bot) return
 if (message.content.includes('poll2op')) {
 	message.react('1️⃣')
 	message.react('2️⃣')
@@ -371,8 +370,6 @@ if (message.content.includes('poll2op')) {
 	message.react('2️⃣')
 	message.react('3️⃣')
 	message.react('4️⃣')
-} else if (message.content.includes('cacti' || 'cactus' || 'owner')) {
-	message.channel.send('Cacti is the great one, always and forever')
 } else if (message.content === 'f') {
 	message.channel.send('f')
 } else if (message.content.includes('oof')) {
