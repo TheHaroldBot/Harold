@@ -1,3 +1,23 @@
+/*
+A mascot and quality of life discord bot, mainly for the purpose of entertaining me.
+    Copyright (C) 2021  John Gooden
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+
+
 const Discord = require('discord.js');
 const Webhook = require('discord.js');
 const path = require("path")
@@ -360,7 +380,6 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-if(message.author.bot) return
 if (message.content.includes('poll2op')) {
 	message.react('1️⃣')
 	message.react('2️⃣')
@@ -373,8 +392,6 @@ if (message.content.includes('poll2op')) {
 	message.react('2️⃣')
 	message.react('3️⃣')
 	message.react('4️⃣')
-} else if (message.content.includes('cacti' || 'cactus' || 'owner')) {
-	message.channel.send('Cacti is the great one, always and forever')
 } else if (message.content === 'f') {
 	message.channel.send('f')
 } else if (message.content.includes('oof')) {
