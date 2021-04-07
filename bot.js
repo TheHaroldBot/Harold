@@ -111,11 +111,11 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Connection and Status Info')
 	.addFields(
-		{ name: 'IP:', value: 'kineticsmp.ddns.net' },
+		{ name: 'IP:', value: 'mckineticsmp.com },
 		{ name: 'Port:', value: '25565' },
 		{ name: 'Check Status in Discord:', value: '<#802204876514787338>' },
-		{ name: 'Check Status Online:', value: 'https://kineticsmp.ddns.net:8000' },
-		{ name: 'Dynmap:', value: 'http://kineticsmp.ddns.net:8123/' }
+		{ name: 'Check Status Online:', value: 'http://cpanel.mckineticsmp.com' },
+		{ name: 'Dynmap:', value: 'http://dynmap.mckineticsmp.com' }
 	)
   message.channel.send(serverinfoembed)
 } else if (command === 'intro') {
@@ -375,7 +375,7 @@ client.on('message', message => {
 		.setTitle(`IP and Port`)
 		.setColor('#90fc03')
 		.addFields(
-			{ name: 'IP:', value: 'kineticsmp.ddns.net' },
+			{ name: 'IP:', value: 'mckineticsmp.com' },
 			{ name: 'Port:', value: '25565' },
 		)
 	message.channel.send(ipembed)
