@@ -111,7 +111,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Connection and Status Info')
 	.addFields(
-		{ name: 'IP:', value: 'mckineticsmp.com },
+		{ name: 'IP:', value: 'mckineticsmp.com' },
 		{ name: 'Port:', value: '25565' },
 		{ name: 'Check Status in Discord:', value: '<#802204876514787338>' },
 		{ name: 'Check Status Online:', value: 'http://cpanel.mckineticsmp.com' },
