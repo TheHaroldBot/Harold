@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "discord-reply": "^0.1.2",
     "discord.js": "^12.5.1",
     "ffmpeg-static": "^4.2.8",
     "fs": "^0.0.1-security",

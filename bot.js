@@ -25,7 +25,6 @@ const fs = require("fs")
 const ytdl = require("ytdl-core")
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
-const client = new Discord.Client();
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
 const { token, ownerid, botid } = require('./config.json');
@@ -34,7 +33,8 @@ const readline = require('readline').createInterface({
 	input: process.stdin,
 	output: process.stdout
   })
-  
+const client = new Discord.Client();
+
 
 client.once('ready', () => {
 	console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
@@ -409,6 +409,10 @@ if (message.content.includes('poll2op')) {
 	message.channel.send('hehehe')
 } else if (message.content.includes('smae')) {
 	message.channel.send('*same')
+} else if (message.content.includes('giu')) {
+	message.channel.send('is cute')
+} else if (message.content.includes('gui')) {
+	message.channel.send('*giu')
 }
 
 });
