@@ -382,7 +382,6 @@ client.on('message', message => {
 } else if (command === 'seed') {
 	message.channel.send('The seed is: `6563699603574304934`')
 }
-
 });
 
 client.on('message', message => {
@@ -411,8 +410,11 @@ if (message.content.includes('poll2op')) {
 	message.channel.send('*same')
 } else if (message.content.includes('giu')) {
 	message.channel.send('is cute')
-} else if (message.content.includes('gui')) {
-	message.channel.send('*giu')
+} else if (message.content.includes('pollyn')) {
+	message.react('🇾')
+	message.react('🇳')
+} else if (message.content.includes('stfu')) {
+	message.channel.send('no u')
 }
 
 });
