@@ -214,6 +214,12 @@ client.on('message', message => {
 		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status')
 		message.channel.send (ownerembed)
 	}
+} else if (command === 'pollhelp') {
+	const pollhelpembed = new Discord.MessageEmbed()
+	.setTitle('Poll Help Menu')
+	.setColor('#21B8FF')
+	.setDescription('To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with 2 options, 1 and 2\n**poll3op** - react with 3 options, 1 2 and 3\n**poll4op** - react with  4 options, 1 2 3 and 4\n**pollyn** - react with a y and a n\n**pollupdown** - react with a thumbs up and a thumbs down')
+	message.channel.send(pollhelpembed)
 } else if (command === 'yesorno') {
 	const yesorno = (Math.random() < 0.5);
 	if (yesorno === true) {
@@ -221,27 +227,6 @@ client.on('message', message => {
 	} else {
 		message.channel.send ('No')
 	}
-
-} else if (command === 'rules') {
-		const rulesembed = new Discord.MessageEmbed()
-		.setTitle('Rules of Kinetic SMP')
-		.setColor('#21B8FF')
-		.setDescription(`- No hacking
-		- No greifing
-		- No lagging intentionally
-		- Ask before pvping
-		- No stealing
-		- No raiding people
-		- No asking staff for items, or asking staff to do something for you
-		- Personal buildings, i.e. houses, should be build at least 200 blocks from spawn
-		- If you leave discord, i remove you from the whitelist.
-		- No 3rd party clients allowed, unless approved by a staff member. Yes, optifine, lunar, badlion are ok.
-		- No speaking negatively about other players
-		- Ask staff before fighting the ender dragon again
-		- No xraying
-		- You may enter another person's property (claimed land) but they may ask you to leave and/or refuse service, if they ask you to, you are required to leave.
-		- You must ask for someone's head before you kill them.`)
-		message.channel.send (rulesembed)
 
 } else if (command === 'profile') {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
@@ -415,6 +400,9 @@ if (message.content.includes('poll2op')) {
 	message.react('🇳')
 } else if (message.content.includes('stfu')) {
 	message.channel.send('no u')
+} else if (message.content.includes('pollupdown')) {
+	message.react('👍')
+	message.react('👎')
 }
 
 });
