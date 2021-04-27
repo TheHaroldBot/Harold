@@ -45,6 +45,14 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
+   console.log(message.author.presence.status)
+   if(message.author.presence.status === 'offline') {
+	var calloutoffline = Math.random() < 0.1;
+	if(calloutoffline === true) {
+		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`)
+		message.author.send(`caught ya`)
+	}
+   }
    if(message.guild === null) {
 	  console.log('\x1b[0m', `DM From: ${message.author.tag} > ${message.content}`)
 	  if(message.content.startsWith(prefix)) {
@@ -373,6 +381,7 @@ client.on('message', message => {
 
 client.on('message', message => {
 if (message.author.id === botid) return
+if (message.guild === null) return
 if (message.content.includes('poll2op')) {
 	message.react('1️⃣')
 	message.react('2️⃣')
