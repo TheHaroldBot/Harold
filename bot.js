@@ -45,7 +45,6 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
-   console.log(message.author.presence.status)
    if(message.author.presence.status === 'offline') {
 	var calloutoffline = Math.random() < 0.1;
 	if(calloutoffline === true) {
