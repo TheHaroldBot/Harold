@@ -45,66 +45,60 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
-   if(message.mentions.users.first()) {
-	   if(message.mentions.users.first().presence.status === 'dnd') {
-	   	if(message.author.bot) return
-	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`)
+   if(message.mentions.users.first()) { //checks if message mentions someone
+	   if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
+	   	if(message.author.bot) return //if bot, ignore
+	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
 	}
    }
-   if(message.author.presence.status === 'offline') {
-	if(message.author.bot) return
-	var calloutoffline = Math.random() < 0.1;
-	if(calloutoffline === true) {
-		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`)
+   if(message.author.presence.status === 'offline') { //checks if author is offline
+	if(message.author.bot) return //if author is bot, forget them
+	var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
+	if(calloutoffline === true) { //if said die lands on 10, continue
+		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
 	}
    }
-   if(message.guild === null) {
+   if(message.guild === null) { //log dms
 	  console.log('\x1b[0m', `DM From: ${message.author.tag} > ${message.content}`)
 	  if(message.content.startsWith(prefix)) {
-		  message.author.send('Commands can only be run from a server, not a dm.')
+		  message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	  }
 	  return
   } else {
-	  console.log(`From: ${message.author.tag} > ${message.content}`)
+	  console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
   }
-  if(!message.content.startsWith(prefix)) return
-  if(message.author.bot) return
+  if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
+  if(message.author.bot) return //ignore bots
   if (message.content === `${prefix}ping`) {
-	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
+	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`); //find ping, idk if this is accurate, but it gives a number and people believe it, so idrc
 } else if (message.content === `${prefix}count`) {
-	message.channel.send(`Current member count: ${message.guild.memberCount}`);
+	message.channel.send(`Current member count: ${message.guild.memberCount}`); //gives server member count
 } else if (message.content === `${prefix}userinfo`) {
-	message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-} else if (command === 'argsinfo') {
-	if (!args.length) {
-		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-	}
-	message.channel.send(`Command name: ${command}\nArguments: ${args}`);
+	message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`); //pretty much pointless command
 } else if (command === 'args') {
-  message.channel.send(args)
+  message.channel.send(args) //sends arguments
 } else if (command === 'help') {
-	const helpembed = new Discord.MessageEmbed()
+	const helpembed = new Discord.MessageEmbed() //ooo a help command, not always up to date, because i forget, or i just dont care
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
 		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?'}
 	)
 	message.react('📬')
-	message.author.send(helpembed);
+	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
 } else if (command === "debug") {
-	const debugembed = new Discord.MessageEmbed()
+	const debugembed = new Discord.MessageEmbed() //debug commands
 	.setColor('#21B8FF')
 	.setTitle('Debugging')
 	.addFields(
 		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot\n**content** - sends the contents of a message'}
 	)
 	message.react('📬')
-	message.author.send(debugembed);
+	message.author.send(debugembed); //again in dm, cuz the help cmd is so might as well this one too
 } else if (command === 'spam') {
   if (!args.length) {
-  		return message.channel.send('u didnt say what to spam')
+  		return message.channel.send('u didnt say what to spam') //spams messages, only 5 times, cuz i dont like spam in my general chat
   }
-  const spam = args[0]
   message.delete()
   message.channel.send(message.content.replace(`${prefix}spam`, ""));
   message.channel.send(message.content.replace(`${prefix}spam`, ""));
@@ -112,15 +106,15 @@ client.on('message', message => {
   message.channel.send(message.content.replace(`${prefix}spam`, ""));
   message.channel.send(message.content.replace(`${prefix}spam`, ""));
 } else if (command === 'delete') {
-	message.delete()
+	message.delete() //deletes your message. Really pointless, but i dont care. i was bored.
 } else if (command === 'echo') {
 	if (!args.length) {
 		return message.channel.send('you didnt say anything to echo')
 	}
 	message.delete()
-	message.channel.send(message.content.replace(`${prefix}echo`, ""));
+	message.channel.send(message.content.replace(`${prefix}echo`, "")); //tells you what you told it
 } else if (command === 'serverinfo') {
-  const serverinfoembed = new Discord.MessageEmbed()
+  const serverinfoembed = new Discord.MessageEmbed() //command to find info on the server
 	.setColor('#21B8FF')
 	.setTitle('Connection and Status Info')
 	.addFields(
@@ -132,13 +126,13 @@ client.on('message', message => {
 	)
   message.channel.send(serverinfoembed)
 } else if (command === 'intro') {
-	const introembed = new Discord.MessageEmbed()
+	const introembed = new Discord.MessageEmbed() //into for the bot
 	.setColor('#21B8FF')
 	.setTitle('Intro')
 	.addFields(
 		{ name: 'Hello!', value: 'Thank you for adding me!'},
 		{ name: 'Name:', value: 'Kinetic SMP Bot' },
-		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, and annoying Nubia' },
+		{ name: 'Purpose:', value: 'General Kinetic SMP stuff, qol bot, other stuff i dont want to write down bcuz im lazy.' },
 		{ name: 'Commands:', value: `do ${prefix}help` },
 		{ name: 'Things to know:', value: 'I am in beta, and will sometimes do stuff that isnt supposed to happen.'},
 		{ name: 'Github:', value: 'https://github.com/Kinetic-SMP/KineticSMPBot'}
@@ -147,21 +141,21 @@ client.on('message', message => {
 	message.channel.send(introembed)
 } else if (command === 'shutdown') {
 	if(message.author.id !== ownerid) {
-		return message.channel.send("Sorry! Only the bot owner can do that.")
+		return message.channel.send("Sorry! Only the bot owner can do that.") //kills the bot, snipes it in the head
 	} else {
 		client.destroy()
 	}
 } else if (command === 'invite') {
-	message.channel.send("https://discord.gg/dRmgSzhbVt")
+	message.channel.send("https://discord.gg/dRmgSzhbVt") //gets discord invite for kinetic smp, i dont feel like automating it
 } else if (command === 'github') {
-	const githubembed = new Discord.MessageEmbed()
+	const githubembed = new Discord.MessageEmbed() //github link, embed because embeds look cool
 	.setColor('#21B8FF')
 	.setTitle('Github')
 	.setDescription('https://github.com/Kinetic-SMP/KineticSMPBot')
 	message.channel.send (githubembed)
 } else if (command === 'slowmode') {
 	if (!args.length) {
-		 return message.channel.send('you didnt say a slowmode time')
+		 return message.channel.send('you didnt say a slowmode time') //sets the slowmode, you didnt really need me to explain this did you? how dense are you?
 	} else if (!message.member.hasPermission('MANAGE_CHANNELS')) {
 		return message.channel.send ('you dont have permission to do that')
 	} else {
@@ -170,7 +164,7 @@ client.on('message', message => {
 	}
 } else if (command === 'log') {
 	if (!args.length) {
-		return message.channel.send('You didnt say anything to log!')
+		return message.channel.send('You didnt say anything to log!') //logs something to console, but only i can, so you dont need to care about it
 	} else if (message.author.id !== ownerid) {
 		return message.channel.send ('Only the bot owner can log messages to the console.')
 	} else {
@@ -182,7 +176,7 @@ client.on('message', message => {
 	if (!args.length) {
 		message.channel.send ('you need to name a status')
 	} else if (message.author.id !== ownerid) {
-		return message.channel.send ('Only the bot owner can change my status.')
+		return message.channel.send ('Only the bot owner can change my status.') //sets the game the bot is playing, again, only me
 	} else {
 		client.user.setActivity(message.content.replace(`${prefix}setgame `, ""))
 		message.channel.send(`Game set to ${message.content.replace(`${prefix}setgame `, "")}`)
@@ -192,14 +186,14 @@ client.on('message', message => {
 	if (!args.length) {
 		message.channel.send ('you need to rovide a url')
 	} else if (message.author.id !== ownerid) {
-		return message.channel.send ('Only the owner can change my profile picture')
+		return message.channel.send ('Only the owner can change my profile picture') //sets the bot avatar, only me can tho
 	} else {
 		client.user.setAvatar(args[0])
 		message.channel.send('Avatar changed')
 	}
 } else if (command === 'setstatus') {
 	if (!args.length) {
-		message.channel.send ('You need to provide a status. Allowed values are:\nonline, idle, invisible, dnd')
+		message.channel.send ('You need to provide a status. Allowed values are:\nonline, idle, invisible, dnd') //sets presence, only me again
 	} else if (message.author.id !== ownerid) {
 		return message.channel.send('Only the owner can change my presence')
 	} else if (args[0] === 'online') {
@@ -219,7 +213,7 @@ client.on('message', message => {
 	}
 } else if (command === 'ownerhelp') {
 	if (message.author.id !== ownerid) {
-		return message.channel.send ('Only the bot owner can access this command.')
+		return message.channel.send ('Only the bot owner can access this command.') //lists commands for the bot owner (me)
 	} else {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
@@ -228,13 +222,13 @@ client.on('message', message => {
 		message.channel.send (ownerembed)
 	}
 } else if (command === 'pollhelp') {
-	const pollhelpembed = new Discord.MessageEmbed()
+	const pollhelpembed = new Discord.MessageEmbed() //help embed for the polling commands
 	.setTitle('Poll Help Menu')
 	.setColor('#21B8FF')
 	.setDescription('To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with 2 options, 1 and 2\n**poll3op** - react with 3 options, 1 2 and 3\n**poll4op** - react with  4 options, 1 2 3 and 4\n**pollyn** - react with a y and a n\n**pollupdown** - react with a thumbs up and a thumbs down')
 	message.channel.send(pollhelpembed)
 } else if (command === 'yesorno') {
-	const yesorno = (Math.random() < 0.5);
+	const yesorno = (Math.random() < 0.5); //random yes or no. another pointless one.
 	if (yesorno === true) {
 		message.channel.send ('Yes')
 	} else {
@@ -243,7 +237,7 @@ client.on('message', message => {
 
 } else if (command === 'profile') {
 	if ((!message.member.hasPermission('ADMINISTRATOR'))) {
-		message.channel.send('Only users with the ADMINISTRATOR permission can do that')
+		message.channel.send('Only users with the ADMINISTRATOR permission can do that') //gets profile for someone, admins only bcuz yes
 	} else if (!args.length) {
 		const pfptarget = message.author
 		const pfpembed = new Discord.MessageEmbed()
@@ -262,7 +256,7 @@ client.on('message', message => {
 } else if (command === 'report') {
 	if (!args.length) {
 		message.delete()
-		message.author.send('you need to say something to report')
+		message.author.send('you need to say something to report') //reports smth to the report channel only staff can see
 	} else {
 		const reportembed = new Discord.MessageEmbed()
 		.setTitle(`Report from ${message.author.tag}`)
@@ -281,7 +275,7 @@ client.on('message', message => {
 	const guildicon = new Discord.MessageEmbed()
 	.setColor('#21B8FF')
 	.setTitle(`Guild icon for: ${message.guild.name}`)
-	.setImage(message.guild.iconURL({ dynamic: true, size: 256}))
+	.setImage(message.guild.iconURL({ dynamic: true, size: 256})) //gets the guild icon
 	message.channel.send(guildicon)
 } else if (command === 'leaveguild') {
 	if ((!message.member.hasPermission('MANAGE_WEBHOOKS'))) {
@@ -293,7 +287,7 @@ client.on('message', message => {
 	}
 } else if (command === 'setstream') {
 	if (!message.author.id === ownerid) {
-		message.channel.send('only the bot owner can do that')
+		message.channel.send('only the bot owner can do that') //sets the stream of the bot
 		return
 	} else if (args.length < 2) {
 		message.channel.send('you need to set a stream title *and* a url')
@@ -308,7 +302,7 @@ client.on('message', message => {
 } else if (command === 'suggest') {
 	if (!args.length) {
 		message.delete()
-		message.author.send('you need to say something to report')
+		message.author.send('you need to say something to suggest') //sends something to the suggestion channel
 	} else {
 		const suggestembed = new Discord.MessageEmbed()
 		.setTitle(`Suggestion from ${message.author.tag}`)
@@ -324,10 +318,10 @@ client.on('message', message => {
 		message.author.send(`Your suggestion was sent!\nWhat you suggested: "${message.content.replace(`${prefix}report `, "")}"`)
 	}
 } else if (command === 'content') {
-	message.channel.send(message.content)
+	message.channel.send(message.content) //sends the contents of your message
 
 } else if (command === 'play') {
-	var voiceChannel = message.member.voice.channel;
+	var voiceChannel = message.member.voice.channel; //plays music from a url, if no url is supplied i will rickroll you.
 	if (!voiceChannel) {
 		message.channel.send('You need to join a channel first!')
 		return	
@@ -351,8 +345,8 @@ client.on('message', message => {
 		});
 	});
 
-} else if (command === 'leave') {
-	var voiceChannel = message.member.voice.channel;
+} else if (command === 'leave' || command === 'fuckoff') {
+	var voiceChannel = message.member.voice.channel; //leaves voice channel
 	if (!voiceChannel) {
 		message.channel.send('Join my channel, then try again')
 		return
@@ -361,7 +355,7 @@ client.on('message', message => {
 	message.channel.send('Left your vc')
 
 } else if (command === 'join') {
-	var voiceChannel = message.member.voice.channel;
+	var voiceChannel = message.member.voice.channel; //joins voice channel
 	if (!voiceChannel) {
 		message.channel.send(`You are not in a vc, join one and try again!`)
 		return
@@ -369,7 +363,7 @@ client.on('message', message => {
 	voiceChannel.join()
 	message.channel.send('Joined your vc')
 } else if (command === 'ip') {
-	const ipembed = new Discord.MessageEmbed()
+	const ipembed = new Discord.MessageEmbed() //sends server ip
 		.setTitle(`IP and Port`)
 		.setColor('#90fc03')
 		.addFields(
@@ -378,8 +372,8 @@ client.on('message', message => {
 		)
 	message.channel.send(ipembed)
 } else if (command === 'seed') {
-	message.channel.send('The seed is: `6563699603574304934`')
-} else if (command === 'thiscommandliterallydoesnothing') {
+	message.channel.send('The seed is: `6563699603574304934`') //sends server seed
+} else if (command === 'thiscommandliterallydoesnothing') { //nothing
 	return
 }
 
@@ -389,40 +383,40 @@ client.on('message', message => {
 client.on('message', message => {
 if (message.author.id === botid) return
 if (message.guild === null) return
-if (message.content.includes('poll2op')) {
+if (message.content.includes('poll2op')) { //poll with 2 options
 	message.react('1️⃣')
 	message.react('2️⃣')
-} else if (message.content.includes('poll3op')) {
+} else if (message.content.includes('poll3op')) { //poll with 3 options
 	message.react('1️⃣')
 	message.react('2️⃣')
 	message.react('3️⃣')
-} else if (message.content.includes('poll4op')) {
+} else if (message.content.includes('poll4op')) { //poll with 4 options
 	message.react('1️⃣')
 	message.react('2️⃣')
 	message.react('3️⃣')
 	message.react('4️⃣')
-} else if (message.content === 'f') {
+} else if (message.content === 'f') { //f
 	message.channel.send('f')
-} else if (message.content.includes('oof')) {
+} else if (message.content.includes('oof')) { //oof
 	message.channel.send('oof')
-} else if (message.content.includes('minecraft')) {
+} else if (message.content.includes('minecraft')) { //minecraft is good
 	message.channel.send('gud')
-} else if (message.content.includes('hehe')) {
+} else if (message.content.includes('hehe')) { //hehehe
 	message.channel.send('hehehe')
-} else if (message.content.includes('smae')) {
+} else if (message.content.includes('smae')) { //its spelled 'same'
 	message.channel.send('*same')
-} else if (message.content.includes('giu')) {
+} else if (message.content.includes('giu')) { //cutie giu
 	message.channel.send('is cute')
-} else if (message.content.includes('pollyn')) {
+} else if (message.content.includes('pollyn')) { //poll yes or no
 	message.react('🇾')
 	message.react('🇳')
-} else if (message.content.includes('stfu')) {
+} else if (message.content.includes('stfu')) { //i will not shut up
 	message.channel.send('no u')
-} else if (message.content.includes('pollupdown')) {
+} else if (message.content.includes('pollupdown')) { //poll upvote/downvote
 	message.react('👍')
 	message.react('👎')
 }
 
 });
 
-client.login(token);
+client.login(token); //login
