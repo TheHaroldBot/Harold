@@ -45,7 +45,12 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
-   console.log(message.author.presence.status)
+   if(message.mentions.users.first()) {
+	   if(message.mentions.users.first().presence.status === 'dnd') {
+	   	if(message.author.bot) return
+	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.users.first().tag} has do not disturb on, they clearly dont want to be mentioned.`)
+	}
+   }
    if(message.author.presence.status === 'offline') {
 	if(message.author.bot) return
 	var calloutoffline = Math.random() < 0.1;
@@ -290,7 +295,7 @@ client.on('message', message => {
 	if (!message.author.id === ownerid) {
 		message.channel.send('only the bot owner can do that')
 		return
-	} else if (args.length <= 2) {
+	} else if (args.length < 2) {
 		message.channel.send('you need to set a stream title *and* a url')
 		return
 	} else {
