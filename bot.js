@@ -45,9 +45,10 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
+   console.log(message.author.presence.status)
    if(message.author.presence.status === 'offline') {
-	   if(message.author.bot) return
-	var calloutoffline = Math.random() < 0.01;
+	if(message.author.bot) return
+	var calloutoffline = Math.random() < 0.1;
 	if(calloutoffline === true) {
 		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`)
 	}
@@ -376,6 +377,8 @@ client.on('message', message => {
 } else if (command === 'thiscommandliterallydoesnothing') {
 	return
 }
+
+
 });
 
 client.on('message', message => {
