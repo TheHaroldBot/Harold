@@ -82,7 +82,7 @@ client.on('message', message => {
 	.setColor('#21B8FF')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -375,6 +375,20 @@ client.on('message', message => {
 	message.channel.send('The seed is: `6563699603574304934`') //sends server seed
 } else if (command === 'thiscommandliterallydoesnothing') { //nothing
 	return
+} else if (command === 'fact') {
+	let factsettings = { method: "Get" };
+	let facturl = 'https://uselessfacts.jsph.pl/random.json?language=en'
+	fetch(facturl, factsettings)
+		.then(res => res.json())
+		.then((json) => {
+			const factembed = new Discord.MessageEmbed()
+			.setTitle('Random Fact')
+			.setDescription(json.text)
+			.setFooter('From djtech.net')
+			.setColor('#63ba00')
+			message.channel.send(factembed)
+		})
+		
 }
 
 
