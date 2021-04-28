@@ -48,7 +48,7 @@ client.on('message', message => {
    if(message.mentions.users.first()) {
 	   if(message.mentions.users.first().presence.status === 'dnd') {
 	   	if(message.author.bot) return
-	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.users.first().tag} has do not disturb on, they clearly dont want to be mentioned.`)
+	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`)
 	}
    }
    if(message.author.presence.status === 'offline') {
