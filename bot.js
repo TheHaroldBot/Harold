@@ -22,6 +22,7 @@ const Discord = require('discord.js');
 const Webhook = require('discord.js');
 const path = require("path")
 const fs = require("fs")
+const got = require('got');
 const ytdl = require("ytdl-core")
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
@@ -382,32 +383,31 @@ client.on('message', message => {
 		message.channel.send('This command is currently under construction, try again later')
 		return
 	}
-	let memesettings = { method: "Get" };
-	let memeurl = 'https://www.reddit.com/r/dankmemes/random.json?limit=1'
-	fetch(memeurl, memesettings)
-		.then(res => res.json())
-		.then((json) => {
-			console.log(json.post_hint)
-			console.log(json)
-			if(!json.post_hint === 'image') {
-				console.log('not image')
-				const textembed = new Discord.MessageEmbed()
-				.setTitle(json.title)
-				.setURL(`https://reddit.com${json.permalink}`)
-				.setDescription(json.text)
-				message.channel.send(textembed)
+	const embed = new Discord.MessageEmbed();
+	got('https://www.reddit.com/r/dankmemes/random/.json')
+		.then(response => {
+			const [list] = JSON.parse(response.body);
+			const [post] = list.data.children;
+
+			const permalink = post.data.permalink;
+			const memeUrl = `https://reddit.com${permalink}`;
+			const memeImage = post.data.url;
+			const memeTitle = post.data.title;
+			const memeUpvotes = post.data.ups;
+			const memeNumComments = post.data.num_comments;
+			if (post.data.over_18 === 'true') {
+				message.channel.send('oops, that one is nsfw, try again!')
 				return
 			}
-			if(json.post_hint === 'image') {
-				var memeimage = json.preview.images[0].source.url.replace('&amp;', '&')
-				const memeembed = new Discord.MessageEmbed()
-				.setTitle(json.title)
-				.setImage(memeimage)
-				.setURL(`https://reddit.com${json.permalink}`)
-				message.channel.send(memeembed)
-			}
-			console.log('neither')
-			
+
+			const memeembed = new Discord.MessageEmbed()
+			.setTitle(`${memeTitle}`)
+			.setURL(`${memeUrl}`)
+			.setColor('RANDOM')
+			.setImage(memeImage)
+			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
+
+			message.channel.send(memeembed);
 		})
 }
 
