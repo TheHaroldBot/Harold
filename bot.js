@@ -46,10 +46,10 @@ client.on('message', message => {
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
    if(message.author.presence.status === 'offline') {
-	var calloutoffline = Math.random() < 0.1;
+	   if(message.author.bot) return
+	var calloutoffline = Math.random() < 0.01;
 	if(calloutoffline === true) {
 		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`)
-		message.author.send(`caught ya`)
 	}
    }
    if(message.guild === null) {
