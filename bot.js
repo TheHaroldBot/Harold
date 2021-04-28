@@ -27,7 +27,7 @@ const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
-const { token, ownerid, botid } = require('./config.json');
+const { token, ownerid, botid, ignorecallout, ignore } = require('./config.json');
 const prefix = "*"
 const readline = require('readline').createInterface({
 	input: process.stdin,
@@ -45,28 +45,16 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
-   if(message.mentions.users.first()) { //checks if message mentions someone
-	   if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
-	   	if(message.author.bot) return //if bot, ignore
-	   	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
-	}
-   }
-   if(message.author.presence.status === 'offline') { //checks if author is offline
-	if(message.author.bot) return //if author is bot, forget them
-	var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
-	if(calloutoffline === true) { //if said die lands on 10, continue
-		message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
-	}
-   }
    if(message.guild === null) { //log dms
-	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
-	  if(message.content.startsWith(prefix)) {
-		  message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
-	  }
-	  return
-  } else {
-	  console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
-  }
+	console.log(`DM From: ${message.author.tag} > ${message.content}`)
+	if(message.content.startsWith(prefix)) {
+		message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
+	}
+	return
+} else {
+	console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
+}
+  if(ignore.includes(message.author.id)) return
   if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
   if(message.author.bot) return //ignore bots
   if (message.content === `${prefix}ping`) {
@@ -383,18 +371,67 @@ client.on('message', message => {
 		.then((json) => {
 			const factembed = new Discord.MessageEmbed()
 			.setTitle('Random Fact')
-			.setDescription(json.text)
+			.setDescription(json.text.replace('`', "'"))
 			.setFooter('From djtech.net')
 			.setColor('#63ba00')
 			message.channel.send(factembed)
 		})
 		
+} else if (command === 'meme') {
+	if(message.author.id !== ownerid) {
+		message.channel.send('This command is currently under construction, try again later')
+		return
+	}
+	let memesettings = { method: "Get" };
+	let memeurl = 'https://www.reddit.com/r/dankmemes/random.json?limit=1'
+	fetch(memeurl, memesettings)
+		.then(res => res.json())
+		.then((json) => {
+			console.log(json.post_hint)
+			console.log(json)
+			if(!json.post_hint === 'image') {
+				console.log('not image')
+				const textembed = new Discord.MessageEmbed()
+				.setTitle(json.title)
+				.setURL(`https://reddit.com${json.permalink}`)
+				.setDescription(json.text)
+				message.channel.send(textembed)
+				return
+			}
+			if(json.post_hint === 'image') {
+				var memeimage = json.preview.images[0].source.url.replace('&amp;', '&')
+				const memeembed = new Discord.MessageEmbed()
+				.setTitle(json.title)
+				.setImage(memeimage)
+				.setURL(`https://reddit.com${json.permalink}`)
+				message.channel.send(memeembed)
+			}
+			console.log('neither')
+			
+		})
 }
 
 
 });
 
 client.on('message', message => {
+if(ignore.includes(message.author.id)) return
+if(message.webhookID) return;
+if(message.mentions.users.first()) { //checks if message mentions someone
+	if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
+		if(message.author.bot) return //if bot, ignore
+	 if(ignorecallout.includes(message.author.id)) return
+		message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
+ }
+}
+if(message.author.presence.status === 'offline') { //checks if author is offline
+ if(message.author.bot) return //if author is bot, forget them
+ var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
+ if(calloutoffline === true) { //if said die lands on 10, continue
+	if(ignorecallout.includes(message.author.id)) return
+	message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
+	}
+}
 if (message.author.id === botid) return
 if (message.guild === null) return
 if (message.content.includes('poll2op')) { //poll with 2 options
