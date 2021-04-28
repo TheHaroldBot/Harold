@@ -59,7 +59,7 @@ client.on('message', message => {
 	}
    }
    if(message.guild === null) { //log dms
-	  console.log('\x1b[0m', `DM From: ${message.author.tag} > ${message.content}`)
+	  console.log(`DM From: ${message.author.tag} > ${message.content}`)
 	  if(message.content.startsWith(prefix)) {
 		  message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	  }
