@@ -438,8 +438,8 @@ client.on('message', message => {
 				const description = post.data.selftext
 				const postauthor = `u/${post.data.author}`
 
-				if(nsfw === true) {
-					message.channel.send('Oops! thats a nsfw post, try again!')
+				if(nsfw === true && message.channel.nsfw !== true) {
+					message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
 					return
 				}
 				const redditembed = new Discord.MessageEmbed()
@@ -459,8 +459,8 @@ client.on('message', message => {
 			const postUpvotes = post.data.ups;
 			const postNumComments = post.data.num_comments;
 			const postauthor = `u/${post.data.author}`
-			if (post.data.over_18 === true) {
-				message.channel.send('oops, that one is nsfw, try again!')
+			if (post.data.over_18 === true && message.channel.nsfw !== true) {
+				message.channel.send('oops, that one is nsfw, either try again, or set this channel to nsfw')
 				return
 			}
 			const redditembed = new Discord.MessageEmbed()
