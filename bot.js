@@ -438,7 +438,7 @@ client.on('message', message => {
 				const description = post.data.selftext
 				const postauthor = `u/${post.data.author}`
 
-				if(nsfw === 'true') {
+				if(nsfw === true) {
 					message.channel.send('Oops! thats a nsfw post, try again!')
 					return
 				}
@@ -459,7 +459,7 @@ client.on('message', message => {
 			const postUpvotes = post.data.ups;
 			const postNumComments = post.data.num_comments;
 			const postauthor = `u/${post.data.author}`
-			if (post.data.over_18 === 'true') {
+			if (post.data.over_18 === true) {
 				message.channel.send('oops, that one is nsfw, try again!')
 				return
 			}
