@@ -68,7 +68,7 @@ client.on('message', message => {
   message.channel.send(args) //sends arguments
 } else if (command === 'help') {
 	const helpembed = new Discord.MessageEmbed() //ooo a help command, not always up to date, because i forget, or i just dont care
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
 		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact'}
@@ -77,7 +77,7 @@ client.on('message', message => {
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
 } else if (command === "debug") {
 	const debugembed = new Discord.MessageEmbed() //debug commands
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle('Debugging')
 	.addFields(
 		{ name: 'Commands:', value: '**args** - sends the arguments in your message\n**argsinfo** - sends command and arguments\n**shutdown** - shuts down the bot\n**content** - sends the contents of a message'}
@@ -104,7 +104,7 @@ client.on('message', message => {
 	message.channel.send(message.content.replace(`${prefix}echo`, "")); //tells you what you told it
 } else if (command === 'serverinfo') {
   const serverinfoembed = new Discord.MessageEmbed() //command to find info on the server
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle('Connection and Status Info')
 	.addFields(
 		{ name: 'IP:', value: 'mckineticsmp.com' },
@@ -116,7 +116,7 @@ client.on('message', message => {
   message.channel.send(serverinfoembed)
 } else if (command === 'intro') {
 	const introembed = new Discord.MessageEmbed() //into for the bot
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle('Intro')
 	.addFields(
 		{ name: 'Hello!', value: 'Thank you for adding me!'},
@@ -138,7 +138,7 @@ client.on('message', message => {
 	message.channel.send("https://discord.gg/dRmgSzhbVt") //gets discord invite for kinetic smp, i dont feel like automating it
 } else if (command === 'github') {
 	const githubembed = new Discord.MessageEmbed() //github link, embed because embeds look cool
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle('Github')
 	.setDescription('https://github.com/Kinetic-SMP/KineticSMPBot')
 	message.channel.send (githubembed)
@@ -206,14 +206,14 @@ client.on('message', message => {
 	} else {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
-		.setColor('#21B8FF')
+		.setColor('RANDOM')
 		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status')
 		message.channel.send (ownerembed)
 	}
 } else if (command === 'pollhelp') {
 	const pollhelpembed = new Discord.MessageEmbed() //help embed for the polling commands
 	.setTitle('Poll Help Menu')
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setDescription('To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with 2 options, 1 and 2\n**poll3op** - react with 3 options, 1 2 and 3\n**poll4op** - react with  4 options, 1 2 3 and 4\n**pollyn** - react with a y and a n\n**pollupdown** - react with a thumbs up and a thumbs down')
 	message.channel.send(pollhelpembed)
 } else if (command === 'yesorno') {
@@ -230,14 +230,14 @@ client.on('message', message => {
 	} else if (!args.length) {
 		const pfptarget = message.author
 		const pfpembed = new Discord.MessageEmbed()
-		.setColor('#21B8FF')
+		.setColor('RANDOM')
 		.setTitle(`Profile Image for: ${pfptarget.username}`)
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
 	} else {
 		const pfptarget = message.mentions.users.first()
 		const pfpembed = new Discord.MessageEmbed()
-		.setColor('#21B8FF')
+		.setColor('RANDOM')
 		.setTitle(`Profile Image for: ${pfptarget.username}`)
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
@@ -262,7 +262,7 @@ client.on('message', message => {
 	
 } else if (command === 'guildicon') {
 	const guildicon = new Discord.MessageEmbed()
-	.setColor('#21B8FF')
+	.setColor('RANDOM')
 	.setTitle(`Guild icon for: ${message.guild.name}`)
 	.setImage(message.guild.iconURL({ dynamic: true, size: 256})) //gets the guild icon
 	message.channel.send(guildicon)
@@ -354,7 +354,7 @@ client.on('message', message => {
 } else if (command === 'ip') {
 	const ipembed = new Discord.MessageEmbed() //sends server ip
 		.setTitle(`IP and Port`)
-		.setColor('#90fc03')
+		.setColor('RANDOM')
 		.addFields(
 			{ name: 'IP:', value: 'mckineticsmp.com' },
 			{ name: 'Port:', value: '25565' },
@@ -374,15 +374,11 @@ client.on('message', message => {
 			.setTitle('Random Fact')
 			.setDescription(json.text.replace('`', "'"))
 			.setFooter('From djtech.net')
-			.setColor('#63ba00')
+			.setColor('RANDOM')
 			message.channel.send(factembed)
 		})
 		
 } else if (command === 'meme') {
-	if(message.author.id !== ownerid) {
-		message.channel.send('This command is currently under construction, try again later')
-		return
-	}
 	const embed = new Discord.MessageEmbed();
 	got('https://www.reddit.com/r/dankmemes/random/.json')
 		.then(response => {
@@ -407,8 +403,20 @@ client.on('message', message => {
 			.setImage(memeImage)
 			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
-			message.channel.send(memeembed);
+			message.channel.send(memeembed);	
 		})
+} else if (command === 'joke') {
+	let jokesettings = { method: "Get"}
+	let jokeurl = 'https://official-joke-api.appspot.com/random_joke'
+	fetch(jokeurl, jokesettings)
+		.then(res => res.json())
+		.then((json) => {
+			const jokeembed = new Discord.MessageEmbed()
+			.setTitle(json.setup)
+			.setDescription(json.punchline)
+			.setColor('RANDOM')
+			message.channel.send(jokeembed)
+		});
 }
 
 
