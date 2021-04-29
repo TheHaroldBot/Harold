@@ -71,7 +71,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -417,6 +417,64 @@ client.on('message', message => {
 			.setColor('RANDOM')
 			message.channel.send(jokeembed)
 		});
+} else if (command === 'randomreddit') {
+	if (!args.length) {
+		message.channel.send('you need to specify a subreddit without the r/, for example, "dankmemes"')
+		return
+	}
+	got(`https://www.reddit.com/r/${args[0]}/random/.json`)
+		.then(response => {
+			const [list] = JSON.parse(response.body);
+			const [post] = list.data.children;
+			const type = post.data.post_hint
+
+			if(type !== 'image') {
+				const posttitle = post.data.title
+				const permalink = post.data.permalink
+				const posturl = `https://reddit.com${permalink}`
+				const postupvotes = post.data.ups
+				const postcomments = post.data.num_comments
+				const nsfw = post.data.over_18
+				const description = post.data.selftext
+				const postauthor = `u/${post.data.author}`
+
+				if(nsfw === 'true') {
+					message.channel.send('Oops! thats a nsfw post, try again!')
+					return
+				}
+				const redditembed = new Discord.MessageEmbed()
+				.setTitle(posttitle)
+				.setURL(posturl)
+				.setColor('RANDOM')
+				.setFooter(`👍 ${postupvotes} 💬 ${postcomments}`)
+				.setDescription(description)
+				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
+				
+				message.channel.send(redditembed)
+			} else {
+			const permalink = post.data.permalink;
+			const postUrl = `https://reddit.com${permalink}`;
+			const postImage = post.data.url;
+			const postTitle = post.data.title;
+			const postUpvotes = post.data.ups;
+			const postNumComments = post.data.num_comments;
+			const postauthor = `u/${post.data.author}`
+			if (post.data.over_18 === 'true') {
+				message.channel.send('oops, that one is nsfw, try again!')
+				return
+			}
+			const redditembed = new Discord.MessageEmbed()
+			.setTitle(`${postTitle}`)
+			.setURL(`${postUrl}`)
+			.setColor('RANDOM')
+			.setImage(postImage)
+			.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
+			.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
+
+			message.channel.send(redditembed);	
+			}
+		})
+			
 }
 
 
