@@ -377,6 +377,10 @@ client.on('message', message => {
 			.setColor('RANDOM')
 			message.channel.send(factembed)
 		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('There was an error completing your request, try again later!')
+		})
 		
 } else if (command === 'meme') {
 	const embed = new Discord.MessageEmbed();
@@ -392,7 +396,7 @@ client.on('message', message => {
 			const memeUpvotes = post.data.ups;
 			const memeNumComments = post.data.num_comments;
 			if (post.data.over_18 === true && message.channel.nsfw !== true) {
-				message.channel.send('oops, that one is nsfw, either try again, or set this channel to nsfw')
+				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 				return
 			}
 
@@ -405,6 +409,10 @@ client.on('message', message => {
 
 			message.channel.send(memeembed);	
 		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('There was an error completing your request, try again later!')
+		})
 } else if (command === 'joke') {
 	let jokesettings = { method: "Get"}
 	let jokeurl = 'https://official-joke-api.appspot.com/random_joke'
@@ -416,7 +424,11 @@ client.on('message', message => {
 			.setDescription(json.punchline)
 			.setColor('RANDOM')
 			message.channel.send(jokeembed)
-		});
+		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('There was an error completing your request, try again later!')
+		})
 } else if (command === 'randomreddit') {
 	if (!args.length) {
 		message.channel.send('you need to specify a subreddit without the r/, for example, "dankmemes"')
@@ -474,6 +486,10 @@ client.on('message', message => {
 			message.channel.send(redditembed);	
 			}
 		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('there was an error completing your request, check your spelling and try again')
+		});
 			
 }
 
