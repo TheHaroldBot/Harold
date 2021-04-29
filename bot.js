@@ -391,8 +391,8 @@ client.on('message', message => {
 			const memeTitle = post.data.title;
 			const memeUpvotes = post.data.ups;
 			const memeNumComments = post.data.num_comments;
-			if (post.data.over_18 === 'true') {
-				message.channel.send('oops, that one is nsfw, try again!')
+			if (post.data.over_18 === true && message.channel.nsfw !== true) {
+				message.channel.send('oops, that one is nsfw, either try again, or set this channel to nsfw')
 				return
 			}
 
