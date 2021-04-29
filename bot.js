@@ -71,7 +71,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**urmom** - yo mama joke\n**joke** - random joke'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -366,7 +366,7 @@ client.on('message', message => {
 	return
 } else if (command === 'fact') {
 	let factsettings = { method: "Get" };
-	let facturl = 'https://uselessfacts.jsph.pl/random.json?language=en'
+	let facturl = 'https://uselessfacts.jsph.pl/random.json?language=en' //fact api, random fact
 	fetch(facturl, factsettings)
 		.then(res => res.json())
 		.then((json) => {
@@ -384,7 +384,7 @@ client.on('message', message => {
 		
 } else if (command === 'meme') {
 	const embed = new Discord.MessageEmbed();
-	got('https://www.reddit.com/r/dankmemes/random/.json')
+	got('https://www.reddit.com/r/dankmemes/random/.json') //get random meme from r/dankmemes
 		.then(response => {
 			const [list] = JSON.parse(response.body);
 			const [post] = list.data.children;
@@ -415,7 +415,7 @@ client.on('message', message => {
 		})
 } else if (command === 'joke') {
 	let jokesettings = { method: "Get"}
-	let jokeurl = 'https://official-joke-api.appspot.com/random_joke'
+	let jokeurl = 'https://official-joke-api.appspot.com/random_joke' //random joke api
 	fetch(jokeurl, jokesettings)
 		.then(res => res.json())
 		.then((json) => {
@@ -434,7 +434,7 @@ client.on('message', message => {
 		message.channel.send('You need to specify a subreddit without the r/, for example, "dankmemes"')
 		return
 	}
-	got(`https://www.reddit.com/r/${args[0]}/random/.json`)
+	got(`https://www.reddit.com/r/${args[0]}/random/.json`) //random reddit post
 		.then(response => {
 			const [list] = JSON.parse(response.body);
 			const [post] = list.data.children;
@@ -491,6 +491,30 @@ client.on('message', message => {
 			message.channel.send('There was an error completing your request, did you spell the subreddit right?')
 		});
 			
+} else if (command === 'insult') {
+	let insultsettings = { method: "Get"}
+	let insulturl = 'https://insult.mattbas.org/api/insult.json' //insult api
+	fetch(insulturl, insultsettings)
+		.then(res => res.json())
+		.then((json) => {
+			message.channel.send(json.insult)
+		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('There was an error completing your request, try again later!')
+		});
+} else if (command === 'urmom') {
+	let urmomsettings = { method: "Get"}
+	let urmomurl = 'https://api.yomomma.info/' //yo mama api
+	fetch(urmomurl, urmomsettings)
+		.then(res => res.json())
+		.then((json) => {
+			message.channel.send(json.joke)
+		})
+		.catch(err => {
+			console.log(err)
+			message.channel.send('There was an error completing your request, try again later!')
+		})
 }
 
 
