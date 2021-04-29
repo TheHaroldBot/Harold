@@ -431,7 +431,7 @@ client.on('message', message => {
 		})
 } else if (command === 'randomreddit') {
 	if (!args.length) {
-		message.channel.send('you need to specify a subreddit without the r/, for example, "dankmemes"')
+		message.channel.send('You need to specify a subreddit without the r/, for example, "dankmemes"')
 		return
 	}
 	got(`https://www.reddit.com/r/${args[0]}/random/.json`)
@@ -472,7 +472,7 @@ client.on('message', message => {
 			const postNumComments = post.data.num_comments;
 			const postauthor = `u/${post.data.author}`
 			if (post.data.over_18 === true && message.channel.nsfw !== true) {
-				message.channel.send('oops, that one is nsfw, either try again, or set this channel to nsfw')
+				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 				return
 			}
 			const redditembed = new Discord.MessageEmbed()
@@ -488,7 +488,7 @@ client.on('message', message => {
 		})
 		.catch(err => {
 			console.log(err)
-			message.channel.send('there was an error completing your request, check your spelling and try again')
+			message.channel.send('There was an error completing your request, did you spell the subreddit right?')
 		});
 			
 }
