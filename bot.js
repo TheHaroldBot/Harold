@@ -48,6 +48,7 @@ client.on('message', message => {
    if(message.webhookID) return;
    if(message.guild === null) { //log dms
 	console.log(`DM From: ${message.author.tag} > ${message.content}`)
+	if(ignore.includes(message.author.id)) return
 	if(message.content.startsWith(prefix)) {
 		message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	}
@@ -71,7 +72,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**urmom** - yo mama joke\n**joke** - random joke'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -503,10 +504,10 @@ client.on('message', message => {
 			console.log(err)
 			message.channel.send('There was an error completing your request, try again later!')
 		});
-} else if (command === 'urmom') {
-	let urmomsettings = { method: "Get"}
-	let urmomurl = 'https://api.yomomma.info/' //yo mama api
-	fetch(urmomurl, urmomsettings)
+} else if (command === 'yomama') {
+	let yomamasettings = { method: "Get"}
+	let yomamaurl = 'https://api.yomomma.info/' //yo mama api
+	fetch(yomamaurl, yomamasettings)
 		.then(res => res.json())
 		.then((json) => {
 			message.channel.send(json.joke)
@@ -516,7 +517,6 @@ client.on('message', message => {
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 }
-
 
 });
 
