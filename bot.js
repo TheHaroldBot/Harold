@@ -567,7 +567,7 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 } else if (message.content.includes('pollyn')) { //poll yes or no
 	message.react('🇾')
 	message.react('🇳')
-} else if (message.content.includes('stfu') || message.content.includes('Stfu') { //i will not shut up
+} else if (message.content.includes('stfu') || message.content.includes('Stfu')) { //i will not shut up
 	message.channel.send('no u')
 } else if (message.content.includes('pollupdown')) { //poll upvote/downvote
 	message.react('👍')
