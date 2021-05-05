@@ -22,13 +22,14 @@ const Discord = require('discord.js');
 const Webhook = require('discord.js');
 const path = require("path")
 const fs = require("fs")
+const removeFromArray = require('remove-from-array')
 const got = require('got');
 const ytdl = require("ytdl-core")
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
-const { token, ownerid, botid, ignorecallout, ignore } = require('./config.json');
+const { token, ownerid, botid, ignoreofflinecallout, ignore } = require('./config.json');
 const prefix = "*"
 const readline = require('readline').createInterface({
 	input: process.stdin,
@@ -48,7 +49,6 @@ client.on('message', message => {
    if(message.webhookID) return;
    if(message.guild === null) { //log dms
 	console.log(`DM From: ${message.author.tag} > ${message.content}`)
-	if(ignore.includes(message.author.id)) return
 	if(message.content.startsWith(prefix)) {
 		message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	}
@@ -56,8 +56,13 @@ client.on('message', message => {
 } else {
 	console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
 }
-  if(ignore.includes(message.author.id)) return
   if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
+  let botblocked = JSON.parse(fs.readFileSync('blocked.json'))
+  if(botblocked.blocked.includes(ownerid) && message.author.id === ownerid) {
+	  message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the blocked.json file to remove yourself.')
+	  return
+  }
+  if(botblocked.blocked.includes(message.author.id)) return
   if(message.author.bot) return //ignore bots
   if (message.content === `${prefix}ping`) {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`); //find ping, idk if this is accurate, but it gives a number and people believe it, so idrc
@@ -208,7 +213,7 @@ client.on('message', message => {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
 		.setColor('RANDOM')
-		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status')
+		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status\n**block** - make the bot ignore someone\n**unblock** - make the bot resume working for someone')
 		message.channel.send (ownerembed)
 	}
 } else if (command === 'pollhelp') {
@@ -232,14 +237,14 @@ client.on('message', message => {
 		const pfptarget = message.author
 		const pfpembed = new Discord.MessageEmbed()
 		.setColor('RANDOM')
-		.setTitle(`Profile Image for: ${pfptarget.username}`)
+		.setTitle(`Profile Image for: ${pfptarget.tag}`)
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
 	} else {
 		const pfptarget = message.mentions.users.first()
 		const pfpembed = new Discord.MessageEmbed()
 		.setColor('RANDOM')
-		.setTitle(`Profile Image for: ${pfptarget.username}`)
+		.setTitle(`Profile Image for: ${pfptarget.tag}`)
 		.setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
 		message.channel.send(pfpembed)
 	}
@@ -408,7 +413,10 @@ client.on('message', message => {
 			.setImage(memeImage)
 			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
-			message.channel.send(memeembed);	
+			message.channel.send(memeembed).catch(err => {
+				console.log(err)
+				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}`)
+			});	
 		})
 		.catch(err => {
 			console.log(err)
@@ -424,7 +432,6 @@ client.on('message', message => {
 			.setTitle(json.setup)
 			.setDescription(json.punchline)
 			.setColor('RANDOM')
-			message.channel.send(jokeembed)
 		})
 		.catch(err => {
 			console.log(err)
@@ -463,7 +470,10 @@ client.on('message', message => {
 				.setDescription(description)
 				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
 				
-				message.channel.send(redditembed)
+				message.channel.send(redditembed).catch(err => {
+					console.log(err)
+					message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
+				});	
 			} else {
 			const permalink = post.data.permalink;
 			const postUrl = `https://reddit.com${permalink}`;
@@ -484,7 +494,10 @@ client.on('message', message => {
 			.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
 			.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
 
-			message.channel.send(redditembed);	
+			message.channel.send(redditembed).catch(err => {
+				console.log(err)
+				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
+			});	
 			}
 		})
 		.catch(err => {
@@ -516,25 +529,42 @@ client.on('message', message => {
 			console.log(err)
 			message.channel.send('There was an error completing your request, try again later!')
 		})
+} else if (command === 'block') {
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can block people on my behalf'))
+	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to block!'))
+	let data = JSON.parse(fs.readFileSync('blocked.json'))
+	if(data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is already blocked.'))
+	data.blocked.push(message.mentions.users.first().id)
+	fs.writeFileSync('blocked.json', JSON.stringify(data))
+	message.channel.send(`Successfully blocked ${message.mentions.users.first().tag}.`)
+
+} else if (command === 'unblock') {
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can unblock people on my behalf'))
+	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to unblock!'))
+	let data = JSON.parse(fs.readFileSync('blocked.json'))
+	if(!data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is not blocked.'))
+	removeFromArray(data.blocked, message.mentions.users.first().id)
+	fs.writeFileSync('blocked.json', JSON.stringify(data))
+	message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`)
 }
 
 });
 
 client.on('message', message => {
-if(ignore.includes(message.author.id)) return
+let ignorecallout = JSON.parse(fs.readFileSync('config.json'))
+if(ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
 if(message.webhookID) return;
 if(message.mentions.users.first()) { //checks if message mentions someone
 	if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
-		if(message.author.bot) return //if bot, ignore
-	 if(ignorecallout.includes(message.author.id)) return
-		message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
+	if(message.author.bot) return //if bot, ignore
+	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
  }
 }
 if(message.author.presence.status === 'offline') { //checks if author is offline
  if(message.author.bot) return //if author is bot, forget them
  var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
  if(calloutoffline === true) { //if said die lands on 10, continue
-	if(ignorecallout.includes(message.author.id)) return
+	if(ignoreofflinecallout.includes(message.author.id)) return
 	message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
 	}
 }
