@@ -5,3 +5,5 @@ blocked.json
 /.vscode
 /.github
 /.git
+/chatlogs
+/errorlogs

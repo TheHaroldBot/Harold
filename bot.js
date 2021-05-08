@@ -36,6 +36,10 @@ const readline = require('readline').createInterface({
 	output: process.stdout
   })
 const client = new Discord.Client();
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
 
 
 client.once('ready', () => {
@@ -49,12 +53,14 @@ client.on('message', message => {
    if(message.webhookID) return;
    if(message.guild === null) { //log dms
 	console.log(`DM From: ${message.author.tag} > ${message.content}`)
+	fs.appendFileSync('chatlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `DM From: ${message.author.tag} > ${message.content}\n`)
 	if(message.content.startsWith(prefix)) {
 		message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	}
 	return
 } else {
 	console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
+	fs.appendFileSync('chatlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `From: ${message.author.tag} > ${message.content}\n`)
 }
   if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
   let botblocked = JSON.parse(fs.readFileSync('blocked.json'))
@@ -77,7 +83,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -385,6 +391,7 @@ client.on('message', message => {
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 		
@@ -415,11 +422,13 @@ client.on('message', message => {
 
 			message.channel.send(memeembed).catch(err => {
 				console.log(err)
+				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}`)
 			});	
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 } else if (command === 'joke') {
@@ -435,6 +444,7 @@ client.on('message', message => {
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 } else if (command === 'randomreddit') {
@@ -472,6 +482,7 @@ client.on('message', message => {
 				
 				message.channel.send(redditembed).catch(err => {
 					console.log(err)
+					fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 					message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 				});	
 			} else {
@@ -496,12 +507,14 @@ client.on('message', message => {
 
 			message.channel.send(redditembed).catch(err => {
 				console.log(err)
+				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 			});	
 			}
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, did you spell the subreddit right?')
 		});
 			
@@ -515,6 +528,7 @@ client.on('message', message => {
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, try again later!')
 		});
 } else if (command === 'yomama') {
@@ -527,6 +541,7 @@ client.on('message', message => {
 		})
 		.catch(err => {
 			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 } else if (command === 'block') {
@@ -546,13 +561,16 @@ client.on('message', message => {
 	removeFromArray(data.blocked, message.mentions.users.first().id)
 	fs.writeFileSync('blocked.json', JSON.stringify(data))
 	message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`)
+} else if (command === 'google') {
+	if (!args.length) return(message.channel.send('What do you want me to google?'))
+	message.channel.send(`https://lmgtfy.app/?q=${message.content.replace(`${prefix}google `, "")}`)
 }
 
 });
 
 client.on('message', message => {
-let ignorecallout = JSON.parse(fs.readFileSync('config.json'))
-if(ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
+let blocked = JSON.parse(fs.readFileSync('blocked.json'))
+if(blocked.blocked.includes(message.author.id)) return
 if(message.webhookID) return;
 if(message.mentions.users.first()) { //checks if message mentions someone
 	if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
@@ -564,7 +582,8 @@ if(message.author.presence.status === 'offline') { //checks if author is offline
  if(message.author.bot) return //if author is bot, forget them
  var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
  if(calloutoffline === true) { //if said die lands on 10, continue
-	if(ignoreofflinecallout.includes(message.author.id)) return
+	let ignorecallout = JSON.parse(fs.readFileSync('config.json'))
+	if(ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
 	message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
 	}
 }
