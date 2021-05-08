@@ -22,6 +22,7 @@ const Discord = require('discord.js');
 const Webhook = require('discord.js');
 const path = require("path")
 const fs = require("fs")
+const discordInv = require('discord-inv');
 const util = require('minecraft-server-util');
 const removeFromArray = require('remove-from-array')
 const got = require('got');
@@ -47,6 +48,20 @@ client.once('ready', () => {
 	console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
 	console.log('Copyright info: https://github.com/Kinetic-SMP/KineticSMPBot/blob/main/LICENCE\n\n')
 });
+
+/*
+let configstuffs = JSON.parse(fs.readFileSync('config.json')) //figuring out if hibernate mode is on
+if (configstuffs.hibernate === true) {
+client.user.setPresence({ status: 'idle' })
+client.user.setActivity('Bot is hibernating')
+console.log('hibernating')
+return
+} else {
+    client.user.setPresence({ status: 'online' })
+    client.user.setActivity('')
+    console.log('no longer hibernating')
+}
+*/
 
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -84,7 +99,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff\n**mcping** - ping the Minecraft server'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff\n**mcping** - ping the Minecraft server\n**analyzeinvite** - Gives detailed info on an invite link'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -584,6 +599,27 @@ client.on('message', message => {
 			.setColor('#fc0303')
 			message.channel.send(mcpingembed)
 		})
+} else if (command === 'analyzeinvite') {
+	if(!args.length) return(message.channel.send('You need to send an invite link!'))
+	discordInv.getInv(discordInv.getCodeFromUrl(args[0]))
+	.then(invite => {
+		console.log(invite)
+		const inviteembed = new Discord.MessageEmbed()
+		.setTitle(invite.url)
+		.setAuthor(`Invite Creator: ${invite.inviter.tag}`, `https://cdn.discordapp.com/avatars/${invite.inviter.id}/${invite.inviter.avatar}.png`)
+		.setDescription(`**Guild name:** ${invite.guild.name}\n**Member count:** ${invite.approximate_presence_count}/${invite.approximate_member_count} online\n**Invite channel:** ${invite.channel.name}\n**Channel NSFW:** ${invite.guild.nsfw}\n**Banner url:** ${invite.guild.bannerURL}\n**Icon url:** ${invite.guild.iconURL}\n**Features:** ${invite.guild.features}\n**Welcome screen:** ${invite.guild.welcome_screen.description}`)
+		.setColor('RANDOM')
+		message.channel.send(inviteembed).catch((err) => {
+			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+			message.channel.send('Woah! Something in there is too large to display!')
+		})
+	})
+	.catch((err) => {
+		console.log(err)
+		fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+		message.channel.send('There seems to have been an issue with getting the data, check the invite link and try again.')
+	})
 }
 
 });
