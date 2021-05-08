@@ -22,6 +22,7 @@ const Discord = require('discord.js');
 const Webhook = require('discord.js');
 const path = require("path")
 const fs = require("fs")
+const util = require('minecraft-server-util');
 const removeFromArray = require('remove-from-array')
 const got = require('got');
 const ytdl = require("ytdl-core")
@@ -83,7 +84,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff'}
+		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff\n**mcping** - ping the Minecraft server'}
 	)
 	message.react('📬')
 	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
@@ -545,7 +546,7 @@ client.on('message', message => {
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 } else if (command === 'block') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can block people on my behalf'))
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can block people on my behalf')) //make the bot ignore people, just dont block urself lol
 	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to block!'))
 	let data = JSON.parse(fs.readFileSync('blocked.json'))
 	if(data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is already blocked.'))
@@ -554,7 +555,7 @@ client.on('message', message => {
 	message.channel.send(`Successfully blocked ${message.mentions.users.first().tag}.`)
 
 } else if (command === 'unblock') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can unblock people on my behalf'))
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can unblock people on my behalf')) //unblocks people, if you block urself you cant unblock urself unless you delete ur id from the file blocked.json
 	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to unblock!'))
 	let data = JSON.parse(fs.readFileSync('blocked.json'))
 	if(!data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is not blocked.'))
@@ -562,8 +563,27 @@ client.on('message', message => {
 	fs.writeFileSync('blocked.json', JSON.stringify(data))
 	message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`)
 } else if (command === 'google') {
-	if (!args.length) return(message.channel.send('What do you want me to google?'))
+	if (!args.length) return(message.channel.send('What do you want me to google?')) //it would google things, but im too lazy to program that in
 	message.channel.send(`https://lmgtfy.app/?q=${message.content.replace(`${prefix}google `, "")}`)
+} else if (command === 'mcping') {
+	util.status('mckineticsmp.com') //pings the minecraft server
+		.then((response) => {
+			const mcpingembed = new Discord.MessageEmbed()
+			.setTitle('mckinticsmp.com')
+			.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
+			.setThumbnail(response.favicon)
+			.setColor('#0ffc03')
+			message.channel.send(mcpingembed)
+		})
+		.catch((error) => {
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(error)}\n`) //stuff to do if it wont get a response
+			const mcpingembed = new Discord.MessageEmbed()
+			.setTitle('mckineticsmp.com')
+			.setDescription(`**Online players:** server offline\n**Server version:** server offline\n**Latency:** server offline\n**Motd:** server offline`)
+			.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
+			.setColor('#fc0303')
+			message.channel.send(mcpingembed)
+		})
 }
 
 });
