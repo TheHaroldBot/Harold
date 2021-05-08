@@ -49,21 +49,35 @@ client.once('ready', () => {
 	console.log('Copyright info: https://github.com/Kinetic-SMP/KineticSMPBot/blob/main/LICENCE\n\n')
 });
 
-/*
-let configstuffs = JSON.parse(fs.readFileSync('config.json')) //figuring out if hibernate mode is on
-if (configstuffs.hibernate === true) {
-client.user.setPresence({ status: 'idle' })
-client.user.setActivity('Bot is hibernating')
-console.log('hibernating')
-return
-} else {
-    client.user.setPresence({ status: 'online' })
-    client.user.setActivity('')
-    console.log('no longer hibernating')
+let isHibernating = false; //Global (top level) variable
+const Hibernate = (client) => {
+    if(!client){ return(false) }
+    client.user.setPresence({ //Sets detailed presence
+        activity: {
+            name: "Hibernation",
+            type: "PLAYING"
+        },
+        status: 'idle',
+        afk: true
+    });
+    isHibernating = true;
 }
-*/
 
 client.on('message', message => {
+  if(message.content.includes(`${prefix}hibernate_off`)) { //hibernate off listener
+	  if(message.author.id !== ownerid) return
+	  isHibernating = false
+	  client.user.setPresence({ //Sets detailed presence
+        activity: {
+            name: "",
+            type: "PLAYING"
+        },
+        status: 'online',
+        afk: false
+    });
+	message.channel.send('Im back!')
+  }
+  if(isHibernating){ return(false) } //Bot is Hibernating
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
    if(message.webhookID) return;
@@ -235,8 +249,9 @@ client.on('message', message => {
 		const ownerembed = new Discord.MessageEmbed()
 		.setTitle('Owner Help Menu')
 		.setColor('RANDOM')
-		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status\n**block** - make the bot ignore someone\n**unblock** - make the bot resume working for someone')
-		message.channel.send (ownerembed)
+		.setDescription('**setstatus** - sets the bot presence\n**setavatar** - sets the bot avatar\n**setgame** - sets the game the bot is playing\n**log** - logs information to the console\n**shutdown** - shuts down the bot\n**ownerhelp** - displays this embed\n**setstream** <url> <name> - sets a streaming status\n**block** - make the bot ignore someone\n**unblock** - make the bot resume working for someone\n**hibernate** - makes the bot go into low-power mode\n**hibernate_off** - turns off hibernate and enables normal bot functions')
+		message.react('📬')
+		message.author.send (ownerembed)
 	}
 } else if (command === 'pollhelp') {
 	const pollhelpembed = new Discord.MessageEmbed() //help embed for the polling commands
@@ -620,11 +635,16 @@ client.on('message', message => {
 		fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 		message.channel.send('There seems to have been an issue with getting the data, check the invite link and try again.')
 	})
+} else if (command === 'hibernate') {
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
+	message.channel.send('Goodbye!')
+	Hibernate(client);
 }
 
 });
 
 client.on('message', message => {
+if(isHibernating){ return(false) } //Bot is Hibernating
 let blocked = JSON.parse(fs.readFileSync('blocked.json'))
 if(blocked.blocked.includes(message.author.id)) return
 if(message.webhookID) return;
