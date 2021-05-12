@@ -104,19 +104,37 @@ client.on('message', message => {
 	message.channel.send(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`); //find ping, idk if this is accurate, but it gives a number and people believe it, so idrc
 } else if (message.content === `${prefix}count`) {
 	message.channel.send(`Current member count: ${message.guild.memberCount}`); //gives server member count
-} else if (message.content === `${prefix}userinfo`) {
-	message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`); //pretty much pointless command
 } else if (command === 'args') {
   message.channel.send(args) //sends arguments
 } else if (command === 'help') {
-	const helpembed = new Discord.MessageEmbed() //ooo a help command, not always up to date, because i forget, or i just dont care
+	if(!args.length) {
+		const helpembed = new Discord.MessageEmbed() //ooo a help command, not always up to date, because i forget, or i just dont care
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: 'Commands:', value: '**help** - displays this embed\n**echo** - echos what you write\n**delete** - deletes your message\n**serverinfo** - displays connection info along with the status and dynmap\n**count** - displays member count\n**userinfo** - displays username and id\n**slowmode** - sets slowmode to specified seconds\n**yesorno** - chooses random, either "yes" or "no"\n**rules** - displays server rules\n**report** - reports something/someone, it will report anything written after the command\n**guildicon** - sends the guilds icon\n**ping** - gets api latency\n**suggest** - Sends a suggestion to the suggestions channel\n**play <youtube link>** - plays a song\n**leave** - makes the bot leave your vc\n**join** - makes the bot join your vc\n**thiscommandliterallydoesnothing** - does it really need an explanation?\n**fact** - gets a random fact\n**meme** - gets a random meme from r/dankmemes\n**randomreddit** - gets random post from a specified subreddit\n**insult** - insults you\n**yomama** - yo mama joke\n**joke** - random joke\n**google** - googles stuff\n**mcping** - ping the Minecraft server\n**analyzeinvite** - Gives detailed info on an invite link'}
+		{ name: '**Categories:**', value: 'General\nUtility\nMusic\nFun'}
 	)
-	message.react('📬')
-	message.author.send(helpembed); //sends in dm cuz it got too big for regular channel
+	message.channel.send(helpembed); //sends in dm cuz it got too big for regular channel
+	} else {
+		const commands = JSON.parse((fs.readFileSync('./help.json')))
+		if (!commands.categories.includes(args[0])) {
+			const commandembed = new Discord.MessageEmbed()
+			.setTitle(args[0])
+			.setColor('RANDOM')
+			.setDescription(`${commands.commands[args[0]]}`)
+			message.channel.send(commandembed).catch((err) => {
+				console.log(err)
+			})
+			return
+		}
+		const helpembed = new Discord.MessageEmbed()
+		.setTitle(args[0])
+		.setColor('RANDOM')
+		.setDescription(commands.list[args[0]])
+		.addField("More info", `To get info on a command, do \`${prefix}help <command>`)
+		message.channel.send(helpembed)
+	}
+	
 } else if (command === "debug") {
 	const debugembed = new Discord.MessageEmbed() //debug commands
 	.setColor('RANDOM')
@@ -201,6 +219,7 @@ client.on('message', message => {
 	} else {
 		const logcontent = message.content
 		console.log('\x1b[32m\x1b[4m\x1b[1m%s', `Custom log: ${message.content.replace(`${prefix}log `, "")}`);
+		fs.appendFileSync('chatlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `Custom log: ${message.content.replace(`${prefix}log `, "")}\n`)
 		message.channel.send('Message logged!')
 	}
 } else if (command === 'setgame') {
@@ -329,7 +348,7 @@ client.on('message', message => {
 			type: "STREAMING",
 			url: args[0]
 		  });
-		  message.channel.send(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, "")} at ${args[0]}`)
+		  message.channel.send(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, "")} at \`${args[0]}\``)
 	}
 } else if (command === 'suggest') {
 	if (!args.length) {
@@ -472,6 +491,7 @@ client.on('message', message => {
 			.setTitle(json.setup)
 			.setDescription(json.punchline)
 			.setColor('RANDOM')
+			message.channel.send(jokeembed)
 		})
 		.catch(err => {
 			console.log(err)
@@ -614,31 +634,14 @@ client.on('message', message => {
 			.setColor('#fc0303')
 			message.channel.send(mcpingembed)
 		})
-} else if (command === 'analyzeinvite') {
-	if(!args.length) return(message.channel.send('You need to send an invite link!'))
-	discordInv.getInv(discordInv.getCodeFromUrl(args[0]))
-	.then(invite => {
-		console.log(invite)
-		const inviteembed = new Discord.MessageEmbed()
-		.setTitle(invite.url)
-		.setAuthor(`Invite Creator: ${invite.inviter.tag}`, `https://cdn.discordapp.com/avatars/${invite.inviter.id}/${invite.inviter.avatar}.png`)
-		.setDescription(`**Guild name:** ${invite.guild.name}\n**Member count:** ${invite.approximate_presence_count}/${invite.approximate_member_count} online\n**Invite channel:** ${invite.channel.name}\n**Channel NSFW:** ${invite.guild.nsfw}\n**Banner url:** ${invite.guild.bannerURL}\n**Icon url:** ${invite.guild.iconURL}\n**Features:** ${invite.guild.features}\n**Welcome screen:** ${invite.guild.welcome_screen.description}`)
-		.setColor('RANDOM')
-		message.channel.send(inviteembed).catch((err) => {
-			console.log(err)
-			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
-			message.channel.send('Woah! Something in there is too large to display!')
-		})
-	})
-	.catch((err) => {
-		console.log(err)
-		fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
-		message.channel.send('There seems to have been an issue with getting the data, check the invite link and try again.')
-	})
 } else if (command === 'hibernate') {
 	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
 	message.channel.send('Goodbye!')
 	Hibernate(client);
+} else if (command === 'help2') {
+	if(message.author.id !== ownerid) return
+	const help2 = JSON.parse(fs.readFileSync('./help.json'))
+	console.log(help2)
 }
 
 });

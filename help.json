@@ -1,0 +1,38 @@
+{
+    "commands": 
+        {
+            "help": "Sends a list of all commands",
+            "echo": "Repeats what you write",
+            "delete": "Deletes your message",
+            "serverinfo": "Displays server connection info along with the status and dynmap",
+            "count": "Gets current member count",
+            "yesorno": "Sends random: yes or no",
+            "report": "Sends a message to the staff team",
+            "guildicon": "Sends the icon for the server",
+            "ping": "Gets bot api latency",
+            "suggest": "Sends a suggestion to the suggestion channel",
+            "thiscommandliterallydoesnothing": "Do I really need to explain?",
+            "mcping": "Pings the minecraft server",
+            "slowmode": "Sets the channel slowmode to specified seconds",
+            "play": "Plays a youtube url in your voice chat",
+            "join": "Joins your voice chat",
+            "leave": "Leaves your voice chat",
+            "fact": "Gets a random fact",
+            "meme": "Gets a random meme from r/dankmemes",
+            "randomreddit": "Gets a random post from the specified subreddit",
+            "insult": "Gets a random insult",
+            "yomama": "Gets a random yo mama joke",
+            "joke": "Gets a random joke",
+            "google": "Googles stuff for you"
+        },
+    "list":
+        {
+            "general": "help | echo | delete | serverinfo | count | yesorno | report | guildicon | ping | suggest | thiscommandliterallydoesnothing | mcping",
+            "utility": "slowmode",
+            "music": "play | join | leave",
+            "fun": "fact | meme | randomreddit | insult | yomama | joke | google"
+        },
+    "categories": ["general", "utility", "music", "fun"]
+    
+    
+}
