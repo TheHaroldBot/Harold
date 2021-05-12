@@ -118,10 +118,11 @@ client.on('message', message => {
 	} else {
 		const commands = JSON.parse((fs.readFileSync('./help.json')))
 		if (!commands.categories.includes(args[0])) {
+			if(commands.descriptions[args[0]] === undefined) return(message.channel.send('I don\'t see that command or category, check your spelling and try again!'))
 			const commandembed = new Discord.MessageEmbed()
 			.setTitle(args[0])
 			.setColor('RANDOM')
-			.setDescription(`${commands.commands[args[0]]}`)
+			.setDescription(`${commands.descriptions[args[0]]}`)
 			message.channel.send(commandembed).catch((err) => {
 				console.log(err)
 			})

@@ -1,5 +1,5 @@
 {
-    "commands": 
+    "descriptions": 
         {
             "help": "Sends a list of all commands",
             "echo": "Repeats what you write",
