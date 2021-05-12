@@ -125,6 +125,8 @@ client.on('message', message => {
 			.setDescription(`${commands.descriptions[args[0]]}`)
 			message.channel.send(commandembed).catch((err) => {
 				console.log(err)
+				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+
 			})
 			return
 		}
@@ -133,7 +135,10 @@ client.on('message', message => {
 		.setColor('RANDOM')
 		.setDescription(commands.list[args[0]])
 		.addField("More info", `To get info on a command, do \`${prefix}help <command>`)
-		message.channel.send(helpembed)
+		message.channel.send(helpembed).catch((err) => {
+			console.log(err)
+			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+		})
 	}
 	
 } else if (command === "debug") {
@@ -639,10 +644,6 @@ client.on('message', message => {
 	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
 	message.channel.send('Goodbye!')
 	Hibernate(client);
-} else if (command === 'help2') {
-	if(message.author.id !== ownerid) return
-	const help2 = JSON.parse(fs.readFileSync('./help.json'))
-	console.log(help2)
 }
 
 });
