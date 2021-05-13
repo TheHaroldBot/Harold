@@ -114,7 +114,7 @@ client.on('message', message => {
 	.addFields(
 		{ name: '**Categories:**', value: 'General\nUtility\nMusic\nFun'}
 	)
-	message.channel.send(helpembed); //sends in dm cuz it got too big for regular channel
+	message.channel.send(helpembed);
 	} else {
 		const commands = JSON.parse((fs.readFileSync('./help.json')))
 		if (!commands.categories.includes(args[0])) {
@@ -479,7 +479,7 @@ client.on('message', message => {
 			message.channel.send(memeembed).catch(err => {
 				console.log(err)
 				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
-				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}`)
+				message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 			});	
 		})
 		.catch(err => {
@@ -644,6 +644,18 @@ client.on('message', message => {
 	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
 	message.channel.send('Goodbye!')
 	Hibernate(client);
+} else if (command === 'thiscommandmightdosomething') {
+	message.channel.send('That command may or may not have done something.')
+} else if (command === 'save') {
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can save files to my hard drive.'))
+	if(!message.attachments.length) return(message.channel.send('You have to attatch a file to save!'))
+	fetch(message.attachments.first().url)
+	.then(res => {
+ 	 const dest = fs.createWriteStream(`./saved/${mm}.${dd}.${yyyy}${message.attachments.first().name}`);
+  	res.body.pipe(dest);
+	});
+} else if (command === 'paradox') {
+	message.channel.send('The next sentence is false.\nThe previous sentence is true')
 }
 
 });
