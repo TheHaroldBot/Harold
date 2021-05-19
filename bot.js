@@ -112,7 +112,7 @@ client.on('message', message => {
 	.setColor('RANDOM')
 	.setTitle('Help Page')
 	.addFields(
-		{ name: '**Categories:**', value: 'General\nUtility\nMusic\nFun'}
+		{ name: '**Categories:**', value: 'General\nUtility\nMusic\nFun\nPolls'}
 	)
 	message.channel.send(helpembed);
 	} else {
@@ -134,7 +134,7 @@ client.on('message', message => {
 		.setTitle(args[0])
 		.setColor('RANDOM')
 		.setDescription(commands.list[args[0]])
-		.addField("More info", `To get info on a command, do \`${prefix}help <command>`)
+		.addField("More info", `To get info on a command, do \`${prefix}help <command>\``)
 		message.channel.send(helpembed).catch((err) => {
 			console.log(err)
 			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
@@ -278,12 +278,6 @@ client.on('message', message => {
 		message.react('📬')
 		message.author.send (ownerembed)
 	}
-} else if (command === 'pollhelp') {
-	const pollhelpembed = new Discord.MessageEmbed() //help embed for the polling commands
-	.setTitle('Poll Help Menu')
-	.setColor('RANDOM')
-	.setDescription('To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with 2 options, 1 and 2\n**poll3op** - react with 3 options, 1 2 and 3\n**poll4op** - react with  4 options, 1 2 3 and 4\n**pollyn** - react with a y and a n\n**pollupdown** - react with a thumbs up and a thumbs down')
-	message.channel.send(pollhelpembed)
 } else if (command === 'yesorno') {
 	const yesorno = (Math.random() < 0.5); //random yes or no. another pointless one.
 	if (yesorno === true) {

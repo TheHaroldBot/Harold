@@ -32,9 +32,10 @@
             "general": "help | echo | delete | serverinfo | count | yesorno | report | guildicon | ping | suggest | mcping",
             "utility": "slowmode",
             "music": "play | join | leave",
-            "fun": "fact | meme | randomreddit | insult | yomama | joke | google | thiscommandliterallydoesnothing | thiscommandmightdosomething | paradox"
+            "fun": "fact | meme | randomreddit | insult | yomama | joke | google | thiscommandliterallydoesnothing | thiscommandmightdosomething | paradox",
+            "polls": "To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with: 1️⃣, 2️⃣\n**poll3op** - react with: 1️⃣, 2️⃣, 3️⃣\n**poll4op** - react with: 1️⃣, 2️⃣, 3️⃣, 4️⃣\n**pollyn** - react with: 🇾, 🇳\n**pollupdown** - react with: 👍, 👎"
         },
-    "categories": ["general", "utility", "music", "fun"]
+    "categories": ["general", "utility", "music", "fun", "polls"]
     
     
 }
