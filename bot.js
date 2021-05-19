@@ -658,6 +658,8 @@ client.on('message', message => {
 if(isHibernating){ return(false) } //Bot is Hibernating
 let blocked = JSON.parse(fs.readFileSync('blocked.json'))
 if(blocked.blocked.includes(message.author.id)) return
+let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
+if(ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
 if(message.webhookID) return;
 if(message.mentions.users.first()) { //checks if message mentions someone
 	if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
