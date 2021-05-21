@@ -612,7 +612,9 @@ client.on('message', message => {
 	message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`)
 } else if (command === 'google') {
 	if (!args.length) return(message.channel.send('What do you want me to google?')) //it would google things, but im too lazy to program that in
-	message.channel.send(`https://lmgtfy.app/?q=${message.content.replace(`${prefix}google `, "")}`)
+	let googlespace = message.content.replace(`${prefix}google `, "")
+	let googlenospace = googlespace.replace(` ` , "%20")
+	message.channel.send(`https://lmgtfy.app/?q=${googlenospace}`)
 } else if (command === 'mcping') {
 	util.status('mckineticsmp.com') //pings the minecraft server
 		.then((response) => {
