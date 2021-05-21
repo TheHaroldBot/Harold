@@ -13,6 +13,6 @@
     "path": "^0.12.7",
     "remove-from-array": "^0.1.0",
     "ytdl": "^1.4.1",
-    "ytdl-core": "^4.7.0"
+    "ytdl-core": "^4.8.0"
   }
 }
