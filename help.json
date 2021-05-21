@@ -12,7 +12,7 @@
             "ping": "Usage: ping\nGets bot api latency",
             "suggest": "Usage: suggest <suggestion>\nSends a suggestion to the suggestion channel",
             "thiscommandliterallydoesnothing": "Usage: thiscommandliterallydoesnothing\nDo I really need to explain?",
-            "mcping": "Usage: mcping\nPings the minecraft server",
+            "mcping": "Usage: mcping <optional server ip>\nPings a minecraft server",
             "slowmode": "Usage: slowmode <slowmode time in seconds>\nSets the channel slowmode to specified seconds",
             "play": "Usage: play <youtube url>\nPlays a youtube url in your voice chat",
             "join": "Usage: join\nJoins your voice chat",

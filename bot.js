@@ -20,6 +20,7 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 
 const Discord = require('discord.js');
 const Webhook = require('discord.js');
+const { Attatchment } = require('discord.js')
 const path = require("path")
 const fs = require("fs")
 const discordInv = require('discord-inv');
@@ -616,23 +617,36 @@ client.on('message', message => {
 	let googlenospace = googlespace.replace(` ` , "%20")
 	message.channel.send(`https://lmgtfy.app/?q=${googlenospace}`)
 } else if (command === 'mcping') {
-	util.status('mckineticsmp.com') //pings the minecraft server
+	let pingme = 'mckineticsmp.com'
+	if(args.length) {
+		pingme = args[0]
+	}
+	util.status(pingme) //pings the minecraft server
 		.then((response) => {
 			const mcpingembed = new Discord.MessageEmbed()
-			.setTitle('mckinticsmp.com')
+			.setTitle(pingme)
 			.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
-			.setThumbnail(response.favicon)
+			.setThumbnail('https://i.imgur.com/UWhnOZO.png')
 			.setColor('#0ffc03')
-			message.channel.send(mcpingembed)
+			message.channel.send(mcpingembed).catch((err) => {
+				console.log(err)
+				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+				message.channel.send('Error sending embed')
+			})
 		})
 		.catch((error) => {
+			console.log(error)
 			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(error)}\n`) //stuff to do if it wont get a response
 			const mcpingembed = new Discord.MessageEmbed()
 			.setTitle('mckineticsmp.com')
 			.setDescription(`**Online players:** server offline\n**Server version:** server offline\n**Latency:** server offline\n**Motd:** server offline`)
 			.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 			.setColor('#fc0303')
-			message.channel.send(mcpingembed)
+			message.channel.send(mcpingembed).catch((err) => {
+				console.log(err)
+				fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
+				message.channel.send('Error sending embed.')
+			})
 		})
 } else if (command === 'hibernate') {
 	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
