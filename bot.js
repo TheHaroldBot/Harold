@@ -668,12 +668,7 @@ client.on('message', message => {
 	got('https://sochain.com/api/v2/get_price/DOGE/USD') //get that dogecoin
 	.then(response => {
 		let data = JSON.parse(response.body)
-		const dogeembed = new Discord.MessageEmbed()
-		.setTitle('Dogecoin Data')
-		.setURL('https://www.coindesk.com/price/dogecoin')
-		.setColor('RANDOM')
-		.setDescription(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
-		message.channel.send(dogeembed)
+		message.channel.send(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
 	})
 }
 
@@ -733,12 +728,7 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 	got('https://sochain.com/api/v2/get_price/DOGE/USD')
 	.then(response => {
 		let data = JSON.parse(response.body)
-		const dogeembed = new Discord.MessageEmbed()
-		.setTitle('Dogecoin Data')
-		.setURL('https://www.coindesk.com/price/dogecoin')
-		.setColor('RANDOM')
-		.setDescription(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
-		message.channel.send(dogeembed)
+		message.channel.send(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
 	})
 }
 
