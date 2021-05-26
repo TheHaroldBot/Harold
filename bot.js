@@ -621,7 +621,7 @@ client.on('message', message => {
 	if(args.length) {
 		pingme = args[0]
 	}
-	util.status(pingme) //pings the minecraft server
+	util.status(pingme) //pings a minecraft server
 		.then((response) => {
 			const mcpingembed = new Discord.MessageEmbed()
 			.setTitle(pingme)
@@ -649,13 +649,13 @@ client.on('message', message => {
 			})
 		})
 } else if (command === 'hibernate') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.'))
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.')) //sleepy boi
 	message.channel.send('Goodbye!')
 	Hibernate(client);
 } else if (command === 'thiscommandmightdosomething') {
 	message.channel.send('That command may or may not have done something.')
 } else if (command === 'save') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can save files to my hard drive.'))
+	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can save files to my hard drive.')) //lets save some files
 	if(!message.attachments.length) return(message.channel.send('You have to attatch a file to save!'))
 	fetch(message.attachments.first().url)
 	.then(res => {
@@ -664,6 +664,17 @@ client.on('message', message => {
 	});
 } else if (command === 'paradox') {
 	message.channel.send('The next sentence is false.\nThe previous sentence is true')
+} else if (command === 'doge') {
+	got('https://sochain.com/api/v2/get_price/DOGE/USD') //get that dogecoin
+	.then(response => {
+		let data = JSON.parse(response.body)
+		const dogeembed = new Discord.MessageEmbed()
+		.setTitle('Dogecoin Data')
+		.setURL('https://www.coindesk.com/price/dogecoin')
+		.setColor('RANDOM')
+		.setDescription(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
+		message.channel.send(dogeembed)
+	})
 }
 
 });
@@ -675,12 +686,6 @@ if(blocked.blocked.includes(message.author.id)) return
 let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
 if(ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
 if(message.webhookID) return;
-if(message.mentions.users.first()) { //checks if message mentions someone
-	if(message.mentions.users.first().presence.status === 'dnd') { //checks if first mentioned person had do not disturb on
-	if(message.author.bot) return //if bot, ignore
-	message.channel.send(`Hey <@${message.author.id}>, ${message.mentions.members.first().displayName} has do not disturb on, they clearly dont want to be mentioned.`) //shame them for pinging a dnd person
- }
-}
 if(message.author.presence.status === 'offline') { //checks if author is offline
  if(message.author.bot) return //if author is bot, forget them
  var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
@@ -724,6 +729,17 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 } else if (message.content.includes('pollupdown')) { //poll upvote/downvote
 	message.react('👍')
 	message.react('👎')
+} else if (message.content.includes('doge') || message.content.includes('dogecoin')) { //dogecoin woo
+	got('https://sochain.com/api/v2/get_price/DOGE/USD')
+	.then(response => {
+		let data = JSON.parse(response.body)
+		const dogeembed = new Discord.MessageEmbed()
+		.setTitle('Dogecoin Data')
+		.setURL('https://www.coindesk.com/price/dogecoin')
+		.setColor('RANDOM')
+		.setDescription(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
+		message.channel.send(dogeembed)
+	})
 }
 
 });
