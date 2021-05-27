@@ -670,6 +670,15 @@ client.on('message', message => {
 		let data = JSON.parse(response.body)
 		message.channel.send(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
 	})
+} else if (command === 'bored') {
+	got('https://www.boredapi.com/api/activity') //im bored
+	.then(response => {
+		let data = JSON.parse(response)
+		const boredembed = new Discord.MessageEmbed()
+		.setTitle('Bored? Try this:')
+		.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price}/1`)
+		message.channel.send(boredembed)
+	})
 }
 
 });
