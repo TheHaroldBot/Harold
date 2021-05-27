@@ -8,7 +8,7 @@
     "i": "^0.3.6",
     "minecraft-server-util": "^3.5.1",
     "node-fetch": "^2.6.1",
-    "npm": "^7.7.1",
+    "npm": "^7.14.0",
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "remove-from-array": "^0.1.0",
