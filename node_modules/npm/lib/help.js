@@ -9,7 +9,7 @@ const BaseCommand = require('./base-command.js')
 // Strips out the number from foo.7 or foo.7. or foo.7.tgz
 // We don't currently compress our man pages but if we ever did this would
 // seemlessly continue supporting it
-const manNumberRegex = /\.(\d+)(\..*)?$/
+const manNumberRegex = /\.(\d+)(\.[^/\\]*)?$/
 
 class Help extends BaseCommand {
   /* istanbul ignore next - see test/lib/load-all-commands.js */
@@ -25,6 +25,11 @@ class Help extends BaseCommand {
   /* istanbul ignore next - see test/lib/load-all-commands.js */
   static get usage () {
     return ['<term> [<terms..>]']
+  }
+
+  /* istanbul ignore next - see test/lib/load-all-commands.js */
+  static get params () {
+    return ['viewer']
   }
 
   async completion (opts) {
@@ -77,7 +82,7 @@ class Help extends BaseCommand {
       if (aManNumber !== bManNumber)
         return aManNumber - bManNumber
 
-      return a.localeCompare(b)
+      return a.localeCompare(b, 'en')
     })
     const man = mans[0]
 

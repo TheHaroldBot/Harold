@@ -17,6 +17,11 @@ class Bugs extends BaseCommand {
     return ['[<pkgname>]']
   }
 
+  /* istanbul ignore next - see test/lib/load-all-commands.js */
+  static get params () {
+    return ['browser', 'registry']
+  }
+
   exec (args, cb) {
     this.bugs(args).then(() => cb()).catch(cb)
   }
@@ -43,6 +48,9 @@ class Bugs extends BaseCommand {
 
       if (typeof mani.bugs === 'object' && mani.bugs.url)
         return mani.bugs.url
+
+      if (typeof mani.bugs === 'object' && mani.bugs.email)
+        return `mailto:${mani.bugs.email}`
     }
 
     // try to get it from the repo, if possible

@@ -9,7 +9,7 @@ All interactions in the **npm** organization on GitHub are considered to be cove
 **1. Clone this repository...**
 
 ```bash
-$ git clone git@github.com:npm/cli.git
+$ git clone git@github.com:npm/cli.git npm
 ```
 
 **2. Navigate into project & install development-specific dependencies...**
@@ -50,6 +50,10 @@ We've set up an automated [benchmark](https://github.com/npm/benchmarks) integra
 ![image](https://user-images.githubusercontent.com/2818462/72312698-e2e57f80-3656-11ea-9fcf-4a8f6b97b0d1.png)
 
 You can learn more about this tool, including how to run & configure it manually, [here](https://github.com/npm/benchmarks)
+
+## Dependency Updates
+
+It should be noted that our team does not accept third-party dependency updates/PRs. We have a [release process](https://github.com/npm/cli/wiki/Release-Process) that includes checks to ensure dependencies are staying up-to-date & will ship security patches for CVEs as they occur. If you submit a PR trying to update our dependencies we will close it with or without a reference to these contribution guidelines.
 
 ## Reporting Bugs
 
