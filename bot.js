@@ -677,6 +677,7 @@ client.on('message', message => {
 		const boredembed = new Discord.MessageEmbed()
 		.setTitle('Bored? Try this:')
 		.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price}/1`)
+		.setColor('RANDOM')
 		message.channel.send(boredembed)
 	})
 }
