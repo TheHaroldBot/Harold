@@ -638,7 +638,7 @@ client.on('message', message => {
 			console.log(error)
 			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(error)}\n`) //stuff to do if it wont get a response
 			const mcpingembed = new Discord.MessageEmbed()
-			.setTitle('mckineticsmp.com')
+			.setTitle(pingme)
 			.setDescription(`**Online players:** server offline\n**Server version:** server offline\n**Latency:** server offline\n**Motd:** server offline`)
 			.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 			.setColor('#fc0303')
