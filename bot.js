@@ -689,6 +689,22 @@ client.on('message', message => {
 
 });
 
+client.on('clickButton', async (button) => {
+	console.log(`${button.clicker.user.tag} clicked ${button.id}`)
+	if (button.id === 'leavebutton') {
+		button.channel.send('Goodbye!')
+		console.log(`Now leaving ${button.guild.name}`)
+		button.defer()
+		const leavebutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Leave Server')
+		.setID('leavebutton')
+		.setDisabled(true)
+		button.message.edit('Click to confirm:', leavebutton)
+		button.guild.leave()
+	}
+});
+
 client.on('message', message => {
 if(isHibernating){ return(false) } //Bot is Hibernating
 let blocked = JSON.parse(fs.readFileSync('blocked.json'))
@@ -747,27 +763,6 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 	})
 }
 
-});
-
-client.on('clickButton', async (button) => {
-	console.log(`${button.clicker.user.tag} clicked ${button.id}`)
-	if (button.id === 'testbutton') {
-		button.channel.send('You pushed me!')
-		button.defer()
-	} else if (button.id === 'leavebutton') {
-		if(!button.clicker.user.id === buttoncreatorid)
-		button.channel.send('Goodbye!')
-		console.log(`Now leaving ${button.guild.name}`)
-		button.defer()
-		const leavebutton = new disbut.MessageButton()
-		.setStyle('red')
-		.setLabel('Leave Server')
-		.setID('leavebutton')
-		.setDisabled(true)
-		button.message.edit('Click to confirm:', leavebutton)
-		message.channel.send('Goodbye!')
-		button.guild.leave()
-	}
 });
 
 client.login(token); //login
