@@ -19,6 +19,7 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 
 
 const Discord = require('discord.js');
+const client = new Discord.Client();
 const Webhook = require('discord.js');
 const { Attatchment } = require('discord.js')
 const path = require("path")
@@ -28,6 +29,7 @@ const util = require('minecraft-server-util');
 const removeFromArray = require('remove-from-array')
 const got = require('got');
 const ytdl = require("ytdl-core")
+const disbut = require('discord-buttons')(client);
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
@@ -38,11 +40,11 @@ const readline = require('readline').createInterface({
 	input: process.stdin,
 	output: process.stdout
   })
-const client = new Discord.Client();
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
+let buttoncreatorid = ''
 
 
 client.once('ready', () => {
@@ -110,11 +112,11 @@ client.on('message', message => {
 } else if (command === 'help') {
 	if(!args.length) {
 		const helpembed = new Discord.MessageEmbed() //ooo a help command, not always up to date, because i forget, or i just dont care
-	.setColor('RANDOM')
-	.setTitle('Help Page')
-	.addFields(
+		.setColor('RANDOM')
+		.setTitle('Help Page')
+		.addFields(
 		{ name: '**Categories:**', value: 'General\nUtility\nMusic\nFun\nPolls'}
-	)
+		)
 	message.channel.send(helpembed);
 	} else {
 		const commands = JSON.parse((fs.readFileSync('./help.json')))
@@ -333,9 +335,12 @@ client.on('message', message => {
 	if ((!message.member.hasPermission('MANAGE_WEBHOOKS'))) {
 		message.channel.send('You need MANAGE_WEBHOOKS permission to do that!')
 	} else {
-		message.channel.send('Goodbye!')
-		console.log(`Now leaving ${message.guild.name}`)
-		message.guild.leave()
+		buttoncreator = message.author.id
+		const leavebutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Leave Server')
+		.setID('leavebutton')
+		message.channel.send('Click to confirm:', leavebutton)
 	}
 } else if (command === 'setstream') {
 	if (!message.author.id === ownerid) {
@@ -742,6 +747,27 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 	})
 }
 
+});
+
+client.on('clickButton', async (button) => {
+	console.log(`${button.clicker.user.tag} clicked ${button.id}`)
+	if (button.id === 'testbutton') {
+		button.channel.send('You pushed me!')
+		button.defer()
+	} else if (button.id === 'leavebutton') {
+		if(!button.clicker.user.id === buttoncreatorid)
+		button.channel.send('Goodbye!')
+		console.log(`Now leaving ${button.guild.name}`)
+		button.defer()
+		const leavebutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Leave Server')
+		.setID('leavebutton')
+		.setDisabled(true)
+		button.message.edit('Click to confirm:', leavebutton)
+		message.channel.send('Goodbye!')
+		button.guild.leave()
+	}
 });
 
 client.login(token); //login
