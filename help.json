@@ -24,15 +24,16 @@
             "yomama": "Usage: yomama\nGets a random yo mama joke",
             "joke": "Usage: joke\nGets a random joke",
             "google": "Usage: google <search term to google>\nGoogles stuff for you",
-            "thiscommandmightdosomething": "Usage: thiscommandmightdosomething\nMay or may not do something.",
-            "paradox": "Usage: paradox\nGives you a paradox"
+            "thiscommandmightdosomething": "Usage: thiscommandmightdosomething\nMay or may not do something",
+            "paradox": "Usage: paradox\nGives you a paradox",
+            "bored": "Usage: bored\nGives you something to do"
         },
     "list":
         {
             "general": "help | echo | delete | serverinfo | count | yesorno | report | guildicon | ping | suggest | mcping",
             "utility": "slowmode",
             "music": "play | join | leave",
-            "fun": "fact | meme | randomreddit | insult | yomama | joke | google | thiscommandliterallydoesnothing | thiscommandmightdosomething | paradox",
+            "fun": "fact | meme | randomreddit | insult | yomama | joke | google | thiscommandliterallydoesnothing | thiscommandmightdosomething | paradox | bored",
             "polls": "To activate any of these polls, use the action word somewhere in your message.\n**poll2op** - react with: 1️⃣, 2️⃣\n**poll3op** - react with: 1️⃣, 2️⃣, 3️⃣\n**poll4op** - react with: 1️⃣, 2️⃣, 3️⃣, 4️⃣\n**pollyn** - react with: 🇾, 🇳\n**pollupdown** - react with: 👍, 👎"
         },
     "categories": ["general", "utility", "music", "fun", "polls"]

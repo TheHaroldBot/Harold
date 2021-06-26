@@ -35,6 +35,7 @@ const fetch = require('node-fetch');
 const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
 const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
 const { token, ownerid, botid, ignoreofflinecallout, ignore } = require('./config.json');
+const { captureRejectionSymbol } = require('events');
 const prefix = "*"
 const readline = require('readline').createInterface({
 	input: process.stdin,
@@ -44,7 +45,6 @@ var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
-let buttoncreatorid = ''
 
 
 client.once('ready', () => {
@@ -68,7 +68,7 @@ const Hibernate = (client) => {
 
 client.on('message', message => {
   if(message.content.includes(`${prefix}hibernate_off`)) { //hibernate off listener
-	  if(message.author.id !== ownerid) return
+	  if(!ownerid.includes(message.author.id)) return
 	  isHibernating = false
 	  client.user.setPresence({ //Sets detailed presence
         activity: {
@@ -198,10 +198,14 @@ client.on('message', message => {
 	message.delete()
 	message.channel.send(introembed)
 } else if (command === 'shutdown') {
-	if(message.author.id !== ownerid) {
+	if(!ownerid.includes(message.author.id)) {
 		return message.channel.send("Sorry! Only the bot owner can do that.") //kills the bot, snipes it in the head
 	} else {
-		client.destroy()
+		const shutdownbutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Shutdown')
+		.setID('shutdownbutton')
+		message.channel.send('Click to confirm:', shutdownbutton)
 	}
 } else if (command === 'invite') {
 	message.channel.send("https://discord.gg/dRmgSzhbVt") //gets discord invite for kinetic smp, i dont feel like automating it
@@ -223,7 +227,7 @@ client.on('message', message => {
 } else if (command === 'log') {
 	if (!args.length) {
 		return message.channel.send('You didnt say anything to log!') //logs something to console, but only i can, so you dont need to care about it
-	} else if (message.author.id !== ownerid) {
+	} else if (!ownerid.includes(message.author.id)) {
 		return message.channel.send ('Only the bot owner can log messages to the console.')
 	} else {
 		const logcontent = message.content
@@ -234,7 +238,7 @@ client.on('message', message => {
 } else if (command === 'setgame') {
 	if (!args.length) {
 		message.channel.send ('you need to name a status')
-	} else if (message.author.id !== ownerid) {
+	} else if (!ownerid.includes(message.author.id)) {
 		return message.channel.send ('Only the bot owner can change my status.') //sets the game the bot is playing, again, only me
 	} else {
 		client.user.setActivity(message.content.replace(`${prefix}setgame `, ""))
@@ -243,8 +247,8 @@ client.on('message', message => {
 	 
 } else if (command === 'setavatar') {
 	if (!args.length) {
-		message.channel.send ('you need to rovide a url')
-	} else if (message.author.id !== ownerid) {
+		message.channel.send ('you need to provide a url')
+	} else if (!ownerid.includes(message.author.id)) {
 		return message.channel.send ('Only the owner can change my profile picture') //sets the bot avatar, only me can tho
 	} else {
 		client.user.setAvatar(args[0])
@@ -253,7 +257,7 @@ client.on('message', message => {
 } else if (command === 'setstatus') {
 	if (!args.length) {
 		message.channel.send ('You need to provide a status. Allowed values are:\nonline, idle, invisible, dnd') //sets presence, only me again
-	} else if (message.author.id !== ownerid) {
+	} else if (!ownerid.includes(message.author.id)) {
 		return message.channel.send('Only the owner can change my presence')
 	} else if (args[0] === 'online') {
 		client.user.setPresence({ status: 'online' })
@@ -271,7 +275,7 @@ client.on('message', message => {
 		message.channel.send(`Invalid argument: ${args[0]}. Valid arguments are:\nonline, idle, invisible, dnd`)
 	}
 } else if (command === 'ownerhelp') {
-	if (message.author.id !== ownerid) {
+	if (!ownerid.includes(message.author.id)) {
 		return message.channel.send ('Only the bot owner can access this command.') //lists commands for the bot owner (me)
 	} else {
 		const ownerembed = new Discord.MessageEmbed()
@@ -335,7 +339,6 @@ client.on('message', message => {
 	if ((!message.member.hasPermission('MANAGE_WEBHOOKS'))) {
 		message.channel.send('You need MANAGE_WEBHOOKS permission to do that!')
 	} else {
-		buttoncreator = message.author.id
 		const leavebutton = new disbut.MessageButton()
 		.setStyle('red')
 		.setLabel('Leave Server')
@@ -600,7 +603,7 @@ client.on('message', message => {
 			message.channel.send('There was an error completing your request, try again later!')
 		})
 } else if (command === 'block') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can block people on my behalf')) //make the bot ignore people, just dont block urself lol
+	if(!ownerid.includes(message.author.id)) return(message.channel.send('Only the bot owner can block people on my behalf')) //make the bot ignore people, just dont block urself lol
 	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to block!'))
 	let data = JSON.parse(fs.readFileSync('blocked.json'))
 	if(data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is already blocked.'))
@@ -609,7 +612,7 @@ client.on('message', message => {
 	message.channel.send(`Successfully blocked ${message.mentions.users.first().tag}.`)
 
 } else if (command === 'unblock') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can unblock people on my behalf')) //unblocks people, if you block urself you cant unblock urself unless you delete ur id from the file blocked.json
+	if(!ownerid.includes(message.author.id)) return(message.channel.send('Only the bot owner can unblock people on my behalf')) //unblocks people, if you block urself you cant unblock urself unless you delete ur id from the file blocked.json
 	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to unblock!'))
 	let data = JSON.parse(fs.readFileSync('blocked.json'))
 	if(!data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is not blocked.'))
@@ -654,13 +657,16 @@ client.on('message', message => {
 			})
 		})
 } else if (command === 'hibernate') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can make me hibernate.')) //sleepy boi
-	message.channel.send('Goodbye!')
-	Hibernate(client);
+	if(!ownerid.includes(message.author.id)) return(message.channel.send('Only the bot owner can make me hibernate.')) //sleepy boi
+	const hibernatebutton = new disbut.MessageButton()
+	.setStyle('red')
+	.setLabel('Hibernate')
+	.setID('hibernatebutton')
+	message.channel.send('Click to confirm:', hibernatebutton)
 } else if (command === 'thiscommandmightdosomething') {
 	message.channel.send('That command may or may not have done something.')
 } else if (command === 'save') {
-	if(message.author.id !== ownerid) return(message.channel.send('Only the bot owner can save files to my hard drive.')) //lets save some files
+	if(!ownerid.includes(message.author.id)) return(message.channel.send('Only the bot owner can save files to my hard drive.')) //lets save some files
 	if(!message.attachments.length) return(message.channel.send('You have to attatch a file to save!'))
 	fetch(message.attachments.first().url)
 	.then(res => {
@@ -686,23 +692,8 @@ client.on('message', message => {
 		message.channel.send(boredembed)
 	})
 }
+//add post-banned command to provide banned people with options
 
-});
-
-client.on('clickButton', async (button) => {
-	console.log(`${button.clicker.user.tag} clicked ${button.id}`)
-	if (button.id === 'leavebutton') {
-		button.channel.send('Goodbye!')
-		console.log(`Now leaving ${button.guild.name}`)
-		button.defer()
-		const leavebutton = new disbut.MessageButton()
-		.setStyle('red')
-		.setLabel('Leave Server')
-		.setID('leavebutton')
-		.setDisabled(true)
-		button.message.edit('Click to confirm:', leavebutton)
-		button.guild.leave()
-	}
 });
 
 client.on('message', message => {
@@ -763,6 +754,44 @@ if (message.content.includes('poll2op')) { //poll with 2 options
 	})
 }
 
+});
+
+client.on('clickButton', async (button) => {
+	console.log(`${button.clicker.user.tag} clicked ${button.id}`)
+	if (button.id === 'leavebutton') {
+		button.channel.send('Goodbye!')
+		console.log(`Now leaving ${button.guild.name}`)
+		button.defer()
+		const leavebutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Leave Server')
+		.setID('leavebutton')
+		.setDisabled(true)
+		button.message.edit('Click to confirm:', leavebutton)
+		button.guild.leave()
+	} else if (button.id === 'shutdownbutton') {
+		if (button.clicker.user.id !== ownerid) return(button.reply.send('Only the bot owner can press this button!', true))
+		const shutdownbutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Shutdown')
+		.setID('shutdownbutton')
+		.setDisabled(true)
+		await button.message.edit('Click to confirm:', shutdownbutton)
+		await button.defer()
+		await button.channel.send('Goodbye!')
+		client.destroy()
+		process.exit()
+	} else if (button.id === 'hibernatebutton') {
+		if (button.clicker.user.id !== ownerid) return(button.reply.send('Only the bot owner can press this button!', true))
+		const hibernatebutton = new disbut.MessageButton()
+		.setStyle('red')
+		.setLabel('Hibernate')
+		.setID('hibernatebutton')
+		.setDisabled(true)
+		button.message.edit('Click to confirm:', hibernatebutton)
+		button.reply.send('Goodnight!')
+		Hibernate(client);
+	}
 });
 
 client.login(token); //login
