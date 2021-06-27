@@ -77,9 +77,9 @@ client.on('message', message => {
       console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
   }
     if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
-    let botblocked = JSON.parse(fs.readFileSync('blocked.json'))
+    let botblocked = JSON.parse(fs.readFileSync('config.json'))
     if(botblocked.blocked.includes(ownerid) && message.author.id === ownerid) {
-        message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the blocked.json file to remove yourself.')
+        message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.')
         return
     }
     if(botblocked.blocked.includes(message.author.id)) return
@@ -139,7 +139,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-    let blocked = JSON.parse(fs.readFileSync('blocked.json'))
+    let blocked = JSON.parse(fs.readFileSync('config.json'))
     if(blocked.blocked.includes(message.author.id)) return
     let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
     if(ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
