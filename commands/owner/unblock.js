@@ -11,10 +11,10 @@ module.exports = {
 	ownerOnly: true, //need to be the owner? delete line if no
 	aliases: [],
 	execute(message, args, prefix) { //inside here command stuff
-		let data = JSON.parse(fs.readFileSync('././blocked.json'))
+		let data = JSON.parse(fs.readFileSync('././config.json'))
     	if(!data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is not blocked.'))
     	removeFromArray(data.blocked, message.mentions.users.first().id)
-	    fs.writeFileSync('././blocked.json', JSON.stringify(data))
+	    fs.writeFileSync('././config.json', JSON.stringify(data))
 	    message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`)
 	},
 };

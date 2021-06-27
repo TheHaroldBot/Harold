@@ -131,7 +131,7 @@ client.on('message', message => {
     
 
 	try {
-		command.execute(message, args, prefix, client, ownerid, Hibernate);
+		command.execute(message, args, prefix, client, ownerid);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
