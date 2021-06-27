@@ -61,21 +61,6 @@ for (const folder of commandFolders) {
 	}
 }
 
-
-let isHibernating = false; //Global (top level) variable
-const Hibernate = (client) => {
-    if(!client){ return(false) }
-    client.user.setPresence({ //Sets detailed presence
-        activity: {
-            name: "Hibernation",
-            type: "PLAYING"
-        },
-        status: 'idle',
-        afk: true
-    });
-    isHibernating = true;
-}
-
 client.on('ready', () => {
     console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
 	console.log('Copyright info: https://github.com/johng3587/KineticSMPBot/blob/main/LICENCE\n\n')
@@ -83,21 +68,6 @@ client.on('ready', () => {
 
 client.on('message', message => {
     const { cooldowns } = client;
-	if(message.content.includes(`${prefix}hibernate_off`)) { //hibernate off listener
-        if(!isHibernating) return
-        if(!ownerid.includes(message.author.id)) return
-        isHibernating = false
-        client.user.setPresence({ //Sets detailed presence
-          activity: {
-              name: "",
-              type: "PLAYING"
-          },
-          status: 'online',
-          afk: false
-      });
-      message.channel.send('Im back!')
-    }
-    if(isHibernating){ return(false) } //Bot is Hibernating
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
      if(message.webhookID) return;
@@ -125,9 +95,24 @@ client.on('message', message => {
     if (command.disabled) {
         return
     }
+    if (command.guildOnly === true) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
     if (command.ownerOnly === true) {
         if(!ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
     }
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+
+    if (timestamps.has(message.author.id)) {
+        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    
+        if (now < expirationTime) {
+            const timeLeft = (expirationTime - now) / 1000;
+            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+        }
+    }
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (command.permissions) {
         const authorPerms = message.channel.permissionsFor(message.author);
         if (!authorPerms || !authorPerms.has(command.permissions)) {
@@ -143,25 +128,10 @@ client.on('message', message => {
     
         return message.channel.send(reply);
     }
-
-    const now = Date.now();
-    const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown || 3) * 1000;
-
-    if (timestamps.has(message.author.id)) {
-        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-    
-        if (now < expirationTime) {
-            const timeLeft = (expirationTime - now) / 1000;
-            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-        }
-    }
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     
 
 	try {
-		command.execute(message, args, prefix, client, ownerid);
+		command.execute(message, args, prefix, client, ownerid, Hibernate);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
@@ -169,7 +139,6 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-    if(isHibernating){ return(false) } //Bot is Hibernating
     let blocked = JSON.parse(fs.readFileSync('blocked.json'))
     if(blocked.blocked.includes(message.author.id)) return
     let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
@@ -230,7 +199,7 @@ client.on('message', message => {
     
     });
 
-    client.on('clickbutton', async (button) => {
+    client.on('clickButton', async (button) => {
         console.log(`${button.clicker.user.tag} clicked ${button.id}`)
         if (button.id === 'leavebutton') {
             button.channel.send('Goodbye!')

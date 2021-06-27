@@ -610,7 +610,7 @@ client.on('message', message => {
 	message.channel.send(`Successfully blocked ${message.mentions.users.first().tag}.`)
 
 } else if (command === 'unblock') {
-	if(!ownerid.includes(message.author.id)) return(message.channel.send('Only the bot owner can unblock people on my behalf')) //unblocks people, if you block urself you cant unblock urself unless you delete ur id from the file blocked.json
+	if(!ownerid.includes(message.author.id)) return(message.channel.shiend('Only the bot owner can unblock people on my behalf')) //unblocks people, if you block urself you cant unblock urself unless you delete ur id from the file blocked.json
 	if(!message.mentions.users.first()) return(message.channel.send('You need to mention someone to unblock!'))
 	let data = JSON.parse(fs.readFileSync('blocked.json'))
 	if(!data.blocked.includes(message.mentions.users.first().id)) return(message.channel.send('That person is not blocked.'))
