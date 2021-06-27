@@ -49,7 +49,7 @@ var yyyy = today.getFullYear();
 
 client.once('ready', () => {
 	console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
-	console.log('Copyright info: https://github.com/Kinetic-SMP/KineticSMPBot/blob/main/LICENCE\n\n')
+	console.log('Copyright info: https://github.com/johng3587/KineticSMPBot/blob/main/LICENCE\n\n')
 });
 
 let isHibernating = false; //Global (top level) variable
@@ -86,14 +86,12 @@ client.on('message', message => {
    if(message.webhookID) return;
    if(message.guild === null) { //log dms
 	console.log(`DM From: ${message.author.tag} > ${message.content}`)
-	fs.appendFileSync('chatlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `DM From: ${message.author.tag} > ${message.content}\n`)
 	if(message.content.startsWith(prefix)) {
 		message.author.send('Commands can only be run from a server, not a dm.') //tell them off for trying to run commands in a dm
 	}
 	return
 } else {
 	console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
-	fs.appendFileSync('chatlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `From: ${message.author.tag} > ${message.content}\n`)
 }
   if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
   let botblocked = JSON.parse(fs.readFileSync('blocked.json'))
