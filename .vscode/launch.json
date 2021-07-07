@@ -13,11 +13,11 @@
             "console": "integratedTerminal"
         },
         {
-                "name": "Kinetic SMP Bot Run",
-                "type": "node",
-                "request": "launch",
-                "skipFiles": ["<node_internals>/**"],
-                "program": "${workspaceFolder}\\bot.js"
+            "name": "Kinetic SMP Bot Run",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}\\index.js"
         }
     ]   
 }

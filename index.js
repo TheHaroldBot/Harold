@@ -62,6 +62,7 @@ for (const folder of commandFolders) {
 }
 
 client.on('ready', () => {
+    console.log(`Ready at: ${client.readyAt}`)
     console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
 	console.log('Copyright info: https://github.com/johng3587/KineticSMPBot/blob/main/LICENCE\n\n')
 })
@@ -129,12 +130,11 @@ client.on('message', message => {
         return message.channel.send(reply);
     }
     
-
 	try {
 		command.execute(message, args, prefix, client, ownerid);
 	} catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		message.reply('There was an error trying to execute that command!');
 	}
 });
 
@@ -197,44 +197,51 @@ client.on('message', message => {
         message.channel.send('<a:heyyagoose:858742342974177290>')
     }
     
-    });
+});
 
-    client.on('clickButton', async (button) => {
-        console.log(`${button.clicker.user.tag} clicked ${button.id}`)
-        if (button.id === 'leavebutton') {
-            button.channel.send('Goodbye!')
-            console.log(`Now leaving ${button.guild.name}`)
-            button.defer()
-            const leavebutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Leave Server')
-            .setID('leavebutton')
-            .setDisabled(true)
-            button.message.edit('Click to confirm:', leavebutton)
-            button.guild.leave()
-        } else if (button.id === 'shutdownbutton') {
-            if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
-            const shutdownbutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Shutdown')
-            .setID('shutdownbutton')
-            .setDisabled(true)
-            button.message.edit('Click to confirm:', shutdownbutton)
-            button.defer()
-            button.channel.send('Goodbye!')
-            client.destroy()
-            process.exit()
-        } else if (button.id === 'hibernatebutton') {
-            if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
-            const hibernatebutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Hibernate')
-            .setID('hibernatebutton')
-            .setDisabled(true)
-            button.message.edit('Click to confirm:', hibernatebutton)
-            button.reply.send('Goodnight!')
-            Hibernate(client);
-        }
-    });
+client.on('clickButton', async (button) => {
+    console.log(`${button.clicker.user.tag} clicked ${button.id}`)
+    if (button.id === 'leavebutton') {
+        button.channel.send('Goodbye!')
+        console.log(`Now leaving ${button.guild.name}`)
+        button.defer()
+        const leavebutton = new disbut.MessageButton()
+        .setStyle('red')
+        .setLabel('Leave Server')
+        .setID('leavebutton')
+        .setDisabled(true)
+        button.message.edit('Click to confirm:', leavebutton)
+        button.guild.leave()
+    } else if (button.id === 'shutdownbutton') {
+        if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
+        const shutdownbutton = new disbut.MessageButton()
+        .setStyle('red')
+        .setLabel('Shutdown')
+        .setID('shutdownbutton')
+        .setDisabled(true)
+        button.message.edit('Click to confirm:', shutdownbutton)
+        button.defer()
+        button.channel.send('Goodbye!')
+        client.destroy()
+        process.exit()
+    } else if (button.id === 'hibernatebutton') {
+        if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
+        const hibernatebutton = new disbut.MessageButton()
+        .setStyle('red')
+        .setLabel('Hibernate')
+        .setID('hibernatebutton')
+        .setDisabled(true)
+        button.message.edit('Click to confirm:', hibernatebutton)
+        button.reply.send('Goodnight!')
+        Hibernate(client);
+    }
+ });
+
+client.on('guildCreate', guild => {
+    const introembed = new Discord.MessageEmbed()
+    .setTitle('Hiya!')
+    .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/KineticSMPBot`)
+})
+
     
-client.login(token);
+client.login(token).then(console.log(`Logged in.`))

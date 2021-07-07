@@ -10,7 +10,7 @@ module.exports = {
 	ownerOnly: true, //need to be the owner? delete line if no
 	execute(message, args, prefix, client) { //inside here command stuff
         const commandName = args[0].toLowerCase();
-		const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
+		const command = message.client.commands.get(commandName) || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
         if (!command) {
 			return message.channel.send(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
 		}
