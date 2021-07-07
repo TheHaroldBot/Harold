@@ -95,7 +95,9 @@ client.on('message', message => {
     if (command.disabled) {
         return
     }
-    if (command.guildOnly === true) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
+    if (command.guildOnly === true) {
+	    if(message.guild === null) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
+    }
     if (command.ownerOnly === true) {
         if(!ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
     }
