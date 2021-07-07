@@ -1,7 +1,6 @@
 config.json
 supersecretstuffthattotallyexistsandisntjusthereforshow.json
 blocked.json
-/node_modules
 /.vscode
 /errorlogs
 /images

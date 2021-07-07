@@ -32,8 +32,6 @@ const ytdl = require("ytdl-core")
 const disbut = require('discord-buttons')
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
-const reportwebhook = new Discord.WebhookClient('809818709144633415', 'JW8sEYjgkYlG7pbg0Go4jb4-HYI6OgyRzh__OB4ZP2cNlsFnQ1dRn-uqCfaVmX0OsNG-')
-const suggestionwebhook = new Discord.WebhookClient('824303438292582451', 'Ux76_IeqplB1IQdBSPrS7iQ5Wzalpfn1iP3-H78UKbNt-AQsAXVGmDf__1aTQA3jg2C7')
 const { token, ownerid, botid, ignoreofflinecallout, ignore } = require('./config.json');
 const { captureRejectionSymbol } = require('events');
 const prefix = "*"
@@ -93,13 +91,9 @@ client.on('message', message => {
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Discord.Collection());
     }
-    if (command.disabled) {
-        return
-    }
-    if (command.guildOnly === true) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
-    if (command.ownerOnly === true) {
-        if(!ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
-    }
+    if (command.disabled) return
+    if (command.guildOnly === true && message.guild === null) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
+    if (command.ownerOnly === true && !ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 3) * 1000;
