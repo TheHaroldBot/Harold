@@ -92,15 +92,9 @@ client.on('message', message => {
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Discord.Collection());
     }
-    if (command.disabled) {
-        return
-    }
-    if (command.guildOnly === true) {
-	    if(message.guild === null) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
-    }
-    if (command.ownerOnly === true) {
-        if(!ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
-    }
+    if (command.disabled) return
+    if (command.guildOnly === true && message.guild === null) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
+    if (command.ownerOnly === true && !ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 3) * 1000;
