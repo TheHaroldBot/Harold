@@ -4,7 +4,6 @@ const ytdl = require("ytdl-core")
 module.exports = {
 	name: 'play', //command name
 	description: 'Play a youtube video in a voice chat', //command description
-	args: true, //needs arguments? delete line if no
     usage: `<Youtube video link>`, //usage instructions w/o command name and prefix
     guildOnly: true, //execute in a guild only? remove line if no
 	cooldown: 5, //cooldown in seconds, defaults to 3

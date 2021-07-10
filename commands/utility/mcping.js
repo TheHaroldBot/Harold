@@ -6,8 +6,7 @@ module.exports = {
 	description: 'Pings a minecraft server', //command description
 	args: true, //needs arguments? delete line if no
     usage: `<Java server ip and port>`, //usage instructions w/o command name and prefix
-	cooldown: 5, //cooldown in seconds, defaults to 3
-	ownerOnly: true, //need to be the owner? delete line if no
+	cooldown: 10, //cooldown in seconds, defaults to 3
 	aliases: ['pingmc'],
 	execute(message, args, prefix) { //inside here command stuff
 		util.status(args[0]) //pings a minecraft server

@@ -32,7 +32,7 @@ const ytdl = require("ytdl-core")
 const disbut = require('discord-buttons')
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
-const { token, ownerid, botid, ignoreofflinecallout, ignore } = require('./config.json');
+const { token, ownerid, botid } = require('./config.json');
 const { captureRejectionSymbol } = require('events');
 const prefix = "*"
 const readline = require('readline').createInterface({
@@ -139,9 +139,9 @@ client.on('message', message => {
     if(ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
     if(message.webhookID) return;
     if(message.author.presence.status === 'offline') { //checks if author is offline
-     if(message.author.bot) return //if author is bot, forget them
-     var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
-     if(calloutoffline === true) { //if said die lands on 10, continue
+    if(message.author.bot) return //if author is bot, forget them
+    var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
+    if(calloutoffline === true) { //if said die lands on 10, continue
         let ignorecallout = JSON.parse(fs.readFileSync('config.json'))
         if(ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
         message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
