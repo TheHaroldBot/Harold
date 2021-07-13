@@ -5,7 +5,6 @@ module.exports = {
 	name: 'bugreport',
 	description: 'Report a bug to the developer.',
 	args: true,
-    ownerOnly: true,
     usage: `<message>`,
 	cooldown: 0,
 	aliases: ['messagedevs', 'telldevs', 'dmdevs'],
