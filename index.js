@@ -32,7 +32,7 @@ const ytdl = require("ytdl-core")
 const disbut = require('discord-buttons')
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
-const { token, ownerid, botid } = require('./config.json');
+const { token, ownerids, botid } = require('./config.json');
 const { captureRejectionSymbol } = require('events');
 const prefix = "*"
 const readline = require('readline').createInterface({
@@ -77,7 +77,7 @@ client.on('message', message => {
   }
     if(!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
     let botblocked = JSON.parse(fs.readFileSync('config.json'))
-    if(botblocked.blocked.includes(ownerid) && message.author.id === ownerid) {
+    if(botblocked.blocked.includes(ownerids) && message.author.id === ownerids) {
         message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.')
         return
     }
@@ -93,7 +93,7 @@ client.on('message', message => {
     }
     if (command.disabled) return
     if (command.guildOnly === true && message.guild === null) return(message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
-    if (command.ownerOnly === true && !ownerid.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
+    if (command.ownerOnly === true && !ownerids.includes(message.author.id)) return(message.channel.send('Sorry! This command is reserved for the bot owner(s)'))
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 3) * 1000;
@@ -125,7 +125,7 @@ client.on('message', message => {
     }
     
 	try {
-		command.execute(message, args, prefix, client, ownerid);
+		command.execute(message, args, prefix, client, ownerids);
 	} catch (error) {
 		console.error(error);
 		message.reply('There was an error trying to execute that command!');
@@ -207,7 +207,7 @@ client.on('clickButton', async (button) => {
         button.message.edit('Click to confirm:', leavebutton)
         button.guild.leave()
     } else if (button.id === 'shutdownbutton') {
-        if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
+        if (!ownerids.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
         const shutdownbutton = new disbut.MessageButton()
         .setStyle('red')
         .setLabel('Shutdown')
@@ -219,7 +219,7 @@ client.on('clickButton', async (button) => {
         client.destroy()
         process.exit()
     } else if (button.id === 'hibernatebutton') {
-        if (!ownerid.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
+        if (!ownerids.includes(button.clicker.user.id)) return(button.reply.send('Only the bot owner can press this button!', true))
         const hibernatebutton = new disbut.MessageButton()
         .setStyle('red')
         .setLabel('Hibernate')
