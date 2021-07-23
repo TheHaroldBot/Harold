@@ -17,9 +17,9 @@ module.exports = {
             .setTitle('New bug report!')
             .addField('Info', `From ${message.author.tag}`)
             .setColor('RANDOM')
-            .addField('Description', message.content.replace(`${prefix}bugreport `, ""))
+            .addField('Description', message.content)
             dmme.send(bugreportembed)
         } 
-        message.channel.send('Sent!')
+        message.channel.send('Sent! If you receive a friend request from one of the owners, they might want to talk more.')
 	},
 };

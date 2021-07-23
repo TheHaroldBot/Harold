@@ -48,7 +48,6 @@ client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.aliases = new Discord.Collection()
 
-
 const commandFolders = fs.readdirSync('./commands');
 
 for (const folder of commandFolders) {
@@ -163,16 +162,10 @@ client.on('message', message => {
         message.react('4️⃣')
     } else if (message.content === 'f') { //f
         message.channel.send('f')
-    } else if (message.content.includes('oof')) { //oof
-        message.channel.send('oof')
-    } else if (message.content.includes('minecraft')) { //minecraft is good
-        message.channel.send('gud')
     } else if (message.content.includes('hehe')) { //hehehe
         message.channel.send('hehehe')
     } else if (message.content.includes('smae')) { //its spelled 'same'
         message.channel.send('*same')
-    } else if (message.content.includes('giu')) { //cutie giu
-        message.channel.send('is cute')
     } else if (message.content.includes('pollyn')) { //poll yes or no
         message.react('🇾')
         message.react('🇳')
