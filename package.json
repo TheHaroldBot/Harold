@@ -9,6 +9,7 @@
     "got": "^11.8.2",
     "i": "^0.3.6",
     "minecraft-server-util": "^3.5.1",
+    "node": "^16.6.0",
     "node-fetch": "^2.6.1",
     "npm": "^7.14.0",
     "opusscript": "^0.0.8",
