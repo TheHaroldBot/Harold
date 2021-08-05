@@ -19,6 +19,7 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 
 
 const Discord = require('discord.js');
+require('djs-linereply');
 const client = new Discord.Client();
 const Webhook = require('discord.js');
 const { Attatchment } = require('discord.js')
@@ -102,7 +103,7 @@ client.on('message', message => {
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            return message.lineReplyNoMention(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
     }
     timestamps.set(message.author.id, now);
@@ -110,24 +111,24 @@ client.on('message', message => {
     if (command.permissions) {
         const authorPerms = message.channel.permissionsFor(message.author);
         if (!authorPerms || !authorPerms.has(command.permissions)) {
-            return message.reply(`You are missing ${command.permissions} to do this!`);
+            return message.lineReplyNoMention(`You are missing ${command.permissions} to do this!`);
         }
     }
     if (command.args && !args.length) {
-        let reply = `You didn't provide any arguments, ${message.author}!`;
+        let reply = `You didn't provide any arguments!`;
 
         if (command.usage) {
             reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
         }
 
-        return message.channel.send(reply);
+        return message.lineReplyNoMention(reply);
     }
 
     try {
         command.execute(message, args, prefix, client, ownerids);
     } catch (error) {
         console.error(error);
-        message.reply('There was an error trying to execute that command!');
+        message.lineReplyNoMention('There was an error trying to execute that command!');
     }
 });
 
@@ -186,48 +187,12 @@ client.on('message', message => {
 
 });
 
-client.on('clickButton', async (button) => {
-    console.log(`${button.clicker.user.tag} clicked ${button.id}`)
-    if (button.id === 'leavebutton') {
-        button.channel.send('Goodbye!')
-        console.log(`Now leaving ${button.guild.name}`)
-        button.defer()
-        const leavebutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Leave Server')
-            .setID('leavebutton')
-            .setDisabled(true)
-        button.message.edit('Click to confirm:', leavebutton)
-        button.guild.leave()
-    } else if (button.id === 'shutdownbutton') {
-        if (!ownerids.includes(button.clicker.user.id)) return (button.reply.send('Only the bot owner can press this button!', true))
-        const shutdownbutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Shutdown')
-            .setID('shutdownbutton')
-            .setDisabled(true)
-        button.message.edit('Click to confirm:', shutdownbutton)
-        button.defer()
-        button.channel.send('Goodbye!')
-        client.destroy()
-        process.exit()
-    } else if (button.id === 'hibernatebutton') {
-        if (!ownerids.includes(button.clicker.user.id)) return (button.reply.send('Only the bot owner can press this button!', true))
-        const hibernatebutton = new disbut.MessageButton()
-            .setStyle('red')
-            .setLabel('Hibernate')
-            .setID('hibernatebutton')
-            .setDisabled(true)
-        button.message.edit('Click to confirm:', hibernatebutton)
-        button.reply.send('Goodnight!')
-        Hibernate(client);
-    }
-});
-
 client.on('guildCreate', guild => {
     const introembed = new Discord.MessageEmbed()
         .setTitle('Hiya!')
+        .setColor('RANDOM')
         .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/KineticSMPBot`)
+        guild.owner.send(introembed)
 })
 
 
