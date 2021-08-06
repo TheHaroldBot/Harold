@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-require('djs-linereply');
 const fs = require("fs")
 const fetch = require('node-fetch');
 
@@ -12,11 +11,11 @@ module.exports = {
     ownerOnly: true, //need to be the owner? delete line if no
     aliases: [],
     execute(message, args, prefix) { //inside here command stuff
-        if (!message.attachments) return (message.lineReplyNoMention('You have to attatch a file to save!'))
+        if (!message.attachments) return (message.reply('You have to attatch a file to save!'))
         fetch(message.attachments.first().url)
             .then(res => {
                 const dest = fs.createWriteStream(`./saved/${message.attachments.first().name}`);
                 res.body.pipe(dest);
             });
-        message.lineReplyNoMention('Saved!')
+        message.reply('Saved!')
     }};

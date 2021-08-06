@@ -17,12 +17,8 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 */
 
 
-
-const Discord = require('discord.js');
-require('djs-linereply');
-const client = new Discord.Client();
-const Webhook = require('discord.js');
-const { Attatchment } = require('discord.js')
+const { Client, Intents, Collection} = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const path = require("path")
 const fs = require("fs")
 const discordInv = require('discord-inv');
@@ -30,7 +26,6 @@ const util = require('minecraft-server-util');
 const removeFromArray = require('remove-from-array')
 const got = require('got');
 const ytdl = require("ytdl-core")
-const disbut = require('discord-buttons')
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const { token, ownerids, botid } = require('./config.json');
@@ -45,9 +40,9 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
-client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
-client.aliases = new Discord.Collection()
+client.commands = new Collection();
+client.cooldowns = new Collection();
+client.aliases = new Collection()
 
 const commandFolders = fs.readdirSync('./commands');
 
@@ -65,7 +60,7 @@ client.on('ready', () => {
     console.log('Copyright info: https://github.com/johng3587/KineticSMPBot/blob/main/LICENCE\n\n')
 })
 
-client.on('message', message => {
+client.on('messageCreate', message => {
     const { cooldowns } = client;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
@@ -89,7 +84,7 @@ client.on('message', message => {
 
 
     if (!cooldowns.has(command.name)) {
-        cooldowns.set(command.name, new Discord.Collection());
+        cooldowns.set(command.name, new Collection());
     }
     if (command.disabled) return
     if (command.guildOnly === true && message.guild === null) return (message.channel.send('Sorry! This command can only be run in a server, not a dm.'))
@@ -103,7 +98,7 @@ client.on('message', message => {
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            return message.lineReplyNoMention(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
     }
     timestamps.set(message.author.id, now);
@@ -111,7 +106,7 @@ client.on('message', message => {
     if (command.permissions) {
         const authorPerms = message.channel.permissionsFor(message.author);
         if (!authorPerms || !authorPerms.has(command.permissions)) {
-            return message.lineReplyNoMention(`You are missing ${command.permissions} to do this!`);
+            return message.reply(`You are missing ${command.permissions} to do this!`);
         }
     }
     if (command.args && !args.length) {
@@ -121,24 +116,24 @@ client.on('message', message => {
             reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
         }
 
-        return message.lineReplyNoMention(reply);
+        return message.reply(reply);
     }
 
     try {
         command.execute(message, args, prefix, client, ownerids);
     } catch (error) {
         console.error(error);
-        message.lineReplyNoMention('There was an error trying to execute that command!');
+        message.reply('There was an error trying to execute that command!');
     }
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
     let blocked = JSON.parse(fs.readFileSync('config.json'))
     if (blocked.blocked.includes(message.author.id)) return
     let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
     if (ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
     if (message.webhookID) return;
-    if (message.author.presence.status === 'offline') { //checks if author is offline
+    /* if (message.author.presence.status === 'offline') { //checks if author is offline
         if (message.author.bot) return //if author is bot, forget them
         var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
         if (calloutoffline === true) { //if said die lands on 10, continue
@@ -146,7 +141,7 @@ client.on('message', message => {
             if (ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
             message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
         }
-    }
+    } */
     if (message.author.id === botid) return
     if (message.guild === null) return
     if (message.content.includes('poll2op')) { //poll with 2 options

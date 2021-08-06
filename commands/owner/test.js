@@ -1,5 +1,4 @@
-const Discord = require('discord.js');
-const { MessageButton } = require('discord.js');
+const { MessageButton, MessageActionRow } = require('discord.js');
 const fs = require("fs")
 
 module.exports = {
@@ -9,12 +8,9 @@ module.exports = {
 	cooldown: 1, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
+	disabled: true,
 	aliases: [],
-	execute(message, args, prefix) { //inside here command stuff
-        const button = new Discord.MessageButton()
-		.setCustomid('testbtn')
-		.setLabel('Push Me')
-		.setStyle('RED')
-		message.channel.send('heyo', button)
+	execute(message, args, prefix) {
+		
 	},
 };
