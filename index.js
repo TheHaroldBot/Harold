@@ -42,7 +42,7 @@ var yyyy = today.getFullYear();
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
-client.aliases = new Collection()
+client.aliases = new Collection();
 
 const commandFolders = fs.readdirSync('./commands');
 
