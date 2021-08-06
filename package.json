@@ -1,8 +1,7 @@
 {
   "dependencies": {
-    "discord-buttons": "^2.4.1",
     "discord-reply": "^0.1.2",
-    "discord.js": "^12.5.1",
+    "discord.js": "^12.5.3",
     "djs-linereply": "^2.3.0",
     "express": "^4.17.1",
     "ffmpeg-static": "^4.2.8",
