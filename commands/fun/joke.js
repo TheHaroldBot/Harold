@@ -17,7 +17,7 @@ module.exports = {
 	        		.setTitle(json.setup)
 	        		.setDescription(json.punchline)
 	        		.setColor('RANDOM')
-	        		message.channel.send(jokeembed)
+	        		message.channel.send({ embeds: [jokeembed]})
 	        	})
 	        	.catch(err => {
 	        		console.log(err)

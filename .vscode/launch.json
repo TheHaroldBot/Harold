@@ -13,7 +13,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Kinetic SMP Bot Run",
+            "name": "Harold Bot Run",
             "type": "node",
             "request": "launch",
             "skipFiles": ["<node_internals>/**"],

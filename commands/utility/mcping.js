@@ -16,7 +16,7 @@ module.exports = {
 			.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 			.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 			.setColor('#0ffc03')
-			message.channel.send(mcpingembed).catch((err) => {
+			message.channel.send({ embeds: [mcpingembed]}).catch((err) => {
 				console.log(err)
 				message.channel.send('Error sending embed')
 			})
@@ -28,7 +28,7 @@ module.exports = {
 			.setDescription(`**Online players:** server offline\n**Server version:** server offline\n**Latency:** server offline\n**Motd:** server offline`)
 			.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 			.setColor('#fc0303')
-			message.channel.send(mcpingembed).catch((err) => {
+			message.channel.send({ embeds: [mcpingembed]}).catch((err) => {
 				console.log(err)
 				message.channel.send('Error sending embed.')
 			})

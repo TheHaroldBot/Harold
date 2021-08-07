@@ -12,6 +12,6 @@ module.exports = {
     	.setColor('RANDOM')
 	    .setTitle(`Guild icon for: ${message.guild.name}`)
 	    .setImage(message.guild.iconURL({ dynamic: true, size: 256})) //gets the guild icon
-    	message.channel.send(guildicon)
+    	message.channel.send({ embeds: [guildicon]})
 	},
 };

@@ -8,7 +8,6 @@ module.exports = {
 	cooldown: .5, //cooldown in seconds, defaults to 3
 	aliases: [],
 	execute(message, args, prefix) { //inside here command stuff
-		const embed = new Discord.MessageEmbed();
         	got('https://www.reddit.com/r/dankmemes/random/.json') //get random meme from r/dankmemes
         		.then(response => {
 	        		const [list] = JSON.parse(response.body);
@@ -32,7 +31,7 @@ module.exports = {
         			.setImage(memeImage)
         			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
-	        		message.channel.send(memeembed).catch(err => {
+	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
 	        			console.log(err)
 	        			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 	        			message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)

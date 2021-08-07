@@ -54,8 +54,8 @@ for (const folder of commandFolders) {
 
 client.on('ready', () => {
     console.log(`Ready at: ${client.readyAt}`)
-    console.log('Kinetic SMP Bot  Copyright (C) 2021  John Gooden')
-    console.log('Copyright info: https://github.com/johng3587/KineticSMPBot/blob/main/LICENCE\n\n')
+    console.log('Harold Bot  Copyright (C) 2021  John Gooden')
+    console.log('Copyright info: https://github.com/johng3587/Harold/blob/main/LICENCE\n\n')
 })
 
 client.on('messageCreate', message => {
@@ -184,8 +184,8 @@ client.on('guildCreate', guild => {
     const introembed = new Discord.MessageEmbed()
         .setTitle('Hiya!')
         .setColor('RANDOM')
-        .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/KineticSMPBot`)
-        guild.owner.send(introembed)
+        .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/Harold`)
+        guild.owner.send({ embeds: [introembed]})
 })
 
 

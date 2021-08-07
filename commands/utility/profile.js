@@ -13,14 +13,14 @@ module.exports = {
             .setColor('RANDOM')
             .setTitle(`Profile Image for: ${pfptarget.tag}`)
             .setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
-            message.channel.send(pfpembed)
+            message.channel.send({ embeds: [pfpembed]})
         } else {
             const pfptarget = message.mentions.users.first()
             const pfpembed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTitle(`Profile Image for: ${pfptarget.tag}`)
             .setImage(pfptarget.avatarURL({ dynamic: true, size: 256}))
-            message.channel.send(pfpembed)
+            message.channel.send({ embeds: [pfpembed]})
         }
 	},
 };

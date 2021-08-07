@@ -15,7 +15,7 @@ module.exports = {
 	        	.setTitle('Bored? Try this:')
 	        	.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price}/1`)
 	        	.setColor('RANDOM')
-	        	message.channel.send(boredembed)
+	        	message.channel.send({ embeds: [boredembed]})
 	        })
 	},
 };

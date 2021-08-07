@@ -18,7 +18,7 @@ module.exports = {
             .addField('Info', `From ${message.author.tag}`)
             .setColor('RANDOM')
             .addField('Description', message.content)
-            dmme.send(bugreportembed)
+            dmme.send({ embeds: [bugreportembed]})
         } 
         message.channel.send('Sent! If you receive a friend request from one of the owners, they might want to talk more.')
 	},

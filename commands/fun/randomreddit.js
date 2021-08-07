@@ -37,7 +37,7 @@ module.exports = {
 		        		.setDescription(description)
 		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
 				
-		        		message.channel.send(redditembed).catch(err => {
+		        		message.channel.send({ embeds: [redditembed]}).catch(err => {
 		        			console.log(err)
 		        			message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 		        		});	
@@ -61,7 +61,7 @@ module.exports = {
 		        	.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
 		        	.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
 
-		        	message.channel.send(redditembed).catch(err => {
+		        	message.channel.send({ embeds: [redditembed]}).catch(err => {
 		        		console.log(err)
 			        	message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 		        	});	

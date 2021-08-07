@@ -18,7 +18,7 @@ module.exports = {
 	        		.setDescription(json.text.replace('`', "'"))
 	        		.setFooter('From djtech.net')
 		        	.setColor('RANDOM')
-	        		message.channel.send(factembed)
+	        		message.channel.send({ embeds: [factembed]})
 	        	})
 	        	.catch(err => {
 	        		console.log(err)

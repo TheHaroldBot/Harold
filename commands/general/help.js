@@ -19,7 +19,7 @@ module.exports = {
             .setDescription('**' + data, { split: true})
             .setColor('RANDOM')
 
-        	return message.author.send(helpembed)
+        	return message.author.send({ embeds: [helpembed]})
 	    	.then(() => {
 			if (message.channel.type === 'dm') return;
 			message.react('📬');
@@ -44,6 +44,6 @@ module.exports = {
         .setTitle(`Name: ${command.name}`)
         .setDescription(data, { split: true})
         .setColor('RANDOM')
-        message.channel.send(helpembed)
+        message.channel.send({ embeds: [helpembed]})
 	},
 };
