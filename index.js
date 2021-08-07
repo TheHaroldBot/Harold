@@ -29,7 +29,6 @@ const ytdl = require("ytdl-core")
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const { token, ownerids, botid } = require('./config.json');
-const { captureRejectionSymbol } = require('events');
 const prefix = "*"
 const readline = require('readline').createInterface({
     input: process.stdin,
@@ -133,7 +132,7 @@ client.on('messageCreate', message => {
     let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
     if (ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
     if (message.webhookID) return;
-    /* if (message.author.presence.status === 'offline') { //checks if author is offline
+   /*  if (message.author.presence.status === 'offline') { //checks if author is offline
         if (message.author.bot) return //if author is bot, forget them
         var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
         if (calloutoffline === true) { //if said die lands on 10, continue
