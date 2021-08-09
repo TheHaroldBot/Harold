@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
     name: 'save', //command name
-    description: 'Information about the arguments provided.', //command description
+    description: 'Saves an attatchment to the bot hard drive.', //command description
     usage: `(add attatchment)`, //usage instructions w/o command name and prefix
     cooldown: 5, //cooldown in seconds, defaults to 3
     permissions: [], //permissions required for command

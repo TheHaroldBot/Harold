@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'leaveguild', //command name
-	description: 'Information about the arguments provided.', //command description
+	description: 'Leaves the server.', //command description
     usage: ``, //usage instructions w/o command name and prefix
     guildOnly: true, //execute in a guild only? remove line if no
 	cooldown: 5, //cooldown in seconds, defaults to 3

@@ -13,6 +13,7 @@
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "remove-from-array": "^0.1.0",
+    "tall": "^4.0.1",
     "ytdl": "^1.4.1",
     "ytdl-core": "^4.9.0"
   }

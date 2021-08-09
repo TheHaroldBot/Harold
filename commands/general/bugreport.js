@@ -14,7 +14,7 @@ module.exports = {
 		for (let i = 0; i < config.ownerids.length; i++) {
             const dmme = message.client.users.cache.get(config.ownerids[i])
             const bugreportembed = new Discord.MessageEmbed()
-            .setTitle('New bug report!')
+            .setTitle('New Message!')
             .addField('Info', `From ${message.author.tag}`)
             .setColor('RANDOM')
             .addField('Description', message.content)

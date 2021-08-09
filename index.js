@@ -16,7 +16,7 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Client, Intents, Collection} = require('discord.js');
+const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const path = require("path")
 const fs = require("fs")
@@ -180,13 +180,13 @@ client.on('messageCreate', message => {
 
 });
 
-client.on('guildCreate', guild => {
-    const introembed = new Discord.MessageEmbed()
+/* client.on('guildCreate', guild => {
+    const introembed = new MessageEmbed()
         .setTitle('Hiya!')
         .setColor('RANDOM')
         .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/Harold`)
-        guild.owner.send({ embeds: [introembed]})
-})
+        guild.fetchOwner().then(send({ embeds: [introembed]}).catch(console.error()))
+}) */
 
 
 client.login(token).then(console.log(`Logged in.`))
