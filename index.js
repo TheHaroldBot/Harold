@@ -16,7 +16,8 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js');
+const Discord = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const path = require("path")
 const fs = require("fs")
@@ -54,7 +55,7 @@ for (const folder of commandFolders) {
 
 client.on('ready', () => {
     console.log(`Ready at: ${client.readyAt}`)
-    console.log('Harold Bot  Copyright (C) 2021  John Gooden')
+    console.log('Harold Bot Copyright (C) 2021  John Gooden')
     console.log('Copyright info: https://github.com/johng3587/Harold/blob/main/LICENCE\n\n')
 })
 
@@ -62,7 +63,6 @@ client.on('messageCreate', message => {
     const { cooldowns } = client;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
-    if (message.webhookID) return;
     if (message.guild === null) { //log dms
         console.log(`DM From: ${message.author.tag} > ${message.content}`)
     } else {
@@ -180,13 +180,14 @@ client.on('messageCreate', message => {
 
 });
 
-/* client.on('guildCreate', guild => {
-    const introembed = new MessageEmbed()
+client.on("guildCreate", async (guild) => {
+    const introembed = new Discord.MessageEmbed()
         .setTitle('Hiya!')
         .setColor('RANDOM')
         .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/Harold`)
-        guild.fetchOwner().then(send({ embeds: [introembed]}).catch(console.error()))
-}) */
+        const owner = await guild.fetchOwner();
+        owner.send({ embeds: [introembed]}).catch(console.error())
+  });
 
 
 client.login(token).then(console.log(`Logged in.`))
