@@ -18,7 +18,7 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 
 const { Client, Intents, Collection } = require('discord.js');
 const Discord = require('discord.js')
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const path = require("path")
 const fs = require("fs")
 const discordInv = require('discord-inv');
@@ -54,9 +54,9 @@ for (const folder of commandFolders) {
 }
 
 client.on('ready', () => {
-    console.log(`Ready at: ${client.readyAt}`)
-    console.log('Harold Bot Copyright (C) 2021  John Gooden')
-    console.log('Copyright info: https://github.com/johng3587/Harold/blob/main/LICENCE\n\n')
+    console.info(`Ready at: ${client.readyAt}`)
+    console.info('Harold Bot Copyright (C) 2021  John Gooden')
+    console.info('Copyright info: https://github.com/johng3587/Harold/blob/main/LICENCE\n\n')
 })
 
 client.on('messageCreate', message => {
@@ -187,7 +187,8 @@ client.on("guildCreate", async (guild) => {
         .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/Harold`)
         const owner = await guild.fetchOwner();
         owner.send({ embeds: [introembed]}).catch(console.error())
+        console.info(`I just joined a new server! I am now a member of ${guild.name}`)
   });
 
 
-client.login(token).then(console.log(`Logged in.`))
+client.login(token).then(console.info(`Logged in.`))
