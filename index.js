@@ -30,10 +30,8 @@ const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const { token, ownerids, botid } = require('./config.json');
 const prefix = "*"
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+const readline = require('readline');
+var rl = readline.createInterface(process.stdin, process.stdout);
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -53,6 +51,7 @@ for (const folder of commandFolders) {
     }
 }
 
+
 client.on('ready', () => {
     console.info(`Ready at: ${client.readyAt}`)
     console.info('Harold Bot Copyright (C) 2021  John Gooden')
@@ -63,10 +62,11 @@ client.on('messageCreate', message => {
     const { cooldowns } = client;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
+    //console.table([{Type: message.channel.type, Username: message.author.tag, Message: message.content}])
     if (message.guild === null) { //log dms
-        console.log(`DM From: ${message.author.tag} > ${message.content}`)
+        console.log(`DM From: '${message.author.tag}' > '${message.content}'`)
     } else {
-        console.log(`From: ${message.author.tag} > ${message.content}`) //log guild messages
+        console.log(`From: '${message.author.tag}' in '${message.guild.name}' > '${message.content}'`) //log guild messages
     }
     if (!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
     let botblocked = JSON.parse(fs.readFileSync('config.json'))
@@ -101,7 +101,7 @@ client.on('messageCreate', message => {
     }
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-    if (command.permissions) {
+    if (command.permissions && message.guild !== null) {
         const authorPerms = message.channel.permissionsFor(message.author);
         if (!authorPerms || !authorPerms.has(command.permissions)) {
             return message.reply(`You are missing ${command.permissions} to do this!`);
@@ -190,5 +190,13 @@ client.on("guildCreate", async (guild) => {
         console.info(`I just joined a new server! I am now a member of ${guild.name}`)
   });
 
+/*   rl.on('line', (content) => {
+    const args = content.trim().split(/ +/);
+    const arg = args.shift().toLowerCase();
+    if(!arg.length === 2) return(console.log('Usage: <id> <message>'))
+    let user = client.users.fetch(arg[0])
+    let message = content.replace(`${arg[0]} `, '')
+    user.send(message)
+}) */ // TypeError: user.send is not a function at Interface.<anonymous> (C:\Users\User\Desktop\HaroldBot\index.js:199:10)
 
 client.login(token).then(console.info(`Logged in.`))

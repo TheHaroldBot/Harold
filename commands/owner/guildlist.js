@@ -29,7 +29,7 @@ module.exports = {
             { name: 'Names:', value: guildlist, inline: true },
             { name: 'IDs:', value: guildids2, inline: true }
         )
-        .setDescription('Get an invite with *fetchinvite <guild id>. Note: this relies on one already existing in that server.')
+        .setDescription('Get an invite with `*fetchinvite <guild id>`.')
         message.author.send({ embeds: [guildlistembed]})
         message.react('📬')
 	},
