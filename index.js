@@ -190,13 +190,21 @@ client.on("guildCreate", async (guild) => {
         console.info(`I just joined a new server! I am now a member of ${guild.name}`)
   });
 
-/*   rl.on('line', (content) => {
-    const args = content.trim().split(/ +/);
-    const arg = args.shift().toLowerCase();
-    if(!arg.length === 2) return(console.log('Usage: <id> <message>'))
-    let user = client.users.fetch(arg[0])
-    let message = content.replace(`${arg[0]} `, '')
-    user.send(message)
-}) */ // TypeError: user.send is not a function at Interface.<anonymous> (C:\Users\User\Desktop\HaroldBot\index.js:199:10)
+/*     rl.on('line', (content) => {
+        if(!content.startsWith(prefix)) return
+        let arg = content.slice(prefix.length).trim().split(/ +/)
+        let command = arg[0]
+        let args = arg.shift()
+        if(command === 'send') {
+            if(args.length <= 2) return(console.log('Usage: <id> <message>'))
+            async function getuser() {
+                let fetched = await client.users.fetch(arg[0])
+                return fetched
+            }
+            getuser().send(`${arg[0]} `, '')
+            console.log(`Sent ${replace(`${arg[0]} `, '')} to ${arg[0]}`)
+        }
+        
+}) */  // TypeError: user.send is not a function at Interface.<anonymous> (C:\Users\User\Desktop\HaroldBot\index.js:199:10)
 
 client.login(token).then(console.info(`Logged in.`))

@@ -14,9 +14,10 @@ module.exports = {
 		if (!args.length) {
 	        data.push(commands.filter(command => !command.ownerOnly).map(command => command.name).join('\n'));
         	data.push(`\n**\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+			let description = '**' + data
             const helpembed = new Discord.MessageEmbed()
             .setTitle("Here's a list of all my commands:")
-            .setDescription('**' + data, { split: true})
+            .setDescription(description, { split: true})
             .setColor('RANDOM')
 
         	return message.author.send({ embeds: [helpembed]})
@@ -39,10 +40,9 @@ module.exports = {
         if (command.description) data.push(`**Description:** ${command.description}`);
         if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
         data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-
         const helpembed = new Discord.MessageEmbed()
         .setTitle(`Name: ${command.name}`)
-        .setDescription(data, { split: true})
+        .setDescription(data.join('\n'), { split: true})
         .setColor('RANDOM')
         message.channel.send({ embeds: [helpembed]})
 	},
