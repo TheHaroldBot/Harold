@@ -1,0 +1,31 @@
+{
+  "name": "discord-chatbot",
+  "version": "2.0.2",
+  "description": "A simple Chatbot for your Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udit2303/discord-chatbot.git"
+  },
+  "keywords": [
+    "chatbot",
+    "discord.js",
+    "discord",
+    "bot",
+    "ai",
+    "ai",
+    "chatbot"
+  ],
+  "author": "Udit Shrivastava <udit@udit.gq>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/udit2303/discord-chatbot/issues"
+  },
+  "homepage": "https://github.com/udit2303/discord-chatbot#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}

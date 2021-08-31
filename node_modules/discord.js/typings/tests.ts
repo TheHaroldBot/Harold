@@ -1,8 +1,13 @@
 import {
   ApplicationCommand,
+  ApplicationCommandChoicesData,
   ApplicationCommandData,
   ApplicationCommandManager,
+  ApplicationCommandNonOptionsData,
+  ApplicationCommandOptionData,
   ApplicationCommandResolvable,
+  ApplicationCommandSubCommandData,
+  ApplicationCommandSubGroupData,
   CacheFactory,
   Caches,
   CategoryChannel,
@@ -13,6 +18,8 @@ import {
   CommandInteraction,
   CommandInteractionOption,
   CommandInteractionOptionResolver,
+  CommandOptionChoiceResolvableType,
+  CommandOptionNonChoiceResolvableType,
   Constants,
   DMChannel,
   Guild,
@@ -56,6 +63,7 @@ import {
   User,
   VoiceChannel,
 } from '.';
+import { ApplicationCommandOptionTypes, ApplicationCommandTypes } from './enums';
 
 const client: Client = new Client({
   intents: Intents.FLAGS.GUILDS,
@@ -610,21 +618,55 @@ declare const applicationCommandData: ApplicationCommandData;
 declare const applicationCommandResolvable: ApplicationCommandResolvable;
 declare const applicationCommandManager: ApplicationCommandManager;
 {
-  type ApplicationCommandType = ApplicationCommand<{ guild: GuildResolvable }>;
+  type ApplicationCommandScope = ApplicationCommand<{ guild: GuildResolvable }>;
 
-  assertType<Promise<ApplicationCommandType>>(applicationCommandManager.create(applicationCommandData));
+  assertType<Promise<ApplicationCommandScope>>(applicationCommandManager.create(applicationCommandData));
   assertType<Promise<ApplicationCommand>>(applicationCommandManager.create(applicationCommandData, '0'));
-  assertType<Promise<ApplicationCommandType>>(
+  assertType<Promise<ApplicationCommandScope>>(
     applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData),
   );
   assertType<Promise<ApplicationCommand>>(
     applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData, '0'),
   );
-  assertType<Promise<Collection<Snowflake, ApplicationCommandType>>>(
+  assertType<Promise<Collection<Snowflake, ApplicationCommandScope>>>(
     applicationCommandManager.set([applicationCommandData]),
   );
   assertType<Promise<Collection<Snowflake, ApplicationCommand>>>(
     applicationCommandManager.set([applicationCommandData], '0'),
+  );
+}
+
+declare const applicationNonChoiceOptionData: ApplicationCommandOptionData & {
+  type: CommandOptionNonChoiceResolvableType;
+};
+{
+  // Options aren't allowed on this command type.
+
+  // @ts-expect-error
+  applicationNonChoiceOptionData.choices;
+}
+
+declare const applicationChoiceOptionData: ApplicationCommandOptionData & { type: CommandOptionChoiceResolvableType };
+{
+  // Choices should be available.
+  applicationChoiceOptionData.choices;
+}
+
+declare const applicationSubGroupCommandData: ApplicationCommandSubGroupData;
+{
+  assertType<'SUB_COMMAND_GROUP' | ApplicationCommandOptionTypes.SUB_COMMAND_GROUP>(
+    applicationSubGroupCommandData.type,
+  );
+  assertType<ApplicationCommandSubCommandData[] | undefined>(applicationSubGroupCommandData.options);
+}
+
+declare const applicationSubCommandData: ApplicationCommandSubCommandData;
+{
+  assertType<'SUB_COMMAND' | ApplicationCommandOptionTypes.SUB_COMMAND>(applicationSubCommandData.type);
+
+  // Check that only subcommands can have no subcommand or subcommand group sub-options.
+  assertType<(ApplicationCommandChoicesData | ApplicationCommandNonOptionsData)[] | undefined>(
+    applicationSubCommandData.options,
   );
 }
 

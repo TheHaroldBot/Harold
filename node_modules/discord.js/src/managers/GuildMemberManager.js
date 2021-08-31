@@ -206,6 +206,24 @@ class GuildMemberManager extends CachedManager {
   }
 
   /**
+   * Options used for listing guild members.
+   * @typedef {Object} GuildListMembersOptions
+   * @property {Snowflake} [after] Limit fetching members to those with an id greater than the supplied id
+   * @property {number} [limit=1] Maximum number of members to list
+   * @property {boolean} [cache=true] Whether or not to cache the fetched member(s)
+   */
+
+  /**
+   * Lists up to 1000 members of the guild.
+   * @param {GuildListMembersOptions} [options] Options for listing members
+   * @returns {Promise<Collection<Snowflake, GuildMember>>}
+   */
+  async list({ after, limit = 1, cache = true } = {}) {
+    const data = await this.client.api.guilds(this.guild.id).members.get({ query: { after, limit } });
+    return data.reduce((col, member) => col.set(member.user.id, this._add(member, cache)), new Collection());
+  }
+
+  /**
    * Edits a member of the guild.
    * <info>The user must be a member of the guild</info>
    * @param {UserResolvable} user The member to edit
@@ -378,13 +396,8 @@ class GuildMemberManager extends CachedManager {
     query,
     time = 120e3,
     nonce = SnowflakeUtil.generate(),
-    force = false,
   } = {}) {
     return new Promise((resolve, reject) => {
-      if (!query && !limit && !presences && !user_ids && !force) {
-        resolve(this.cache);
-        return;
-      }
       if (!query && !user_ids) query = '';
       if (nonce.length > 32) throw new RangeError('MEMBER_FETCH_NONCE_LENGTH');
       this.guild.shard.send({
@@ -399,20 +412,19 @@ class GuildMemberManager extends CachedManager {
         },
       });
       const fetchedMembers = new Collection();
-      const option = Boolean(query || limit || presences || user_ids);
       let i = 0;
       const handler = (members, _, chunk) => {
         timeout.refresh();
         if (chunk.nonce !== nonce) return;
         i++;
         for (const member of members.values()) {
-          if (option || force) fetchedMembers.set(member.id, member);
+          fetchedMembers.set(member.id, member);
         }
-        if ((option && members.size < 1000) || (limit && fetchedMembers.size >= limit) || i === chunk.count) {
+        if (members.size < 1000 || (limit && fetchedMembers.size >= limit) || i === chunk.count) {
           clearTimeout(timeout);
           this.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler);
           this.client.decrementMaxListeners();
-          let fetched = option || force ? fetchedMembers : this.cache;
+          let fetched = fetchedMembers;
           if (user_ids && !Array.isArray(user_ids) && fetched.size) fetched = fetched.first();
           resolve(fetched);
         }

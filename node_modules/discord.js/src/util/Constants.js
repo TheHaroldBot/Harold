@@ -55,10 +55,10 @@ exports.Endpoints = {
         if (dynamic) format = hash.startsWith('a_') ? 'gif' : format;
         return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
       },
-      AppIcon: (clientId, hash, { format = 'webp', size } = {}) =>
-        makeImageUrl(`${root}/app-icons/${clientId}/${hash}`, { size, format }),
-      AppAsset: (clientId, hash, { format = 'webp', size } = {}) =>
-        makeImageUrl(`${root}/app-assets/${clientId}/${hash}`, { size, format }),
+      AppIcon: (appId, hash, { format = 'webp', size } = {}) =>
+        makeImageUrl(`${root}/app-icons/${appId}/${hash}`, { size, format }),
+      AppAsset: (appId, hash, { format = 'webp', size } = {}) =>
+        makeImageUrl(`${root}/app-assets/${appId}/${hash}`, { size, format }),
       StickerPackBanner: (bannerId, format = 'webp', size) =>
         makeImageUrl(`${root}/app-assets/710982414301790216/store/${bannerId}`, { size, format }),
       GDMIcon: (channelId, hash, format = 'webp', size) =>
@@ -840,7 +840,7 @@ exports.APIErrors = {
 exports.DefaultMessageNotificationLevels = createEnum(['ALL_MESSAGES', 'ONLY_MENTIONS']);
 
 /**
- * The value set for a team members's membership state:
+ * The value set for a team member's membership state:
  * * INVITED
  * * ACCEPTED
  * @typedef {string} MembershipState
@@ -888,6 +888,15 @@ exports.OverwriteTypes = createEnum(['role', 'member']);
 
 /* eslint-disable max-len */
 /**
+ * The type of an {@link ApplicationCommand} object:
+ * * CHAT_INPUT
+ * * USER
+ * * MESSAGE
+ * @typedef {string} ApplicationCommandType
+ */
+exports.ApplicationCommandTypes = createEnum([null, 'CHAT_INPUT', 'USER', 'MESSAGE']);
+
+/**
  * The type of an {@link ApplicationCommandOption} object:
  * * SUB_COMMAND
  * * SUB_COMMAND_GROUP
@@ -900,7 +909,7 @@ exports.OverwriteTypes = createEnum(['role', 'member']);
  * * MENTIONABLE
  * * NUMBER
  * @typedef {string} ApplicationCommandOptionType
- * @see {@link https://discord.com/developers/docs/interactions/slash-commands#application-command-object-application-command-option-type}
+ * @see {@link https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type}
  */
 exports.ApplicationCommandOptionTypes = createEnum([
   null,
@@ -921,7 +930,7 @@ exports.ApplicationCommandOptionTypes = createEnum([
  * * ROLE
  * * USER
  * @typedef {string} ApplicationCommandPermissionType
- * @see {@link https://discord.com/developers/docs/interactions/slash-commands#application-command-permissions-object-application-command-permission-type}
+ * @see {@link https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type}
  */
 exports.ApplicationCommandPermissionTypes = createEnum([null, 'ROLE', 'USER']);
 
@@ -931,7 +940,7 @@ exports.ApplicationCommandPermissionTypes = createEnum([null, 'ROLE', 'USER']);
  * * APPLICATION_COMMAND
  * * MESSAGE_COMPONENT
  * @typedef {string} InteractionType
- * @see {@link https://discord.com/developers/docs/interactions/slash-commands#interaction-object-interaction-request-type}
+ * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-request-type}
  */
 exports.InteractionTypes = createEnum([null, 'PING', 'APPLICATION_COMMAND', 'MESSAGE_COMPONENT']);
 
@@ -943,7 +952,7 @@ exports.InteractionTypes = createEnum([null, 'PING', 'APPLICATION_COMMAND', 'MES
  * * DEFERRED_MESSAGE_UPDATE
  * * UPDATE_MESSAGE
  * @typedef {string} InteractionResponseType
- * @see {@link https://discord.com/developers/docs/interactions/slash-commands#interaction-response-object-interaction-callback-type}
+ * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type}
  */
 exports.InteractionResponseTypes = createEnum([
   null,
@@ -1052,7 +1061,7 @@ function createEnum(keys) {
  * The value set for the explicit content filter levels for a guild.
  * @property {InteractionResponseType} InteractionResponseTypes The type of an interaction response.
  * @property {InteractionType} InteractionTypes The type of an {@link Interaction} object.
- * @property {MembershipState} MembershipStates The value set for a team members's membership state.
+ * @property {MembershipState} MembershipStates The value set for a team member's membership state.
  * @property {MessageButtonStyle} MessageButtonStyles The style of a message button.
  * @property {MessageComponentType} MessageComponentTypes The type of a message component.
  * @property {MFALevel} MFALevels The required MFA level for a guild.
