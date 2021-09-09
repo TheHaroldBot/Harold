@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
 const Chatbot  =  require("discord-chatbot");
+const config = require('../../config.json')
 
 const chatbot  =  new  Chatbot({name: "harold", gender: "Male"});
 
 module.exports = {
 	name: 'chatbot', //command name
-	description: 'Starts the chat bot.', //command description
+	description: `Starts the chat bot. Use \`${config.prefix}stopchatbot\` to turn the bot off before the time expires automatically.`, //command description
     usage: `<seconds to keep the chat bot open, maximum of 1800>`, //usage instructions w/o command name and prefix
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
@@ -21,8 +22,12 @@ module.exports = {
         message.reply(`I will listen for your conversation for ${time} seconds.`)
         collector.on('collect', m => {
             if(m.author.bot) return
+            if(m.content.startsWith(`${config.prefix}stopchatbot`) || m.content.startsWith(`${config.prefix}endchatbot`)) {
+                collector.stop()
+                return
+            }
             let tobot = m.content.toLowerCase()
-            chatbot.chat(tobot).then(response => m.channel.send(response)).catch(e => console.log(e));
+            chatbot.chat(tobot, m.author.id).then(response => m.channel.send(response)).catch(e => console.log(e));
             
         });
         collector.on('end', collected => {
