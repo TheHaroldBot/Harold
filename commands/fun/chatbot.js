@@ -26,8 +26,7 @@ module.exports = {
                 collector.stop()
                 return
             }
-            let tobot = m.content.toLowerCase()
-            chatbot.chat(tobot, m.author.id).then(response => m.channel.send(response)).catch(e => console.log(e));
+            chatbot.chat(m.content, m.author.id).then(response => m.channel.send(response)).catch(e => console.log(e));
             
         });
         collector.on('end', collected => {
