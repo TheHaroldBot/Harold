@@ -19,7 +19,7 @@ module.exports = {
         if(time >= 1800) return(message.reply('That number is too big, it has to be less than or equal to 1800 seconds.'))
         let timeinmiliseconds = time * 1000
         const collector = message.channel.createMessageCollector({time: timeinmiliseconds });
-        message.reply(`I will listen for your conversation for ${time} seconds.`)
+        message.reply(`I will listen for your conversation for ${time} seconds. Do \`${prefix}stopchatbot\` to end it early.`)
         collector.on('collect', m => {
             if(m.author.bot) return
             if(m.content.startsWith(`${config.prefix}stopchatbot`) || m.content.startsWith(`${config.prefix}endchatbot`)) {
