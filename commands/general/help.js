@@ -17,6 +17,7 @@ module.exports = {
 			let description = '**' + data
             const helpembed = new Discord.MessageEmbed()
             .setTitle("Here's a list of all my commands:")
+	    .setURL('https://discord.gg/xnY4SZV2Cd/')
             .setDescription(description, { split: true})
             .setColor('RANDOM')
 
@@ -43,6 +44,7 @@ module.exports = {
         const helpembed = new Discord.MessageEmbed()
         .setTitle(`Name: ${command.name}`)
         .setDescription(data.join('\n'), { split: true})
+	.setURL('https://discord.gg/xnY4SZV2Cd/')
         .setColor('RANDOM')
         message.channel.send({ embeds: [helpembed]})
 	},
