@@ -31,9 +31,6 @@ const { token, ownerids, botid, prefix } = require('./config.json');
 const readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
 var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0');
-var yyyy = today.getFullYear();
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -49,12 +46,16 @@ for (const folder of commandFolders) {
     }
 }
 
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-client.on('ready', () => {
-    console.info(`Ready at: ${client.readyAt}`)
-    console.info('Harold Bot Copyright (C) 2021  John Gooden')
-    console.info('Copyright info: https://github.com/johng3587/Harold/blob/main/LICENCE\n\n')
-})
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (message, ...args) => event.execute(message, ...args));
+	} else {
+		client.on(event.name, (message, ...args) => event.execute(message, ...args));
+	}
+}
 
 client.on('messageCreate', message => {
     const { cooldowns } = client;
@@ -177,32 +178,5 @@ client.on('messageCreate', message => {
     }
 
 });
-
-client.on("guildCreate", async (guild) => {
-    const introembed = new Discord.MessageEmbed()
-        .setTitle('Hiya!')
-        .setColor('RANDOM')
-        .setDescription(`Thank you for adding me to your server!\nRun \`${prefix}help\` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with \`${prefix}bugreport\`\nMy GitHub can be found here: https://github.com/johng3587/Harold`)
-        const owner = await guild.fetchOwner();
-        owner.send({ embeds: [introembed]}).catch(console.error())
-        console.info(`I just joined a new server! I am now a member of ${guild.name}`)
-  });
-
-/*     rl.on('line', (content) => {
-        if(!content.startsWith(prefix)) return
-        let arg = content.slice(prefix.length).trim().split(/ +/)
-        let command = arg[0]
-        let args = arg.shift()
-        if(command === 'send') {
-            if(args.length <= 2) return(console.log('Usage: <id> <message>'))
-            async function getuser() {
-                let fetched = await client.users.fetch(arg[0])
-                return fetched
-            }
-            getuser().send(`${arg[0]} `, '')
-            console.log(`Sent ${replace(`${arg[0]} `, '')} to ${arg[0]}`)
-        }
-        
-}) */  // TypeError: user.send is not a function at Interface.<anonymous> (C:\Users\User\Desktop\HaroldBot\index.js:199:10)
 
 client.login(token).then(console.info(`Logged in.`))
