@@ -19,6 +19,7 @@ module.exports = {
             .setTitle("Here's a list of all my commands:")
             .setDescription(description, { split: true})
             .setColor('RANDOM')
+			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 
         	return message.author.send({ embeds: [helpembed]})
 	    	.then(() => {
@@ -43,6 +44,7 @@ module.exports = {
         const helpembed = new Discord.MessageEmbed()
         .setTitle(`Name: ${command.name}`)
         .setDescription(data.join('\n'), { split: true})
+		.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
         .setColor('RANDOM')
         message.channel.send({ embeds: [helpembed]})
 	},
