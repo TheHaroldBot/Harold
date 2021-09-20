@@ -19,6 +19,7 @@ module.exports = {
 	        		const memeTitle = post.data.title;
 	        		const memeUpvotes = post.data.ups;
 	        		const memeNumComments = post.data.num_comments;
+				const postauthor = `u/${post.data.author}`
 	        		if (post.data.over_18 === true && message.channel.nsfw !== true) {
         				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
         				return
@@ -29,6 +30,7 @@ module.exports = {
         			.setURL(`${memeUrl}`)
         			.setColor('RANDOM')
         			.setImage(memeImage)
+				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
         			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
 	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
