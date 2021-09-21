@@ -16,19 +16,22 @@ module.exports = {
 	        		const type = post.data.post_hint
                 
 	        		if(type !== 'image') {
-	        			const posttitle = post.data.title
-	        			const permalink = post.data.permalink
-	        			const posturl = `https://reddit.com${permalink}`
-	        			const postupvotes = post.data.ups
-	        			const postcomments = post.data.num_comments
-	        			const nsfw = post.data.over_18
-	        			const description = post.data.selftext
-	        			const postauthor = `u/${post.data.author}`
+	        			let posttitle = post.data.title
+	        			let permalink = post.data.permalink
+	        			let posturl = `https://reddit.com${permalink}`
+	        			let postupvotes = post.data.ups
+	        			let postcomments = post.data.num_comments
+	        			let nsfw = post.data.over_18
+	        			let description = post.data.selftext
+	        			let postauthor = `u/${post.data.author}`
 
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
 	        				return
 	        			}
+					if(nsfw === true) {
+						posttitle = `[NSFW] ${posttitle}`
+					}
 	        			const redditembed = new Discord.MessageEmbed()
 	        			.setTitle(posttitle)
 	        			.setURL(posturl)
@@ -42,17 +45,21 @@ module.exports = {
 		        			message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 		        		});	
 		        	} else {
-		        	const permalink = post.data.permalink;
-		        	const postUrl = `https://reddit.com${permalink}`;
-		        	const postImage = post.data.url;
-		        	const postTitle = post.data.title;
-		        	const postUpvotes = post.data.ups;
-		        	const postNumComments = post.data.num_comments;
-		        	const postauthor = `u/${post.data.author}`
-		        	if (post.data.over_18 === true && message.channel.nsfw !== true) {
+		        	let permalink = post.data.permalink;
+		        	let postUrl = `https://reddit.com${permalink}`;
+		        	let postImage = post.data.url;
+		        	let postTitle = post.data.title;
+		        	let postUpvotes = post.data.ups;
+		        	let postNumComments = post.data.num_comments;
+				let nsfw = post.data.over_18;
+		        	let postauthor = `u/${post.data.author}`
+		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 		        		return
 		        	}
+				if (nsfw === true) {
+					postTitle = `[NSFW] ${postTitle}`
+				}
 		        	const redditembed = new Discord.MessageEmbed()
 		        	.setTitle(`${postTitle}`)
 		        	.setURL(`${postUrl}`)
