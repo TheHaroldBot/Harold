@@ -33,6 +33,7 @@ module.exports = {
         			.setURL(`${memeUrl}`)
         			.setColor('RANDOM')
         			.setImage(memeImage)
+				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
         			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
 	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
