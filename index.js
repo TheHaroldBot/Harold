@@ -19,18 +19,12 @@ A mascot and quality of life discord bot, mainly for the purpose of entertaining
 const { Client, Intents, Collection } = require('discord.js');
 const Discord = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
-const path = require("path")
 const fs = require("fs")
-const util = require('minecraft-server-util');
-const removeFromArray = require('remove-from-array')
 const got = require('got');
-const ytdl = require("ytdl-core")
 const { TIMEOUT } = require('dns');
 const fetch = require('node-fetch');
 const { token, ownerids, botid, prefix } = require('./config.json');
 const readline = require('readline');
-var rl = readline.createInterface(process.stdin, process.stdout);
-var today = new Date();
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
