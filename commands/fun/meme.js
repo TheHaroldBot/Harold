@@ -13,16 +13,20 @@ module.exports = {
 	        		const [list] = JSON.parse(response.body);
 	        		const [post] = list.data.children;
 
-	        		const permalink = post.data.permalink;
-	        		const memeUrl = `https://reddit.com${permalink}`;
-	        		const memeImage = post.data.url;
-	        		const memeTitle = post.data.title;
-	        		const memeUpvotes = post.data.ups;
-	        		const memeNumComments = post.data.num_comments;
-	        		if (post.data.over_18 === true && message.channel.nsfw !== true) {
+	        		let permalink = post.data.permalink;
+	        		let memeUrl = `https://reddit.com${permalink}`;
+	        		let memeImage = post.data.url;
+	        		let memeTitle = post.data.title;
+	        		let memeUpvotes = post.data.ups;
+	        		let memeNumComments = post.data.num_comments;
+					let nsfw = post.data.over_18
+	        		if (nsfw === true && message.channel.nsfw !== true) {
         				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
         				return
         			}
+					if (nsfw === true) {
+						memeTitle = `[NSFW] ${memeTitle}` 
+					}
 
         			const memeembed = new Discord.MessageEmbed()
         			.setTitle(`${memeTitle}`)
@@ -34,7 +38,7 @@ module.exports = {
 	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
 	        			console.log(err)
 	        			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
-	        			message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
+	        			message.channel.send(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 	        		});	
 	        	})
 	        	.catch(err => {
