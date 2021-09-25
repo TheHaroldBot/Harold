@@ -6,7 +6,7 @@ module.exports = {
     usage: ``, //usage instructions w/o command name and prefix
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	aliases: ['pfp', 'profileimage'],
-	execute(message, args, prefix) { //inside here command stuff.
+    execute(message, args, prefix) { //inside here command stuff.
         let pfptarget
         if (!message.mentions.users.first()) {
             pfptarget = message.author
