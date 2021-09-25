@@ -38,7 +38,7 @@ module.exports = {
 		        		.setColor('RANDOM')
 		        		.setFooter(`👍 ${postupvotes} 💬 ${postcomments}`)
 		        		.setDescription(description)
-		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
+		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 				
 		        		message.channel.send({ embeds: [redditembed]}).catch(err => {
 		        			console.log(err)

@@ -20,6 +20,7 @@ module.exports = {
 	        		let memeUpvotes = post.data.ups;
 	        		let memeNumComments = post.data.num_comments;
 					let nsfw = post.data.over_18
+					let postauthor = `u/${post.data.author}`
 	        		if (nsfw === true && message.channel.nsfw !== true) {
         				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
         				return
@@ -33,18 +34,16 @@ module.exports = {
         			.setURL(`${memeUrl}`)
         			.setColor('RANDOM')
         			.setImage(memeImage)
-				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
+					.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
         			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
 
 	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
 	        			console.log(err)
-	        			fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 	        			message.channel.send(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
 	        		});	
 	        	})
 	        	.catch(err => {
 	        		console.log(err)
-	        		fs.appendFileSync('errorlogs/' + mm + '.' + dd + '.' + yyyy + '.txt', `${toString(err)}\n`)
 	        		message.channel.send('There was an error completing your request, try again later!')
 	        	})
 	},
