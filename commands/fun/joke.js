@@ -9,19 +9,20 @@ module.exports = {
 	aliases: [],
 	execute(message, args, prefix) { //inside here command stuff
 		let jokesettings = { method: "Get"}
-        	let jokeurl = 'https://official-joke-api.appspot.com/random_joke' //random joke api
+        	let jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit&type=twopart' //random joke api
 	        fetch(jokeurl, jokesettings)
 	        	.then(res => res.json())
 	        	.then((json) => {
-	        		const jokeembed = new Discord.MessageEmbed()
-	        		.setTitle(json.setup)
-	        		.setDescription(json.punchline)
-	        		.setColor('RANDOM')
-	        		message.channel.send({ embeds: [jokeembed]})
+					let jokeembed = new Discord.MessageEmbed()
+					.setTitle(json.setup)
+					.setDescription(json.delivery)
+					.setColor('RANDOM')
+					.setFooter('jokeapi.dev')
+					message.channel.send({ embeds: [jokeembed]})
 	        	})
 	        	.catch(err => {
 	        		console.log(err)
-	        		message.channel.send('There was an error completing your request, try again later!')
+	        		message.reply('There was an error completing your request, try again later!')
 	        	})
 	},
 };
