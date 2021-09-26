@@ -124,13 +124,11 @@ client.on('messageCreate', message => {
     let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
     if (ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
     if (message.webhookID) return;
-   /*  if (message.author.presence.status === 'offline') { //checks if author is offline
+/*     if (message.content.toLowerCase().includes('pls meme')) { //checks if author is using dank boi
         if (message.author.bot) return //if author is bot, forget them
-        var calloutoffline = Math.random() < 0.1; //rolls a 10 sided die
-        if (calloutoffline === true) { //if said die lands on 10, continue
-            let ignorecallout = JSON.parse(fs.readFileSync('config.json'))
-            if (ignorecallout.ignoreofflinecallout.includes(message.author.id)) return
-            message.channel.send(`HEY EVERYONE! <@${message.author.id}> IS TRYING TO BE SNEAKY AND CHAT WHILE THEY ARE OFFLINE!`) //call out the coward
+        var memerandom = Math.random() <= 0.01; //rolls a 100 sided die
+        if (memerandom === true) { //if said die lands on 100, continue
+            message.reply(`Oh suuuure, go ahead and use dank memer, when I have a perfectly good meme command.`) //call out the memer
         }
     } */
     if (message.author.id === botid) return
