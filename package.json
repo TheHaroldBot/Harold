@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "ansi-regex": "^5.0.0",
+    "ansi-regex": "^5.0.1",
     "bing-translate-api": "^2.2.1",
     "discord-chatbot": "^2.0.2",
     "discord-inv": "^1.1.0",
