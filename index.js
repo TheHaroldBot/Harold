@@ -92,7 +92,9 @@ client.on('messageCreate', message => {
             return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
     }
-    timestamps.set(message.author.id, now);
+    if(!ownerids.includes(message.author.id)) {
+    	timestamps.set(message.author.id, now);
+    }
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (command.permissions && message.guild !== null) {
         const authorPerms = message.channel.permissionsFor(message.author);
