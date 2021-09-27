@@ -1,4 +1,5 @@
 const got = require('got');
+const Discord = require('discord.js');
 
 module.exports = {
 	name: 'ready', //name, duh
