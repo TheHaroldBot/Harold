@@ -1,18 +1,18 @@
 const Discord = require('discord.js');
-const prefix = require('../../config.json')
+const config = require('../../config.json')
+const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear']
 
 module.exports = {
 	name: 'decorate', //command name
-	description: `Decorate channels. Run \`${prefix}decor clear\` first if you already have emojis on it to clear them. Due to Discord rate limiting, this command can only be run once every 10 minutes.`, //command description
+	description: `Decorate channels. Run \`${config.prefix}decor clear\` first if you already have emojis on it to clear them. Due to Discord rate limiting, this command can only be run once every 10 minutes.`, //command description
 	args: true, //needs arguments? delete line if no
-    usage: `<summer|fall|winter|spring|christmas|halloween|easter|clear>`, //usage instructions w/o command name and prefix
+    usage: `<${options.join('|')}>`, //usage instructions w/o command name and prefix
     guildOnly: true, //execute in a guild only? remove line if no
 	cooldown: 600, //cooldown in seconds, defaults to 3
 	permissions: ['MANAGE_CHANNELS'], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
 	aliases: ['decor'],
 	async execute(message, args, prefix) { //inside here command stuff
-		let options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear']
 		let themes = {
 			summer: ['🌴', '🏝️', '🕶️', '⛱️', '🦩'],
 			fall: ['🍂', '🌰', '☕', '🥧', '🎑'],
