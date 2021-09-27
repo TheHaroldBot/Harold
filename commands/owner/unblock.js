@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require("fs")
+const removeFromArray = require('remove-from-array')
 
 module.exports = {
 	name: 'unblock', //command name
