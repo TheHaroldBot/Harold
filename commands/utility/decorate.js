@@ -7,7 +7,7 @@ module.exports = {
 	args: true, //needs arguments? delete line if no
     usage: `<summer|fall|winter|spring|christmas|halloween|easter|clear>`, //usage instructions w/o command name and prefix
     guildOnly: true, //execute in a guild only? remove line if no
-	cooldown: 600, //cooldown in seconds, defaults to 3
+	cooldown: 300, //cooldown in seconds, defaults to 3
 	permissions: ['MANAGE_CHANNELS'], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
 	aliases: ['decor'],
