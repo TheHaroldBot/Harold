@@ -10,35 +10,39 @@ module.exports = {
     guildOnly: true, //execute in a guild only? remove line if no
 	cooldown: 300, //cooldown in seconds, defaults to 3
 	permissions: ['MANAGE_CHANNELS'], //permissions required for command
-	ownerOnly: true, //need to be the owner? delete line if no
 	aliases: ['decor'],
 	async execute(message, args, prefix) { //inside here command stuff
 		let themes = {
 			summer: ['🌴', '🏝️', '🕶️', '⛱️', '🦩'],
-			fall: ['🍂', '🌰', '☕', '🥧', '🎑'],
+			fall: ['🍂', '🌰', '☕', '🥧', '🎑', '🍁', '🌽'],
 			winter: ['🏔️', '🌲', '❄️', '⛄', '🧣'],
 			spring: ['🌻', '🌼', '🌷', '🌾', '🌈', '🍃'],
 			christmas: ['🎅', '🤶', '🧝', '🌟', '🎄', '🕯️', '🦌'],
-			halloween: ['🕸️', '🕷️', '🦇', '🎃', '⚰️', '🐈‍⬛', '🧛', '👻', '☠️'],
+			halloween: ['🕸️', '🕷️', '🦇', '🎃', '⚰️', '🐈‍⬛', '🧛', '👻'],
 			easter: ['🐇', '🍫', '🐤', '🥚', '🥕', '🔔'],
 			hanukkah: ['🕎', '✡️', '🕍', '🕯️']
 			/* other seasons here */
 		};
+		let allemojis = themes.summer.concat(themes.fall, themes.winter, themes.spring, themes.christmas, themes.halloween, themes.easter, themes.hanukkah)
         if(!options.includes(args[0])) return(message.reply(`Usage: ${prefix}${this.name} ${this.usage}`))
 		let channelList = await message.guild.channels.fetch()
+		if(!message.guild.me.permissions.has("ADMINISTRATOR")) {
+			message.reply('This command requires a permission to run, however I do not know what that permission may be. For now, I ask for administrator until I do know which permission I need, you are welcome to remove it after channels have been decorated.')
+			return
+		}
 		channelList.forEach(element => {
 			if(element.type === 'GUILD_CATEGORY') return
 			if(element.type === 'GUILD_PUBLIC_THREAD') return
 			if(element.type === 'GUILD_PRIVATE_THREAD') return
 			if(element.type === 'GUILD_STAGE_VOICE') return
 			if(element.type === 'UNKNOWN') return
-			if(!element.permissionsFor(message.client.user.id).has('MANAGE_CHANNELS')) return
 			if(args[0] === 'clear') {
-				let seperate = element.name.split('')
-				seperate.shift()
-				seperate.pop()
-				let joined = seperate.join('')
-				element.setName(joined)
+				let name = element.name
+				allemojis.forEach(emoji => {
+					name = name.replace(emoji, '')
+					name = name.replace(emoji, '')
+				});
+				element.setName(name, 'Removed decoration')
 				return
 			}
 			let theme = themes[args[0]]
@@ -46,6 +50,6 @@ module.exports = {
 			let newname = randomemoji + element.name + randomemoji
 			element.setName(newname)
 		});
-		message.reply('Decorating!')
+		message.reply('Decorated!')
 	},
 };
