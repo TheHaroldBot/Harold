@@ -4,6 +4,7 @@ module.exports = {
 	name: 'echo', //command name
 	description: 'Repeats what you say.', //command description
 	args: true, //needs arguments? delete line if no
+	ownerOnly: true,
     usage: `<message>`, //usage instructions w/o command name and prefix
 	cooldown: 1, //cooldown in seconds, defaults to 3
 	aliases: ['repeat', 'simonsays'],
