@@ -17,7 +17,7 @@ module.exports = {
         .setAuthor('Details provided by Harold, recorded by Discord', 'https://i.imgur.com/lOT690e.png', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         .setColor('RANDOM')
         .setTitle(`Profile info`)
-        .setDescription(`**Name:** ${pfptarget.tag}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Avatar ID:** ${pfptarget.avatar}\n**Created at:** ${pfptarget.createdAt}\n**Default avatar URL:** [Link↗](${pfptarget.defaultAvatarURL})`)
+        .setDescription(`**Name:** ${pfptarget.tag}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Avatar ID:** ${pfptarget.avatar}\n**Created at:** ${pfptarget.createdAt}\n**Avatar URL:** [Link↗](${pfptarget.avatarURL})\n**Default avatar URL:** [Link↗](${pfptarget.defaultAvatarURL})`)
         .setThumbnail(pfptarget.avatarURL(/* { dynamic: true, size: 256} */))
         .setTimestamp()
         message.channel.send({ embeds: [pfpembed]})
