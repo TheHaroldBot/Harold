@@ -90,7 +90,7 @@ client.on('messageCreate', message => {
         }
     }
     if(!ownerids.includes(message.author.id)) {
-    	timestamps.set(message.author.id, now);
+        timestamps.set(message.author.id, now)
     }
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (command.permissions && message.guild !== null) {

@@ -9,7 +9,7 @@ module.exports = {
 	aliases: [],
 	execute(message, args, prefix) { //inside here command stuff
 		let jokesettings = { method: "Get"}
-        	let jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit&type=twopart' //random joke api
+        	let jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit,racist&type=twopart' //random joke api
 	        fetch(jokeurl, jokesettings)
 	        	.then(res => res.json())
 	        	.then((json) => {
