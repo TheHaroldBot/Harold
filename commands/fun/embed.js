@@ -15,6 +15,7 @@ module.exports = {
             json.shift()
             let data = json.join(" ")
             let embedjson = new Discord.MessageEmbed(JSON.parse(data))
+	    message.delete()
             message.channel.send({ embeds: [embedjson]})
         } catch (error) {
             let errorembed = new Discord.MessageEmbed()
