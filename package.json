@@ -17,5 +17,23 @@
     "tall": "^4.0.1",
     "ytdl": "^1.4.1",
     "ytdl-core": "^4.9.0"
-  }
+  },
+  "name": "harold",
+  "description": "Official repo for the Harold discord bot.\r Code for the bot can be found here, and issues can be posted.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johng3587/Harold.git"
+  },
+  "author": "John Gooden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johng3587/Harold/issues"
+  },
+  "homepage": "https://github.com/johng3587/Harold#readme"
 }

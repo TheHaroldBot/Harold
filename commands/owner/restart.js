@@ -7,7 +7,7 @@ module.exports = {
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
-	aliases: ['shutdown'],
+	aliases: ['shutdown', 'update'],
 	execute(message, args, prefix) { //inside here command stuff
 		let originalAuthor = message.author.id
 		message.channel.send('Please confirm you want to shut down the bot.\nYou have 10 seconds to reply with \'y\' or \'yes\'')

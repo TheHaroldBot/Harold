@@ -170,4 +170,4 @@ client.on('messageCreate', message => {
 
 });
 
-client.login(token).then(console.info(`Logged in.`))
+client.login(token).then(console.info(`Node version: ${process.versions.node}\nLogged in.`))
