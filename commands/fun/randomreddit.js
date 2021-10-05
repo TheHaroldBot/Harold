@@ -4,12 +4,17 @@ const got = require('got');
 module.exports = {
 	name: 'randomreddit', //command name
 	description: 'Gets random post from specified subreddit.', //command description
-	args: true, //needs arguments? delete line if no
     usage: `<subreddit without the r/>`, //usage instructions w/o command name and prefix
 	cooldown: .5, //cooldown in seconds, defaults to 3
 	aliases: ['redditpost', 'reddit', 'rr'],
 	execute(message, args, prefix) { //inside here command stuff
-		got(`https://www.reddit.com/r/${args[0]}/random/.json`) //random reddit post
+		let subreddit
+		if(!args){
+			subreddit = random
+		} else {
+			subreddit = args[0]
+		}
+		got(`https://www.reddit.com/r/${subreddit}/random/.json`) //random reddit post
 	        	.then(response => {
 	        		const [list] = JSON.parse(response.body);
 	        		const [post] = list.data.children;
