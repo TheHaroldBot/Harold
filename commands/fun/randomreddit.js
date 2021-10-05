@@ -8,8 +8,8 @@ module.exports = {
 	cooldown: .5, //cooldown in seconds, defaults to 3
 	aliases: ['redditpost', 'reddit', 'rr'],
 	execute(message, args, prefix) { //inside here command stuff
-		let subreddit
-		if(!args){
+		let subreddit = args[0]
+		if(!args.length){
 			subreddit = 'random'
 		} else {
 			subreddit = args[0]
