@@ -10,7 +10,7 @@ module.exports = {
 	execute(message, args, prefix) { //inside here command stuff
 		let subreddit
 		if(!args){
-			subreddit = random
+			subreddit = 'random'
 		} else {
 			subreddit = args[0]
 		}
