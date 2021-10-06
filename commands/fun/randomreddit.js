@@ -30,10 +30,7 @@ module.exports = {
 	        			let description = post.data.selftext
 	        			let postauthor = `u/${post.data.author}`
 					let posttime = post.data.created * 1000
-					let footer = `👍 ${postupvotes} 💬 ${postcomments}`
-					if (!args.length) {
-						footer = `r/${post.data.subreddit} ` + footer
-					}
+					let footer = `r/${post.data.subreddit} • 👍 ${postupvotes} 💬 ${postcomments}`
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
 	        				return
@@ -64,10 +61,7 @@ module.exports = {
 				let nsfw = post.data.over_18;
 		        	let postauthor = `u/${post.data.author}`
 				let posttime = post.data.created * 1000
-				let footer = `👍 ${postUpvotes} 💬 ${postNumComments}`
-				if (!args.length) {
-					footer = `r/${post.data.subreddit} ` + footer
-				}
+				let footer = `r/${post.data.subreddit} • 👍 ${postUpvotes} 💬 ${postNumComments}`
 		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 		        		return
