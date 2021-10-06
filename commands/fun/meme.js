@@ -19,6 +19,7 @@ module.exports = {
 	        		let memeTitle = post.data.title;
 	        		let memeUpvotes = post.data.ups;
 	        		let memeNumComments = post.data.num_comments;
+				let posttime = post.data.created * 1000
 					let nsfw = post.data.over_18
 					let postauthor = `u/${post.data.author}`
 	        		if (nsfw === true && message.channel.nsfw !== true) {
@@ -34,8 +35,9 @@ module.exports = {
         			.setURL(`${memeUrl}`)
         			.setColor('RANDOM')
         			.setImage(memeImage)
-					.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
-        			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`)
+				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
+        			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
+				.setTimestamp(posttime)
 
 	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
 	        			console.log(err)
