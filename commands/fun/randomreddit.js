@@ -43,6 +43,7 @@ module.exports = {
 		        		.setColor('RANDOM')
 		        		.setFooter(`👍 ${postupvotes} 💬 ${postcomments}`)
 		        		.setDescription(description)
+					.setTimestamp(post.data.created)
 		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 				
 		        		message.channel.send({ embeds: [redditembed]}).catch(err => {
@@ -71,7 +72,8 @@ module.exports = {
 		        	.setColor('RANDOM')
 		        	.setImage(postImage)
 		        	.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
-		        	.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png')
+				.setTimestamp(post.data.created)
+		        	.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 
 		        	message.channel.send({ embeds: [redditembed]}).catch(err => {
 		        		console.log(err)
