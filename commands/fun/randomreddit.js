@@ -32,7 +32,7 @@ module.exports = {
 					let posttime = post.data.created * 1000
 					let footer = `👍 ${postupvotes} 💬 ${postcomments}`
 					if (!args.length) {
-						footer = `r/${subreddit} ` + footer
+						footer = `r/${post.data.subreddit} ` + footer
 					}
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
@@ -66,7 +66,7 @@ module.exports = {
 				let posttime = post.data.created * 1000
 				let footer = `👍 ${postUpvotes} 💬 ${postNumComments}`
 				if (!args.length) {
-					footer = `r/${subreddit} ` + footer
+					footer = `r/${post.data.subreddit} ` + footer
 				}
 		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
