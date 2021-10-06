@@ -30,7 +30,10 @@ module.exports = {
 	        			let description = post.data.selftext
 	        			let postauthor = `u/${post.data.author}`
 					let posttime = post.data.created * 1000
-
+					let footer = `👍 ${postupvotes} 💬 ${postcomments}`
+					if (!args.length) {
+						footer = `r/${subreddit} ` + footer
+					}
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
 	        				return
@@ -42,7 +45,7 @@ module.exports = {
 	        			.setTitle(posttitle)
 	        			.setURL(posturl)
 		        		.setColor('RANDOM')
-		        		.setFooter(`👍 ${postupvotes} 💬 ${postcomments}`)
+		        		.setFooter(footer)
 		        		.setDescription(description)
 					.setTimestamp(posttime)
 		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
@@ -61,6 +64,10 @@ module.exports = {
 				let nsfw = post.data.over_18;
 		        	let postauthor = `u/${post.data.author}`
 				let posttime = post.data.created * 1000
+				let footer = `👍 ${postUpvotes} 💬 ${postNumComments}`
+				if (!args.length) {
+					footer = `r/${subreddit} ` + footer
+				}
 		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 		        		return
@@ -73,7 +80,7 @@ module.exports = {
 		        	.setURL(`${postUrl}`)
 		        	.setColor('RANDOM')
 		        	.setImage(postImage)
-		        	.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
+		        	.setFooter(footer)
 				.setTimestamp(posttime)
 		        	.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 
