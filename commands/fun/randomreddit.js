@@ -29,7 +29,7 @@ module.exports = {
 	        			let nsfw = post.data.over_18
 	        			let description = post.data.selftext
 	        			let postauthor = `u/${post.data.author}`
-					let posttime = post.data.created
+					let posttime = post.data.created * 1000
 
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
@@ -60,7 +60,7 @@ module.exports = {
 		        	let postNumComments = post.data.num_comments;
 				let nsfw = post.data.over_18;
 		        	let postauthor = `u/${post.data.author}`
-				let posttime = post.data.created
+				let posttime = post.data.created * 1000
 		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 		        		return
