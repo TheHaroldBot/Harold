@@ -29,6 +29,7 @@ module.exports = {
 	        			let nsfw = post.data.over_18
 	        			let description = post.data.selftext
 	        			let postauthor = `u/${post.data.author}`
+					let posttime = post.data.created
 
 	        			if(nsfw === true && message.channel.nsfw !== true) {
 	        				message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw')
@@ -43,7 +44,7 @@ module.exports = {
 		        		.setColor('RANDOM')
 		        		.setFooter(`👍 ${postupvotes} 💬 ${postcomments}`)
 		        		.setDescription(description)
-					.setTimestamp(post.data.created)
+					.setTimestamp(posttime)
 		        		.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 				
 		        		message.channel.send({ embeds: [redditembed]}).catch(err => {
@@ -59,6 +60,7 @@ module.exports = {
 		        	let postNumComments = post.data.num_comments;
 				let nsfw = post.data.over_18;
 		        	let postauthor = `u/${post.data.author}`
+				let posttime = post.data.created
 		        	if (nsfw === true && message.channel.nsfw !== true) {
 		        		message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
 		        		return
@@ -72,7 +74,7 @@ module.exports = {
 		        	.setColor('RANDOM')
 		        	.setImage(postImage)
 		        	.setFooter(`👍 ${postUpvotes} 💬 ${postNumComments}`)
-				.setTimestamp(post.data.created)
+				.setTimestamp(posttime)
 		        	.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
 
 		        	message.channel.send({ embeds: [redditembed]}).catch(err => {
