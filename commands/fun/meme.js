@@ -26,9 +26,9 @@ module.exports = {
         				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
         				return
         			}
-					if (nsfw === true) {
-						memeTitle = `[NSFW] ${memeTitle}` 
-					}
+				if (nsfw === true) {
+					memeTitle = `⚠️[NSFW]⚠️ ${memeTitle}` 
+				}
 
         			const memeembed = new Discord.MessageEmbed()
         			.setTitle(`${memeTitle}`)
