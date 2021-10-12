@@ -36,7 +36,7 @@ module.exports = {
 	        				return
 	        			}
 					if(nsfw === true) {
-						posttitle = `[NSFW] ${posttitle}`
+						posttitle = `⚠️[NSFW]⚠️ ${posttitle}`
 					}
 	        			const redditembed = new Discord.MessageEmbed()
 	        			.setTitle(posttitle)
@@ -67,7 +67,7 @@ module.exports = {
 		        		return
 		        	}
 				if (nsfw === true) {
-					postTitle = `[NSFW] ${postTitle}`
+					postTitle = `⚠️[NSFW]⚠️ ${postTitle}`
 				}
 		        	const redditembed = new Discord.MessageEmbed()
 		        	.setTitle(`${postTitle}`)
