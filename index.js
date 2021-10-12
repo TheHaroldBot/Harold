@@ -19,11 +19,9 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const fs = require("fs")
 const got = require('got');
 const { token, ownerids, botid, prefix } = require('./config.json');
-
 client.commands = new Collection();
 client.cooldowns = new Collection();
 client.aliases = new Collection();
-
 const commandFolders = fs.readdirSync('./commands');
 
 for (const folder of commandFolders) {
