@@ -37,5 +37,8 @@
   "bugs": {
     "url": "https://github.com/johng3587/Harold/issues"
   },
-  "homepage": "https://github.com/johng3587/Harold#readme"
+  "homepage": "https://github.com/johng3587/Harold#readme",
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
 }
