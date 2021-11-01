@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { invite } = require('../../config.json');
+const { invite } = require('../config.json');
 
 module.exports = {
 	name: 'invite', //command name

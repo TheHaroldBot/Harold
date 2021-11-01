@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const config = require('../../config.json')
+const config = require('../config.json')
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear']
 
 module.exports = {

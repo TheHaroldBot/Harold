@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const Chatbot  =  require("discord-chatbot");
-const config = require('../../config.json')
+const config = require('../config.json')
 
 const chatbot  =  new  Chatbot({name: "harold", gender: "Male"});
 

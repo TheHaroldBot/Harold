@@ -25,14 +25,11 @@ const { token, ownerids, botid, prefix } = require('./config.json');
 client.commands = new Collection();
 client.cooldowns = new Collection();
 client.aliases = new Collection();
-const commandFolders = fs.readdirSync('./commands');
-
-for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-    for (const file of commandFiles) {
-        const commandfile = require(`./commands/${folder}/${file}`);
-        client.commands.set(commandfile.name, commandfile);
-    }
+const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith('.js'));
+    
+for (const file of commandFiles) {
+    const commandfile = require(`./commands/${file}`);
+    client.commands.set(commandfile.name, commandfile);
 }
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -40,9 +37,9 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
-		client.once(event.name, (message, ...args) => event.execute(message, ...args));
+		client.once(event.name, (message, guild, ...args) => event.execute(message, guild, ...args));
 	} else {
-		client.on(event.name, (message, ...args) => event.execute(message, ...args));
+		client.on(event.name, (message, guild, ...args) => event.execute(message, guild, ...args));
 	}
 }
 
@@ -113,59 +110,6 @@ client.on('messageCreate', message => {
         console.error(error);
         message.reply('There was an error trying to execute that command!');
     }
-});
-
-client.on('messageCreate', message => {
-    let blocked = JSON.parse(fs.readFileSync('config.json'))
-    if (blocked.blocked.includes(message.author.id)) return
-    let ignoreautoresponse = JSON.parse(fs.readFileSync('config.json'))
-    if (ignoreautoresponse.autoresponseignore.includes(message.author.id)) return
-    if (message.webhookID) return;
-/*     if (message.content.toLowerCase().includes('pls meme')) { //checks if author is using dank boi
-        if (message.author.bot) return //if author is bot, forget them
-        var memerandom = Math.random() <= 0.01; //rolls a 100 sided die
-        if (memerandom === true) { //if said die lands on 100, continue
-            message.reply(`Oh suuuure, go ahead and use dank memer, when I have a perfectly good meme command.`) //call out the memer
-        }
-    } */
-    if (message.author.id === botid) return
-    if (message.guild === null) return
-    if (message.content.includes('poll2op')) { //poll with 2 options
-        message.react('1️⃣')
-        message.react('2️⃣')
-    } else if (message.content.includes('poll3op')) { //poll with 3 options
-        message.react('1️⃣')
-        message.react('2️⃣')
-        message.react('3️⃣')
-    } else if (message.content.includes('poll4op')) { //poll with 4 options
-        message.react('1️⃣')
-        message.react('2️⃣')
-        message.react('3️⃣')
-        message.react('4️⃣')
-    } else if (message.content === 'f') { //f
-        message.channel.send('f')
-    } else if (message.content.includes('hehe')) { //hehehe
-        message.channel.send('hehehe')
-    } else if (message.content.includes('smae')) { //its spelled 'same'
-        message.channel.send('*same')
-    } else if (message.content.includes('pollyn')) { //poll yes or no
-        message.react('🇾')
-        message.react('🇳')
-    } else if (message.content.includes('stfu') || message.content.includes('Stfu')) { //i will not shut up
-        message.channel.send('no u')
-    } else if (message.content.includes('pollupdown')) { //poll upvote/downvote
-        message.react('👍')
-        message.react('👎')
-    } else if (message.content.includes('doge') || message.content.includes('dogecoin')) { //dogecoin woo
-        got('https://sochain.com/api/v2/get_price/DOGE/USD')
-            .then(response => {
-                let data = JSON.parse(response.body)
-                message.channel.send(`Dogecoin is selling at Gemini for ${data.data.prices[0].price} USD\n\nDogecoin is selling at Binance for ${data.data.prices[1].price} USD`)
-            })
-    } else if (message.content.includes('heyya')) {
-        message.channel.send('<a:heyyagoose:858742342974177290>')
-    }
-
 });
 
 client.login(token).then(console.info(`Node version: ${process.versions.node}\nLogged in.`))
