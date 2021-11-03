@@ -1,19 +1,11 @@
+//https://github.com/johng3587/Harold
+
 /*
     A mascot and quality of life discord bot, mainly for the purpose of entertaining people.
     Copyright (C) 2021  John Gooden
     
     This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    it under the terms listed in the LICENSE file.
 */
 
 const { Client, Intents, Collection } = require('discord.js');
@@ -37,9 +29,9 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
-		client.once(event.name, (message, guild, ...args) => event.execute(message, guild, ...args));
+		client.once(event.name, (...args) => event.execute(...args));
 	} else {
-		client.on(event.name, (message, guild, ...args) => event.execute(message, guild, ...args));
+		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
 
@@ -64,7 +56,6 @@ client.on('messageCreate', message => {
 
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
     if (!command) return
-
 
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Collection());

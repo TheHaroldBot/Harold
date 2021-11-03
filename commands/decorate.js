@@ -4,7 +4,7 @@ const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween',
 
 module.exports = {
 	name: 'decorate', //command name
-	description: `Decorate channels. Run \`${config.prefix}decor clear\` first if you already have emojis on it to clear them. Due to Discord rate limiting, this command can only be run once every 10 minutes.`, //command description
+	description: `Decorate channels. Run \`${config.prefix}decor clear\` first if you already have emojis on it to clear them. Due to Discord rate limiting, this command can only be run once every 5 minutes.\nIf you bypass this rate limit by using multiple people, note that it will work, but it will be delayed.`, //command description
 	args: true, //needs arguments? delete line if no
     usage: `<${options.join('|')}>`, //usage instructions w/o command name and prefix
     guildOnly: true, //execute in a guild only? remove line if no
