@@ -19,11 +19,11 @@ module.exports = {
 		for (let i = 0; i < config.ownerids.length; i++) {
             const dmme = message.client.users.cache.get(config.ownerids[i])
             if(message.guild) {
-                bugreportembed.addField('From guild:', `Name: ${message.guild.name}, ID: ${message.guild.id}`)
+                bugreportembed.addField('From guild:', `Name: ${message.guild.name}, ID: ${message.guild.id}\nUser ID: ${message.author.id}`)
             } else {
                 bugreportembed.addField('From direct message:', 'No guild information avaliable.')
             }
-            bugreportembed.addField('Contact method:', 'If this is from a guild, then do `*fetchinvite <guild id>` to get an invite to talk to them.\nAlternatively, you can send a friend request to the sender.\nIf the message is not from a guild, send a friend request to the sender.')
+            bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with \`*message\`.')
             try {
                 dmme.send({ embeds: [bugreportembed]})
             } catch (error) {
@@ -32,6 +32,6 @@ module.exports = {
         }
         const supportchannel = message.client.channels.cache.get('905621722978467860')
         supportchannel.send({ embeds: [bugreportembed]})
-        message.channel.send('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may join your server to talk.')
+        message.channel.send('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.')
 	},
 };

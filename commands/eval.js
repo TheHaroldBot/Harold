@@ -16,7 +16,7 @@ module.exports = {
             eval(code);
         } catch (error) {
             console.error(error);
-            
+            message.channel.send('Thats an error there buddy!')
         }
 	},
 };
