@@ -19,7 +19,7 @@ module.exports = {
             .setColor('RANDOM')
             .setTitle(`You've got mail!`)
             .setDescription(description)
-            .setAuthor(`From: ${message.author.tag}`, message.author.displayAvatarURL(), 'https://discord.gg/xnY4SZV2Cd')
+            .setAuthor(`From: ${message.author.username}`, message.author.displayAvatarURL(), 'https://discord.gg/xnY4SZV2Cd')
             .setTimestamp();
         
         for (let index = 0; index < ownerids.length; index++) {
@@ -28,16 +28,15 @@ module.exports = {
             .catch(console.error());
             ownersendcount++
         }
-        try {
             guilds.forEach(async guild => {
                 const owner = await guild.fetchOwner();
-                owner.send({embeds: [newsembed]})
-                .catch(console.error());
+                try {
+                    owner.send({embeds: [newsembed]})
+                } catch (error) {
+                    console.log(error)
+                }
                 guildsendcount++
             });
-        } catch (error) {
-            console.error(error);
-        }
         
         message.reply(`Sent to ${guildsendcount} guild and ${ownersendcount} bot owners.`, {embeds: [newsembed]});
         message.react('📬');
