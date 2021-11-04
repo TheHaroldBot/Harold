@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'embed', //command name
-	description: 'Send an embed', //command description
+	description: 'Send an embed usind JSON data.\nBuild an embed here: https://embedbuilder.nadekobot.me/ then copy the JSON code on the right.', //command description
     usage: `<JSON>`, //usage instructions w/o command name and prefix
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
@@ -15,8 +15,13 @@ module.exports = {
             json.shift()
             let data = json.join(" ")
             let embedjson = new Discord.MessageEmbed(JSON.parse(data))
-	    message.delete()
-            message.channel.send({ embeds: [embedjson]})
+            if(message.guild === null) {
+                message.channel.send({ embeds: [embedjson]})
+            } else {
+                message.delete()
+                message.channel.send({ embeds: [embedjson]})
+            }
+            
         } catch (error) {
             let errorembed = new Discord.MessageEmbed()
             console.log(error)
