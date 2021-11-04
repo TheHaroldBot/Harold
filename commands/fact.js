@@ -15,7 +15,7 @@ module.exports = {
         		.then((json) => {
 		        	const factembed = new Discord.MessageEmbed()
 	        		.setTitle('Random Fact')
-	        		.setDescription(json.text.replace('`', "'"))
+	        		.setDescription(json.text.replaceAll('`', "'"))
 	        		.setFooter('From djtech.net')
 		        	.setColor('RANDOM')
 	        		message.channel.send({ embeds: [factembed]})
