@@ -43,6 +43,8 @@ client.on('messageCreate', message => {
     //console.table([{Type: message.channel.type, Username: message.author.tag, Message: message.content}])
     if (message.guild === null) { //log dms
         console.log(`DM From: '${message.author.tag}' > '${message.content}'`)
+        const dmchannel = client.channels.cache.get('905618810831253514')
+        dmchannel.send(`DM From: '${message.author.tag}' > '${message.content}'`)
     } else {
         console.log(`From: '${message.author.tag}' in '${message.guild.name}' > '${message.content}'`) //log guild messages
     }
