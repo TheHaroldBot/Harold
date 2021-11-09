@@ -8,7 +8,7 @@ module.exports = {
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
-	aliases: ['run'],
+	aliases: ['run', 'code', 'script'],
 	execute(message, args, prefix) { //inside here command stuff
 		const code = args.join(" ");
         try {
