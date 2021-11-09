@@ -9,7 +9,7 @@ module.exports = {
 	aliases: ['search'],
 	execute(message, args, prefix) { //inside here command stuff
 		let googlespace = message.content.replace(`${prefix}google `, "")
-    	let googlenospace = googlespace.replace(` ` , "%20")
+    	let googlenospace = googlespace.replaceAll(` ` , "%20")
     	message.channel.send(`https://lmgtfy.app/?q=${googlenospace}`)
 	},
 };

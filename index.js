@@ -88,7 +88,7 @@ client.on('messageCreate', message => {
             return message.reply(`You are missing ${command.permissions} to do this!`);
         }
     }
-    if (command.args && !args.length) {
+    if (command.args === true && !args.length) {
         let reply = `You didn't provide any arguments!`;
 
         if (command.usage) {

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'embed', //command name
-	description: 'Send an embed usind JSON data.\nBuild an embed here: https://embedbuilder.nadekobot.me/ then copy the JSON code on the right.', //command description
+	description: 'Send an embed usind JSON data.\nBuild an embed here: https://eb.nadeko.bot/ then copy the JSON code on the right.', //command description
     usage: `<JSON>`, //usage instructions w/o command name and prefix
 	cooldown: 5, //cooldown in seconds, defaults to 3
 	permissions: [], //permissions required for command
