@@ -9,18 +9,18 @@ module.exports = {
 	permissions: [], //permissions required for command
 	ownerOnly: true, //need to be the owner? delete line if no
 	aliases: ['msg'], //aliases for command
-	execute(message, args, prefix) { //inside here command stuff
+	async execute(message, args, prefix) { //inside here command stuff
 		const dmme = message.client.users.cache.get(args[0]);
         const msgembed = new Discord.MessageEmbed()
-        .setTitle('New message!')
-        .setAuthor(message.author.username, message.author.avatarURL())
-        .setDescription(args.slice(1).join(' '))
-        .setTimestamp()
-        .setColor('RANDOM')
-		try {
-			dmme.send({embeds: [msgembed]});
-		} catch (error) {
-			console.log(error);
-		}
+        	.setTitle('New message!')
+        	.setAuthor(message.author.username, message.author.avatarURL())
+        	.setDescription(args.slice(1).join(' '))
+        	.setTimestamp()
+        	.setColor('RANDOM')
+			try {
+				await dmme.send({embeds: [msgembed]})
+			} catch (error) {
+				console.log(error)
+			}
 	},
 };

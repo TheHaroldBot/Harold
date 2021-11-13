@@ -30,7 +30,7 @@ module.exports = {
 			message.reply('This command requires a permission to run, however I do not know what that permission may be. For now, I ask for administrator until I do know which permission I need, you are welcome to remove it after channels have been decorated.')
 			return
 		}
-		channelList.forEach(element => {
+		channelList.forEach(async element => {
 			if(element.type === 'GUILD_CATEGORY') return
 			if(element.type === 'GUILD_PUBLIC_THREAD') return
 			if(element.type === 'GUILD_PRIVATE_THREAD') return
@@ -48,7 +48,12 @@ module.exports = {
 			let theme = themes[args[0]]
 			let randomemoji = theme[Math.floor(Math.random() * theme.length)]
 			let newname = randomemoji + element.name + randomemoji
-			element.setName(newname)
+			try {
+				await element.setName(newname)
+			} catch (error) {
+				console.error(error)
+			}
+			
 		});
 		message.reply('Decorated!')
 	},

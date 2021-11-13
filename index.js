@@ -42,11 +42,11 @@ client.on('messageCreate', message => {
     const commandName = args.shift().toLowerCase();
     //console.table([{Type: message.channel.type, Username: message.author.tag, Message: message.content}])
     if (message.guild === null) { //log dms
-        console.log(`DM From: '${message.author.tag}' > '${message.content}'`)
+        console.log(`DM From: '${message.author.tag} (${message.author.id})' > '${message.content}'`)
         const dmchannel = client.channels.cache.get('905618810831253514')
-        dmchannel.send(`DM From: '${message.author.tag}' > '${message.content}'`)
+        dmchannel.send(`DM From: '${message.author.tag} (${message.author.id})' > '${message.content}'`)
     } else {
-        console.log(`From: '${message.author.tag}' in '${message.guild.name}' > '${message.content}'`) //log guild messages
+        console.log(`From: '${message.author.tag} (${message.author.id})' in '${message.guild.name} (${message.guild.id})' > '${message.content}'`) //log guild messages
     }
     if (!message.content.startsWith(prefix)) return //starting now, ignore messages without prefix
     let botblocked = JSON.parse(fs.readFileSync('config.json'))

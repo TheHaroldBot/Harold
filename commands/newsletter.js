@@ -31,7 +31,8 @@ module.exports = {
             guilds.forEach(async guild => {
                 const owner = await guild.fetchOwner();
                 try {
-                    owner.send({embeds: [newsembed]})
+                    newsembed.setFooter(`Sent because you are the owner of ${guild.name}`)
+                    await owner.send({embeds: [newsembed]})
                 } catch (error) {
                     console.log(error)
                 }
