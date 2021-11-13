@@ -26,10 +26,6 @@ module.exports = {
 		let allemojis = themes.summer.concat(themes.fall, themes.winter, themes.spring, themes.christmas, themes.halloween, themes.easter, themes.hanukkah)
         if(!options.includes(args[0])) return(message.reply(`Usage: ${prefix}${this.name} ${this.usage}`))
 		let channelList = await message.guild.channels.fetch()
-		if(!message.guild.me.permissions.has("ADMINISTRATOR")) {
-			message.reply('This command requires a permission to run, however I do not know what that permission may be. For now, I ask for administrator until I do know which permission I need, you are welcome to remove it after channels have been decorated.')
-			return
-		}
 		channelList.forEach(async element => {
 			if(element.type === 'GUILD_CATEGORY') return
 			if(element.type === 'GUILD_PUBLIC_THREAD') return
@@ -51,10 +47,10 @@ module.exports = {
 			try {
 				await element.setName(newname)
 			} catch (error) {
-				console.error(error)
+				console.error('Could not set channel name using decor command')
 			}
 			
 		});
-		message.reply('Decorated!')
+		message.reply('I decorated the channels I had permission for, enjoy!')
 	},
 };
