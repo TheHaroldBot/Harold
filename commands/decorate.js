@@ -38,7 +38,11 @@ module.exports = {
 					name = name.replace(emoji, '')
 					name = name.replace(emoji, '')
 				});
-				element.setName(name, 'Removed decoration')
+				try {
+					await element.setName(name, 'Removed decoration')
+				} catch (error) {
+					console.error(error)
+				}
 				return
 			}
 			let theme = themes[args[0]]
