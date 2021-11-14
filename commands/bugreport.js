@@ -21,7 +21,7 @@ module.exports = {
         } else {
             bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${message.author.id}`)
         }
-        bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with \`*message\`.')
+        bugreportembed.addField(`Contact method:', 'You can send a friend request to the sender, or talk through harold with \`${prefix}message\`.`)
 		for (let i = 0; i < config.ownerids.length; i++) {
             const dmme = message.client.users.cache.get(config.ownerids[i])
             try {
