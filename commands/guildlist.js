@@ -11,13 +11,7 @@ module.exports = {
 	aliases: ['serverlist'],
 	execute(message, args, prefix) { //inside here command stuff
 		const Guilds = message.client.guilds.cache.map(guild => guild.name)
-        const Guildids = message.client.guilds.cache.map(guild => guild.id)
-
-        let guildids2 = []
-        Guildids.forEach(element2 => {
-            guildids2 = guildids2 + `${element2}\n`
-        });
-
+        
         let guildlist = []
         Guilds.forEach(element => {
             guildlist = guildlist + `${element}\n`
@@ -26,8 +20,7 @@ module.exports = {
         .setTitle(`**We are in ${Guilds.length} servers!**`)
         .setColor('RANDOM')
         .addFields(
-            { name: 'Names:', value: guildlist, inline: true },
-            { name: 'IDs:', value: guildids2, inline: true }
+            { name: 'Names:', value: guildlist, inline: true }
         )
         .setDescription('Get an invite with `*fetchinvite <guild id>`.')
         message.author.send({ embeds: [guildlistembed]})

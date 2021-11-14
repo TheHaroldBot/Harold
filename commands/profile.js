@@ -23,7 +23,7 @@ module.exports = {
         if(message.guild !== null) {
             let guildMember = message.guild.members.cache.find(user => user.id === pfptarget.id)
             let joinedGuild = Math.round(guildMember.joinedTimestamp / 1000)
-            pfpembed.addField('Server information', `**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)\n**Nickname:** ${guildMember.displayName}\n**Pending membership:** ${guildMember.pending}`)
+            pfpembed.addField('Server information', `**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)\n**Display name:** ${guildMember.displayName}\n**Pending membership:** ${guildMember.pending}`)
         }
         message.reply({ embeds: [pfpembed]})
 	},
