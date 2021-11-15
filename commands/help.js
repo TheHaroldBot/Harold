@@ -21,6 +21,7 @@ module.exports = {
             .setDescription(description, { split: true})
             .setColor('RANDOM')
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
+			.setAuthor('Harold!!', message.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 
         	return message.author.send({ embeds: [helpembed]})
 	    	.then(() => {
