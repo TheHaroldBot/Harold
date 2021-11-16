@@ -2,51 +2,51 @@ const Discord = require('discord.js');
 const got = require('got');
 
 module.exports = {
-	name: 'meme', //command name
-	description: 'Gets a random meme from r/dankmemes', //command description
-    usage: ``, //usage instructions w/o command name and prefix
-	cooldown: .5, //cooldown in seconds, defaults to 3
+	name: 'meme', // command name
+	description: 'Gets a random meme from r/dankmemes', // command description
+	usage: '', // usage instructions w/o command name and prefix
+	cooldown: 0.5, // cooldown in seconds, defaults to 3
 	aliases: [],
-	execute(message, args, prefix) { //inside here command stuff
-        	got('https://www.reddit.com/r/dankmemes/random/.json') //get random meme from r/dankmemes
-        		.then(response => {
-	        		const [list] = JSON.parse(response.body);
-	        		const [post] = list.data.children;
+	execute(message) { // inside here command stuff
+		got('https://www.reddit.com/r/dankmemes/random/.json') // get random meme from r/dankmemes
+			.then(response => {
+				const [list] = JSON.parse(response.body);
+				const [post] = list.data.children;
 
-	        		let permalink = post.data.permalink;
-	        		let memeUrl = `https://reddit.com${permalink}`;
-	        		let memeImage = post.data.url;
-	        		let memeTitle = post.data.title;
-	        		let memeUpvotes = post.data.ups;
-	        		let memeNumComments = post.data.num_comments;
-				let posttime = post.data.created * 1000
-					let nsfw = post.data.over_18
-					let postauthor = `u/${post.data.author}`
-	        		if (nsfw === true && message.channel.nsfw !== true) {
-        				message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw')
-        				return
-        			}
+				const permalink = post.data.permalink;
+				const memeUrl = `https://reddit.com${permalink}`;
+				const memeImage = post.data.url;
+				let memeTitle = post.data.title;
+				const memeUpvotes = post.data.ups;
+				const memeNumComments = post.data.num_comments;
+				const posttime = post.data.created * 1000;
+				const nsfw = post.data.over_18;
+				const postauthor = `u/${post.data.author}`;
+				if (nsfw === true && message.channel.nsfw !== true) {
+					message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw');
+					return;
+				}
 				if (nsfw === true) {
-					memeTitle = `⚠️[NSFW]⚠️ ${memeTitle}` 
+					memeTitle = `⚠️[NSFW]⚠️ ${memeTitle}`;
 				}
 
-        			const memeembed = new Discord.MessageEmbed()
-        			.setTitle(`${memeTitle}`)
-        			.setURL(`${memeUrl}`)
-        			.setColor('RANDOM')
-        			.setImage(memeImage)
-				.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
-        			.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
-				.setTimestamp(posttime)
+				const memeembed = new Discord.MessageEmbed()
+					.setTitle(`${memeTitle}`)
+					.setURL(`${memeUrl}`)
+					.setColor('RANDOM')
+					.setImage(memeImage)
+					.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
+					.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
+					.setTimestamp(posttime);
 
-	        		message.channel.send({ embeds: [memeembed]}).catch(err => {
-	        			console.log(err)
-	        			message.channel.send(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`)
-	        		});	
-	        	})
-	        	.catch(err => {
-	        		console.log(err)
-	        		message.channel.send('There was an error completing your request, try again later!')
-	        	})
+				message.channel.send({ embeds: [memeembed] }).catch(err => {
+					console.log(err);
+					message.channel.send(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+				});
+			})
+			.catch(err => {
+				console.log(err);
+				message.channel.send('There was an error completing your request, try again later!');
+			});
 	},
 };

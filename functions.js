@@ -1,3 +1,4 @@
-//figure this out pls
+/* eslint-disable no-undef */
+// figure this out pls
 
 module.exports = { function1, function2, function3 };

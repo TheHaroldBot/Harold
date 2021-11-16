@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 A mascot and quality of life discord bot, mainly for the purpose of entertaining me.
     Copyright (C) 2021  John Gooden
