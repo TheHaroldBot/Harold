@@ -41,7 +41,7 @@ module.exports = {
 					await element.setName(name, 'Removed decoration');
 				}
 				catch (error) {
-					console.error(error);
+					console.error('Could not set a channel name using decor command');
 				}
 				return;
 			}
@@ -52,7 +52,7 @@ module.exports = {
 				await element.setName(newname);
 			}
 			catch (error) {
-				console.error('Could not set channel name using decor command');
+				console.error('Could not set a channel name using decor command');
 			}
 
 		});

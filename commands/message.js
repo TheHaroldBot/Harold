@@ -19,6 +19,7 @@ module.exports = {
 			.setColor('RANDOM');
 		try {
 			await dmme.send({ embeds: [msgembed] });
+			message.reply(`Message sent:\n >>> ${args.slice(1).join(' ')}`);
 		}
 		catch (error) {
 			console.log(error);
