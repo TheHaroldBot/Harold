@@ -22,14 +22,20 @@ module.exports = {
 				.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 				.setAuthor('Harold!!', message.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 
-			await message.author.send({ embeds: [helpembed] }).catch(message.reply('I\'m unable to send you a DM with all my commands! Are you\'r DMs disabled?'));
+			try {
+				await message.author.send({ embeds: [helpembed] });
+			}
+			catch (error) {
+				message.reply('I\'m unable to send you a DM with all my commands! Are your DMs disabled?');
+				console.error(`Can't send help embed to ${message.author.tag}:\n${error}`);
+			}
 			return;
 		}
 		const name = args[0].toLowerCase();
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
 		if (!command) {
-			return message.reply('that\'s not a valid command!');
+			return message.reply('That\'s not a valid command!');
 		}
 		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 		if (command.description) data.push(`**Description:** ${command.description}`);
@@ -40,6 +46,11 @@ module.exports = {
 			.setDescription(data.join('\n'), { split: true })
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 			.setColor('RANDOM');
-		await message.channel.send({ embeds: [helpembed] }).catch(console.log('Error sending help embed.'));
+		try {
+			await message.channel.send({ embeds: [helpembed] });
+		}
+		catch (error) {
+			console.error(`Error sending help embed to ${message.author.tag}:\n${error}`);
+		}
 	},
 };
