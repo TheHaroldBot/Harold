@@ -10,11 +10,11 @@ module.exports = {
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['msg'], // aliases for command
 	async execute(message, args) { // inside here command stuff
-		const dmme = message.client.users.cache.get(args[0]);
+		const dmme = await message.client.users.fetch(args[0]);
 		const msgembed = new Discord.MessageEmbed()
 			.setTitle('New message!')
-			.setAuthor(message.author.username, message.author.avatarURL())
-			.setDescription(args.slice(1).join(' '))
+			.setAuthor(message.author.tag, message.author.avatarURL())
+			.setDescription('>>> ' + args.slice(1).join(' '))
 			.setTimestamp()
 			.setColor('RANDOM');
 		try {
@@ -23,6 +23,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.log(error);
+			message.reply('Error sending message to this user!');
 		}
 	},
 };
