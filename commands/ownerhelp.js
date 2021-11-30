@@ -18,7 +18,8 @@ module.exports = {
 		const ownerembed = new Discord.MessageEmbed()
 			.setTitle('Owner Help Menu')
 			.setColor('RANDOM')
-			.setDescription(description, { split: true });
+			.setDescription(description, { split: true })
+			.addField('IMPORTANT', `Some of these commands have a great effect on the bot and I suggest running \`${prefix}help ${this.name}\` first to find out what it does.`);
 		message.react('📬');
 		message.author.send ({ embeds: [ownerembed] });
 	},

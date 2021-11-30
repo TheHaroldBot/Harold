@@ -3,7 +3,7 @@ const config = require('../config.json');
 
 module.exports = {
 	name: 'newsletter', // command name
-	description: 'Send a newsletter to all the server owners the bot is in.', // command description
+	description: 'Send a newsletter to all the server owners the bot is in. DO NOT USE THIS LIGHTLY!', // command description
 	args: true, // needs arguments? delete line if no
 	usage: '<message>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
