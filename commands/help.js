@@ -6,7 +6,7 @@ module.exports = {
 	usage: '(command name)',
 	guildOnly: false,
 	cooldown: 5,
-	execute(message, args, prefix) { // inside here command stuff
+	async execute(message, args, prefix) { // inside here command stuff
 		const data = [];
 		const { commands } = message.client;
 
@@ -22,15 +22,8 @@ module.exports = {
 				.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 				.setAuthor('Harold!!', message.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 
-			return message.author.send({ embeds: [helpembed] })
-				.then(() => {
-					if (message.channel.type === 'dm') return;
-					message.react('📬');
-				})
-				.catch(error => {
-					console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-					message.reply('it seems like I can\'t DM you! Do you have DMs disabled?');
-				});
+			await message.author.send({ embeds: [helpembed] }).catch(message.reply('I\'m unable to send you a DM with all my commands! Are you\'r DMs disabled?'));
+			return;
 		}
 		const name = args[0].toLowerCase();
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
@@ -47,6 +40,6 @@ module.exports = {
 			.setDescription(data.join('\n'), { split: true })
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 			.setColor('RANDOM');
-		message.channel.send({ embeds: [helpembed] });
+		await message.channel.send({ embeds: [helpembed] }).catch(console.log('Error sending help embed.'));
 	},
 };

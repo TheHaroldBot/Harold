@@ -19,9 +19,6 @@ module.exports = {
 		else {
 			try {
 				await message.channel.send({ embeds: [embedjson] });
-				if (message.guild) {
-					await message.delete().catch(() => {return;});
-				}
 			}
 			catch (error) {
 				console.log('Failed to send a custom embed!');
