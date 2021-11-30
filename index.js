@@ -50,9 +50,10 @@ client.on('messageCreate', message => {
 		// log guild messages
 	} */
 	if (!message.content.startsWith(prefix)) return;
+	console.info(`${message.author.tag} executed ${commandName}`);
 	// starting now, ignore messages without prefix
 	const botblocked = JSON.parse(fs.readFileSync('config.json'));
-	if (botblocked.blocked.includes(ownerids) && ownerids.includes(message.author.id)) {
+	if (botblocked.blocked.includes(message.author.id) && ownerids.includes(message.author.id)) {
 		message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.');
 		return;
 	}
@@ -101,7 +102,7 @@ client.on('messageCreate', message => {
 	}
 
 	try {
-		console.info(`${message.author.tag} executed ${command.name}`);
+		console.info(`Executing command ${command.name} on behalf of ${message.author.tag}`);
 		command.execute(message, args, prefix, client, ownerids);
 	}
 	catch (error) {
