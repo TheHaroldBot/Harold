@@ -22,25 +22,33 @@ module.exports = {
 			.setAuthor(`From: ${message.author.username}`, message.author.displayAvatarURL(), 'https://discord.gg/xnY4SZV2Cd')
 			.setTimestamp();
 
-		for (let index = 0; index < config.ownerids.length; index++) {
-			const dmme = message.client.users.cache.get(config.ownerids[index]);
-			newsembed.setFooter('Sent because you are am owner of Harold.');
-			dmme.send({ embeds: [newsembed] })
-				.catch(console.error());
+		config.ownerids.forEach(async ownerid => {
+			const dmme = message.client.users.cache.get(ownerid);
+			newsembed.setFooter('Sent because you are an owner of Harold.');
+			try {
+				await dmme.send({ embeds: [newsembed] });
+				console.log(`News embed sent to ${dmme.tag}`);
+			}
+			catch (error) {
+				console.error(`Error sending news embed to ${dmme.tag}!`);
+			}
 			ownersendcount++;
-		}
+		});
+
 		guilds.forEach(async guild => {
 			const owner = await guild.fetchOwner();
 			try {
 				newsembed.setFooter(`Sent because you are the owner of ${guild.name}`);
 				await owner.send({ embeds: [newsembed] });
+				console.log(`News embed sent to ${owner.tag} from ${guild.name}`);
 			}
 			catch (error) {
-				console.log(error);
+				console.error(`Error sending news embed to ${owner.tag} from ${guild.name}`);
 			}
 			guildsendcount++;
 		});
-
+		const announcementChannel = message.guild.channels.cache.find('875779429618565120');
+		announcementChannel.send({ embeds: [newsembed] });
 		message.reply(`Sent to ${guildsendcount} guild and ${ownersendcount} bot owners.`, { embeds: [newsembed] });
 		message.react('📬');
 	},
