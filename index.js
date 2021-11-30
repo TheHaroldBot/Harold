@@ -39,21 +39,20 @@ client.on('messageCreate', message => {
 	const { cooldowns } = client;
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
-	// console.table([{Type: message.channel.type, Username: message.author.tag, Message: message.content}])
 	if (message.guild === null) {
 		// log dms
 		console.log(`DM From: '${message.author.tag} (${message.author.id})' > '${message.content}'`);
 		const dmchannel = client.channels.cache.get('905618810831253514');
 		dmchannel.send(`DM From: '${message.author.tag} (${message.author.id})' > '${message.content}'`);
 	}
-	else {
+	/* 	else {
 		console.log(`From: '${message.author.tag} (${message.author.id})' in '${message.guild.name} (${message.guild.id})' > '${message.content}'`);
 		// log guild messages
-	}
+	} */
 	if (!message.content.startsWith(prefix)) return;
 	// starting now, ignore messages without prefix
 	const botblocked = JSON.parse(fs.readFileSync('config.json'));
-	if (botblocked.blocked.includes(ownerids) && message.author.id === ownerids) {
+	if (botblocked.blocked.includes(ownerids) && ownerids.includes(message.author.id)) {
 		message.author.send('You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.');
 		return;
 	}
@@ -102,10 +101,11 @@ client.on('messageCreate', message => {
 	}
 
 	try {
+		console.info(`${message.author.tag} executed ${command.name}`);
 		command.execute(message, args, prefix, client, ownerids);
 	}
 	catch (error) {
-		console.error(error);
+		console.error(`Error executing ${command.name}:\n${error}`);
 		message.reply('There was an error trying to execute that command!');
 	}
 });
