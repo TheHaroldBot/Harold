@@ -27,7 +27,7 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {
+	if (event.once === true) {
 		client.once(event.name, (...args) => event.execute(...args));
 	}
 	else {
@@ -45,12 +45,7 @@ client.on('messageCreate', message => {
 		const dmchannel = client.channels.cache.get('905618810831253514');
 		dmchannel.send(`DM From: '${message.author.tag} (${message.author.id})' > '${message.content}'`);
 	}
-	/* 	else {
-		console.log(`From: '${message.author.tag} (${message.author.id})' in '${message.guild.name} (${message.guild.id})' > '${message.content}'`);
-		// log guild messages
-	} */
 	if (!message.content.startsWith(prefix)) return;
-	console.info(`${message.author.tag} executed ${commandName}`);
 	// starting now, ignore messages without prefix
 	const botblocked = JSON.parse(fs.readFileSync('config.json'));
 	if (botblocked.blocked.includes(message.author.id) && ownerids.includes(message.author.id)) {
@@ -102,7 +97,7 @@ client.on('messageCreate', message => {
 	}
 
 	try {
-		console.info(`Executing command ${command.name} on behalf of ${message.author.tag}`);
+		console.info(`Executing command ${command.name} on behalf of ${message.author.tag} (${message.author.id})`);
 		command.execute(message, args, prefix, client, ownerids);
 	}
 	catch (error) {

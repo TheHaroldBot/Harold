@@ -5,7 +5,6 @@ module.exports = {
 	name: 'guildCreate',
 	once: true,
 	async execute(guild) {
-		// const prefix = require('../config.json'); //fix this
 		const introembed = new Discord.MessageEmbed()
 			.setTitle('Hiya!')
 			.setColor('RANDOM')

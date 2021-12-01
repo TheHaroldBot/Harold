@@ -39,5 +39,21 @@
 			"};"
 		],
 		"description": "Template for a new discord.js command"
+	},
+	"Event Template": {
+		"scope": "javascript",
+		"prefix": "event",
+		"body": [
+			"const Discord = require('discord.js');",
+			"",
+			"module.exports = {",
+			"\tname: '$1',",
+			"\tonce: ${2:true},",
+			"\tasync execute() {",
+			"\t\t$0",
+			"\t},",
+			"};"
+
+		]
 	}
 }
