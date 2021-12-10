@@ -6,15 +6,13 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['setprofile', 'setpfp'],
-	execute(message, args) { // inside here command stuff
-		const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-           '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-          '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-		if (pattern.test(args[0]) === false) return (message.channel.send('Invalid url, check for spelling errors and try again.'));
-		message.client.user.setAvatar(args[0]);
-		message.channel.send('Avatar changed');
+	async execute(message, args) { // inside here command stuff
+		try {
+			await message.client.user.setAvatar(args[0]);
+			message.channel.send('Avatar changed');
+		}
+		catch {
+			message.reply('Error setting avatar, check the URL spelling and try again.');
+		}
 	},
 };
