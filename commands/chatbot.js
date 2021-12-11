@@ -7,6 +7,7 @@ module.exports = {
 	name: 'chatbot', // command name
 	description: `Starts the chat bot. Use \`${config.prefix}stopchatbot\` to turn the bot off before the time expires automatically.`, // command description
 	usage: '<seconds to keep the chat bot open, maximum of 1800>', // usage instructions w/o command name and prefix
+	disabled: true,
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
 	aliases: [],
