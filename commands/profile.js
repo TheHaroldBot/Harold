@@ -25,7 +25,7 @@ module.exports = {
 		if (message.guild !== null) {
 			const guildMember = message.guild.members.cache.find(user => user.id === pfptarget.id);
 			const joinedGuild = Math.round(guildMember.joinedTimestamp / 1000);
-			pfpembed.addField('Server-specific information', `**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)\n**Display name:** ${guildMember.displayName}\n**Display color:** ${guildMember.displayHexColor}\n**Pending membership:** ${guildMember.pending}`);
+			pfpembed.addField('Server-specific information', `**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)\n**Display name:** ${guildMember.displayName}\n**Display color:** ${guildMember.displayHexColor}\n**Pending membership:** ${guildMember.pending}\n**Kickable:** ${guildMember.kickable}\n**Bannable:** ${guildMember.bannable}`);
 		}
 		message.reply({ embeds: [pfpembed] });
 	},
