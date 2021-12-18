@@ -7,7 +7,7 @@ module.exports = {
 	permissions: [], // permissions required for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['run', 'code', 'script'],
-	execute(message, args) { // inside here command stuff
+	async execute(message, args) { // inside here command stuff
 		const code = args.join(' ');
 		try {
 			eval(code);

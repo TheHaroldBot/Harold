@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-empty-function */
-const { MessageButton, MessageActionRow } = require('discord.js');
-
 module.exports = {
 	name: 'test', // command name
 	description: 'Test bits of code here', // command description
@@ -11,7 +9,7 @@ module.exports = {
 	ownerOnly: true, // need to be the owner? delete line if no
 	disabled: true,
 	aliases: [],
-	execute(message, args, prefix) {
+	async execute(message, args, prefix) {
 
 	},
 };

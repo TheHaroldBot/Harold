@@ -61,7 +61,7 @@ client.on('messageCreate', message => {
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Collection());
 	}
-	if (command.disabled) return (message.reply('This command is currently disabled, try again another time!'));
+	if (command.disabled === true) return (message.reply('This command is currently disabled, try again another time!'));
 	if (command.guildOnly === true && message.guild === null) return (message.channel.send('Sorry! This command can only be run in a server, not a dm.'));
 	if (command.ownerOnly === true && !ownerids.includes(message.author.id)) return (message.channel.send('Sorry! This command is reserved for the bot owner(s)'));
 	const now = Date.now();
@@ -97,7 +97,7 @@ client.on('messageCreate', message => {
 	}
 
 	try {
-		console.info(`Executing command '${command.name}'' on behalf of ${message.author.tag} (${message.author.id})`);
+		console.info(`Executing command '${command.name}' on behalf of ${message.author.tag} (${message.author.id})`);
 		command.execute(message, args, prefix, client, ownerids);
 	}
 	catch (error) {
