@@ -14,11 +14,12 @@ module.exports = {
 					const commits = JSON.parse(response.body);
 					const latest = commits[0];
 					message.client.user.setActivity(`Latest update: ${latest.commit.message}`);
+					message.reply(`Game set to \`Latest update: ${latest.commit.message}\``);
 				});
 		}
 		else {
 			message.client.user.setActivity(message.content.replace(`${prefix}setgame `, ''));
-			message.channel.send(`Game set to ${message.content.replace(`${prefix}setgame `, '')}`);
+			message.reply(`Game set to ${message.content.replace(`${prefix}setgame `, '')}`);
 		}
 
 	},
