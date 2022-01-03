@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, args) { // inside here command stuff
 		try {
 			await message.client.user.setAvatar(args[0]);
-			message.channel.send('Avatar changed');
+			message.reply('Avatar changed');
 		}
 		catch {
 			message.reply('Error setting avatar, check the URL spelling and try again.');

@@ -24,6 +24,7 @@ module.exports = {
 
 			try {
 				await message.author.send({ embeds: [helpembed] });
+				await message.reply('Sent you a DM with all my commands!');
 			}
 			catch (error) {
 				message.reply('I\'m unable to send you a DM with all my commands! Are your DMs disabled?');
@@ -47,7 +48,7 @@ module.exports = {
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 			.setColor('RANDOM');
 		try {
-			await message.channel.send({ embeds: [helpembed] });
+			await message.reply({ embeds: [helpembed] });
 		}
 		catch (error) {
 			console.error(`Error sending help embed to ${message.author.tag}:\n${error}`);

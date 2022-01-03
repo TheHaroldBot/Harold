@@ -7,7 +7,7 @@ module.exports = {
 	aliases: ['stream'],
 	execute(message, args, prefix) { // inside here command stuff
 		if (args.length < 2) {
-			message.channel.send('You need to set a stream title *and* a url');
+			message.reply('You need to set a stream title *and* a url');
 			return;
 		}
 		else {
@@ -15,7 +15,7 @@ module.exports = {
 				type: 'STREAMING',
 				url: args[0],
 			});
-			message.channel.send(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, '')} at \`${args[0]}\``);
+			message.reply(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, '')} at \`${args[0]}\``);
 		}
 	},
 };

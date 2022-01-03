@@ -23,11 +23,11 @@ module.exports = {
 				const nsfw = post.data.over_18;
 				const postauthor = `u/${post.data.author}`;
 				if (nsfw === true && message.channel.nsfw !== true) {
-					message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw');
+					message.reply('Oops, that one is nsfw, either try again, or set this channel to nsfw');
 					return;
 				}
 				if (nsfw === true) {
-					memeTitle = `⚠️[NSFW]⚠️ ${memeTitle}`;
+					memeTitle = `[NSFW] ${memeTitle}`;
 				}
 
 				const memeembed = new Discord.MessageEmbed()
@@ -39,14 +39,14 @@ module.exports = {
 					.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
 					.setTimestamp(posttime);
 
-				message.channel.send({ embeds: [memeembed] }).catch(err => {
+				message.reply({ embeds: [memeembed] }).catch(err => {
 					console.log(err);
-					message.channel.send(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+					message.reply(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
 				});
 			})
 			.catch(err => {
 				console.log(err);
-				message.channel.send('There was an error completing your request, try again later!');
+				message.reply('There was an error completing your request, try again later!');
 			});
 	},
 };

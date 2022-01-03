@@ -33,9 +33,9 @@ module.exports = {
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					message.channel.send({ embeds: [mcpingembed] }).catch((err) => {
+					message.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.channel.send('Error sending embed');
+						message.reply('Error sending embed');
 					});
 				})
 				.catch(() => {
@@ -44,9 +44,9 @@ module.exports = {
 						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					message.channel.send({ embeds: [mcpingembed] }).catch((err) => {
+					message.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.channel.send('Error sending embed.');
+						message.reply('Error sending embed.');
 					});
 					return;
 				});
@@ -59,9 +59,9 @@ module.exports = {
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					message.channel.send({ embeds: [mcpingembed] }).catch((err) => {
+					message.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.channel.send('Error sending embed');
+						message.reply('Error sending embed');
 					});
 				})
 				.catch((error) => {
@@ -71,9 +71,9 @@ module.exports = {
 						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					message.channel.send({ embeds: [mcpingembed] }).catch((err) => {
+					message.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.channel.send('Error sending embed.');
+						message.reply('Error sending embed.');
 					});
 					return;
 				});

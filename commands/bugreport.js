@@ -22,6 +22,6 @@ module.exports = {
 		bugreportembed.addField('Contact method:', `You can send a friend request to the sender, or talk through harold with \`${prefix}message\`.`);
 		const supportchannel = message.client.channels.cache.get('905621722978467860');
 		supportchannel.send({ embeds: [bugreportembed] });
-		message.channel.send('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
+		message.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
 	},
 };

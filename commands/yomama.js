@@ -12,11 +12,11 @@ module.exports = {
 		fetch(yomamaurl, yomamasettings)
 			.then(res => res.json())
 			.then((json) => {
-				message.channel.send(json.joke);
+				message.reply(json.joke);
 			})
 			.catch(err => {
 				console.log(err);
-				message.channel.send('There was an error completing your request, try again later!');
+				message.reply('There was an error completing your request, try again later!');
 			});
 	},
 };

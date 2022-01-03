@@ -9,6 +9,6 @@ module.exports = {
 	aliases: ['slow', 'messagerate'],
 	execute(message, args) { // inside here command stuff
 		message.channel.setRateLimitPerUser(args[0], `${message.author.tag} requested a slowmode of ${args[0]} second(s) in #${message.channel.name}`);
-		message.channel.send(`Success! Slowmode set to ${args[0]} second(s).`);
+		message.reply(`Success! Slowmode set to ${args[0]} second(s).`);
 	},
 };

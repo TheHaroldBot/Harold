@@ -8,13 +8,13 @@ module.exports = {
 	aliases: ['reboot'],
 	execute(message) { // inside here command stuff
 		const originalAuthor = message.author.id;
-		message.channel.send('Please confirm you want to shut down the bot.\nYou have 10 seconds to reply with \'y\' or \'yes\'');
+		message.reply('Please confirm you want to shut down the bot.\nYou have 10 seconds to reply with \'y\' or \'yes\'');
 		const collector = message.channel.createMessageCollector({ time: 10000 });
 		collector.on('collect', m => {
 			if (m.author.bot) return;
-			if (m.author.id !== originalAuthor) return (m.reply('You didn\'t request the restart, you cannot confirm it.'));
 			const content = m.content.toLowerCase();
 			if (content === 'y' || m.content === 'yes') {
+				if (m.author.id !== originalAuthor) return (m.reply('You didn\'t request the restart, you cannot confirm it.'));
 				process.exit();
 			}
 			else {return;}

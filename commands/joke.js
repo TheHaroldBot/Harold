@@ -18,7 +18,7 @@ module.exports = {
 					.setDescription(json.delivery)
 					.setColor('RANDOM')
 					.setFooter('jokeapi.dev');
-				message.channel.send({ embeds: [jokeembed] });
+				message.reply({ embeds: [jokeembed] });
 			})
 			.catch(err => {
 				console.log(err);

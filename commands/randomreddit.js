@@ -33,7 +33,7 @@ module.exports = {
 					const posttime = post.data.created * 1000;
 					const footer = `👍 ${postupvotes} 💬 ${postcomments} • r/${post.data.subreddit}`;
 					if (nsfw === true && message.channel.nsfw !== true) {
-						message.channel.send('Oops! thats a nsfw post, either try again, or set this channel to nsfw');
+						message.reply('Oops! thats a nsfw post, either try again, or set this channel to nsfw');
 						return;
 					}
 					if (nsfw === true) {
@@ -48,9 +48,9 @@ module.exports = {
 						.setTimestamp(posttime)
 						.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
 
-					message.channel.send({ embeds: [redditembed] }).catch(err => {
+					message.reply({ embeds: [redditembed] }).catch(err => {
 						console.log(err);
-						message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+						message.reply(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
 					});
 				}
 				else {
@@ -65,7 +65,7 @@ module.exports = {
 					const posttime = post.data.created * 1000;
 					const footer = `👍 ${postUpvotes} 💬 ${postNumComments} • r/${post.data.subreddit}`;
 					if (nsfw === true && message.channel.nsfw !== true) {
-						message.channel.send('Oops, that one is nsfw, either try again, or set this channel to nsfw');
+						message.reply('Oops, that one is nsfw, either try again, or set this channel to nsfw');
 						return;
 					}
 					if (nsfw === true) {
@@ -80,15 +80,15 @@ module.exports = {
 						.setTimestamp(posttime)
 						.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
 
-					message.channel.send({ embeds: [redditembed] }).catch(err => {
+					message.reply({ embeds: [redditembed] }).catch(err => {
 						console.log(err);
-						message.channel.send(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+						message.reply(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
 					});
 				}
 			})
 			.catch(err => {
 				console.log(err);
-				message.channel.send('There was an error completing your request, did you spell the subreddit right?');
+				message.reply('There was an error completing your request, did you spell the subreddit right?');
 			});
 
 	},

@@ -14,7 +14,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.error(error);
-			message.channel.send('Thats an error there buddy!');
+			message.reply('Thats an error there buddy!');
 		}
 	},
 };

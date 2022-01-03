@@ -11,20 +11,20 @@ module.exports = {
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
 	execute(message, args, prefix) { // inside here command stuff
-		if (args.length < 2) return message.channel.send(`You need to specify an action and a user to block! \`${prefix}${this.name} ${this.usage}\``);
+		if (args.length < 2) return message.reply(`You need to specify an action and a user to block! \`${prefix}${this.name} ${this.usage}\``);
 		if (args[0] === 'add') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (data.blocked.includes(message.mentions.users.first().id)) return (message.channel.send('That person is already blocked.'));
+			if (data.blocked.includes(message.mentions.users.first().id)) return (message.reply('That person is already blocked.'));
 			data.blocked.push(message.mentions.users.first().id);
 			fs.writeFileSync('././config.json', JSON.stringify(data));
-			message.channel.send(`Successfully blocked ${message.mentions.users.first().tag}.`);
+			message.reply(`Successfully blocked ${message.mentions.users.first().tag}.`);
 		}
 		else if (args[0] === 'remove') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (!data.blocked.includes(message.mentions.users.first().id)) return (message.channel.send('That person is not blocked.'));
+			if (!data.blocked.includes(message.mentions.users.first().id)) return (message.reply('That person is not blocked.'));
 			removeFromArray(data.blocked, message.mentions.users.first().id);
 			fs.writeFileSync('././config.json', JSON.stringify(data));
-			message.channel.send(`Successfully unblocked ${message.mentions.users.first().tag}.`);
+			message.reply(`Successfully unblocked ${message.mentions.users.first().tag}.`);
 		}
 	},
 };

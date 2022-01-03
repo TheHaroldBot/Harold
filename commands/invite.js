@@ -13,6 +13,6 @@ module.exports = {
 			.setTitle('Invite or vote here!')
 			.setDescription(`Vote for me at [discordbotlist.com](https://discordbotlist.com/bots/harold)\nInvite me [here.](${invite})`)
 			.setColor('RANDOM');
-		message.channel.send({ embeds: [inviteembed] });
+		message.reply({ embeds: [inviteembed] });
 	},
 };

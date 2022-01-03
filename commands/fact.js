@@ -18,11 +18,11 @@ module.exports = {
 					.setDescription(json.text.replaceAll('`', '\''))
 					.setFooter('From djtech.net')
 					.setColor('RANDOM');
-				message.channel.send({ embeds: [factembed] });
+				message.reply({ embeds: [factembed] });
 			})
 			.catch(err => {
 				console.log(err);
-				message.channel.send('There was an error completing your request, try again later!');
+				message.reply('There was an error completing your request, try again later!');
 			});
 	},
 };

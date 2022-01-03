@@ -62,8 +62,8 @@ client.on('messageCreate', message => {
 		cooldowns.set(command.name, new Collection());
 	}
 	if (command.disabled === true) return (message.reply('This command is currently disabled, try again another time!'));
-	if (command.guildOnly === true && message.guild === null) return (message.channel.send('Sorry! This command can only be run in a server, not a dm.'));
-	if (command.ownerOnly === true && !ownerids.includes(message.author.id)) return (message.channel.send('Sorry! This command is reserved for the bot owner(s)'));
+	if (command.guildOnly === true && message.guild === null) return (message.reply('Sorry! This command can only be run in a server, not a dm.'));
+	if (command.ownerOnly === true && !ownerids.includes(message.author.id)) return (message.reply('Sorry! This command is reserved for the bot owner(s)'));
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;

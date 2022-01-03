@@ -11,9 +11,7 @@ module.exports = {
 	aliases: ['args', 'arguments', 'argument-info', 'arguments-info'],
 	execute(message, args) { // inside here command stuff
 		if (args[0] === 'foo') {
-			return message.channel.send('bar');
+			return message.reply('bar');
 		}
-
-		message.channel.send(`Arguments: ${args}\nArguments length: ${args.length}`);
 	},
 };

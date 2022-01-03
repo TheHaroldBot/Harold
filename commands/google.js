@@ -8,6 +8,6 @@ module.exports = {
 	execute(message, args, prefix) { // inside here command stuff
 		const googlespace = message.content.replace(`${prefix}google `, '');
 		const googlenospace = googlespace.replaceAll(' ', '%20');
-		message.channel.send(`https://lmgtfy.app/?q=${googlenospace}`);
+		message.reply(`https://lmgtfy.app/?q=${googlenospace}`);
 	},
 };

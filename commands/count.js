@@ -6,6 +6,6 @@ module.exports = {
 	cooldown: 1, // cooldown in seconds, defaults to 3
 	aliases: ['members', 'membercount'],
 	execute(message) { // inside here command stuff
-		message.channel.send(`Current member count: ${message.guild.memberCount}`); // gives server member count
+		message.reply(`Current member count: ${message.guild.memberCount}`); // gives server member count
 	},
 };

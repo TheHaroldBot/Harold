@@ -16,7 +16,7 @@ module.exports = {
 					.setTitle('Catrgory: ' + body.category.title)
 					.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
 					.setColor('RANDOM');
-				message.channel.send({ embeds: [triviaembed] });
+				message.reply({ embeds: [triviaembed] });
 			});
 	},
 };
