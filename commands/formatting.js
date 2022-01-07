@@ -16,7 +16,7 @@ module.exports = {
 		const formatembed = new Discord.MessageEmbed()
 			.setTitle('A handy guide to Discord formatting')
 			.addFields(
-				{ name: 'Text Formatting', value: '\\*\\*bold\\*\\*\n\\*italic\\*\n\\_\\_underline\\_\\_\n\\~\\~strikethrough\\~\\~\n\\*\\*\\*bold and italic\\*\\*\\*\n\\*\\*\\*\\_\\_\\~\\~bold, italic, underlined, and strikethrough\\~\\~\\_\\_\\*\\*\\*\n\\|\\|spoiler\\|\\|' },
+				{ name: 'Text Formatting', value: '\\*\\*bold\\*\\*\n\\*italic\\* **or** \\_italic\\_\n\\_\\_underline\\_\\_\n\\~\\~strikethrough\\~\\~\n\\*\\*\\*bold and italic\\*\\*\\*\n\\*\\*\\*\\_\\_\\~\\~bold, italic, underlined, and strikethrough\\~\\~\\_\\_\\*\\*\\*\n\\|\\|spoiler\\|\\|' },
 				{ name: 'Quote Formatting', value: '\\> - quote a single line\n\\>\\>\\> - quote until end of message' },
 				{ name: 'Mention Formatting', value: '<@userId> - mention a user\n<@&roleId> - mention a role\n<#channelId> - mention a channel' },
 				{ name: 'Code Formatting', value: '\\\`Single line code block, no color\\\`\n\\\`\\\`‎\\\`codingLanguage\nMulti-line code block, with language color\n\\\`\\\`‎\\\`' },
