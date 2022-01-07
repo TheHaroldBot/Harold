@@ -6,7 +6,7 @@ module.exports = {
 	args: true,
 	usage: '<message>',
 	cooldown: 60,
-	aliases: ['messagedevs', 'telldevs'],
+	aliases: ['messagedevs', 'telldevs', 'suggest'],
 	execute(message, args, prefix) {
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
