@@ -9,7 +9,7 @@ module.exports = {
 	guildOnly: false, // execute in a guild only?
 	cooldown: 10, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
-	ownerOnly: true, // need to be the owner? delete line if no
+	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['randomperson'], // aliases for command
 	execute(message) { // inside here command stuff
@@ -33,7 +33,7 @@ module.exports = {
 						{ name: 'Disclaimer', value: 'The information given in this embed is fictitious. No identification with actual persons (living or deceased), places, buildings, and products is intended or should be inferred. The information here is provided by [randomuser.me](https://randomuser.me/)' },
 					)
 					.setThumbnail(data.picture.thumbnail)
-					.setColor('#0099ff');
+					.setColor('RANDOM');
 				message.reply({ embeds: [idembed] });
 			});
 	},
