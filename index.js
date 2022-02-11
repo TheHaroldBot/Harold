@@ -105,5 +105,8 @@ client.on('messageCreate', message => {
 		message.reply('There was an error trying to execute that command!');
 	}
 });
+client.on('debug', console.debug);
+client.on('warn', console.warn);
+client.on('error', console.error);
 
 client.login(token).then(console.info(`Node version: ${process.versions.node}\nLogged in.`));
