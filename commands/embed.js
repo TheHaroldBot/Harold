@@ -12,23 +12,18 @@ module.exports = {
 		const json = message.content.split(' ');
 		json.shift();
 		const data = json.join(' ');
-		const embedjson = new Discord.MessageEmbed(JSON.parse(data));
-		if (message.guild === null) {
-			message.channel.send({ embeds: [embedjson] });
+		try {
+			const embedjson = await new Discord.MessageEmbed(JSON.parse(data));
+			await message.channel.send({ embeds: [embedjson] });
 		}
-		else {
-			try {
-				await message.channel.send({ embeds: [embedjson] });
-			}
-			catch (error) {
-				console.log('Failed to send a custom embed!');
-				const errorembed = new Discord.MessageEmbed()
-					.setTitle('Error!')
-					.setDescription('Something went wrong! There are a few possible issues:\n1. You tried to put text in a link option (Like putting \'hello\' in the image option, or \'never gonna give you up\' in the thumbnail option.)\n2. Something else\nI\'ll attatch the error below:')
-					.addField('Error Message', `>>> ${error.toString()}`)
-					.setColor('#ff0000');
-				await message.channel.send({ embeds: [errorembed] });
-			}
+		catch (error) {
+			console.log('Failed to send a custom embed!');
+			const errorembed = await new Discord.MessageEmbed()
+				.setTitle('Error!')
+				.setDescription('Something went wrong! There are a few possible issues:\n1. You tried to put text in a link option (Like putting \'hello\' in the image option, or \'never gonna give you up\' in the thumbnail option.)\n2. Something else\nI\'ll attatch the error below:')
+				.addField('Error Message', `>>> ${error.toString()}`)
+				.setColor('#ff0000');
+			await message.channel.send({ embeds: [errorembed] });
 		}
 	},
 };
