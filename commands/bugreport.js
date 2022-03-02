@@ -2,11 +2,11 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'bugreport',
-	description: 'Report a bug to the developer.',
+	description: 'Contact the developers regarding a bug, exploit, feature request, feedback, or just to talk',
 	args: true,
 	usage: '<message>',
 	cooldown: 60,
-	aliases: ['messagedevs', 'telldevs', 'suggest'],
+	aliases: ['messagedevs', 'telldevs', 'suggest', 'reportbug', 'bug', 'feedback', 'report'],
 	execute(message, args, prefix) {
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
