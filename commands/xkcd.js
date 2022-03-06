@@ -9,6 +9,7 @@ module.exports = {
 	guildOnly: false, // execute in a guild only?
 	cooldown: 3, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['randomxkcd', 'rnxkcd', 'comic', 'randomcomic', 'rncomic'],

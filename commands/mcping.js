@@ -7,6 +7,8 @@ module.exports = {
 	args: true, // needs arguments? delete line if no
 	usage: '<bedrock|java> <IP> [port]', // usage instructions w/o command name and prefix
 	cooldown: 10, // cooldown in seconds, defaults to 3
+	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['pingmc'],
 	execute(message, args) { // inside here command stuff
 		if (args.length < 2) return (message.reply(`You need at least 2 arguments! Usage: ${this.usage}`));

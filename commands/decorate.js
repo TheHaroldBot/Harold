@@ -9,6 +9,7 @@ module.exports = {
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 300, // cooldown in seconds, defaults to 3
 	permissions: ['MANAGE_CHANNELS'], // permissions required for command
+	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
 	aliases: ['decor'],
 	async execute(message, args, prefix) { // inside here command stuff
 		const themes = {

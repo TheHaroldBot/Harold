@@ -6,6 +6,7 @@ module.exports = {
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: ['MANAGE_CHANNELS'], // permissions required for command
+	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
 	aliases: ['slow', 'messagerate'],
 	execute(message, args) { // inside here command stuff
 		message.channel.setRateLimitPerUser(args[0], `${message.author.tag} requested a slowmode of ${args[0]} second(s) in #${message.channel.name}`);

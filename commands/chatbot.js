@@ -10,6 +10,7 @@ module.exports = {
 	disabled: true,
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
 	execute(message, args, prefix) { // inside here command stuff
 		let time = 60;
@@ -30,7 +31,7 @@ module.exports = {
 
 		});
 		collector.on('end', () => {
-			message.channel.send('I\'m tired, I think i\'ll sleep now.');
+			message.channel.send('I\'m tired, I think I\'ll sleep now.');
 		});
 	},
 };

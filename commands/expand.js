@@ -7,6 +7,7 @@ module.exports = {
 	usage: '<url>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['urlexpand'],
 	execute(message, args) { // inside here command stuff
 		tall(args[0])

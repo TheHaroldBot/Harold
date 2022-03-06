@@ -7,6 +7,7 @@ module.exports = {
 	usage: '(Reply to a message)', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
 	async execute(message) { // inside here command stuff
 		if (!message.reference) return (message.reply('You didn\'t reply to a message!'));

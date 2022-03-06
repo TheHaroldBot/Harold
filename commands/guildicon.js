@@ -6,6 +6,8 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 2, // cooldown in seconds, defaults to 3
+	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['guildimage', 'guildpfp', 'guildprofile', 'guildprofileimage', 'servericon', 'serverpfp', 'serverprofile', 'serverprofileimage'],
 	execute(message) { // inside here command stuff
 		const guildicon = new Discord.MessageEmbed()

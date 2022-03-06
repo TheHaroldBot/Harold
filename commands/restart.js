@@ -4,6 +4,7 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['reboot'],
 	execute(message) { // inside here command stuff
@@ -13,8 +14,8 @@ module.exports = {
 		collector.on('collect', m => {
 			if (m.author.bot) return;
 			const content = m.content.toLowerCase();
-			if (content === 'y' || m.content === 'yes') {
-				if (m.author.id !== originalAuthor) return (m.reply('You didn\'t request the restart, you cannot confirm it.'));
+			if (content === 'y' || content === 'yes') {
+				if (m.author.id !== originalAuthor) return;
 				process.exit();
 			}
 			else {return;}

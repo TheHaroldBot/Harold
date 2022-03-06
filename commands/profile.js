@@ -5,6 +5,8 @@ module.exports = {
 	description: 'Gets a user\'s profile information.', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
+	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['pfp', 'profileimage', 'whois'],
 	async execute(message) { // inside here command stuff.
 		let pfptarget;

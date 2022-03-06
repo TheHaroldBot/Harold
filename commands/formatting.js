@@ -9,10 +9,11 @@ module.exports = {
 	guildOnly: false, // execute in a guild only?
 	cooldown: 3, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
+	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['format'],
-	execute(message) { // inside here command stuff
+	async execute(message) { // inside here command stuff
 		const formatembed = new Discord.MessageEmbed()
 			.setTitle('A handy guide to Discord formatting')
 			.addFields(
@@ -23,7 +24,13 @@ module.exports = {
 				{ name: 'Time Formatting', value: '<t:unixTimestamp:d> - send a timestamp in mm/dd/yyyy format\n<t:unixTimestamp:D> - send a timestamp in Month Day, Year format\n<t:unixTimestamp:t> - send a timestamp in hh:mm AM/PM format\n<t:unixTimestamp:T> - send a timestamp in hh:mm:ss AM/PM format\n<t:unixTimestamp:f> - send a timestamp in Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp> - send a timestamp in Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp:F> - send a timestamp in Weekday, Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp:R> - send a timestamp in relative format\nunixTimestamp - send a timestamp in unix format\nTime formatting converter at [hammertime](https://hammertime.djdavid98.art/)' },
 			)
 			.setColor('RANDOM');
-		message.author.send({ embeds: [formatembed] });
-		message.react('📬');
+		try {
+			await message.author.send({ embeds: [formatembed] });
+			await message.react('📬');
+		}
+		catch (error) {
+			console.log(error);
+		}
+
 	},
 };

@@ -6,6 +6,8 @@ module.exports = {
 	usage: '(command name)',
 	guildOnly: false,
 	cooldown: 5,
+	permissions: [],
+	myPermissions: ['SEND_MESSAGES'],
 	async execute(message, args, prefix) { // inside here command stuff
 		const data = [];
 		const { commands } = message.client;

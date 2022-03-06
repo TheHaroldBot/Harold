@@ -6,6 +6,7 @@ module.exports = {
 	args: true,
 	usage: '<message>',
 	cooldown: 60,
+	myPermissions: ['SEND_MESSAGES'],
 	aliases: ['messagedevs', 'telldevs', 'suggest', 'reportbug', 'bug', 'feedback', 'report'],
 	execute(message, args, prefix) {
 		const bugreportembed = new Discord.MessageEmbed()
