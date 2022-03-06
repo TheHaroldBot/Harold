@@ -14,7 +14,7 @@ module.exports = {
 		const { commands } = message.client;
 
 		data.push(commands.filter(command => command.ownerOnly).map(command => command.name).join('\n'));
-		const description = '**' + data;
+		const description = '**' + data + '**';
 
 		const ownerembed = new Discord.MessageEmbed()
 			.setTitle('Owner Help Menu')

@@ -86,6 +86,15 @@ client.on('messageCreate', message => {
 			return message.reply(`You are missing ${command.permissions} to do this!`);
 		}
 	}
+	if (message.guild !== null) {
+		let canrun = true;
+		command.myPermissions.forEach(permission => {
+			if (!message.guild.me.permissions.has(permission)) {
+				if (canrun === true) canrun = false;
+			}
+		});
+		if (canrun === false) return message.reply(`I am missing permissions to do this! Check to make sure I have the following permissions: \`${command.myPermissions}\``);
+	}
 	if (command.args === true && !args.length) {
 		let reply = 'You didn\'t provide any arguments!';
 
