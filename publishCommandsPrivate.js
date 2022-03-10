@@ -12,7 +12,7 @@ const guildId = '788813687283646515';
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	if (/* !command.ownerOnly &&  */command.data && !command.disabled) {
+	if (command.ownerOnly && command.data) {
 		commands.push(command.data.toJSON());
 	}
 }
@@ -28,7 +28,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 			{ body: commands },
 		);
 
-		console.log('Successfully reloaded application (/) commands.');
+		console.log(`Successfully reloaded ${commands.length} application (/) commands.`);
 	}
 	catch (error) {
 		console.error(error);
