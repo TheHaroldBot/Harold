@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -8,6 +9,14 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['pfp', 'profileimage', 'whois'],
+	data: new SlashCommandBuilder()
+		.setName('profile')
+		.setDescription('Gets a user\'s profile information.')
+		.addMentionableOption(option =>
+			option.setName('user')
+				.setRequired(true)
+				.setDescription('The user to get the profile of.')),
+
 	async execute(message) { // inside here command stuff.
 		let pfptarget;
 		if (!message.mentions.users.first()) {

@@ -1,3 +1,5 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
 	name: 'restart', // command name
 	description: 'Restart the bot.', // command description
@@ -7,6 +9,10 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['reboot'],
+	data: new SlashCommandBuilder()
+		.setName('restart')
+		.setDescription('Restart the bot.'),
+
 	execute(message) { // inside here command stuff
 		const originalAuthor = message.author.id;
 		message.reply('Please confirm you want to shut down the bot.\nYou have 10 seconds to reply with \'y\' or \'yes\'');

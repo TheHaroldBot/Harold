@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-escape */
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -13,6 +14,10 @@ module.exports = {
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['format'],
+	data: new SlashCommandBuilder()
+		.setName('formatting')
+		.setDescription('A guide to Discord formatting'),
+
 	async execute(message) { // inside here command stuff
 		const formatembed = new Discord.MessageEmbed()
 			.setTitle('A handy guide to Discord formatting')

@@ -11,6 +11,20 @@
             "request": "launch",
             "skipFiles": ["<node_internals>/**"],
             "program": "${workspaceFolder}\\index.js"
+        },
+        {
+            "name": "Publish Commands Private",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}\\publishCommandsPrivate.js",
+        },
+        {
+            "name": "Publish Commands Public",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}\\publishCommandsPrivate.js",
         }
     ]   
 }

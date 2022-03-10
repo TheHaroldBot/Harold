@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const { invite } = require('../config.json');
 
@@ -9,6 +10,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['vote'],
+	data: new SlashCommandBuilder()
+		.setName('invite')
+		.setDescription('Get an invite link to the bot.'),
+
 	execute(message) { // inside here command stuff
 		const inviteembed = new Discord.MessageEmbed()
 			.setTitle('Invite or vote here!')

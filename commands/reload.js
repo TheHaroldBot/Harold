@@ -1,3 +1,5 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
 	name: 'reload', // command name
 	description: 'Reloads a command', // command description
@@ -8,6 +10,14 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('reload')
+		.setDescription('Reloads a command')
+		.addStringOption(option =>
+			option.setName('command')
+				.setRequired(true)
+				.setDescription('The command to reload.')),
+
 	execute(message, args) {
 		const commandName = args[0].toLowerCase();
 		const command = message.client.commands.get(commandName)

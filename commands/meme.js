@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const got = require('got');
 
@@ -9,6 +10,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('meme')
+		.setDescription('Gets a random meme from r/dankmemes'),
+
 	execute(message) { // inside here command stuff
 		got('https://www.reddit.com/r/dankmemes/random/.json') // get random meme from r/dankmemes
 			.then(response => {

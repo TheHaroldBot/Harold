@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const got = require('got');
 
 module.exports = {
@@ -9,6 +10,14 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('setgame')
+		.setDescription('Sets the bot\'s game.')
+		.addStringOption(option =>
+			option.setName('game')
+				.setRequired(true)
+				.setDescription('The game name.')),
+
 	execute(message, args, prefix) { // inside here command stuff
 		if (!args.length) {
 			got('https://api.github.com/repos/johng3587/Harold/commits')

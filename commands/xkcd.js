@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const got = require('got');
 
@@ -13,6 +14,14 @@ module.exports = {
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['randomxkcd', 'rnxkcd', 'comic', 'randomcomic', 'rncomic'],
+	data: new SlashCommandBuilder()
+		.setName('xkcd')
+		.setDescription('Gets a random (or latest) xkcd comic')
+		.addStringOption(option =>
+			option.setName('comicnumber')
+				.setRequired(false)
+				.setDescription('The comic number to get, or \'latest\' for the latest comic.')),
+
 	async execute(message, args) { // inside here command stuff
 		let maxComic = 0;
 		await got('https://xkcd.com/info.0.json')

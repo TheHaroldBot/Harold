@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -8,6 +9,14 @@ module.exports = {
 	cooldown: 60,
 	myPermissions: ['SEND_MESSAGES'],
 	aliases: ['messagedevs', 'telldevs', 'suggest', 'reportbug', 'bug', 'feedback', 'report'],
+	data: new SlashCommandBuilder()
+		.setName('bugreport')
+		.setDescription('Contact the developers regarding a bug, exploit, feature request, feedback, or just to talk')
+		.addStringOption(option =>
+			option.setName('message')
+				.setDescription('The message you want to send to the developers')
+				.setRequired(true)),
+
 	execute(message, args, prefix) {
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')

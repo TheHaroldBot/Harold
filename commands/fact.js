@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 
@@ -9,6 +10,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('fact')
+		.setDescription('Gets a random fact.'),
+
 	execute(message) { // inside here command stuff
 		const factsettings = { method: 'Get' };
 		const facturl = 'https://uselessfacts.jsph.pl/random.json?language=en'; // fact api, random fact

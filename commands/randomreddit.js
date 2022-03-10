@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const got = require('got');
 
@@ -9,6 +10,14 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['redditpost', 'reddit', 'rr'],
+	data: new SlashCommandBuilder()
+		.setName('randomreddit')
+		.setDescription('Gets random post from a specified subreddit.')
+		.addStringOption(option =>
+			option.setName('subreddit')
+				.setRequired(true)
+				.setDescription('The subreddit to get a post from.')),
+
 	execute(message, args) { // inside here command stuff
 		let subreddit = args[0];
 		if (!args.length) {

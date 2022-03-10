@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const util = require('minecraft-server-util');
 
@@ -10,6 +11,27 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['pingmc'],
+	data: new SlashCommandBuilder()
+		.setName('mcping')
+		.setDescription('Pings a minecraft server')
+		.addStringOption(option =>
+			option.setName('type')
+				.setRequired(true)
+				.setDescription('The type of server to ping.')
+				.addChoices([
+					['bedrock', 'bedrock'],
+					['java', 'java'],
+				]))
+		.addStringOption(option =>
+			option.setName('ip')
+				.setRequired(true)
+				.setDescription('The IP of the server.'))
+		.addStringOption(option =>
+			option.setName('port')
+				.setRequired(false)
+				.setDescription('The port of the server.')),
+
+
 	execute(message, args) { // inside here command stuff
 		if (args.length < 2) return (message.reply(`You need at least 2 arguments! Usage: ${this.usage}`));
 		const type = args[0].toLowerCase();

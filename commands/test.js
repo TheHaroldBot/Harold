@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 /* eslint-disable no-empty-function */
 module.exports = {
 	name: 'test', // command name
@@ -10,6 +13,14 @@ module.exports = {
 	ownerOnly: true, // need to be the owner? delete line if no
 	disabled: true,
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('test')
+		.setDescription('Test bits of code here')
+		.addStringOption(option =>
+			option.setName('option1')
+				.setRequired(false)
+				.setDescription('A required description for the option.')),
+
 	async execute(message, args, prefix) {
 
 	},

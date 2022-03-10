@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -8,6 +9,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('insult')
+		.setDescription('Insults you.'),
+
 	execute(message) { // inside here command stuff
 		const insultsettings = { method: 'Get' };
 		const insulturl = 'https://insult.mattbas.org/api/insult.json'; // insult api

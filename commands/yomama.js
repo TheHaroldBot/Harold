@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -8,6 +9,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['urmom'],
+	data: new SlashCommandBuilder()
+		.setName('yomama')
+		.setDescription('Insults your mom.'),
+
 	execute(message) { // inside here command stuff
 		const yomamasettings = { method: 'Get' };
 		const yomamaurl = 'https://api.yomomma.info/'; // yo mama api

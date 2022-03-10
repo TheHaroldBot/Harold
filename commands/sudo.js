@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { WebhookClient } = require('discord.js');
 
 module.exports = {
@@ -10,6 +11,18 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES', 'MANAGE_WEBHOOKS'], // permissions bot needs for command
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('sudo')
+		.setDescription('Immitate people')
+		.addMentionableOption(option =>
+			option.setName('mention')
+				.setRequired(true)
+				.setDescription('The user to immitate.'))
+		.addStringOption(option =>
+			option.setName('message')
+				.setRequired(true)
+				.setDescription('The message to send as the mentioned person.')),
+
 	execute(message, args) { // inside here command stuff
 		message.channel.createWebhook('Snek', {
 			reason: 'Temp webhook for sudo command',

@@ -1,3 +1,5 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
 	name: 'eval', // command name
 	description: 'Evaluate a string into code and run it.', // command description
@@ -8,6 +10,14 @@ module.exports = {
 	myPermissions: [], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['run', 'code', 'script'],
+	data: new SlashCommandBuilder()
+		.setName('eval')
+		.setDescription('Evaluate a string into code and run it.')
+		.addStringOption(option =>
+			option.setName('code')
+				.setRequired(true)
+				.setDescription('The code to evaluate.')),
+
 	async execute(message, args) { // inside here command stuff
 		const code = args.join(' ');
 		try {

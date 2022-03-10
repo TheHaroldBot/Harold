@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const config = require('../config.json');
 
@@ -11,6 +12,14 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['news'],
+	data: new SlashCommandBuilder()
+		.setName('newsletter')
+		.setDescription('Send a newsletter to all the server owners the bot is in. DO NOT USE THIS LIGHTLY!')
+		.addStringOption(option =>
+			option.setName('message')
+				.setRequired(true)
+				.setDescription('The message to send to the owners.')),
+
 	async execute(message, args) { // inside here command stuff
 		let ownersendcount = 0;
 		let guildsendcount = 0;

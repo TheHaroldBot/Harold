@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -8,6 +9,14 @@ module.exports = {
 	cooldown: 5,
 	permissions: [],
 	myPermissions: ['SEND_MESSAGES'],
+	data: new SlashCommandBuilder()
+		.setName('help')
+		.setDescription('Lists commands or gets info about a specific command.')
+		.addStringOption(option =>
+			option.setName('command')
+				.setRequired(false)
+				.setDescription('The name of the command to get info about.')),
+
 	async execute(message, args, prefix) { // inside here command stuff
 		const data = [];
 		const { commands } = message.client;

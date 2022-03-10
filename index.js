@@ -114,6 +114,23 @@ client.on('messageCreate', message => {
 		message.reply('There was an error trying to execute that command!');
 	}
 });
+
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	const command = client.commands.get(interaction.commandName);
+
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	}
+	catch (error) {
+		console.error(`Error executing ${command.name}:\n${error}`);
+		await interaction.reply('There was an error trying to execute that command!', true);
+	}
+});
+
 client.on('debug', console.debug);
 client.on('warn', console.warn);
 client.on('error', console.error);

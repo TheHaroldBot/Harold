@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 const got = require('got');
 
@@ -9,6 +10,10 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['imbored'],
+	data: new SlashCommandBuilder()
+		.setName('bored')
+		.setDescription('Gives you a suggestion of something to do.'),
+
 	execute(message) { // inside here command stuff
 		got('https://www.boredapi.com/api/activity') //	im bored
 			.then(response => {

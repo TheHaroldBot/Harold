@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -9,6 +10,10 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['ownercommands'],
+	data: new SlashCommandBuilder()
+		.setName('ownerhelp')
+		.setDescription('Help command for the bot owner(s)'),
+
 	execute(message, args, prefix) { // inside here command stuff
 		const data = [];
 		const { commands } = message.client;

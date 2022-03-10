@@ -1,3 +1,5 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
 	name: 'setstatus', // command name
 	description: 'Sets the bot\'s presence.', // command description
@@ -8,6 +10,20 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('setstatus')
+		.setDescription('Sets the bot\'s presence.')
+		.addStringOption(option =>
+			option.setName('status')
+				.setRequired(true)
+				.setDescription('The status to set.')
+				.addChoices([
+					['online', 'online'],
+					['invisible', 'invisible'],
+					['dnd', 'dnd'],
+					['idle', 'idle'],
+				])),
+
 	execute(message, args) { // inside here command stuff
 		if (args[0] === 'online') {
 			message.client.user.setPresence({ status: 'online' });

@@ -1,14 +1,23 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
 	name: 'embed', // command name
-	description: 'Send an embed using JSON data.\nBuild an embed here: https://eb.nadeko.bot/ then copy the JSON code on the right.', // command description
+	description: 'Send an embed using JSON data.\nBuild an embed here: https://eb.nadeko.bot/ then copy the JSON code on the right. (Remove tabs before use)', // command description
 	usage: '<JSON>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	args: true,
 	aliases: [],
+	data: new SlashCommandBuilder()
+		.setName('embed')
+		.setDescription('Send an embed using JSON data.')
+		.addStringOption(option =>
+			option.setName('json')
+				.setRequired(true)
+				.setDescription('The JSON code for the embed.')),
+
 	async execute(message) { // inside here command stuff
 		const json = message.content.split(' ');
 		json.shift();

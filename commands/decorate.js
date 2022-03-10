@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 
@@ -11,6 +12,25 @@ module.exports = {
 	permissions: ['MANAGE_CHANNELS'], // permissions required for command
 	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
 	aliases: ['decor'],
+	data: new SlashCommandBuilder()
+		.setName('decorate')
+		.setDescription('Decorate channels with fancy emojis!')
+		.addStringOption(option =>
+			option.setName('type')
+				.setDescription('The theme of the decorations, or clear')
+				.setRequired(true)
+				.addChoices([
+					['summer', 'summer'],
+					['fall', 'fall'],
+					['winter', 'winter'],
+					['spring', 'spring'],
+					['christmas', 'christmas'],
+					['halloween', 'halloween'],
+					['easter', 'easter'],
+					['hanukkah', 'hanukkah'],
+					['clear', 'clear'],
+				])),
+
 	async execute(message, args, prefix) { // inside here command stuff
 		const themes = {
 			summer: ['🌴', '🏝️', '🕶️', '⛱️', '🦩'],

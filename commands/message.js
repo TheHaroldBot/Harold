@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -10,6 +11,14 @@ module.exports = {
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['msg'], // aliases for command
+	data: new SlashCommandBuilder()
+		.setName('message')
+		.setDescription('Message someone by ID')
+		.addNumberOption(option =>
+			option.setName('userid')
+				.setRequired(true)
+				.setDescription('The user ID to message.')),
+
 	async execute(message, args) { // inside here command stuff
 		const dmme = await message.client.users.fetch(args[0]);
 		const msgembed = new Discord.MessageEmbed()
