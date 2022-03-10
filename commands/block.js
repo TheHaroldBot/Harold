@@ -11,6 +11,7 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
+	disabled: false,
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('block')
@@ -20,25 +21,26 @@ module.exports = {
 				.setDescription('Whether to block or unblock the user.')
 				.setRequired(true)
 				.addChoice('add', 'add')
-				.addChoice('remove', 'add'))
-		.addMentionableOption(option =>
-			option.setName('user')),
+				.addChoice('remove', 'remove'))
+		.addStringOption(option =>
+			option.setName('userid')
+				.setDescription('The user ID to block or unblock.')
+				.setRequired(true)),
 
-	execute(message, args, prefix) { // inside here command stuff
-		if (args.length < 2) return message.reply(`You need to specify an action and a user to block! \`${prefix}${this.name} ${this.usage}\``);
-		if (args[0] === 'add') {
+	execute(interaction) { // inside here command stuff
+		if (interaction.options.getString('type') === 'add') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (data.blocked.includes(message.mentions.users.first().id)) return (message.reply('That person is already blocked.'));
-			data.blocked.push(message.mentions.users.first().id);
+			if (data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is already blocked.'));
+			data.blocked.push(interaction.options.getString('userid'));
 			fs.writeFileSync('././config.json', JSON.stringify(data));
-			message.reply(`Successfully blocked ${message.mentions.users.first().tag}.`);
+			interaction.reply(`Successfully blocked ${interaction.options.getString('userid')}.`);
 		}
-		else if (args[0] === 'remove') {
+		else if (interaction.options.getString('type') === 'remove') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (!data.blocked.includes(message.mentions.users.first().id)) return (message.reply('That person is not blocked.'));
-			removeFromArray(data.blocked, message.mentions.users.first().id);
+			if (!data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is not blocked.'));
+			removeFromArray(data.blocked, interaction.options.getString('userid'));
 			fs.writeFileSync('././config.json', JSON.stringify(data));
-			message.reply(`Successfully unblocked ${message.mentions.users.first().tag}.`);
+			interaction.reply(`Successfully unblocked ${interaction.options.getString('userid')}.`);
 		}
 	},
 };

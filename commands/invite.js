@@ -14,11 +14,11 @@ module.exports = {
 		.setName('invite')
 		.setDescription('Get an invite link to the bot.'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		const inviteembed = new Discord.MessageEmbed()
 			.setTitle('Invite or vote here!')
 			.setDescription(`Vote for me at [discordbotlist.com](https://discordbotlist.com/bots/harold)\nInvite me [here.](${invite})`)
 			.setColor('RANDOM');
-		message.reply({ embeds: [inviteembed] });
+		interaction.reply({ embeds: [inviteembed] });
 	},
 };

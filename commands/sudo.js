@@ -14,8 +14,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('sudo')
 		.setDescription('Immitate people')
-		.addMentionableOption(option =>
-			option.setName('mention')
+		.addUserOption(option =>
+			option.setName('target')
 				.setRequired(true)
 				.setDescription('The user to immitate.'))
 		.addStringOption(option =>
@@ -23,28 +23,26 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The message to send as the mentioned person.')),
 
-	execute(message, args) { // inside here command stuff
-		message.channel.createWebhook('Snek', {
+	async execute(interaction) { // inside here command stuff
+		await interaction.channel.createWebhook('Snek', {
 			reason: 'Temp webhook for sudo command',
 		})
-			.then(webhook => {
+			.then(async webhook => {
 				try {
 					const webhookto = new WebhookClient({ token: webhook.token, id: webhook.id });
-					args.shift();
-					webhookto.send({
-						username: message.mentions.users.first().username,
-						avatarURL: message.mentions.users.first().avatarURL(),
-						content: args.join(' '),
+					await webhookto.send({
+						username: interaction.options.getUser('target').username,
+						avatarURL: interaction.options.getUser('target').avatarURL(),
+						content: interaction.options.getString('message'),
 					});
-					webhook.delete();
+					await interaction.reply({ content: 'Done!', ephemeral: true });
+					await webhook.delete();
 				}
 				catch (error) {
 					console.error();
-					message.reply('Error running that command, this channel might have reached the maximum number of webhooks (10)');
+					interaction.reply({ content: 'Error running that command, this channel might have reached the maximum number of webhooks (10)', ephemeral: true });
 				}
 
 			});
-		message.delete();
-
 	},
 };

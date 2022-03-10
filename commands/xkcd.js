@@ -22,7 +22,7 @@ module.exports = {
 				.setRequired(false)
 				.setDescription('The comic number to get, or \'latest\' for the latest comic.')),
 
-	async execute(message, args) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		let maxComic = 0;
 		await got('https://xkcd.com/info.0.json')
 			.then(response => {
@@ -32,7 +32,7 @@ module.exports = {
 			.catch(err => {
 				console.log(err);
 			});
-		if (!args.length) {
+		if (!interaction.options.getString('comicnumber')) {
 			const targetComic = Math.floor(Math.random() * maxComic + 1);
 			await got(`https://xkcd.com/${targetComic}/info.0.json`)
 				.then(response => {
@@ -44,25 +44,25 @@ module.exports = {
 						.setImage(response.img)
 						.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
 					try {
-						message.reply({ embeds: [xkcdEmbed] });
+						interaction.reply({ embeds: [xkcdEmbed] });
 					}
 					catch (error) {
 						console.log(error);
-						message.reply('Oops, something went wrong, try again!');
+						interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
 					}
 				});
 		}
 		else {
 			let targetComic = null;
-			if (args[0] === 'latest') {
+			if (interaction.options.getString('comicnumber') === 'latest') {
 				targetComic = maxComic;
 			}
 			else {
-				targetComic = parseInt(args[0]);
+				targetComic = parseInt(interaction.options.getString('comicnumber'));
 			}
-			if (!targetComic) return (message.reply('Comic must be a number.'));
-			if (typeof targetComic !== 'number') return (message.reply('Comic must be a number.'));
-			if (targetComic > maxComic) return (message.reply('Latest comic is ' + maxComic + ', try a lower number.'));
+			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number.', ephemeral: true }));
+			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number.', ephemeral: true }));
+			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
 			await got(`https://xkcd.com/${targetComic}/info.0.json`)
 				.then(response => {
 					response = JSON.parse(response.body);
@@ -73,11 +73,11 @@ module.exports = {
 						.setImage(response.img)
 						.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
 					try {
-						message.reply({ embeds: [xkcdEmbed] });
+						interaction.reply({ embeds: [xkcdEmbed] });
 					}
 					catch (error) {
 						console.log(error);
-						message.reply('Oops, something went wrong, try again!');
+						interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
 					}
 				});
 		}

@@ -9,7 +9,7 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with the latency'),
 
-	execute(message, args, prefix, client) {
-		message.reply(`🏓 API Latency is ${Math.round(client.ws.ping)}ms`);
+	execute(interaction) {
+		interaction.reply({ content: `🏓 Latency is ${Math.round(interaction.createdTimestamp - Date.now())}ms`, ephemeral: true });
 	},
 };

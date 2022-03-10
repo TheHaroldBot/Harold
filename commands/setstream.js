@@ -21,17 +21,11 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The stream name.')),
 
-	execute(message, args, prefix) { // inside here command stuff
-		if (args.length < 2) {
-			message.reply('You need to set a stream title *and* a url');
-			return;
-		}
-		else {
-			message.client.user.setActivity(message.content.replace(`${prefix}setstream ${args[0]}`, ''), {
-				type: 'STREAMING',
-				url: args[0],
-			});
-			message.reply(`Streaming ${message.content.replace(`${prefix}setstream ${args[0]}`, '')} at \`${args[0]}\``);
-		}
+	execute(interaction) { // inside here command stuff
+		interaction.client.user.setActivity(interaction.options.getString('name')), {
+			type: 'STREAMING',
+			url: interaction.options.getString('url'),
+		};
+		interaction.reply(`Streaming ${interaction.options.getString('name')} at \`${interaction.options.getString('url')}\``);
 	},
 };

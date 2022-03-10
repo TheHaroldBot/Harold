@@ -13,13 +13,13 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('slowmode')
 		.setDescription('Sets the slowmode for a channel.')
-		.addNumberOption(option =>
+		.addIntegerOption(option =>
 			option.setName('slowmode')
 				.setRequired(true)
 				.setDescription('The slowmode in seconds.')),
 
-	execute(message, args) { // inside here command stuff
-		message.channel.setRateLimitPerUser(args[0], `${message.author.tag} requested a slowmode of ${args[0]} second(s) in #${message.channel.name}`);
-		message.reply(`Success! Slowmode set to ${args[0]} second(s).`);
+	execute(interaction) { // inside here command stuff
+		interaction.channel.setRateLimitPerUser(interaction.options.getInteger('slowmode'), `${interaction.user.tag} requested a slowmode of ${interaction.options.getInteger('slowmode')} second(s) in #${interaction.channel.name}`);
+		interaction.reply(`Success! Slowmode set to ${interaction.options.getInteger('slowmode')} second(s).`);
 	},
 };

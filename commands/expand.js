@@ -18,8 +18,8 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The URL to expand.')),
 
-	execute(message, args) { // inside here command stuff
-		tall(args[0])
-			.then(unshortenedUrl => message.reply(`Expanded URL: ${unshortenedUrl}`));
+	execute(interaction) { // inside here command stuff
+		tall(interaction.options.getString('url'))
+			.then(unshortenedUrl => interaction.reply(`Expanded URL: ${unshortenedUrl}`));
 	},
 };

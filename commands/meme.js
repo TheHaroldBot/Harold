@@ -14,7 +14,7 @@ module.exports = {
 		.setName('meme')
 		.setDescription('Gets a random meme from r/dankmemes'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		got('https://www.reddit.com/r/dankmemes/random/.json') // get random meme from r/dankmemes
 			.then(response => {
 				const [list] = JSON.parse(response.body);
@@ -29,8 +29,8 @@ module.exports = {
 				const posttime = post.data.created * 1000;
 				const nsfw = post.data.over_18;
 				const postauthor = `u/${post.data.author}`;
-				if (nsfw === true && message.channel.nsfw !== true) {
-					message.reply('Oops, that one is nsfw, either try again, or set this channel to nsfw');
+				if (nsfw === true && interaction.channel.nsfw !== true) {
+					interaction.reply({ content: 'Oops, that one is nsfw, either try again, or set this channel to nsfw', ephemeral: true });
 					return;
 				}
 				if (nsfw === true) {
@@ -46,14 +46,14 @@ module.exports = {
 					.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
 					.setTimestamp(posttime);
 
-				message.reply({ embeds: [memeembed] }).catch(err => {
+				interaction.reply({ embeds: [memeembed] }).catch(err => {
 					console.log(err);
-					message.reply(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+					interaction.reply({ content: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`, ephemeral: true });
 				});
 			})
 			.catch(err => {
 				console.log(err);
-				message.reply('There was an error completing your request, try again later!');
+				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
 			});
 	},
 };

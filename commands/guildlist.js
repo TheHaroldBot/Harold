@@ -13,8 +13,8 @@ module.exports = {
 		.setName('guildlist')
 		.setDescription('Lists all guilds the bot is in.'),
 
-	execute(message) { // inside here command stuff
-		const Guilds = message.client.guilds.cache.map(guild => guild.name);
-		message.reply(`We are in \`${Guilds.length}\` servers!`);
+	execute(interaction) { // inside here command stuff
+		const Guilds = interaction.client.guilds.cache.map(guild => guild.name);
+		interaction.reply(`We are in \`${Guilds.length}\` servers!`);
 	},
 };

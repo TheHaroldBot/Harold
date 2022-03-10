@@ -14,9 +14,9 @@ module.exports = {
 		.setName('ownerhelp')
 		.setDescription('Help command for the bot owner(s)'),
 
-	execute(message, args, prefix) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		const data = [];
-		const { commands } = message.client;
+		const { commands } = interaction.client;
 
 		data.push(commands.filter(command => command.ownerOnly).map(command => command.name).join('\n'));
 		const description = '**' + data + '**';
@@ -25,8 +25,7 @@ module.exports = {
 			.setTitle('Owner Help Menu')
 			.setColor('RANDOM')
 			.setDescription(description, { split: true })
-			.addField('IMPORTANT', `Some of these commands have a great effect on the bot and I suggest running \`${prefix}help [command name]\` first to find out what it does.`);
-		message.react('📬');
-		message.author.send ({ embeds: [ownerembed] });
+			.addField('IMPORTANT', 'Some of these commands have a great effect on the bot and I suggest running `/help [command name]` first to find out what it does.');
+		interaction.reply({ embeds: [ownerembed], ephmeral: true });
 	},
 };

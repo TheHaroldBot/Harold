@@ -14,22 +14,24 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('translate')
 		.setDescription('Translates a message.')
-		.addNumberOption(option =>
+		.addStringOption(option =>
 			option.setName('messageid')
 				.setRequired(true)
 				.setDescription('The message ID to translate.')),
 
-	async execute(message, args) { // inside here command stuff
-		if (!message.reference) return (message.reply('You didn\'t reply to a message!'));
-		const targetMessage = await message.channel.messages.fetch(args[0]);
+	async execute(interaction) { // inside here command stuff
+		const targetMessageId = parseInt(interaction.options.getString('messageid'));
+		if (typeof targetMessageId !== 'number') return (interaction.reply({ content: 'Invalid message ID.', ephemeral: true }));
+		const targetMessage = await interaction.channel.messages.fetch(interaction.options.getString('messageid'));
 		translate(targetMessage.content, null, 'en', false).then(res => {
 			const translationembed = new Discord.MessageEmbed()
 				.setTitle(`From: ${res.language.from}, to: ${res.language.to}`)
 				.setDescription(`**Translated:** ${res.translation}`)
 				.setColor('RANDOM');
-			message.reply({ embeds: [translationembed] });
+			interaction.reply({ embeds: [translationembed] });
 		}).catch(err => {
 			console.error(err);
+			interaction.reply({ content: 'Error running that command.', ephemeral: true });
 		});
 	},
 };

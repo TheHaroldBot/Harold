@@ -21,6 +21,7 @@
 		"prefix": "command",
 		"body": [
 			"const Discord = require('discord.js');",
+			"const { SlashCommandBuilder } = require('@discordjs/builders');",
 			"",
 			"module.exports = {",
 			"\tname: '$1', // command name",
@@ -34,7 +35,11 @@
 			"\townerOnly: ${9:false}, // need to be the owner? delete line if no",
 			"\tdisabled: ${10:false}, // command disabled to all? delete line if no",
 			"\taliases: [$11],",
-			"\texecute(message, args) { // inside here command stuff",
+			"\tdata: new SlashCommandBuilder()",
+			"\t\t.setName('$12')",
+			"\t\t.setDescription('$13'),",
+			"",
+			"\texecute(interaction) { // inside here command stuff",
 			"\t\t$0",	
 			"\t},",
 			"};"

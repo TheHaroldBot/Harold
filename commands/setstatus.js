@@ -24,25 +24,8 @@ module.exports = {
 					['idle', 'idle'],
 				])),
 
-	execute(message, args) { // inside here command stuff
-		if (args[0] === 'online') {
-			message.client.user.setPresence({ status: 'online' });
-			message.reply(`Status set to ${args[0]}`);
-		}
-		else if (args[0] === 'idle') {
-			message.client.user.setPresence({ status: 'idle' });
-			message.reply(`Status set to ${args[0]}`);
-		}
-		else if (args[0] === 'invisible') {
-			message.client.user.setPresence({ status: 'invisible' });
-			message.reply(`Status set to ${args[0]}`);
-		}
-		else if (args[0] === 'dnd') {
-			message.client.user.setPresence({ status: 'dnd' });
-			message.reply(`Status set to ${args[0]}`);
-		}
-		else {
-			message.reply(`Invalid argument: ${args[0]}. Valid arguments are:\nonline, idle, invisible, dnd`);
-		}
+	execute(interaction) { // inside here command stuff
+		interaction.client.user.setPresence({ status: interaction.options.getString('status') });
+		interaction.reply(`Status set to ${interaction.options.getString('status')}`);
 	},
 };

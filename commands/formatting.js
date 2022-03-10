@@ -18,7 +18,7 @@ module.exports = {
 		.setName('formatting')
 		.setDescription('A guide to Discord formatting'),
 
-	async execute(message) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		const formatembed = new Discord.MessageEmbed()
 			.setTitle('A handy guide to Discord formatting')
 			.addFields(
@@ -30,8 +30,7 @@ module.exports = {
 			)
 			.setColor('RANDOM');
 		try {
-			await message.author.send({ embeds: [formatembed] });
-			await message.react('📬');
+			await interaction.reply({ embeds: [formatembed], ephemeral: true });
 		}
 		catch (error) {
 			console.log(error);

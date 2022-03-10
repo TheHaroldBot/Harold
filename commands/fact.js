@@ -14,7 +14,7 @@ module.exports = {
 		.setName('fact')
 		.setDescription('Gets a random fact.'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		const factsettings = { method: 'Get' };
 		const facturl = 'https://uselessfacts.jsph.pl/random.json?language=en'; // fact api, random fact
 		fetch(facturl, factsettings)
@@ -25,11 +25,11 @@ module.exports = {
 					.setDescription(json.text.replaceAll('`', '\''))
 					.setFooter('From djtech.net')
 					.setColor('RANDOM');
-				message.reply({ embeds: [factembed] });
+				interaction.reply({ embeds: [factembed] });
 			})
 			.catch(err => {
 				console.log(err);
-				message.reply('There was an error completing your request, try again later!');
+				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
 			});
 	},
 };

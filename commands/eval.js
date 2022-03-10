@@ -18,14 +18,14 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The code to evaluate.')),
 
-	async execute(message, args) { // inside here command stuff
-		const code = args.join(' ');
+	async execute(interaction) { // inside here command stuff
+		const code = interaction.options.getString('code');
 		try {
 			eval(code);
 		}
 		catch (error) {
 			console.error(error);
-			message.reply('Thats an error there buddy!');
+			interaction.reply({ content: 'Thats an error there buddy!', ephemeral: true });
 		}
 	},
 };

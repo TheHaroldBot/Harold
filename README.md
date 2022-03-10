@@ -10,7 +10,7 @@ To Do:
   - [x] Use message.reply() where possible.
   - [x] Add slash command configuration to all commands.
   - [x] Make sure the publishing of slash commands works.
-  - [ ] Make commands get info from the interaction, not the message.
+  - [x] Make commands get info from the interaction, not the message.
   - [ ] Publish the commands
 - [ ] Consolidate member count and server icon command into a server info command
 - [ ] Consolidate bot info commands (invite, etc) into single bot info command

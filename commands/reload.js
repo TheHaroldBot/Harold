@@ -18,25 +18,25 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The command to reload.')),
 
-	execute(message, args) {
-		const commandName = args[0].toLowerCase();
-		const command = message.client.commands.get(commandName)
-			|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	execute(interaction) {
+		const commandName = interaction.options.getString('command').toLowerCase();
+		const command = interaction.client.commands.get(commandName)
+			|| interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
-			return message.reply(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
+			return interaction.reply({ content: `There is no command with name or alias \`${commandName}\`, ${interaction.user.username}!`, ephemeral: true });
 		}
 
 		delete require.cache[require.resolve(`../commands/${command.name}.js`)];
 
 		try {
 			const newCommand = require(`../commands/${command.name}.js`);
-			message.client.commands.set(newCommand.name, newCommand);
-			message.reply(`Command \`${newCommand.name}\` was reloaded!`);
+			interaction.client.commands.set(newCommand.name, newCommand);
+			interaction.reply(`Command \`${newCommand.name}\` was reloaded!`);
 		}
 		catch (error) {
 			console.error(error);
-			message.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+			interaction.reply({ content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``, ephemeral: true });
 		}
 	},
 };

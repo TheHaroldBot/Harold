@@ -8,7 +8,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	if (!command.ownerOnly) {
+	if (!command.ownerOnly && !command.disabled && command.data) {
 		commands.push(command.data.toJSON());
 	}
 }

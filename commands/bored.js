@@ -14,7 +14,7 @@ module.exports = {
 		.setName('bored')
 		.setDescription('Gives you a suggestion of something to do.'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		got('https://www.boredapi.com/api/activity') //	im bored
 			.then(response => {
 				const data = JSON.parse(response.body);
@@ -22,7 +22,7 @@ module.exports = {
 					.setTitle('Bored? Try this:')
 					.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 					.setColor('RANDOM');
-				message.reply({ embeds: [boredembed] });
+				interaction.reply({ embeds: [boredembed] });
 			});
 	},
 };

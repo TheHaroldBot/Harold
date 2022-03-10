@@ -18,19 +18,19 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The game name.')),
 
-	execute(message, args, prefix) { // inside here command stuff
-		if (!args.length) {
+	execute(interaction) { // inside here command stuff
+		if (!interaction.options.getString('game')) {
 			got('https://api.github.com/repos/johng3587/Harold/commits')
 				.then(response => {
 					const commits = JSON.parse(response.body);
 					const latest = commits[0];
-					message.client.user.setActivity(`Latest update: ${latest.commit.message}`);
-					message.reply(`Game set to \`Latest update: ${latest.commit.message}\``);
+					interaction.client.user.setActivity(`Latest update: ${latest.commit.message}`);
+					interaction.reply(`Game set to \`Latest update: ${latest.commit.message}\``);
 				});
 		}
 		else {
-			message.client.user.setActivity(message.content.replace(`${prefix}setgame `, ''));
-			message.reply(`Game set to ${message.content.replace(`${prefix}setgame `, '')}`);
+			interaction.client.user.setActivity(interaction.options.getString('game'));
+			interaction.reply(`Game set to ${interaction.options.getString('game')}`);
 		}
 
 	},

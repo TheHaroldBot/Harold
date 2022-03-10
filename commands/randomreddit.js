@@ -15,16 +15,16 @@ module.exports = {
 		.setDescription('Gets random post from a specified subreddit.')
 		.addStringOption(option =>
 			option.setName('subreddit')
-				.setRequired(true)
+				.setRequired(false)
 				.setDescription('The subreddit to get a post from.')),
 
-	execute(message, args) { // inside here command stuff
-		let subreddit = args[0];
-		if (!args.length) {
+	execute(interaction) { // inside here command stuff
+		let subreddit = interaction.options.getString('subreddit');
+		if (!interaction.options.getString('subreddit')) {
 			subreddit = 'random';
 		}
 		else {
-			subreddit = args[0];
+			subreddit = interaction.options.getString('subreddit');
 		}
 		got(`https://www.reddit.com/r/${subreddit}/random/.json`) // random reddit post
 			.then(response => {
@@ -43,8 +43,8 @@ module.exports = {
 					const postauthor = `u/${post.data.author}`;
 					const posttime = post.data.created * 1000;
 					const footer = `👍 ${postupvotes} 💬 ${postcomments} • r/${post.data.subreddit}`;
-					if (nsfw === true && message.channel.nsfw !== true) {
-						message.reply('Oops! thats a nsfw post, either try again, or set this channel to nsfw');
+					if (nsfw === true && interaction.channel.nsfw !== true) {
+						interaction.reply({ content: 'Oops! thats a nsfw post, either try again, or set this channel to nsfw', ephemeral: true });
 						return;
 					}
 					if (nsfw === true) {
@@ -59,9 +59,9 @@ module.exports = {
 						.setTimestamp(posttime)
 						.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
 
-					message.reply({ embeds: [redditembed] }).catch(err => {
+					interaction.reply({ embeds: [redditembed] }).catch(err => {
 						console.log(err);
-						message.reply(`Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+						interaction.reply({ content: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`, ephemeral: true });
 					});
 				}
 				else {
@@ -75,8 +75,8 @@ module.exports = {
 					const postauthor = `u/${post.data.author}`;
 					const posttime = post.data.created * 1000;
 					const footer = `👍 ${postUpvotes} 💬 ${postNumComments} • r/${post.data.subreddit}`;
-					if (nsfw === true && message.channel.nsfw !== true) {
-						message.reply('Oops, that one is nsfw, either try again, or set this channel to nsfw');
+					if (nsfw === true && interaction.channel.nsfw !== true) {
+						interaction.reply({ content: 'Oops, that one is nsfw, either try again, or set this channel to nsfw', ephemeral: true });
 						return;
 					}
 					if (nsfw === true) {
@@ -91,15 +91,15 @@ module.exports = {
 						.setTimestamp(posttime)
 						.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
 
-					message.reply({ embeds: [redditembed] }).catch(err => {
+					interaction.reply({ embeds: [redditembed] }).catch(err => {
 						console.log(err);
-						message.reply(`Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`);
+						interaction.reply({ content: `Error sending embed, something must be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`, ephemeral: true });
 					});
 				}
 			})
 			.catch(err => {
 				console.log(err);
-				message.reply('There was an error completing your request, did you spell the subreddit right?');
+				interaction.reply({ content: 'There was an error completing your request, did you spell the subreddit right?', ephemeral: true });
 			});
 
 	},

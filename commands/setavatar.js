@@ -18,13 +18,13 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The image url.')),
 
-	async execute(message, args) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		try {
-			await message.client.user.setAvatar(args[0]);
-			message.reply('Avatar changed');
+			await interaction.client.user.setAvatar(interaction.options.getString('image'));
+			interaction.reply('Avatar changed');
 		}
 		catch {
-			message.reply('Error setting avatar, check the URL spelling and try again.');
+			interaction.reply({ content: 'Error setting avatar, check the URL spelling and try again.', ephemeral: true });
 		}
 	},
 };

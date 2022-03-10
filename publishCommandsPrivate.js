@@ -12,7 +12,7 @@ const guildId = '788813687283646515';
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	if (!command.ownerOnly && command.data && !command.disabled) {
+	if (/* !command.ownerOnly &&  */command.data && !command.disabled) {
 		commands.push(command.data.toJSON());
 	}
 }

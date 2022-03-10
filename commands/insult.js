@@ -13,17 +13,17 @@ module.exports = {
 		.setName('insult')
 		.setDescription('Insults you.'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		const insultsettings = { method: 'Get' };
 		const insulturl = 'https://insult.mattbas.org/api/insult.json'; // insult api
 		fetch(insulturl, insultsettings)
 			.then(res => res.json())
 			.then((json) => {
-				message.reply(json.insult);
+				interaction.reply(json.insult);
 			})
 			.catch(err => {
 				console.log(err);
-				message.reply('There was an error completing your request, try again later!');
+				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
 			});
 	},
 };

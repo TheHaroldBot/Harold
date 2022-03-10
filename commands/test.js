@@ -21,7 +21,7 @@ module.exports = {
 				.setRequired(false)
 				.setDescription('A required description for the option.')),
 
-	async execute(message, args, prefix) {
+	async execute(interaction) {
 
 	},
 };

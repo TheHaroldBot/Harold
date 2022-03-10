@@ -14,7 +14,7 @@ module.exports = {
 		.setName('joke')
 		.setDescription('Tells you a joke.'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		const jokesettings = { method: 'Get' };
 		const jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit,racist&type=twopart'; // random joke api
 		fetch(jokeurl, jokesettings)
@@ -25,11 +25,11 @@ module.exports = {
 					.setDescription(json.delivery)
 					.setColor('RANDOM')
 					.setFooter('jokeapi.dev');
-				message.reply({ embeds: [jokeembed] });
+				interaction.reply({ embeds: [jokeembed] });
 			})
 			.catch(err => {
 				console.log(err);
-				message.reply('There was an error completing your request, try again later!');
+				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
 			});
 	},
 };

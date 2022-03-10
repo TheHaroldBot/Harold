@@ -17,21 +17,21 @@ module.exports = {
 				.setDescription('The message you want to send to the developers')
 				.setRequired(true)),
 
-	execute(message, args, prefix) {
+	execute(interaction) {
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
-			.addField('Info', `From ${message.author.tag}`)
+			.addField('Info', `From ${interaction.user.tag}`)
 			.setColor('RANDOM')
-			.addField('Description', args.join(' '));
-		if (message.guild) {
-			bugreportembed.addField('From guild:', `Name: ${message.guild.name}, ID: ${message.guild.id}\nUser ID: ${message.author.id}`);
+			.addField('Description', interaction.options.getString('message'));
+		if (interaction.guild) {
+			bugreportembed.addField('From guild:', `Name: ${interaction.guild.name}, ID: ${interaction.guild.id}\nUser ID: ${interaction.user.id}`);
 		}
 		else {
-			bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${message.author.id}`);
+			bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${interaction.user.id}`);
 		}
-		bugreportembed.addField('Contact method:', `You can send a friend request to the sender, or talk through harold with \`${prefix}message\`.`);
-		const supportchannel = message.client.channels.cache.get('905621722978467860');
+		bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with `/message`.');
+		const supportchannel = interaction.client.channels.cache.get('905621722978467860');
 		supportchannel.send({ embeds: [bugreportembed] });
-		message.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
+		interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
 	},
 };

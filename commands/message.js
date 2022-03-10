@@ -14,26 +14,30 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('message')
 		.setDescription('Message someone by ID')
-		.addNumberOption(option =>
+		.addStringOption(option =>
 			option.setName('userid')
 				.setRequired(true)
-				.setDescription('The user ID to message.')),
+				.setDescription('The user ID to message.'))
+		.addStringOption(option =>
+			option.setName('message')
+				.setRequired(true)
+				.setDescription('The message to send.')),
 
-	async execute(message, args) { // inside here command stuff
-		const dmme = await message.client.users.fetch(args[0]);
+	async execute(interaction) { // inside here command stuff
+		const dmme = await interaction.client.users.fetch(interaction.options.getString('userid'));
 		const msgembed = new Discord.MessageEmbed()
 			.setTitle('New message!')
-			.setAuthor(message.author.tag, message.author.avatarURL())
-			.setDescription('>>> ' + args.slice(1).join(' '))
+			.setAuthor(interaction.user.tag, interaction.user.avatarURL())
+			.setDescription('>>> ' + interaction.options.getString('message'))
 			.setTimestamp()
 			.setColor('RANDOM');
 		try {
 			await dmme.send({ embeds: [msgembed] });
-			message.reply(`Message sent:\n >>> ${args.slice(1).join(' ')}`);
+			interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);
 		}
 		catch (error) {
 			console.log(error);
-			message.reply('Error sending message to this user!');
+			interaction.reply({ content: 'Error sending message to this user!', ephemeral: true });
 		}
 	},
 };

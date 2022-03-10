@@ -14,7 +14,7 @@ module.exports = {
 		.setName('trivia')
 		.setDescription('Trivia questions!'),
 
-	execute(message) { // inside here command stuff
+	execute(interaction) { // inside here command stuff
 		got('https://jservice.io/api/random')
 			.then(response => {
 				const [body] = JSON.parse(response.body);
@@ -22,7 +22,7 @@ module.exports = {
 					.setTitle('Catrgory: ' + body.category.title)
 					.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
 					.setColor('RANDOM');
-				message.reply({ embeds: [triviaembed] });
+				interaction.reply({ embeds: [triviaembed] });
 			});
 	},
 };

@@ -19,25 +19,24 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The type of server to ping.')
 				.addChoices([
-					['bedrock', 'bedrock'],
 					['java', 'java'],
+					['bedrock', 'bedrock'],
 				]))
 		.addStringOption(option =>
 			option.setName('ip')
 				.setRequired(true)
 				.setDescription('The IP of the server.'))
-		.addStringOption(option =>
+		.addNumberOption(option =>
 			option.setName('port')
 				.setRequired(false)
 				.setDescription('The port of the server.')),
 
 
-	execute(message, args) { // inside here command stuff
-		if (args.length < 2) return (message.reply(`You need at least 2 arguments! Usage: ${this.usage}`));
-		const type = args[0].toLowerCase();
-		const ip = args[1];
+	execute(interaction) { // inside here command stuff
+		const type = interaction.options.getString('type').toLowerCase();
+		const ip = interaction.options.getString('ip');
 		let pingport = 0;
-		if (!args[2]) {
+		if (!interaction.options.getNumber('port')) {
 			if (type === 'bedrock') {
 				pingport = 19132;
 			}
@@ -46,7 +45,7 @@ module.exports = {
 			}
 		}
 		else {
-			pingport = parseFloat(args[2]);
+			pingport = parseFloat(interaction.getNumber('port'));
 		}
 
 		if (type === 'java') {
@@ -57,9 +56,9 @@ module.exports = {
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					message.reply({ embeds: [mcpingembed] }).catch((err) => {
+					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.reply('Error sending embed');
+						interaction.reply({ content: 'Error sending embed', ephemeral: true });
 					});
 				})
 				.catch(() => {
@@ -68,9 +67,9 @@ module.exports = {
 						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					message.reply({ embeds: [mcpingembed] }).catch((err) => {
+					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.reply('Error sending embed.');
+						interaction.reply({ content: 'Error sending embed.', ephemeral: true });
 					});
 					return;
 				});
@@ -83,9 +82,9 @@ module.exports = {
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					message.reply({ embeds: [mcpingembed] }).catch((err) => {
+					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.reply('Error sending embed');
+						interaction.reply({ content: 'Error sending embed', ephemeral: true });
 					});
 				})
 				.catch((error) => {
@@ -95,14 +94,12 @@ module.exports = {
 						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					message.reply({ embeds: [mcpingembed] }).catch((err) => {
+					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
 						console.log(err);
-						message.reply('Error sending embed.');
+						interaction.reply({ content: 'Error sending embed', ephemeral: true });
 					});
 					return;
 				});
 		}
-		else {return (message.reply(`Incorrect usage! Usage: ${this.usage}`));}
-
 	},
 };
