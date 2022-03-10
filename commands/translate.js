@@ -22,16 +22,20 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		const targetMessageId = parseInt(interaction.options.getString('messageid'));
 		if (typeof targetMessageId !== 'number') return (interaction.reply({ content: 'Invalid message ID.', ephemeral: true }));
-		const targetMessage = await interaction.channel.messages.fetch(interaction.options.getString('messageid'));
-		translate(targetMessage.content, null, 'en', false).then(res => {
-			const translationembed = new Discord.MessageEmbed()
-				.setTitle(`From: ${res.language.from}, to: ${res.language.to}`)
-				.setDescription(`**Translated:** ${res.translation}`)
-				.setColor('RANDOM');
-			interaction.reply({ embeds: [translationembed] });
-		}).catch(err => {
-			console.error(err);
-			interaction.reply({ content: 'Error running that command.', ephemeral: true });
-		});
+		let targetMessage;
+		try {
+			targetMessage = await interaction.channel.messages.fetch(interaction.options.getString('messageid'));
+			await translate(targetMessage.content, null, 'en', false).then(res => {
+				const translationembed = new Discord.MessageEmbed()
+					.setTitle(`From: ${res.language.from}, to: ${res.language.to}`)
+					.setDescription(`**Translated:** ${res.translation}`)
+					.setColor('RANDOM');
+				interaction.reply({ embeds: [translationembed] });
+			});
+		}
+		catch (error) {
+			interaction.reply({ content: 'Invalid message ID.', ephemeral: true });
+		}
+
 	},
 };

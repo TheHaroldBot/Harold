@@ -45,7 +45,7 @@ module.exports = {
 			}
 		}
 		else {
-			pingport = parseFloat(interaction.getNumber('port'));
+			pingport = parseFloat(interaction.options.getNumber('port'));
 		}
 
 		if (type === 'java') {

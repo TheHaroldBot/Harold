@@ -26,6 +26,6 @@ module.exports = {
 			.setColor('RANDOM')
 			.setDescription(description, { split: true })
 			.addField('IMPORTANT', 'Some of these commands have a great effect on the bot and I suggest running `/help [command name]` first to find out what it does.');
-		interaction.reply({ embeds: [ownerembed], ephmeral: true });
+		interaction.reply({ embeds: [ownerembed], ephemeral: true });
 	},
 };

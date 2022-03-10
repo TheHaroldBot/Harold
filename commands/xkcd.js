@@ -60,8 +60,8 @@ module.exports = {
 			else {
 				targetComic = parseInt(interaction.options.getString('comicnumber'));
 			}
-			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number.', ephemeral: true }));
-			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number.', ephemeral: true }));
+			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
+			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
 			await got(`https://xkcd.com/${targetComic}/info.0.json`)
 				.then(response => {
