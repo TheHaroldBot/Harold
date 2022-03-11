@@ -24,7 +24,7 @@
             "type": "node",
             "request": "launch",
             "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}\\publishCommandsPrivate.js",
+            "program": "${workspaceFolder}\\publishCommandsPublic.js",
         }
     ]   
 }
