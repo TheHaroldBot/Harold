@@ -15,7 +15,7 @@ module.exports = {
 		.setDescription('Sets the bot\'s game.')
 		.addStringOption(option =>
 			option.setName('game')
-				.setRequired(true)
+				.setRequired(false)
 				.setDescription('The game name.')),
 
 	execute(interaction) { // inside here command stuff
@@ -30,7 +30,7 @@ module.exports = {
 		}
 		else {
 			interaction.client.user.setActivity(interaction.options.getString('game'));
-			interaction.reply(`Game set to ${interaction.options.getString('game')}`);
+			interaction.reply(`Game set to \`${interaction.options.getString('game')}\``);
 		}
 
 	},
