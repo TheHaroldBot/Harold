@@ -14,7 +14,7 @@ module.exports = {
 		.setDescription('Gets a user\'s profile information.')
 		.addUserOption(option =>
 			option.setName('user')
-				.setRequired(true)
+				.setRequired(false)
 				.setDescription('The user to get the profile of.')),
 
 	async execute(interaction) { // inside here command stuff.
@@ -30,7 +30,7 @@ module.exports = {
 			.setAuthor('Details provided by Harold, recorded by Discord', interaction.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 			.setColor('RANDOM')
 			.setTitle('Profile info')
-			.setDescription(`**Name:** ${pfptarget.tag}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Created on:** <t:${accountCreated}:D> at <t:${accountCreated}:t> (Translated into your time zone)\n**Accent color:** ${pfptarget.hexAccentColor}\n**Avatar ID:** ${pfptarget.avatar}\n**Avatar URL:** [Link↗](${pfptarget.avatarURL()})\n**Default avatar URL:** [Link↗](${pfptarget.defaultAvatarURL})`)
+			.setDescription(`**Name:** ${pfptarget.tag}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Created on:** <t:${accountCreated}:D> at <t:${accountCreated}:t> (Translated into your time zone)\n**Accent color:** ${pfptarget.hexAccentColor}\n**Avatar hash:** ${pfptarget.avatar}\n**Banner hash:** ${pfptarget.banner}\n**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})\n**Banner URL:** [Link↗](${pfptarget.bannerURL()})`)
 			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }))
 			.setTimestamp();
 		if (interaction.guild !== null) {

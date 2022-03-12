@@ -37,7 +37,7 @@ for (const file of eventFiles) {
 
 client.on('messageCreate', message => {
 	if (!message.content.startsWith('*')) return;
-	message.reply('Hello! I have moved to slash commands, which can be accessed by (you guessed it) pressing /. If my commands are not in your server, you might need to reinvite me for them to appear.');
+	message.reply('Hello! I have moved to slash commands, which can be accessed by (you guessed it) pressing /. If my commands are not in your server, you might need to reinvite me for them to appear. (https://discordbotlist.com/bots/harold)');
 });
 
 client.on('interactionCreate', async interaction => {
