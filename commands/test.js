@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-empty-function */
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-/* eslint-disable no-empty-function */
 module.exports = {
 	name: 'test', // command name
 	description: 'Test bits of code here', // command description

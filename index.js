@@ -82,9 +82,7 @@ client.on('interactionCreate', async interaction => {
 
 	if (command.permissions && interaction.guild !== null) {
 		const authorPerms = interaction.channel.permissionsFor(interaction.member);
-		if (!authorPerms || !authorPerms.has(command.permissions)) {
-			return interaction.reply({ content: `You are missing ${command.permissions} to do this!`, ephemeral: true });
-		}
+		if (!authorPerms || !authorPerms.has(command.permissions)) return interaction.reply({ content: `You are missing ${command.permissions} to do this!`, ephemeral: true });
 	}
 
 	if (interaction.guild !== null) {
