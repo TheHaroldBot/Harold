@@ -8,7 +8,7 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
-	aliases: ['pfp', 'profileimage', 'whois'],
+	aliases: ['pfp', 'profileimage', 'whois', 'userinfo'],
 	data: new SlashCommandBuilder()
 		.setName('profile')
 		.setDescription('Gets a user\'s profile information.')
@@ -31,7 +31,7 @@ module.exports = {
 			.setColor('RANDOM')
 			.setTitle('Profile info')
 			.setDescription(`**Name:** ${pfptarget.tag}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Created on:** <t:${accountCreated}:D> at <t:${accountCreated}:t> (Translated into your time zone)\n**Accent color:** ${pfptarget.hexAccentColor}\n**Avatar hash:** ${pfptarget.avatar}\n**Banner hash:** ${pfptarget.banner}\n**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})\n**Banner URL:** [Link↗](${pfptarget.bannerURL()})`)
-			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }))
+			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }) || 'https://img.icons8.com/ios/500/shrug-emoticon.png')
 			.setTimestamp();
 		if (interaction.guild !== null) {
 			const guildMember = interaction.guild.members.cache.find(user => user.id === pfptarget.id);
