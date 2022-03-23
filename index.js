@@ -9,6 +9,7 @@
 */
 
 const { Client, Intents, Collection } = require('discord.js');
+const Discord = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
 const { token, ownerids } = require('./config.json');
@@ -34,11 +35,6 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
-client.on('messageCreate', message => {
-	if (!message.content.startsWith('*')) return;
-	message.reply('Hello! I have moved to slash commands, which can be accessed by (you guessed it) pressing /. If my commands are not in your server, you might need to reinvite me for them to appear. (https://discordbotlist.com/bots/harold)');
-});
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
@@ -93,8 +89,14 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	}
 	catch (error) {
+		const errorEmbed = new Discord.MessageEmbed()
+			.setTitle('Error')
+			.setColor('#ff0000')
+			.setDescription(`An error occured while executing the command ${command.name}`);
 		console.error(`Error executing ${command.name}:\n${error}`);
-		await interaction.reply('There was an error trying to execute that command!', true);
+		await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+		errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error.message}\n\`\`\``);
+		await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
 	}
 });
 
