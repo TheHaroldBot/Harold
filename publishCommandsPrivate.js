@@ -28,6 +28,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 			{ body: commands },
 		);
 
+		console.log(commands);
 		console.log(`Successfully reloaded ${commands.length} application (/) commands privately.`);
 	}
 	catch (error) {
