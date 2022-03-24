@@ -95,7 +95,7 @@ client.on('interactionCreate', async interaction => {
 			.setDescription(`An error occured while executing the command ${command.name}`);
 		console.error(`Error executing ${command.name}:\n${error}`);
 		await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-		errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error.message}\n\`\`\``);
+		errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 		await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
 	}
 });
