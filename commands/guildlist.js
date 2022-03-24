@@ -14,7 +14,6 @@ module.exports = {
 		.setDescription('Lists all guilds the bot is in.'),
 
 	execute(interaction) { // inside here command stuff
-		const Guilds = interaction.client.guilds.cache.map(guild => guild.name);
-		interaction.reply(`We are in \`${Guilds.length}\` servers!`);
+		interaction.reply(`We are in \`${interaction.client.guilds.cache.size}\` servers!`);
 	},
 };
