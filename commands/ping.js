@@ -10,6 +10,6 @@ module.exports = {
 		.setDescription('Replies with the latency'),
 
 	execute(interaction) {
-		interaction.reply({ content: `🏓 Latency is ${Math.round(interaction.createdTimestamp - Date.now())}ms`, ephemeral: true });
+		interaction.reply({ content: `🏓 Latency is ${interaction.client.ws.ping}ms`, ephemeral: true });
 	},
 };
