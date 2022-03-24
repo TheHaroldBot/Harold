@@ -21,7 +21,7 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		const code = interaction.options.getString('code');
 		try {
-			eval(code);
+			await eval(code);
 		}
 		catch (error) {
 			console.error(error);

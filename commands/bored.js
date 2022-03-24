@@ -14,15 +14,20 @@ module.exports = {
 		.setName('bored')
 		.setDescription('Gives you a suggestion of something to do.'),
 
-	execute(interaction) { // inside here command stuff
-		got('https://www.boredapi.com/api/activity') //	im bored
-			.then(response => {
+	async execute(interaction) { // inside here command stuff
+		await got('https://www.boredapi.com/api/activity') //	im bored
+			.then(async response => {
 				const data = JSON.parse(response.body);
 				const boredembed = new Discord.MessageEmbed()
 					.setTitle('Bored? Try this:')
 					.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 					.setColor('RANDOM');
-				interaction.reply({ embeds: [boredembed] });
+				try {
+					interaction.reply({ embeds: [boredembed] });
+				}
+				catch (error) {
+					throw new Error(error.stack);
+				}
 			});
 	},
 };

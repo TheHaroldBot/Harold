@@ -33,7 +33,7 @@ module.exports = {
 			await interaction.reply({ embeds: [formatembed], ephemeral: true });
 		}
 		catch (error) {
-			console.log(error);
+			throw new Error(error.stack);
 		}
 
 	},

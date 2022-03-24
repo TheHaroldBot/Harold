@@ -14,23 +14,27 @@ module.exports = {
 		.setName('joke')
 		.setDescription('Tells you a joke.'),
 
-	execute(interaction) { // inside here command stuff
-		interaction.deferReply({ ephemeral: true });
+	async execute(interaction) { // inside here command stuff
+		await interaction.deferReply({ ephemeral: false });
 		const jokesettings = { method: 'Get' };
 		const jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit,racist&type=twopart'; // random joke api
-		fetch(jokeurl, jokesettings)
-			.then(res => res.json())
-			.then((json) => {
-				const jokeembed = new Discord.MessageEmbed()
-					.setTitle(json.setup)
-					.setDescription(json.delivery)
-					.setColor('RANDOM')
-					.setFooter('jokeapi.dev');
-				interaction.editReply({ embeds: [jokeembed], ephemeral: false });
-			})
-			.catch(err => {
-				console.log(err);
-				interaction.editReply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
-			});
+		try {
+			fetch(jokeurl, jokesettings)
+				.then(res => res.json())
+				.then((json) => {
+					const jokeembed = new Discord.MessageEmbed()
+						.setTitle(json.setup)
+						.setDescription(json.delivery)
+						.setColor('RANDOM')
+						.setFooter('jokeapi.dev');
+					interaction.editReply({ embeds: [jokeembed], ephemeral: false });
+				})
+				.catch(err => {
+					throw new Error(err.stack);
+				});
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
 	},
 };

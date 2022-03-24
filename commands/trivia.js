@@ -14,15 +14,20 @@ module.exports = {
 		.setName('trivia')
 		.setDescription('Trivia questions!'),
 
-	execute(interaction) { // inside here command stuff
-		got('https://jservice.io/api/random')
-			.then(response => {
-				const [body] = JSON.parse(response.body);
-				const triviaembed = new Discord.MessageEmbed()
-					.setTitle('Catrgory: ' + body.category.title)
-					.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
-					.setColor('RANDOM');
-				interaction.reply({ embeds: [triviaembed] });
-			});
+	async execute(interaction) { // inside here command stuff
+		try {
+			await got('https://jservice.io/api/random')
+				.then(response => {
+					const [body] = JSON.parse(response.body);
+					const triviaembed = new Discord.MessageEmbed()
+						.setTitle('Catrgory: ' + body.category.title)
+						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
+						.setColor('RANDOM');
+					interaction.reply({ embeds: [triviaembed] });
+				});
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
 	},
 };

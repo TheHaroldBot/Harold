@@ -18,8 +18,13 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The slowmode in seconds.')),
 
-	execute(interaction) { // inside here command stuff
-		interaction.channel.setRateLimitPerUser(interaction.options.getInteger('slowmode'), `${interaction.user.tag} requested a slowmode of ${interaction.options.getInteger('slowmode')} second(s) in #${interaction.channel.name}`);
-		interaction.reply(`Success! Slowmode set to ${interaction.options.getInteger('slowmode')} second(s).`);
+	async execute(interaction) { // inside here command stuff
+		try {
+			await interaction.channel.setRateLimitPerUser(interaction.options.getInteger('slowmode'), `${interaction.user.tag} requested a slowmode of ${interaction.options.getInteger('slowmode')} second(s) in #${interaction.channel.name}`);
+			await interaction.reply(`Success! Slowmode set to ${interaction.options.getInteger('slowmode')} second(s).`);
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
 	},
 };

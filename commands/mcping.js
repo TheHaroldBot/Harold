@@ -32,7 +32,7 @@ module.exports = {
 				.setDescription('The port of the server.')),
 
 
-	execute(interaction) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		const type = interaction.options.getString('type').toLowerCase();
 		const ip = interaction.options.getString('ip');
 		let pingport = 0;
@@ -57,8 +57,7 @@ module.exports = {
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						console.log(err);
-						interaction.reply({ content: 'Error sending embed', ephemeral: true });
+						throw new Error(err.stack);
 					});
 				})
 				.catch(() => {
@@ -68,8 +67,7 @@ module.exports = {
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
 					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						console.log(err);
-						interaction.reply({ content: 'Error sending embed.', ephemeral: true });
+						throw new Error(err.stack);
 					});
 					return;
 				});
@@ -83,8 +81,7 @@ module.exports = {
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						console.log(err);
-						interaction.reply({ content: 'Error sending embed', ephemeral: true });
+						throw new Error(err.stack);
 					});
 				})
 				.catch((error) => {
@@ -95,8 +92,7 @@ module.exports = {
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
 					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						console.log(err);
-						interaction.reply({ content: 'Error sending embed', ephemeral: true });
+						throw new Error(err.stack);
 					});
 					return;
 				});

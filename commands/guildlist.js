@@ -13,7 +13,13 @@ module.exports = {
 		.setName('guildlist')
 		.setDescription('Lists all guilds the bot is in.'),
 
-	execute(interaction) { // inside here command stuff
-		interaction.reply(`We are in \`${interaction.client.guilds.cache.size}\` servers!`);
+	async execute(interaction) { // inside here command stuff
+		try {
+			await interaction.reply(`We are in \`${interaction.client.guilds.cache.size}\` servers!`);
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
+
 	},
 };

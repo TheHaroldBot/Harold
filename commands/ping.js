@@ -9,7 +9,12 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with the latency'),
 
-	execute(interaction) {
-		interaction.reply({ content: `🏓 Latency is ${interaction.client.ws.ping}ms`, ephemeral: true });
+	async execute(interaction) {
+		try {
+			await interaction.reply({ content: `🏓 Latency is ${interaction.client.ws.ping}ms`, ephemeral: true });
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
 	},
 };

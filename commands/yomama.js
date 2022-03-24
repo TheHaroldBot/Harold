@@ -22,8 +22,7 @@ module.exports = {
 				interaction.reply(json.joke);
 			})
 			.catch(err => {
-				console.log(err);
-				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
+				throw new Error(err.stack);
 			});
 	},
 };

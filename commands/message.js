@@ -33,7 +33,7 @@ module.exports = {
 			.setColor('RANDOM');
 		try {
 			await dmme.send({ embeds: [msgembed] });
-			interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);
+			await interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);
 		}
 		catch (error) {
 			console.log(error);

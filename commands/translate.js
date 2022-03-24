@@ -34,7 +34,7 @@ module.exports = {
 			});
 		}
 		catch (error) {
-			interaction.reply({ content: 'Invalid message ID.', ephemeral: true });
+			interaction.reply({ content: 'Something went wrong, did you provide the correct message ID?', ephemeral: true });
 		}
 
 	},

@@ -34,23 +34,28 @@ module.exports = {
 			});
 		if (!interaction.options.getString('comicnumber')) {
 			const targetComic = Math.floor(Math.random() * maxComic + 1);
-			await got(`https://xkcd.com/${targetComic}/info.0.json`)
-				.then(response => {
-					response = JSON.parse(response.body);
-					const xkcdEmbed = new Discord.MessageEmbed()
-						.setTitle(response.title)
-						.setURL(`https://xkcd.com/${targetComic}`)
-						.setColor('RANDOM')
-						.setImage(response.img)
-						.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
-					try {
-						interaction.reply({ embeds: [xkcdEmbed] });
-					}
-					catch (error) {
-						console.log(error);
-						interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
-					}
-				});
+			try {
+				await got(`https://xkcd.com/${targetComic}/info.0.json`)
+					.then(response => {
+						response = JSON.parse(response.body);
+						const xkcdEmbed = new Discord.MessageEmbed()
+							.setTitle(response.title)
+							.setURL(`https://xkcd.com/${targetComic}`)
+							.setColor('RANDOM')
+							.setImage(response.img)
+							.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
+						try {
+							interaction.reply({ embeds: [xkcdEmbed] });
+						}
+						catch (error) {
+							console.log(error);
+							interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
+						}
+					});
+			}
+			catch (error) {
+				throw new Error(error.stack);
+			}
 		}
 		else {
 			let targetComic = null;
@@ -63,23 +68,28 @@ module.exports = {
 			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
-			await got(`https://xkcd.com/${targetComic}/info.0.json`)
-				.then(response => {
-					response = JSON.parse(response.body);
-					const xkcdEmbed = new Discord.MessageEmbed()
-						.setTitle(response.title)
-						.setURL(`https://xkcd.com/${targetComic}`)
-						.setColor('RANDOM')
-						.setImage(response.img)
-						.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
-					try {
-						interaction.reply({ embeds: [xkcdEmbed] });
-					}
-					catch (error) {
-						console.log(error);
-						interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
-					}
-				});
+			try {
+				await got(`https://xkcd.com/${targetComic}/info.0.json`)
+					.then(response => {
+						response = JSON.parse(response.body);
+						const xkcdEmbed = new Discord.MessageEmbed()
+							.setTitle(response.title)
+							.setURL(`https://xkcd.com/${targetComic}`)
+							.setColor('RANDOM')
+							.setImage(response.img)
+							.setFooter(`"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}`);
+						try {
+							interaction.reply({ embeds: [xkcdEmbed] });
+						}
+						catch (error) {
+							console.log(error);
+							interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
+						}
+					});
+			}
+			catch (error) {
+				throw new Error(error.stack);
+			}
 		}
 
 	},

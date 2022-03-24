@@ -14,22 +14,28 @@ module.exports = {
 		.setName('fact')
 		.setDescription('Gets a random fact.'),
 
-	execute(interaction) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		const factsettings = { method: 'Get' };
 		const facturl = 'https://uselessfacts.jsph.pl/random.json?language=en'; // fact api, random fact
-		fetch(facturl, factsettings)
-			.then(res => res.json())
-			.then((json) => {
-				const factembed = new Discord.MessageEmbed()
-					.setTitle('Random Fact')
-					.setDescription(json.text.replaceAll('`', '\''))
-					.setFooter('From djtech.net')
-					.setColor('RANDOM');
-				interaction.reply({ embeds: [factembed] });
-			})
-			.catch(err => {
-				console.log(err);
-				interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
-			});
+		try {
+			await fetch(facturl, factsettings)
+				.then(res => res.json())
+				.then((json) => {
+					const factembed = new Discord.MessageEmbed()
+						.setTitle('Random Fact')
+						.setDescription(json.text.replaceAll('`', '\''))
+						.setFooter('From djtech.net')
+						.setColor('RANDOM');
+					interaction.reply({ embeds: [factembed] });
+				})
+				.catch(err => {
+					console.log(err);
+					interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
+				});
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
+
 	},
 };

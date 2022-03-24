@@ -35,8 +35,8 @@ module.exports = {
 			interaction.reply(`Command \`${newCommand.name}\` was reloaded!`);
 		}
 		catch (error) {
-			console.error(error);
 			interaction.reply({ content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``, ephemeral: true });
+			throw new Error(error.stack);
 		}
 	},
 };

@@ -2,7 +2,7 @@
 
 /*
     A mascot and quality of life discord bot, mainly for the purpose of entertaining people.
-    Copyright (C) 2021  John Gooden
+    Copyright (C) 2022  John Gooden
 
     This program is free software: you can redistribute it and/or modify
     it under the terms listed in the LICENSE file.

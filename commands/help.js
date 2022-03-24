@@ -37,8 +37,7 @@ module.exports = {
 				await interaction.reply({ embeds: [helpembed], ephemeral: true });
 			}
 			catch (error) {
-				interaction.reply('Sorry, something went wrong.');
-				console.error(`Can't send help embed:\n${error}`);
+				throw new error(error.stack);
 			}
 			return;
 		}
@@ -61,7 +60,7 @@ module.exports = {
 			await interaction.reply({ embeds: [helpembed], ephemeral: true });
 		}
 		catch (error) {
-			console.error(`Error sending help embed to ${interaction.user.tag}:\n${error}`);
+			throw new Error(error.stack);
 		}
 	},
 };

@@ -17,7 +17,7 @@ module.exports = {
 				.setDescription('The message you want to send to the developers')
 				.setRequired(true)),
 
-	execute(interaction) {
+	async execute(interaction) {
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
 			.addField('Info', `From ${interaction.user.tag}`)
@@ -31,7 +31,13 @@ module.exports = {
 		}
 		bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with `/message`.');
 		const supportchannel = interaction.client.channels.cache.get('905621722978467860');
-		supportchannel.send({ embeds: [bugreportembed] });
-		interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
+		try {
+			await supportchannel.send({ embeds: [bugreportembed] });
+			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
+		}
+		catch (error) {
+			throw new Error(error.stack);
+		}
+
 	},
 };
