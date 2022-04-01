@@ -55,9 +55,12 @@ client.on('interactionCreate', async interaction => {
 		cooldowns.set(command.name, new Collection());
 	}
 
-	if (command.disabled === true) return (interaction.reply({ content: 'This command is currently disabled, try again another time!', ephemeral: true }));
-	if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ content: 'Sorry! This command can only be run in a server, not a dm.', ephemeral: true }));
-	if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ content: 'Sorry! This command is reserved for the bot owner(s)', ephemeral: true }));
+	const commandDisabledEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter('Command currently disabled.');
+	if (command.disabled === true) return (interaction.reply({ embeds: [commandDisabledEmbed], ephemeral: true }));
+	const guildOnlyEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter('Can\'t run in a DM, only a server.');
+	if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }));
+	const notOwnerEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter('You are not the owner of this bot.');
+	if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }));
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
@@ -92,11 +95,15 @@ client.on('interactionCreate', async interaction => {
 		const errorEmbed = new Discord.MessageEmbed()
 			.setTitle('Error')
 			.setColor('#ff0000')
-			.setDescription(`An error occured while executing the command ${command.name}`);
+			.setDescription(`An error occured while executing the command ${command.name}:\n${error?.myMessage ?? 'Error message undefined'}`)
+			.setImage('https://http.cat/' + (error?.code ?? 500));
 		console.error(`Error executing ${command.name}:\n${error}`);
+		if (ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 		await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-		errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-		await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
+		if (error.report !== false) {
+			errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
+			await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
+		}
 	}
 });
 

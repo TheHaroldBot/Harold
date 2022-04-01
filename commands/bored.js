@@ -15,19 +15,25 @@ module.exports = {
 		.setDescription('Gives you a suggestion of something to do.'),
 
 	async execute(interaction) { // inside here command stuff
-		await got('https://www.boredapi.com/api/activity') //	im bored
-			.then(async response => {
-				const data = JSON.parse(response.body);
-				const boredembed = new Discord.MessageEmbed()
-					.setTitle('Bored? Try this:')
-					.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
-					.setColor('RANDOM');
-				try {
-					interaction.reply({ embeds: [boredembed] });
-				}
-				catch (error) {
-					throw new Error(error.stack);
-				}
-			});
+		try {
+			await got('https://www.boredapi.com/api/activity') //	im bored
+				.then(async response => {
+					const data = JSON.parse(response.body);
+					const boredembed = new Discord.MessageEmbed()
+						.setTitle('Bored? Try this:')
+						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
+						.setColor('RANDOM');
+					try {
+						interaction.reply({ embeds: [boredembed] });
+					}
+					catch (error) {
+						throw new Error(error.stack);
+					}
+				});
+		}
+		catch (error) {
+			const returnError = { message: error.message, stack: error.stack, code: 444 };
+			throw returnError;
+		}
 	},
 };

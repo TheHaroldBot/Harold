@@ -36,7 +36,8 @@ module.exports = {
 			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
 		}
 		catch (error) {
-			throw new Error(error.stack);
+			const returnError = { message: error.message, stack: error.stack, code: 500 };
+			throw returnError;
 		}
 
 	},

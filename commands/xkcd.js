@@ -24,14 +24,17 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		let maxComic = 0;
-		await got('https://xkcd.com/info.0.json')
-			.then(response => {
-				const body = JSON.parse(response.body);
-				maxComic = body.num;
-			})
-			.catch(err => {
-				console.log(err);
-			});
+		try {
+			await got('https://xkcd.com/info.0.json')
+				.then(response => {
+					const body = JSON.parse(response.body);
+					maxComic = body.num;
+				});
+		}
+		catch (error) {
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
+		}
 		if (!interaction.options.getString('comicnumber')) {
 			const targetComic = Math.floor(Math.random() * maxComic + 1);
 			try {
@@ -54,7 +57,8 @@ module.exports = {
 					});
 			}
 			catch (error) {
-				throw new Error(error.stack);
+				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+				throw returnError;
 			}
 		}
 		else {
@@ -88,7 +92,8 @@ module.exports = {
 					});
 			}
 			catch (error) {
-				throw new Error(error.stack);
+				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+				throw returnError;
 			}
 		}
 

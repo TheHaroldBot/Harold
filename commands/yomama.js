@@ -13,16 +13,19 @@ module.exports = {
 		.setName('yomama')
 		.setDescription('Insults your mom.'),
 
-	execute(interaction) { // inside here command stuff
+	async execute(interaction) { // inside here command stuff
 		const yomamasettings = { method: 'Get' };
 		const yomamaurl = 'https://api.yomomma.info/'; // yo mama api
-		fetch(yomamaurl, yomamasettings)
-			.then(res => res.json())
-			.then((json) => {
-				interaction.reply(json.joke);
-			})
-			.catch(err => {
-				throw new Error(err.stack);
-			});
+		try {
+			await fetch(yomamaurl, yomamasettings)
+				.then(res => res.json())
+				.then((json) => {
+					interaction.reply(json.joke);
+				});
+		}
+		catch (error) {
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
+		}
 	},
 };

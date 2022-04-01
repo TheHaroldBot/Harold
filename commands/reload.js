@@ -24,7 +24,8 @@ module.exports = {
 			|| interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
-			return interaction.reply({ content: `There is no command with name or alias \`${commandName}\`, ${interaction.user.username}!`, ephemeral: true });
+			const returnError = { message: 'invalid command supplied', stack: 'reload command 26:12', code: 404, report: false, myMessage: 'That doesen\'t seem to be a command!' };
+			throw returnError;
 		}
 
 		delete require.cache[require.resolve(`../commands/${command.name}.js`)];

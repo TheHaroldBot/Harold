@@ -33,6 +33,7 @@ module.exports = {
 
 
 	async execute(interaction) { // inside here command stuff
+		await interaction.deferReply();
 		const type = interaction.options.getString('type').toLowerCase();
 		const ip = interaction.options.getString('ip');
 		let pingport = 0;
@@ -50,50 +51,65 @@ module.exports = {
 
 		if (type === 'java') {
 			util.status(ip, { port: pingport }) // pings a minecraft server
-				.then((response) => {
+				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						throw new Error(err.stack);
-					});
+					try {
+						await interaction.editReply({ embeds: [mcpingembed] });
+					}
+					catch (error) {
+						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+						throw returnError;
+					}
 				})
-				.catch(() => {
+				.catch(async () => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
 						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						throw new Error(err.stack);
-					});
+					try {
+						await interaction.editReply({ embeds: [mcpingembed] });
+					}
+					catch (error) {
+						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+						throw returnError;
+					}
 					return;
 				});
 		}
 		else if (type === 'bedrock') {
 			util.query(ip, { port: pingport }) // pings a minecraft server
-				.then((response) => {
+				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
 						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
-					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						throw new Error(err.stack);
-					});
+					try {
+						await interaction.editReply({ embeds: [mcpingembed] });
+					}
+					catch (error) {
+						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+						throw returnError;
+					}
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch(async () => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
 						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
-					interaction.reply({ embeds: [mcpingembed] }).catch((err) => {
-						throw new Error(err.stack);
-					});
+					try {
+						await interaction.editReply({ embeds: [mcpingembed] });
+					}
+					catch (error) {
+						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+						throw returnError;
+					}
 					return;
 				});
 		}

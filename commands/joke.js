@@ -19,7 +19,7 @@ module.exports = {
 		const jokesettings = { method: 'Get' };
 		const jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit,racist&type=twopart'; // random joke api
 		try {
-			fetch(jokeurl, jokesettings)
+			await fetch(jokeurl, jokesettings)
 				.then(res => res.json())
 				.then((json) => {
 					const jokeembed = new Discord.MessageEmbed()
@@ -28,13 +28,11 @@ module.exports = {
 						.setColor('RANDOM')
 						.setFooter('jokeapi.dev');
 					interaction.editReply({ embeds: [jokeembed], ephemeral: false });
-				})
-				.catch(err => {
-					throw new Error(err.stack);
 				});
 		}
 		catch (error) {
-			throw new Error(error.stack);
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 	},
 };

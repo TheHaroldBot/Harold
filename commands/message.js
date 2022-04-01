@@ -36,8 +36,8 @@ module.exports = {
 			await interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);
 		}
 		catch (error) {
-			console.log(error);
-			interaction.reply({ content: 'Error sending message to this user!', ephemeral: true });
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong when sending that user a message!' };
+			throw returnError;
 		}
 	},
 };

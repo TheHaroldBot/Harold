@@ -39,8 +39,8 @@ module.exports = {
 					await webhook.delete();
 				}
 				catch (error) {
-					console.error();
-					interaction.reply({ content: 'Error running that command, this channel might have reached the maximum number of webhooks (10)', ephemeral: true });
+					const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong! This channel might have reached the maximum number of webhooks (10)' };
+					throw returnError;
 				}
 
 			});

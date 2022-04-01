@@ -33,7 +33,8 @@ module.exports = {
 			await interaction.reply({ embeds: [formatembed], ephemeral: true });
 		}
 		catch (error) {
-			throw new Error(error.stack);
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 
 	},

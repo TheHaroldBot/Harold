@@ -27,7 +27,8 @@ module.exports = {
 				});
 		}
 		catch (error) {
-			throw new Error(error.stack);
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 	},
 };

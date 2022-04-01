@@ -47,12 +47,13 @@ module.exports = {
 					.setTimestamp(posttime);
 
 				interaction.reply({ embeds: [memeembed] }).catch(err => {
-					console.log(err);
-					interaction.reply({ content: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>`, ephemeral: true });
+					const returnError = { message: err.message, stack: err.stack, code: 500, report: false, myMessage: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>` };
+					throw returnError;
 				});
 			})
 			.catch(err => {
-				throw new Error(err.stack);
+				const returnError = { message: err.message, stack: err.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+				throw returnError;
 			});
 	},
 };

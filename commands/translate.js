@@ -34,7 +34,8 @@ module.exports = {
 			});
 		}
 		catch (error) {
-			interaction.reply({ content: 'Something went wrong, did you provide the correct message ID?', ephemeral: true });
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong! Did you provide the correct message ID?' };
+			throw returnError;
 		}
 
 	},

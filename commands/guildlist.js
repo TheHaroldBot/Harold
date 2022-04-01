@@ -18,7 +18,8 @@ module.exports = {
 			await interaction.reply(`We are in \`${interaction.client.guilds.cache.size}\` servers!`);
 		}
 		catch (error) {
-			throw new Error(error.stack);
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 
 	},
