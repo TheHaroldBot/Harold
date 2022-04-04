@@ -22,8 +22,6 @@ module.exports = {
 				.setDescription('A required description for the option.')),
 
 	async execute(interaction) {
-		const error = new Error();
-		const returnError = { message: error.message, stack: error.stack, code: 418 };
-		throw returnError;
+
 	},
 };

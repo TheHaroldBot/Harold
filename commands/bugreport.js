@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
+let { bugReportWebhook } = require('../config.json');
 
 module.exports = {
 	name: 'bugreport',
@@ -18,6 +19,7 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
+		bugReportWebhook = new Discord.WebhookClient(bugReportWebhook);
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
 			.addField('Info', `From ${interaction.user.tag}`)
@@ -30,9 +32,10 @@ module.exports = {
 			bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${interaction.user.id}`);
 		}
 		bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with `/message`.');
-		const supportchannel = interaction.client.channels.cache.get('905621722978467860');
+		// const supportchannel = interaction.client.channels.cache.get('905621722978467860');
 		try {
-			await supportchannel.send({ embeds: [bugreportembed] });
+			// await supportchannel.send({ embeds: [bugreportembed] });
+			await bugReportWebhook.send({ embeds: [bugreportembed] });
 			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
 		}
 		catch (error) {

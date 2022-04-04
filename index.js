@@ -13,6 +13,7 @@ const Discord = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
 const { token, ownerids } = require('./config.json');
+let { errorWebhook } = require('./config.json');
 client.commands = new Collection();
 client.cooldowns = new Collection();
 client.aliases = new Collection();
@@ -71,7 +72,8 @@ client.on('interactionCreate', async interaction => {
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return interaction.reply({ content: `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, ephemeral: true });
+			const slowDownEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/420').setFooter(`Woah dude, calm down, you can use this again in ${timeLeft.toFixed(1)} seconds.`);
+			return interaction.reply({ embeds: [slowDownEmbed], ephemeral: true });
 		}
 	}
 	if (!ownerids.includes(interaction.user.id)) {
@@ -92,6 +94,7 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	}
 	catch (error) {
+		errorWebhook = new Discord.WebhookClient(errorWebhook);
 		const errorEmbed = new Discord.MessageEmbed()
 			.setTitle('Error')
 			.setColor('#ff0000')
@@ -102,7 +105,8 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 		if (error.report !== false) {
 			errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-			await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
+			await errorWebhook.send({ embeds: [errorEmbed] });
+			// await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed] });
 		}
 	}
 });
