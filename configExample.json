@@ -1,0 +1,23 @@
+{
+	"token": "xxxxxxxxxxxxxxxxxxxxxxxx.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxx-xxx",
+	"ownerids": [
+		"xxxxxxxxxxxxxxxxxx",
+		"xxxxxxxxxxxxxxxxxx",
+		"xxxxxxxxxxxxxxxxxx"
+	],
+	"botid": "xxxxxxxxxxxxxxxxxx",
+	"blocked": [
+		"xxxxxxxxxxxxxxxxxx"
+	],
+	"invite": "https://discord.com/api/oauth2/authorize?client_id=xxxxxxxxxxxxxxxxxx&permissions=xxxxxxxxxxxx&scope=bot%20applications.commands",
+	"errorWebhook": {
+		"token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+		"id": "xxxxxxxxxxxxxxxxxx",
+		"url": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	},
+	"bugReportWebhook": {
+		"token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+		"id": "xxxxxxxxxxxxxxxxxx",
+		"url": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	}
+}
