@@ -50,30 +50,30 @@ for (const file of eventFiles) {
 }
 
 client.on('interactionCreate', async interaction => {
+	console.log(`Received interaction ${interaction.commandName ?? 'unknown name'} (${interaction.id ?? 'unknown id'})`);
 	if (!interaction.isCommand()) return;
 	const { cooldowns } = client;
 
-	const botblocked = JSON.parse(fs.readFileSync('config.json'));
-	if (botblocked.blocked.includes(interaction.user.id) && ownerids.includes(interaction.user.id)) {
+	const config = JSON.parse(fs.readFileSync('config.json'));
+	if (config.blocked.includes(interaction.user.id) && ownerids.includes(interaction.user.id)) {
 		interaction.reply({ content: 'You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.', ephemeral: true });
 		return;
 	}
-	if (botblocked.blocked.includes(interaction.user.id)) return;
+	if (config.blocked.includes(interaction.user.id)) return;
 
 	const command = client.commands.get(interaction.commandName);
-	if (!command) return;
-	console.log(`Executing slash command '${command.name}' on behalf of ${interaction.user.tag} (${interaction.user.id})`);
+	if (!command) return ('Command not found');
 
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Collection());
 	}
 
-	const commandDisabledEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter('Command currently disabled.');
-	if (command.disabled === true) return (interaction.reply({ embeds: [commandDisabledEmbed], ephemeral: true }));
-	const guildOnlyEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter('Can\'t run in a DM, only a server.');
-	if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }));
-	const notOwnerEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter('You are not the owner of this bot.');
-	if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }));
+	const commandDisabledEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/503').setFooter('Command currently disabled.').setColor('RED');
+	if (command.disabled === true) return (interaction.reply({ embeds: [commandDisabledEmbed], ephemeral: true }), console.log('Command disabled.'));
+	const guildOnlyEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter('Can\'t run in a DM, only a server.').setColor('RED');
+	if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }), console.log('Command run in inappropriate environment.'));
+	const notOwnerEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter('You are not the owner of this bot.').setColor('RED');
+	if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }), console.log('Command executed by non-owner.'));
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
@@ -103,6 +103,7 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	try {
+		console.log(`Executing slash command '${command.name}' on behalf of ${interaction.user.id}`);
 		await command.execute(interaction);
 	}
 	catch (error) {
