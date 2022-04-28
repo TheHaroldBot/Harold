@@ -30,13 +30,34 @@ module.exports = {
 			.setAuthor('Details provided by Harold, recorded by Discord', interaction.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 			.setColor('RANDOM')
 			.setTitle('Profile info')
-			.setDescription(`**Name:** ${pfptarget.tag}\n**Discriminator:** ${pfptarget.discriminator}\n**ID:** ${pfptarget.id}\n**Bot:** ${pfptarget.bot}\n**System:** ${pfptarget.system}\n**Partial:** ${pfptarget.partial}\n**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}\n**Created on:** <t:${accountCreated}:D> at <t:${accountCreated}:t> (Translated into your time zone)\n**Accent color:** ${pfptarget.hexAccentColor}\n**Avatar hash:** ${pfptarget.avatar}\n**Banner hash:** ${pfptarget.banner}\n**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})\n**Banner URL:** [Link↗](${pfptarget.bannerURL()})`)
+			.setDescription(`
+				**Name:** ${pfptarget.tag}
+				**Discriminator:** ${pfptarget.discriminator}
+				**ID:** ${pfptarget.id}
+				**Bot:** ${pfptarget.bot}
+				**System:** ${pfptarget.system}
+				**Partial:** ${pfptarget.partial}
+				**Flags:** ${pfptarget.flags.toArray().join(', ').replace('_', ' ')}
+				**Created on:** <t:${accountCreated}:D> at <t:${accountCreated}:t> (Translated into your time zone)
+				**Accent color:** ${pfptarget.hexAccentColor}
+				**Avatar hash:** ${pfptarget.avatar}
+				**Banner hash:** ${pfptarget.banner}
+				**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})
+				**Banner URL:** [Link↗](${pfptarget.bannerURL()})
+			`)
 			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }) || 'https://img.icons8.com/ios/500/shrug-emoticon.png')
 			.setTimestamp();
 		if (interaction.guild !== null) {
 			const guildMember = interaction.guild.members.cache.find(user => user.id === pfptarget.id);
 			const joinedGuild = Math.round(guildMember.joinedTimestamp / 1000);
-			pfpembed.addField('Server-specific information', `**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)\n**Display name:** ${guildMember.displayName}\n**Display color:** ${guildMember.displayHexColor}\n**Pending membership:** ${guildMember.pending}\n**Kickable:** ${guildMember.kickable}\n**Bannable:** ${guildMember.bannable}`);
+			pfpembed.addField('Server-specific information', `
+				**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)
+				**Display name:** ${guildMember.displayName}
+				**Display color:** ${guildMember.displayHexColor}
+				**Pending membership:** ${guildMember.pending}
+				**Kickable:** ${guildMember.kickable}
+				**Bannable:** ${guildMember.bannable}
+			`);
 		}
 		interaction.reply({ embeds: [pfpembed] });
 	},

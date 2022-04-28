@@ -21,7 +21,10 @@ module.exports = {
 					const [body] = JSON.parse(response.body);
 					const triviaembed = new Discord.MessageEmbed()
 						.setTitle('Catrgory: ' + body.category.title)
-						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
+						.setDescription(`
+							${body.question}
+							Answer: ||${body.answer}||
+						`)
 						.setColor('RANDOM');
 					interaction.reply({ embeds: [triviaembed] });
 				});

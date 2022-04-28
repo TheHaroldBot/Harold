@@ -128,4 +128,4 @@ client.on('debug', console.debug);
 client.on('warn', console.warn);
 client.on('error', console.error);
 
-client.login(token).then(console.info(`Node version: ${process.versions.node}\nLogged in.`));
+client.login(token).then(console.info('Logged in.'));

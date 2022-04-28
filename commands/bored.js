@@ -21,7 +21,12 @@ module.exports = {
 					const data = JSON.parse(response.body);
 					const boredembed = new Discord.MessageEmbed()
 						.setTitle('Bored? Try this:')
-						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
+						.setDescription(`
+							${data.activity}
+							Type: ${data.type}
+							Participants: ${data.participants}
+							Price: ${data.price * 10}/10
+						`)
 						.setColor('RANDOM');
 					try {
 						interaction.reply({ embeds: [boredembed] });

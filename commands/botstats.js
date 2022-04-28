@@ -18,7 +18,12 @@ module.exports = {
 	execute(interaction) { // inside here command stuff
 		const inviteembed = new Discord.MessageEmbed()
 			.setTitle('Invite or vote here!')
-			.setDescription(`🏓 Latency is ${interaction.client.ws.ping}ms\nWe are in ${interaction.client.guilds.cache.size} guilds! \nVote for me at [discordbotlist.com](https://discordbotlist.com/bots/harold)\nInvite me [here.](${invite})`)
+			.setDescription(`
+				🏓 Latency is ${interaction.client.ws.ping}ms
+				We are in ${interaction.client.guilds.cache.size} guilds!
+				Vote for me at [discordbotlist.com](https://discordbotlist.com/bots/harold)
+				Invite me [here.](${invite})
+			`)
 			.setColor('RANDOM');
 		interaction.reply({ embeds: [inviteembed] });
 	},
