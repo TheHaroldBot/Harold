@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-console.log(commandFiles);
+console.log(`Command files found: ${commandFiles}`);
 
 // Place your client and guild ids here
 const guildId = '788813687283646515';
@@ -14,6 +14,7 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	if (command.ownerOnly && command.data) {
 		commands.push(command.data.toJSON());
+		console.log(`Added ${command.data.name}`);
 	}
 }
 
