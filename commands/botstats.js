@@ -9,7 +9,6 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
 	disabled: false, // whether the command is disabled
-	ownerOnly: true, // temp
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['vote'],
 	data: new SlashCommandBuilder()
