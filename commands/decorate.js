@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
+const Discord = require('discord.js');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 
 module.exports = {
@@ -14,69 +15,62 @@ module.exports = {
 	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')
-		.setDescription('Decorate channels with fancy emojis!')
-		.addStringOption(option =>
-			option.setName('type')
-				.setDescription('The theme of the decorations, or clear')
-				.setRequired(true)
-				.addChoices([
-					['summer', 'summer'],
-					['fall', 'fall'],
-					['winter', 'winter'],
-					['spring', 'spring'],
-					['christmas', 'christmas'],
-					['halloween', 'halloween'],
-					['easter', 'easter'],
-					['hanukkah', 'hanukkah'],
-					['clear', 'clear'],
-				])),
+		.setDescription('Decorate channels with fancy emojis!'),
 
 	async execute(interaction) { // inside here command stuff
-		interaction.reply({ content: 'Working on it!' });
-		const themes = {
-			summer: ['🌴', '🏝️', '🕶️', '⛱️', '🦩'],
-			fall: ['🍂', '🌰', '☕', '🥧', '🎑', '🍁', '🌽'],
-			winter: ['❄️', '⛄', '🧣', '🎿', '🥶'],
-			spring: ['🌻', '🌼', '🌷', '🌾', '🌈', '🍃'],
-			christmas: ['🎅', '🤶', '🧝', '🌟', '🎄', '🕯️', '🦌'],
-			halloween: ['🕸️', '🕷️', '🦇', '🎃', '⚰️', '🧛', '👻'],
-			easter: ['🐇', '🍫', '🐤', '🥚', '🥕', '🔔'],
-			hanukkah: ['🕎', '✡️', '🕍', '🕯️'],
-			/* other seasons here */
-		};
-		const allemojis = themes.summer.concat(themes.fall, themes.winter, themes.spring, themes.christmas, themes.halloween, themes.easter, themes.hanukkah);
-		if (!options.includes(interaction.options.getString('type'))) return (interaction.editReply({ content: `Usage: /${this.name} ${this.usage}`, ephemeral: true }));
-		const channelList = await interaction.guild.channels.fetch();
-		channelList.forEach(async element => {
-			if (element.type === 'GUILD_CATEGORY') return;
-			if (element.type === 'GUILD_PUBLIC_THREAD') return;
-			if (element.type === 'GUILD_PRIVATE_THREAD') return;
-			if (element.type === 'GUILD_STAGE_VOICE') return;
-			if (element.type === 'UNKNOWN') return;
-			if (interaction.options.getString('type') === 'clear') {
-				let name = element.name;
-				allemojis.forEach(emoji => {
-					name = name.replace(emoji, '');
-					name = name.replace(emoji, '');
-				});
-				try {
-					await element.setName(name, 'Removed decoration');
-				}
-				catch (error) {
-					console.error('Could not set a channel name using decor command');
-				}
-				return;
-			}
-			const theme = themes[interaction.options.getString('type')];
-			const randomemoji = theme[Math.floor(Math.random() * theme.length)];
-			const newname = randomemoji + element.name + randomemoji;
-			try {
-				await element.setName(newname);
-			}
-			catch (error) {
-				console.error('Could not set a channel name using decor command');
-			}
-
-		});
+		const row = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageSelectMenu()
+					.setCustomId('decorate')
+					.setPlaceholder('Pick a theme!')
+					.addOptions([
+						{
+							label: 'Summer',
+							value: 'summer',
+							description: '🌞 A summer theme!',
+						},
+						{
+							label: 'Fall',
+							value: 'fall',
+							description: '🍂 A fall theme!',
+						},
+						{
+							label: 'Winter',
+							value: 'winter',
+							description: '❄️ A winter theme!',
+						},
+						{
+							label: 'Spring',
+							value: 'spring',
+							description: '🌻 A spring theme!',
+						},
+						{
+							label: 'Christmas',
+							value: 'christmas',
+							description: '🎅 A christmas theme!',
+						},
+						{
+							label: 'Halloween',
+							value: 'halloween',
+							description: '🎃 A Halloween theme!',
+						},
+						{
+							label: 'Easter',
+							value: 'easter',
+							description: '🐇 An Easter theme!',
+						},
+						{
+							label: 'Hanukkah',
+							value: 'hanukkah',
+							description: '🕎 A Hanukkah theme!',
+						},
+						{
+							label: 'Clear',
+							value: 'clear',
+							description: '🧹 Begone decor!',
+						},
+					]),
+			);
+		interaction.reply({ components: [row] });
 	},
 };

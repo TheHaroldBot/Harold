@@ -45,7 +45,7 @@ module.exports = {
 				**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})
 				**Banner URL:** [Link↗](${pfptarget.bannerURL()})
 			`)
-			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }) || 'https://img.icons8.com/ios/500/shrug-emoticon.png')
+			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }) || 'https://i.imgflip.com/6e4j42.jpg')
 			.setTimestamp();
 		if (interaction.guild !== null) {
 			const guildMember = interaction.guild.members.cache.find(user => user.id === pfptarget.id);

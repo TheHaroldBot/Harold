@@ -2,6 +2,7 @@
 /* eslint-disable no-empty-function */
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
 
 module.exports = {
 	name: 'test', // command name
@@ -11,7 +12,7 @@ module.exports = {
 	permissions: [], // permissions required for command
 	myPermissions: [], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
-	disabled: true,
+	disabled: false,
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('test')
@@ -22,6 +23,26 @@ module.exports = {
 				.setDescription('A required description for the option.')),
 
 	async execute(interaction) {
-
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setLabel('Test')
+					.setStyle('LINK')
+					.setURL('https://google.com/'),
+			);
+		const row2 = new MessageActionRow()
+			.addComponents(
+				new MessageSelectMenu()
+					.setCustomId('test')
+					.setPlaceholder('select one :)')
+					.addOptions([
+						{
+							label: 'option1',
+							value: 'option1',
+							description: 'option1',
+						},
+					]),
+			);
+		await interaction.reply({ components: [row, row2] });
 	},
 };

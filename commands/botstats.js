@@ -16,6 +16,17 @@ module.exports = {
 		.setDescription('Get bot stats and info'),
 
 	execute(interaction) { // inside here command stuff
+		const linkButtons = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageButton()
+					.setLabel('Vote')
+					.setStyle('LINK')
+					.setURL('https://discordbotlist.com/bots/harold'),
+				new Discord.MessageButton()
+					.setLabel('Invite')
+					.setStyle('LINK')
+					.setURL(invite),
+			);
 		const inviteembed = new Discord.MessageEmbed()
 			.setTitle('Invite or vote here!')
 			.setDescription(`
@@ -25,6 +36,6 @@ module.exports = {
 				Invite me [here.](${invite})
 			`)
 			.setColor('RANDOM');
-		interaction.reply({ embeds: [inviteembed] });
+		interaction.reply({ embeds: [inviteembed], components: [linkButtons] });
 	},
 };

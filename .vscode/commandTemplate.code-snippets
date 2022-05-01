@@ -16,9 +16,10 @@
 	// 	"description": "Log output to console"
 	// }
 	
-	"Command Template": {
+	"Command File Template": {
 		"scope": "javascript",
-		"prefix": "command",
+		"prefix": "commandFile",
+		"description": "Template for a new command file.",
 		"body": [
 			"const Discord = require('discord.js');",
 			"const { SlashCommandBuilder } = require('@discordjs/builders');",
@@ -43,12 +44,12 @@
 			"\t\t$0",	
 			"\t},",
 			"};"
-		],
-		"description": "Template for a new discord.js command"
+		]
 	},
-	"Event Template": {
+	"Event File Template": {
 		"scope": "javascript",
-		"prefix": "event",
+		"prefix": "eventFile",
+		"description": "Template for a new event file.",
 		"body": [
 			"const Discord = require('discord.js');",
 			"",
@@ -65,9 +66,84 @@
 	"Error Template": {
 		"scope": "javascript",
 		"prefix": "errorTemplate",
+		"description": "Template for a new error",
 		"body": [
 			"const returnError = { message: ${1:error.message}, stack: ${2:error.stack}, code: ${3:500}, report: ${4:false}, myMessage: '${5:Uh-oh, something went wrong!}' };",
 			"throw returnError;"
 		]
-	}
+	},
+	"Button File Template": {
+		"scope": "javascript",
+		"prefix": "buttonFile",
+		"description": "Template for a new button file.",
+		"body": [
+			"const Discord = require('discord.js');",
+			"",
+			"module.exports = {",
+			"\tcustomId: '$1',",
+			"\tpermissions: [$2],",
+			"\tmyPermissions: [$3],",
+			"\tasync execute(interaction) {",
+			"\t\t$0",
+			"\t},",
+			"};"
+		]
+	},
+	"Button Template": {
+		"scope": "javascript",
+		"prefix": "buttonTemplate",
+		"description": "Template for a new button",
+		"body": [
+			"new Discord.MessageButton()",
+			"\t.setLabel('$2')",
+			"\t.setStyle('${3|PRIMARY,SECONDARY,SUCCESS,DANGER,LINK|}')",
+			"\t.setCustomId('$4') // remove if style is LINK",
+			"\t.setURL('$5'), // remove if style is not LINK",
+		]
+	},
+	"Select Menu File Template": {
+		"scope": "javascript",
+		"prefix": ["selectMenuFile", "selectMenuFileTemplate"],
+		"description": "Template for a new select menu file.",
+		"body": [
+			"const Discord = require('discord.js');",
+			"",
+			"module.exports = {",
+			"\tcustomId: '$1',",
+			"\tpermissions: [$2],",
+			"\tmyPermissions: [$3],",
+			"\tasync execute(interaction) {",
+			"\t\t$0",
+			"\t},",
+			"};"
+		]
+	},
+	"Select Menu Template": {
+		"scope": "javascript",
+		"prefix": ["selectMenuTemplate", "messageSelectMenuTemplate"],
+		"description": "Template for a new select menu",
+		"body": [
+			"new Discord.MessageSelectMenu()",
+			"\t.setCustomId('$1')",
+			"\t.setPlaceholder('$2')",
+			"\t.addOptions([",
+			"\t\t{",
+			"\t\t\tlabel: '$3',",
+			"\t\t\tvalue: '$4',",
+			"\t\t\tdescription: '$5',",
+			"\t\t},",
+			"\t]),"
+		]
+	},
+	"Message Action Row Template": {
+		"scope": "javascript",
+		"prefix": ["messageActionRowTemplate", "actionRowTemplate"],
+		"description": "Template for a new message action row",
+		"body": [
+			"const $1 = new Discord.MessageActionRow()",
+			"\t.addComponents(",
+			"\t\t$0",
+			"\t);"
+		]
+	},
 }
