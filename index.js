@@ -34,6 +34,7 @@ client.selectMenus = new Collection();
 const button = require('./events/button.js');
 const selectMenu = require('./events/selectMenu.js');
 const slashCommand = require('./events/slashCommand.js');
+const autoComplete = require('./events/autoComplete.js');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -75,6 +76,15 @@ client.on('interactionCreate', async interaction => {
 	}
 	else if (interaction.isCommand()) {
 		await slashCommand.execute(interaction);
+	}
+	else if (interaction.isMessageContextMenu()) {
+		return;
+	}
+	else if (interaction.isUserContextMenu()) {
+		return;
+	}
+	else if (interaction.isAutocomplete()) {
+		await autoComplete.execute(interaction);
 	}
 	else {
 		return;

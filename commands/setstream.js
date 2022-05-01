@@ -13,13 +13,13 @@ module.exports = {
 		.setName('setstream')
 		.setDescription('Sets the bot\'s streaming status.')
 		.addStringOption(option =>
-			option.setName('url')
-				.setRequired(true)
-				.setDescription('The stream url.'))
-		.addStringOption(option =>
 			option.setName('name')
 				.setRequired(true)
-				.setDescription('The stream name.')),
+				.setDescription('The stream name.'))
+		.addStringOption(option =>
+			option.setName('url')
+				.setRequired(true)
+				.setDescription('The stream url.')),
 
 	execute(interaction) { // inside here command stuff
 		interaction.client.user.setActivity(interaction.options.getString('name')), {

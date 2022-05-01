@@ -23,6 +23,7 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('name')
 				.setRequired(true)
+				.setAutocomplete(true)
 				.setDescription('The name or custom ID of the thing you want to reload.')),
 
 	execute(interaction) {

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-empty-function */
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
+const { SlashCommandBuilder, ContextMenuCommandBuilder } = require('@discordjs/builders');
+const { MessageActionRow, MessageSelectMenu, MessageButton, DiscordAPIError, ContextMenuInteraction } = require('discord.js');
 
 module.exports = {
 	name: 'test', // command name
