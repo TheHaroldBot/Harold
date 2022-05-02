@@ -77,6 +77,10 @@ module.exports = {
 			.setDescription(data.join('\n'), { split: true })
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
 			.setColor('RANDOM');
+		if (command.ownerOnly) {
+			helpembed.setDescription(`${helpembed.description}\n\n**This is an owner only command!**\nBe careful using these, as they may affect the bot significantly.`);
+		}
+
 		try {
 			await interaction.reply({ embeds: [helpembed], ephemeral: true });
 		}
