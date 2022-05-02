@@ -68,7 +68,7 @@
 		"prefix": "errorTemplate",
 		"description": "Template for a new error",
 		"body": [
-			"const returnError = { message: ${1:error.message}, stack: ${2:error.stack}, code: ${3:500}, report: ${4:false}, myMessage: '${5:Uh-oh, something went wrong!}' };",
+			"const returnError = { message: ${1:error.message}, stack: ${2:error.stack}, code: ${3:500}, report: ${4|false,true|}, myMessage: '${5:Uh-oh, something went wrong!}' };",
 			"throw returnError;"
 		]
 	},
