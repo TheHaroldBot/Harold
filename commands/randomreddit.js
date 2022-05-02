@@ -7,6 +7,7 @@ module.exports = {
 	description: 'Gets random post from specified subreddit.', // command description
 	usage: '<subreddit without the r/>', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
+	ownerOnly: true,
 	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['redditpost', 'reddit', 'rr'],
@@ -16,7 +17,26 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('subreddit')
 				.setRequired(false)
+				.setAutocomplete(true)
 				.setDescription('The subreddit to get a post from.')),
+	autoComplete: async (interaction) => {
+		const currentValue = interaction.options.getFocused();
+		const toRespond = [];
+		if (!currentValue) return toRespond;
+		await got(`https://www.reddit.com/subreddits/search.json?q=${currentValue}&include_over_18=on`)
+			.then(async response => {
+				const list = await JSON.parse(response.body);
+				const subreddits = list.data.children;
+				subreddits.forEach(subreddit => {
+					if (subreddit.data.over18 === true && interaction.channel.nsfw === false) return;
+					toRespond.push({
+						name: subreddit.data.display_name,
+						value: subreddit.data.display_name,
+					});
+				});
+			});
+		return toRespond;
+	},
 
 	async execute(interaction) { // inside here command stuff
 		let subreddit = interaction.options.getString('subreddit');
@@ -55,10 +75,10 @@ module.exports = {
 							.setTitle(posttitle)
 							.setURL(posturl)
 							.setColor('RANDOM')
-							.setFooter(footer)
+							.setFooter({ text: footer })
 							.setDescription(description)
 							.setTimestamp(posttime)
-							.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
+							.setAuthor({ name: postauthor, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` });
 
 						try {
 							await interaction.reply({ embeds: [redditembed] });
@@ -91,9 +111,9 @@ module.exports = {
 							.setURL(`${postUrl}`)
 							.setColor('RANDOM')
 							.setImage(postImage)
-							.setFooter(footer)
+							.setFooter({ text: footer })
 							.setTimestamp(posttime)
-							.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`);
+							.setAuthor({ name: postauthor, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` });
 
 						try {
 							await interaction.reply({ embeds: [redditembed] });
