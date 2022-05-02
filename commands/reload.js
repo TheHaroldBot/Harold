@@ -17,14 +17,41 @@ module.exports = {
 			option.setName('type')
 				.setRequired(true)
 				.setDescription('The type of thing you want to reload.')
-				.addChoice('Command', 'command')
-				.addChoice('Button', 'button')
-				.addChoice('Menu', 'selectMenu'))
+				.addChoices(
+					{
+						name: 'Command',
+						value: 'command',
+					},
+					{
+						name: 'Button',
+						value: 'button',
+					},
+					{
+						name: 'Menu',
+						value: 'selectMenu',
+					},
+				))
 		.addStringOption(option =>
 			option.setName('name')
 				.setRequired(true)
 				.setAutocomplete(true)
 				.setDescription('The name or custom ID of the thing you want to reload.')),
+	autoComplete: async (interaction) => {
+		const currentValue = interaction.options.getFocused();
+		const commands = interaction.client.commands;
+		const toRespond = [];
+		if (interaction.options.getString('type') === 'command') {
+			await commands.forEach(command => {
+				if (command.name.startsWith(currentValue)) {
+					toRespond.push({
+						name: command.name,
+						value: command.name,
+					});
+				}
+			});
+		}
+		return toRespond;
+	},
 
 	execute(interaction) {
 		if (interaction.options.getString('type') === 'command') {

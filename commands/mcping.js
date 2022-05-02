@@ -18,10 +18,16 @@ module.exports = {
 			option.setName('type')
 				.setRequired(true)
 				.setDescription('The type of server to ping.')
-				.addChoices([
-					['java', 'java'],
-					['bedrock', 'bedrock'],
-				]))
+				.addChoices(
+					{
+						name: 'bedrock',
+						value: 'bedrock',
+					},
+					{
+						name: 'java',
+						value: 'java',
+					},
+				))
 		.addStringOption(option =>
 			option.setName('ip')
 				.setRequired(true)

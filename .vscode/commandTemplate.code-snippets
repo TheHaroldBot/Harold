@@ -146,4 +146,20 @@
 			"\t);"
 		]
 	},
+	"Auto Complete Template": {
+		"scope": "javascript",
+		"prefix": "autoCompleteTemplate",
+		"description": "Template for a new auto complete",
+		"body": [
+			"autoComplete: async (interaction) => {",
+			"\tconst currentValue = interaction.options.getFocused();",
+			"\tconst toRespond = [];",
+			"\ttoRespond.push({",
+			"\t\tname: 'Option 1',",
+			"\t\tvalue: 'option1',",
+			"\t});",
+			"\treturn toRespond;",
+			"}"
+		]
+	}
 }

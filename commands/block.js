@@ -20,8 +20,17 @@ module.exports = {
 			option.setName('type')
 				.setDescription('Whether to block or unblock the user.')
 				.setRequired(true)
-				.addChoice('add', 'add')
-				.addChoice('remove', 'remove'))
+				.addChoices(
+					{
+						name: 'Add',
+						value: 'add',
+					},
+					{
+						name: 'Remove',
+						value: 'remove',
+					},
+				),
+		)
 		.addStringOption(option =>
 			option.setName('userid')
 				.setDescription('The user ID to block or unblock.')

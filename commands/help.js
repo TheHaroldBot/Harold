@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
+const ownerids = require('../config.json').ownerids;
 
 module.exports = {
 	name: 'help', // command name
@@ -15,7 +16,27 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('command')
 				.setRequired(false)
+				.setAutocomplete(true)
 				.setDescription('The name of the command to get info about.')),
+	autoComplete: async (interaction) => {
+		const currentValue = interaction.options.getFocused();
+		const toRespond = [];
+		let commands = [];
+		if (ownerids.includes(interaction.user.id)) {
+			commands = await interaction.client.commands.filter(c => c.name.startsWith(currentValue));
+		}
+		else {
+			commands = await interaction.client.commands.filter(c => c.name.startsWith(currentValue) && !c.ownerOnly);
+		}
+
+		commands.forEach(command => {
+			toRespond.push({
+				name: command.name,
+				value: command.name,
+			});
+		});
+		return toRespond;
+	},
 
 	async execute(interaction) { // inside here command stuff
 		const data = [];
@@ -31,7 +52,7 @@ module.exports = {
 				.setDescription(description, { split: true })
 				.setColor('RANDOM')
 				.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
-				.setAuthor('Harold!!', interaction.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 			try {
 				await interaction.reply({ embeds: [helpembed], ephemeral: true });

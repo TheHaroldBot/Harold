@@ -39,7 +39,7 @@ module.exports = {
 
 			if (now < expirationTime) {
 				const timeLeft = (expirationTime - now) / 1000;
-				const slowDownEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/420').setFooter(`Woah dude, calm down, you can use this again in ${timeLeft.toFixed(1)} seconds.`);
+				const slowDownEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/420').setFooter({ text: `Woah dude, calm down, you can use this again in ${timeLeft.toFixed(1)} seconds.` });
 				return interaction.reply({ embeds: [slowDownEmbed], ephemeral: true });
 			}
 		}
@@ -51,14 +51,14 @@ module.exports = {
 		if (command.permissions && interaction.guild !== null) {
 			const authorPerms = interaction.channel.permissionsFor(interaction.member);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
-				const missingYourPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter(`You are missing permission to do this. You need ${command.permissions}.`).setColor('RED');
+				const missingYourPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${command.permissions}.` }).setColor('RED');
 				interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
 			}
 		}
 
 		if (interaction.guild !== null && command.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.me).has(command.myPermissions)) {
-				const missingMyPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter(`I am missing permission to do this. I need ${command.myPermissions}.`).setColor('RED');
+				const missingMyPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('RED');
 				interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}

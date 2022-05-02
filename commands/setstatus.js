@@ -20,12 +20,24 @@ module.exports = {
 					option.setName('presence')
 						.setRequired(true)
 						.setDescription('The presence to set.')
-						.addChoices([
-							['online', 'online'],
-							['invisible', 'invisible'],
-							['dnd', 'dnd'],
-							['idle', 'idle'],
-						]),
+						.addChoices(
+							{
+								name: 'online',
+								value: 'online',
+							},
+							{
+								name: 'invisible',
+								value: 'invisible',
+							},
+							{
+								name: 'dnd',
+								value: 'dnd',
+							},
+							{
+								name: 'idle',
+								value: 'idle',
+							},
+						),
 				),
 		)
 		.addSubcommand(subcommand =>
@@ -35,13 +47,28 @@ module.exports = {
 					option.setName('type')
 						.setRequired(true)
 						.setDescription('The activity type.')
-						.addChoices([
-							['PLAYING', 'PLAYING'],
-							['STREAMING', 'STREAMING'],
-							['LISTENING', 'LISTENING'],
-							['WATCHING', 'WATCHING'],
-							['COMPETING', 'COMPETING'],
-						]),
+						.addChoices(
+							{
+								name: 'playing',
+								value: 'PLAYING',
+							},
+							{
+								name: 'streaming',
+								value: 'STREAMING',
+							},
+							{
+								name: 'listening',
+								value: 'LISTENING',
+							},
+							{
+								name: 'watching',
+								value: 'WATCHING',
+							},
+							{
+								name: 'competing',
+								value: 'COMPETING',
+							},
+						),
 				)
 				.addStringOption(option =>
 					option.setName('name')

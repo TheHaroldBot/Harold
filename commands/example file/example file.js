@@ -23,7 +23,12 @@ module.exports = {
 			option.setName('option2')
 				.setRequired(true)
 				.setDescription('A required description for the option.')
-				.addChoice('choice1')),
+				.addChoices(
+					{
+						name: 'choice1',
+						value: 'choice1',
+					},
+				)),
 
 	execute(message, args) { // inside here command stuff
 		if (args[0] === 'foo') {
