@@ -39,6 +39,8 @@ module.exports = {
 	autoComplete: async (interaction) => {
 		const currentValue = interaction.options.getFocused();
 		const commands = interaction.client.commands;
+		const buttons = interaction.client.buttons;
+		const selectMenus = interaction.client.selectMenus;
 		const toRespond = [];
 		if (interaction.options.getString('type') === 'command') {
 			await commands.forEach(command => {
@@ -46,6 +48,26 @@ module.exports = {
 					toRespond.push({
 						name: command.name,
 						value: command.name,
+					});
+				}
+			});
+		}
+		else if (interaction.options.getString('type') === 'button') {
+			await buttons.forEach(button => {
+				if (button.customId.startsWith(currentValue)) {
+					toRespond.push({
+						name: button.customId,
+						value: button.customId,
+					});
+				}
+			});
+		}
+		else if (interaction.options.getString('type') === 'selectMenu') {
+			await selectMenus.forEach(selectMenu => {
+				if (selectMenu.customId.startsWith(currentValue)) {
+					toRespond.push({
+						name: selectMenu.customId,
+						value: selectMenu.customId,
 					});
 				}
 			});
