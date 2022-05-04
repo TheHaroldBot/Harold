@@ -4,6 +4,19 @@ module.exports = {
 	name: 'guildCreate',
 	once: true,
 	async execute(guild) {
+		const row = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageButton()
+					.setLabel('GitHub')
+					.setStyle('LINK')
+					.setEmoji('<:ghub:971219159088250900>')
+					.setURL('https://github.com/johng3587/Harold'),
+				new Discord.MessageButton()
+					.setLabel('Vote')
+					.setStyle('LINK')
+					.setEmoji('⭐')
+					.setURL('https://discordbotlist.com/bots/harold'),
+			);
 		const introembed = new Discord.MessageEmbed()
 			.setTitle('Hiya!')
 			.setColor('RANDOM')
@@ -11,11 +24,10 @@ module.exports = {
 				Thank you for adding me to your server!
 				Run \`/help\` to get my commands!
 				Things to know: I am still under developement, and will have a few bugs, feel free to report them with \`/bugreport\`.
-				My GitHub can be found [here](https://github.com/johng3587/Harold).
 			`);
 		const owner = await guild.fetchOwner();
 		try {
-			await owner.send({ embeds: [introembed] });
+			await owner.send({ embeds: [introembed], components: [row] });
 		}
 		catch (error) {
 			console.error(`

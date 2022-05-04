@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-let { bugReportWebhook } = require('../config.json');
 
 module.exports = {
 	name: 'bugreport',
@@ -19,7 +18,6 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-		bugReportWebhook = new Discord.WebhookClient(bugReportWebhook);
 		const bugreportembed = new Discord.MessageEmbed()
 			.setTitle('New Message!')
 			.addField('Info', `From ${interaction.user.tag}`)
@@ -37,6 +35,7 @@ module.exports = {
 				new Discord.MessageButton()
 					.setLabel('Resolve')
 					.setStyle('SUCCESS')
+					.setEmoji('✅')
 					.setCustomId('bugreportConfirm'), // remove if style is LINK
 			);
 		const supportchannel = interaction.client.channels.cache.get('905621722978467860');

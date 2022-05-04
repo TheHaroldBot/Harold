@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-let { errorWebhook } = require('../config.json');
 const { ownerids } = require('../config.json');
 
 module.exports = {
@@ -34,7 +33,6 @@ module.exports = {
 			await button.execute(interaction);
 		}
 		catch (error) {
-			errorWebhook = new Discord.WebhookClient(errorWebhook);
 			const errorEmbed = new Discord.MessageEmbed()
 				.setTitle('Error')
 				.setColor('#ff0000')
