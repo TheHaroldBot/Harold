@@ -21,7 +21,7 @@ module.exports = {
 				.setDescription('A required description for the option.'))
 		.addStringOption(option =>
 			option.setName('option2')
-				.setRequired(true)
+				.setRequired(false)
 				.setDescription('A required description for the option.')
 				.addChoices(
 					{
