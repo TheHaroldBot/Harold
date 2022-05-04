@@ -5,6 +5,13 @@ const { ownerids } = require('../config.json');
 module.exports = {
 	name: 'selectMenu',
 	async execute(interaction) {
+		const row = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageButton()
+					.setLabel('Resolve')
+					.setStyle('DANGER')
+					.setCustomId('errorConfirm'), // remove if style is LINK
+			);
 		const selectMenu = interaction.client.selectMenus.get(interaction.customId);
 		if (!selectMenu) return interaction.reply({ content: 'Select menu not found.', ephemeral: true });
 		if (selectMenu.permissions && interaction.guild !== null) {
@@ -38,7 +45,7 @@ module.exports = {
 			await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-				await errorWebhook.send({ embeds: [errorEmbed] });
+				await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed], components: [row] });
 			}
 		}
 	},

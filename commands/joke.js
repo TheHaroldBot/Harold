@@ -21,13 +21,13 @@ module.exports = {
 		try {
 			await fetch(jokeurl, jokesettings)
 				.then(res => res.json())
-				.then((json) => {
+				.then(async (json) => {
 					const jokeembed = new Discord.MessageEmbed()
 						.setTitle(json.setup)
 						.setDescription(json.delivery)
 						.setColor('RANDOM')
 						.setFooter('jokeapi.dev');
-					interaction.editReply({ embeds: [jokeembed], ephemeral: false });
+					await interaction.editReply({ embeds: [jokeembed], ephemeral: false });
 				});
 		}
 		catch (error) {

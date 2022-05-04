@@ -75,14 +75,14 @@ module.exports = {
 		return toRespond;
 	},
 
-	execute(interaction) {
+	async execute(interaction) {
 		if (interaction.options.getString('type') === 'command') {
-			const commandName = interaction.options.getString('name').toLowerCase();
+			const commandName = interaction.options.getString('name');
 			const command = interaction.client.commands.get(commandName)
 				|| interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 			if (!command) {
-				const returnError = { message: 'invalid command supplied', stack: 'reload command 31:13', code: 404, report: false, myMessage: 'That doesen\'t seem to be a command!' };
+				const returnError = { message: 'invalid command supplied', stack: 'reload command not found', code: 404, report: false, myMessage: 'That doesen\'t seem to be a command!' };
 				throw returnError;
 			}
 
@@ -99,11 +99,11 @@ module.exports = {
 			}
 		}
 		else if (interaction.options.getString('type') === 'button') {
-			const buttonName = interaction.options.getString('name').toLowerCase();
-			const button = interaction.client.buttons.get(buttonName);
+			const buttonName = interaction.options.getString('name');
+			const button = await interaction.client.buttons.get(buttonName);
 
 			if (!button) {
-				const returnError = { message: 'invalid button supplied', stack: 'reload button 53:13', code: 404, report: false, myMessage: 'That doesen\'t seem to be a button!' };
+				const returnError = { message: 'invalid button supplied', stack: 'reload button not found', code: 404, report: false, myMessage: 'That doesen\'t seem to be a button!' };
 				throw returnError;
 			}
 			delete require.cache[require.resolve(`../buttons/${button.customId}.js`)];
@@ -119,11 +119,11 @@ module.exports = {
 			}
 		}
 		else if (interaction.options.getString('type') === 'selectMenu') {
-			const selectMenuName = interaction.options.getString('name').toLowerCase();
+			const selectMenuName = interaction.options.getString('name');
 			const selectMenu = interaction.client.selectMenus.get(selectMenuName);
 
 			if (!selectMenu) {
-				const returnError = { message: 'invalid select menu supplied', stack: 'reload select menu 73:13', code: 404, report: false, myMessage: 'That doesen\'t seem to be a select menu!' };
+				const returnError = { message: 'invalid select menu supplied', stack: 'reload select menu not found', code: 404, report: false, myMessage: 'That doesen\'t seem to be a select menu!' };
 				throw returnError;
 			}
 			delete require.cache[require.resolve(`../selectMenus/${selectMenu.customId}.js`)];

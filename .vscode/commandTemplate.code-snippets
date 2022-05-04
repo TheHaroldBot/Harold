@@ -103,7 +103,7 @@
 	},
 	"Select Menu File Template": {
 		"scope": "javascript",
-		"prefix": ["selectMenuFile", "selectMenuFileTemplate"],
+		"prefix": ["selectMenuFileTemplate"],
 		"description": "Template for a new select menu file.",
 		"body": [
 			"const Discord = require('discord.js');",
@@ -124,13 +124,13 @@
 		"description": "Template for a new select menu",
 		"body": [
 			"new Discord.MessageSelectMenu()",
-			"\t.setCustomId('$1')",
-			"\t.setPlaceholder('$2')",
+			"\t.setCustomId('$2')",
+			"\t.setPlaceholder('$3')",
 			"\t.addOptions([",
 			"\t\t{",
-			"\t\t\tlabel: '$3',",
-			"\t\t\tvalue: '$4',",
-			"\t\t\tdescription: '$5',",
+			"\t\t\tlabel: '$4',",
+			"\t\t\tvalue: '$5',",
+			"\t\t\tdescription: '$6',",
 			"\t\t},",
 			"\t]),"
 		]

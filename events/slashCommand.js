@@ -33,6 +33,13 @@ module.exports = {
 		const now = Date.now();
 		const timestamps = cooldowns.get(command.name);
 		const cooldownAmount = (command.cooldown || 3) * 1000;
+		const row = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageButton()
+					.setLabel('Resolve')
+					.setStyle('DANGER')
+					.setCustomId('errorConfirm'), // remove if style is LINK
+			);
 
 		if (timestamps.has(interaction.user.id)) {
 			const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
@@ -79,7 +86,7 @@ module.exports = {
 			await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-				await errorWebhook.send({ embeds: [errorEmbed] });
+				await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed], components: [row] });
 			}
 		}
 	},
