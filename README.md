@@ -6,7 +6,7 @@ Invite Harold [here](https://discord.com/oauth2/authorize?client_id=808750224033
 
 To Do:
 
-- [ ] Use more buttons and select menus in commands.
+- [ ] Use more buttons and select menus in commands. Add reroll buttons to some commands.
 - [ ] Advertise?
 - [ ] Appeal top.gg ban (It was because the bot crashed when joining their test server.)
 - [ ] Update footers to use objects { text: "text", iconUrl: "iconUrl" }
