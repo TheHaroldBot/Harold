@@ -34,7 +34,7 @@ client.selectMenus = new Collection();
 const button = require('./events/button.js');
 const selectMenu = require('./events/selectMenu.js');
 const slashCommand = require('./events/slashCommand.js');
-const autoComplete = require('./events/autoComplete.js');
+const autoComplete = require('./events/autocomplete.js');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
