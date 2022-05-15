@@ -27,7 +27,7 @@ module.exports = {
 		}
 		const accountCreated = Math.round(pfptarget.createdAt / 1000);
 		const pfpembed = new Discord.MessageEmbed()
-			.setAuthor('Details provided by Harold, recorded by Discord', interaction.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+			.setAuthor({ name: 'Details provided by Harold, recorded by Discord', iconUrl: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
 			.setColor('RANDOM')
 			.setTitle('Profile info')
 			.setDescription(`

@@ -26,7 +26,7 @@ module.exports = {
 						.setTitle(json.setup)
 						.setDescription(json.delivery)
 						.setColor('RANDOM')
-						.setFooter('jokeapi.dev');
+						.setFooter({ text: 'jokeapi.dev' });
 					await interaction.editReply({ embeds: [jokeembed], ephemeral: false });
 				});
 		}

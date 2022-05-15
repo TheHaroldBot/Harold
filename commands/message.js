@@ -27,7 +27,7 @@ module.exports = {
 		const dmme = await interaction.client.users.fetch(interaction.options.getString('userid'));
 		const msgembed = new Discord.MessageEmbed()
 			.setTitle('New message!')
-			.setAuthor(interaction.user.tag, interaction.user.avatarURL())
+			.setAuthor({ name: interaction.user.tag, iconUrl: interaction.user.avatarURL() })
 			.setDescription('>>> ' + interaction.options.getString('message'))
 			.setTimestamp()
 			.setColor('RANDOM');

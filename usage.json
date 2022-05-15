@@ -1,4 +1,7 @@
 {
     "meme": 2,
-    "block": 2
+    "block": 2,
+    "reload": 2,
+    "xkcd": 4,
+    "profile": 1
 }

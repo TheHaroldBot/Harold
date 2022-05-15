@@ -42,8 +42,8 @@ module.exports = {
 					.setURL(`${memeUrl}`)
 					.setColor('RANDOM')
 					.setImage(memeImage)
-					.setAuthor(postauthor, 'https://www.redditinc.com/assets/images/site/reddit-logo.png', `https://reddit.com/${postauthor}`)
-					.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}`)
+					.setAuthor({ text: postauthor, iconUrl: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` })
+					.setFooter({ text: `👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}` })
 					.setTimestamp(posttime);
 
 				interaction.reply({ embeds: [memeembed] }).catch(err => {

@@ -25,7 +25,7 @@ module.exports = {
 		let timesSent = 0;
 		const newsletterEmbed = new Discord.MessageEmbed()
 			.setTitle('New Newsletter!')
-			.setAuthor(interaction.user.tag, interaction.user.avatarURL())
+			.setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
 			.setColor('RANDOM')
 			.setDescription(interaction.options.getString('message'))
 			.setTimestamp();

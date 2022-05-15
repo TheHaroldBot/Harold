@@ -9,5 +9,5 @@ To Do:
 - [ ] Use more buttons and select menus in commands. Add reroll buttons to some commands.
 - [ ] Advertise?
 - [ ] Appeal top.gg ban (It was because the bot crashed when joining their test server.)
-- [ ] Update footers to use objects { text: "text", iconUrl: "iconUrl" }
-- [ ] Update authors to use objects { name: "name", url: "url", iconUrl: "iconUrl" }
+- [x] Update footers to use objects { text: "text", iconUrl: "iconUrl" }
+- [x] Update authors to use objects { name: "name", url: "url", iconUrl: "iconUrl" }

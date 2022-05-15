@@ -59,7 +59,7 @@ module.exports = {
 					**Widget enabled:** ${targetGuild.widgetEnabled}
 					**Invite splash:** [Link↗](${targetGuild.splashURL()}
 				`)
-				.setAuthor('Details provided by Harold, recorded by Discord', interaction.client.user.avatarURL(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+				.setAuthor({ name: 'Details provided by Harold, recorded by Discord', iconUrl: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
 				.setColor('RANDOM')
 				.setThumbnail(targetGuild.iconURL({ dynamic: true, size: 512 }) ? targetGuild.iconURL({ dynamic: true, size: 512 }) : 'https://i.imgflip.com/69ocml.jpg')
 				.setTimestamp();

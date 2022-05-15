@@ -46,10 +46,7 @@ module.exports = {
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('RANDOM')
 							.setImage(response.img)
-							.setFooter(`
-								"${response.alt}"
-								#${targetComic}, ${response.month}/${response.day}/${response.year}
-							`);
+							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
 							interaction.reply({ embeds: [xkcdEmbed] });
 						}
@@ -84,10 +81,7 @@ module.exports = {
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('RANDOM')
 							.setImage(response.img)
-							.setFooter(`
-								"${response.alt}"
-								#${targetComic}, ${response.month}/${response.day}/${response.year}
-							`);
+							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
 							interaction.reply({ embeds: [xkcdEmbed] });
 						}

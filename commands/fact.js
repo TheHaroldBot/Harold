@@ -24,7 +24,7 @@ module.exports = {
 					const factembed = new Discord.MessageEmbed()
 						.setTitle('Random Fact')
 						.setDescription(json.text.replaceAll('`', '\''))
-						.setFooter('From djtech.net')
+						.setFooter({ text: 'From djtech.net' })
 						.setColor('RANDOM');
 					interaction.reply({ embeds: [factembed] });
 				})
