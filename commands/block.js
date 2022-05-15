@@ -41,14 +41,14 @@ module.exports = {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
 			if (data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is already blocked.'));
 			data.blocked.push(interaction.options.getString('userid'));
-			fs.writeFileSync('././config.json', JSON.stringify(data));
+			fs.writeFileSync('././config.json', JSON.stringify(data, null, 4));
 			interaction.reply(`Successfully blocked ${interaction.options.getString('userid')}.`);
 		}
 		else if (interaction.options.getString('type') === 'remove') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
 			if (!data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is not blocked.'));
 			removeFromArray(data.blocked, interaction.options.getString('userid'));
-			fs.writeFileSync('././config.json', JSON.stringify(data));
+			fs.writeFileSync('././config.json', JSON.stringify(data, null, 4));
 			interaction.reply(`Successfully unblocked ${interaction.options.getString('userid')}.`);
 		}
 	},

@@ -1,16 +1,9 @@
 /* eslint-disable no-undef */
-// figure this out pls
+const fs = require('fs');
 
-function function1() {
-	return ('Hello world!');
+function logUsage(command) {
+	const usage = JSON.parse(fs.readFileSync('./usage.json', 'utf8'));
+	usage[command.name] = usage[command.name] ? usage[command.name] + 1 : 1;
+	fs.writeFileSync('./usage.json', JSON.stringify(usage, null, 4));
 }
-
-function function2(name) {
-	return ('Hello ' + name + '!');
-}
-
-function function3(name) {
-	return ('Goodbye ' + name + '!');
-}
-
-module.exports = { function1, function2, function3 };
+module.exports = { logUsage };

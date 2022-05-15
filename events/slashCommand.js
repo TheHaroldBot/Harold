@@ -2,6 +2,7 @@ const { Collection } = require('discord.js');
 const Discord = require('discord.js');
 const fs = require('fs');
 const { ownerids } = require('../config.json');
+const { logUsage } = require('../functions.js');
 
 module.exports = {
 	name: 'slashCommand',
@@ -71,6 +72,7 @@ module.exports = {
 
 		try {
 			console.log(`Executing slash command '${command.name}' on behalf of ${interaction.user.id}`);
+			logUsage(command);
 			await command.execute(interaction);
 		}
 		catch (error) {
