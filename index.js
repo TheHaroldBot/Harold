@@ -1,4 +1,4 @@
-// https://github.com/johng3587/Harold
+// https://github.com/TheHaroldBot/Harold
 
 /*
     Harold is a discord bot I made primarily for fun.

@@ -10,7 +10,7 @@ module.exports = {
 					.setLabel('GitHub')
 					.setStyle('LINK')
 					.setEmoji('<:ghub:971219159088250900>')
-					.setURL('https://github.com/johng3587/Harold'),
+					.setURL('https://github.com/TheHaroldBot/Harold'),
 				new Discord.MessageButton()
 					.setLabel('Vote')
 					.setStyle('LINK')

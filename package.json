@@ -31,14 +31,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johng3587/Harold.git"
+    "url": "git+https://github.com/TheHaroldBot/Harold.git"
   },
   "author": "John Gooden <johnnyg3587@gmail.com>",
   "license": "GNU",
   "bugs": {
-    "url": "https://github.com/johng3587/Harold/issues"
+    "url": "https://github.com/TheHaroldBot/Harold/issues"
   },
-  "homepage": "https://github.com/johng3587/Harold#readme",
+  "homepage": "https://github.com/TheHaroldBot/Harold#readme",
   "devDependencies": {
     "eslint": "^8.1.0"
   }
