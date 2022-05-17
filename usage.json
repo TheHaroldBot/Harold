@@ -3,5 +3,8 @@
     "block": 2,
     "reload": 2,
     "xkcd": 4,
-    "profile": 1
+    "profile": 1,
+    "help": 1,
+    "bored": 1,
+    "botstats": 1
 }
