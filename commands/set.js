@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const got = require('got');
 
 module.exports = {
 	name: 'set', // command name
@@ -45,7 +46,7 @@ module.exports = {
 				.setDescription('Sets the bot\'s activity type.')
 				.addStringOption(option =>
 					option.setName('type')
-						.setRequired(true)
+						.setRequired(false)
 						.setDescription('The activity type.')
 						.addChoices(
 							{
@@ -103,6 +104,14 @@ module.exports = {
 		}
 		else if (interaction.options.getSubcommand() === 'activity') {
 			try {
+				if (!interaction.options.getString('type')) {
+					await got('https://api.github.com/repos/TheHaroldBot/Harold/commits')
+						.then(async response => {
+							const commits = JSON.parse(response.body);
+							const latest = commits[0];
+							await interaction.client.user.setActivity(`Latest update: ${latest.commit.message}`);
+						});
+				}
 				await interaction.client.user.setActivity(interaction.options.getString('name'), {
 					type: interaction.options.getString('type'),
 					url: interaction.options.getString('url'),
