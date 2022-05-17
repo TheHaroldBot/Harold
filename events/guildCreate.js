@@ -25,6 +25,7 @@ module.exports = {
 				Run \`/help\` to get my commands!
 				Things to know: I am still under developement, and will have a few bugs, feel free to report them with \`/bugreport\`.
 				I collect anonymous usage data to help me improve my features. Read my [privacy policy](https://github.com/TheHaroldBot/Harold/blob/main/PRIVACY) to learn more.
+				By using this bot you agree to the [Terms of Service](https://github.com/TheHaroldBot/Harold/blob/main/TERMS.md)
 			`);
 		const owner = await guild.fetchOwner();
 		try {
