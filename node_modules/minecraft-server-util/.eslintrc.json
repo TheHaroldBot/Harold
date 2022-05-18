@@ -35,11 +35,6 @@
 			"error",
 			"always"
 		],
-		"@typescript-eslint/ban-ts-comment": [
-			"off"
-		]
-	},
-	"ignorePatterns": [
-		"dist/**/*"
-	]
+		"no-async-promise-executor": "off"
+	}
 }
