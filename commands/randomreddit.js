@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'randomreddit', // command name
@@ -22,9 +22,9 @@ module.exports = {
 		const currentValue = interaction.options.getFocused();
 		const toRespond = [];
 		if (!currentValue) return toRespond;
-		await got(`https://www.reddit.com/subreddits/search.json?q=${currentValue}&include_over_18=on`)
+		await fetch(`https://www.reddit.com/subreddits/search.json?q=${currentValue}&include_over_18=on`, { method: 'Get' })
 			.then(async response => {
-				const list = await JSON.parse(response.body);
+				const list = await response.json();
 				const subreddits = list.data.children;
 				subreddits.forEach(subreddit => {
 					if (subreddit.data.over18 === true && interaction.channel.nsfw === false) return;
@@ -46,9 +46,9 @@ module.exports = {
 			subreddit = interaction.options.getString('subreddit');
 		}
 		try {
-			await got(`https://www.reddit.com/r/${subreddit}/random/.json`) // random reddit post
+			await fetch(`https://www.reddit.com/r/${subreddit}/random/.json`, { method: 'Get' }) // random reddit post
 				.then(async response => {
-					const [list] = JSON.parse(response.body);
+					const [list] = await response.json();
 					const [post] = list.data.children;
 					const type = post.data.post_hint;
 

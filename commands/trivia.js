@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'trivia', // command name
@@ -16,9 +16,9 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await got('https://jservice.io/api/random')
-				.then(response => {
-					const [body] = JSON.parse(response.body);
+			await fetch('https://jservice.io/api/random', { method: 'Get' })
+				.then(async response => {
+					const [body] = await response.json();
 					const triviaembed = new Discord.MessageEmbed()
 						.setTitle('Catrgory: ' + body.category.title)
 						.setDescription(`
