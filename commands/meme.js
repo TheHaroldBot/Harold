@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'meme', // command name
@@ -14,11 +14,12 @@ module.exports = {
 		.setName('meme')
 		.setDescription('Gets a random meme from r/dankmemes'),
 
-	execute(interaction) { // inside here command stuff
-		got('https://www.reddit.com/r/dankmemes/random/.json') // get random meme from r/dankmemes
-			.then(response => {
-				const [list] = JSON.parse(response.body);
+	async execute(interaction) { // inside here command stuff
+		await fetch('https://www.reddit.com/r/dankmemes/random/.json', { method: 'Get' }) // get random meme from r/dankmemes
+			.then(async response => {
+				const [list] = await response.json();
 				const [post] = list.data.children;
+				console.log(post);
 
 				const permalink = post.data.permalink;
 				const memeUrl = `https://reddit.com${permalink}`;
@@ -42,7 +43,7 @@ module.exports = {
 					.setURL(`${memeUrl}`)
 					.setColor('RANDOM')
 					.setImage(memeImage)
-					.setAuthor({ text: postauthor, iconUrl: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` })
+					.setAuthor({ name: postauthor, iconUrl: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` })
 					.setFooter({ text: `👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}` })
 					.setTimestamp(posttime);
 

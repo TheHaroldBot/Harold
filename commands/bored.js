@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'bored', // command name
@@ -16,9 +16,12 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await got('https://www.boredapi.com/api/activity') //	im bored
+			const boredurl = 'https://www.boredapi.com/api/activity/';
+			const boredsettings = { method: 'Get' };
+			await fetch(boredurl, boredsettings) // im bored
 				.then(async response => {
-					const data = JSON.parse(response.body);
+					const data = await response.json();
+					console.log(data);
 					const boredembed = new Discord.MessageEmbed()
 						.setTitle('Bored? Try this:')
 						.setDescription(`
@@ -37,7 +40,7 @@ module.exports = {
 				});
 		}
 		catch (error) {
-			const returnError = { message: error.message, stack: error.stack, code: 444 };
+			const returnError = { message: error.message, stack: error.stack, code: 500 };
 			throw returnError;
 		}
 	},

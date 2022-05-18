@@ -11,7 +11,7 @@
     "express": "^4.17.1",
     "ffmpeg-static": "^4.4.0",
     "fs": "^0.0.1-security",
-    "got": "^12.0.4",
+    "got": "^11.8.2",
     "minecraft-server-util": "^3.5.1",
     "node": "^17.7.2",
     "node-fetch": "^2.6.1",

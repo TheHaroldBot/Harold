@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'xkcd', // command name
@@ -25,9 +25,9 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		let maxComic = 0;
 		try {
-			await got('https://xkcd.com/info.0.json')
-				.then(response => {
-					const body = JSON.parse(response.body);
+			await fetch('https://xkcd.com/info.0.json', { method: 'Get' })
+				.then(async response => {
+					const body = await response.json();
 					maxComic = body.num;
 				});
 		}
@@ -38,9 +38,9 @@ module.exports = {
 		if (!interaction.options.getString('comicnumber')) {
 			const targetComic = Math.floor(Math.random() * maxComic + 1);
 			try {
-				await got(`https://xkcd.com/${targetComic}/info.0.json`)
-					.then(response => {
-						response = JSON.parse(response.body);
+				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
+					.then(async response => {
+						response = await response.json();
 						const xkcdEmbed = new Discord.MessageEmbed()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
@@ -73,9 +73,9 @@ module.exports = {
 			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
 			try {
-				await got(`https://xkcd.com/${targetComic}/info.0.json`)
-					.then(response => {
-						response = JSON.parse(response.body);
+				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
+					.then(async response => {
+						response = await response.json();
 						const xkcdEmbed = new Discord.MessageEmbed()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
