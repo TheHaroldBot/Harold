@@ -19,7 +19,6 @@ module.exports = {
 			.then(async response => {
 				const [list] = await response.json();
 				const [post] = list.data.children;
-				console.log(post);
 
 				const permalink = post.data.permalink;
 				const memeUrl = `https://reddit.com${permalink}`;
