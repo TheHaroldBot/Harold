@@ -14,7 +14,7 @@
     "got": "^12.0.4",
     "minecraft-server-util": "^5.2.9",
     "node": "^17.7.2",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.2.4",
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "remove-from-array": "^0.1.0",
