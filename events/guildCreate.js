@@ -15,7 +15,7 @@ module.exports = {
 					.setLabel('Vote')
 					.setStyle('LINK')
 					.setEmoji('⭐')
-					.setURL('https://discordbotlist.com/bots/harold'),
+					.setURL('https://top.gg/bot/808750224033185794'),
 			);
 		const introembed = new Discord.MessageEmbed()
 			.setTitle('Hiya!')

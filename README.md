@@ -3,6 +3,7 @@ Official repo for the Harold discord bot.
 Code for the bot can be found here, and issues can be posted.
 
 Invite Harold [here](https://discord.com/oauth2/authorize?client_id=808750224033185794&permissions=172578172147&scope=bot%20applications.commands)
+Vote for Harold at [discordbotlist](https://discordbotlist.com/bots/harold) or [top.gg](https://top.gg/bot/808750224033185794)
 
 To Do:
 

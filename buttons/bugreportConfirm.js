@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-	customId: 'bugreportConfirm',
+	customId: 'resolve',
 	permissions: [],
 	myPermissions: [],
 	async execute(interaction) {

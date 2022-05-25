@@ -9,7 +9,7 @@ module.exports = {
 				new Discord.MessageButton()
 					.setLabel('Resolve')
 					.setStyle('DANGER')
-					.setCustomId('errorConfirm'), // remove if style is LINK
+					.setCustomId('resolve'), // remove if style is LINK
 			);
 		const button = interaction.client.buttons.get(interaction.customId);
 		if (!button) return interaction.reply({ content: 'Button not found.', ephemeral: true });

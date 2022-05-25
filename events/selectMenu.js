@@ -9,7 +9,7 @@ module.exports = {
 				new Discord.MessageButton()
 					.setLabel('Resolve')
 					.setStyle('DANGER')
-					.setCustomId('errorConfirm'), // remove if style is LINK
+					.setCustomId('resolve'), // remove if style is LINK
 			);
 		const selectMenu = interaction.client.selectMenus.get(interaction.customId);
 		if (!selectMenu) return interaction.reply({ content: 'Select menu not found.', ephemeral: true });

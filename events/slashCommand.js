@@ -38,7 +38,7 @@ module.exports = {
 				new Discord.MessageButton()
 					.setLabel('Resolve')
 					.setStyle('DANGER')
-					.setCustomId('errorConfirm'), // remove if style is LINK
+					.setCustomId('resolve'), // remove if style is LINK
 			);
 
 		if (timestamps.has(interaction.user.id)) {

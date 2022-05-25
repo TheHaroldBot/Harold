@@ -36,7 +36,7 @@ module.exports = {
 					.setLabel('Resolve')
 					.setStyle('SUCCESS')
 					.setEmoji('✅')
-					.setCustomId('bugreportConfirm'), // remove if style is LINK
+					.setCustomId('resolve'), // remove if style is LINK
 			);
 		const supportchannel = interaction.client.channels.cache.get('905621722978467860');
 		try {

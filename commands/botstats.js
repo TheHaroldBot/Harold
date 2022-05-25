@@ -21,7 +21,7 @@ module.exports = {
 				new Discord.MessageButton()
 					.setLabel('Vote')
 					.setStyle('LINK')
-					.setURL('https://discordbotlist.com/bots/harold'),
+					.setURL('https://top.gg/bot/808750224033185794'),
 				new Discord.MessageButton()
 					.setLabel('Invite')
 					.setStyle('LINK')
@@ -32,7 +32,7 @@ module.exports = {
 			.setDescription(`
 				🏓 Latency is ${interaction.client.ws.ping}ms
 				We are in ${interaction.client.guilds.cache.size} guilds!
-				Vote for me at [discordbotlist.com](https://discordbotlist.com/bots/harold)
+				Vote for me at [top.gg](https://top.gg/bot/808750224033185794)
 				Invite me [here.](${invite})
 			`)
 			.setColor('RANDOM');
