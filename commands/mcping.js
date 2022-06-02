@@ -60,12 +60,7 @@ module.exports = {
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`
-							**Online players:** ${response.onlinePlayers}/${response.maxPlayers}
-							**Server version:** ${response.version}
-							**Latency:** ${response.roundTripLatency}ms
-							**Motd:** ${response.description.descriptionText}
-						`)
+						.setDescription(`\n**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					try {
@@ -79,12 +74,7 @@ module.exports = {
 				.catch(async () => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`
-							**Online players:** Cannot connect to server
-							**Server version:** Cannot connect to server
-							**Latency:** Cannot connect to server
-							**Motd:** Cannot connect to server
-						`)
+						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
 					try {
@@ -102,11 +92,7 @@ module.exports = {
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`
-							**Online players:** ${response.onlinePlayers}/${response.maxPlayers}
-							**Latency:** ${response.roundTripLatency}ms
-							**Motd:** ${response.description.descriptionText}
-						`)
+						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					try {
@@ -120,12 +106,7 @@ module.exports = {
 				.catch(async () => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`
-							**Online players:** Cannot connect
-							**Server version:** Cannot connect to server
-							**Latency:** Cannot connect to server
-							**Motd:** Cannot connect to server
-						`)
+						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
 						.setColor('#fc0303');
 					try {

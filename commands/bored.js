@@ -16,20 +16,14 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			const boredurl = 'https://www.boredapi.com/api/activity/';
+			const boredurl = 'http://www.boredapi.com/api/activity/';
 			const boredsettings = { method: 'Get' };
 			await fetch(boredurl, boredsettings) // im bored
 				.then(async response => {
 					const data = await response.json();
-					console.log(data);
 					const boredembed = new Discord.MessageEmbed()
 						.setTitle('Bored? Try this:')
-						.setDescription(`
-							${data.activity}
-							Type: ${data.type}
-							Participants: ${data.participants}
-							Price: ${data.price * 10}/10
-						`)
+						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 						.setColor('RANDOM');
 					try {
 						interaction.reply({ embeds: [boredembed] });

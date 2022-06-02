@@ -20,13 +20,7 @@ module.exports = {
 		const introembed = new Discord.MessageEmbed()
 			.setTitle('Hiya!')
 			.setColor('RANDOM')
-			.setDescription(`
-				Thank you for adding me to your server!
-				Run \`/help\` to get my commands!
-				Things to know: I am still under developement, and will have a few bugs, feel free to report them with \`/bugreport\`.
-				I collect anonymous usage data to help me improve my features. Read my [privacy policy](https://github.com/TheHaroldBot/Harold/blob/main/PRIVACY) to learn more.
-				By using this bot you agree to the [Terms of Service](https://github.com/TheHaroldBot/Harold/blob/main/TERMS.md)
-			`);
+			.setDescription('Thank you for adding me to your server!\nRun `/help` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with `/bugreport`.\nI collect anonymous usage data to help me improve my features. Read my [privacy policy](https://github.com/TheHaroldBot/Harold/blob/main/PRIVACY) to learn more.\nBy using this bot you agree to the [Terms of Service](https://github.com/TheHaroldBot/Harold/blob/main/TERMS.md)');
 		const owner = await guild.fetchOwner();
 		try {
 			await owner.send({ embeds: [introembed], components: [row] });

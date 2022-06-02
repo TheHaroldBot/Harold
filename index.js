@@ -23,7 +23,12 @@
 const { Client, Intents, Collection } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
-const { token } = require('./config.json');
+const { token, topggAuth, topggToken } = require('./config.json');
+const { AutoPoster } = require('topgg-autoposter');
+AutoPoster(topggToken, client);
+const express = require('express');
+const app = express();
+const PORT = 80;
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -35,6 +40,8 @@ const button = require('./events/button.js');
 const selectMenu = require('./events/selectMenu.js');
 const slashCommand = require('./events/slashCommand.js');
 const autoComplete = require('./events/autocomplete.js');
+const vote = require('./events/vote.js');
+const bodyParser = require('body-parser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -96,4 +103,31 @@ client.on('warn', console.warn);
 client.on('error', console.error);
 client.on('rateLimit', console.warn);
 
+
+app.use(bodyParser.json());
+app.post('/tggwh', (req, res) => {
+	if (req.header('authorization') === topggAuth) {
+		vote.execute(client, req.body);
+		res.status(200).end();
+	}
+	else {
+		res.send('Unauthorized');
+		res.status(401).end();
+	}
+});
+
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/web/index.html');
+});
+
+app.get('/404', (req, res) => {
+	res.sendFile(__dirname + '/web/404.html');
+});
+
+app.all('*', (req, res) => {
+	res.redirect('/web/404');
+});
+
+
 client.login(token).then(console.info('Logged in.'));
+app.listen(PORT, () => console.log(`Web server running on port ${PORT}`));
