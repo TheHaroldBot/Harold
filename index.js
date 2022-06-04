@@ -124,8 +124,19 @@ app.get('/404', (req, res) => {
 	res.sendFile(__dirname + '/web/404.html');
 });
 
+app.get('/shorts', async (req, res) => {
+	const urls = JSON.parse(fs.readFileSync('./shorturls.json', 'utf8'));
+	if
+	(urls[req.query.id]) {
+		res.redirect(urls[req.query.id]);
+	}
+	else {
+		res.redirect(urls.unknown);
+	}
+});
+
 app.all('*', (req, res) => {
-	res.redirect('/web/404');
+	res.redirect('/404');
 });
 
 
