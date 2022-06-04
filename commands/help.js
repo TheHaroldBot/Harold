@@ -48,7 +48,7 @@ module.exports = {
 			const description = '**' + data;
 			const helpembed = new Discord.MessageEmbed()
 				.setTitle('Here\'s a list of all my commands:')
-				.setURL('https://discord.gg/xnY4SZV2Cd/')
+				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
 				.setColor('RANDOM')
 				.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')

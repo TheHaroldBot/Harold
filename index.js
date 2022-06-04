@@ -135,6 +135,16 @@ app.get('/shorts', async (req, res) => {
 	}
 });
 
+app.get('/docs', (req, res) => {
+	const docs = require('./web/docs.json');
+	if (!docs[req.query.page]) {
+		res.redirect('/404');
+	}
+	else {
+		res.redirect(docs[req.query.page]);
+	}
+});
+
 app.all('*', (req, res) => {
 	res.redirect('/404');
 });
