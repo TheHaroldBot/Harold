@@ -27,8 +27,15 @@ const { token, topggAuth, topggToken } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = 80;
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -104,7 +111,7 @@ client.on('error', console.error);
 client.on('rateLimit', console.warn);
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json(), limiter);
 app.post('/tggwh', (req, res) => {
 	if (req.header('authorization') === topggAuth) {
 		vote.execute(client, req.body);
