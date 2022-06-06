@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@discordjs/builders": "^0.13.0",
+    "@discordjs/builders": "^0.14.0",
     "@discordjs/rest": "^0.4.1",
     "ansi-regex": "^6.0.1",
     "bing-translate-api": "^2.2.1",
