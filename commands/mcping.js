@@ -56,7 +56,7 @@ module.exports = {
 		}
 
 		if (type === 'java') {
-			util.status(ip, { port: pingport }) // pings a minecraft server
+			util.status(ip, pingport) // pings a minecraft server
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
@@ -88,7 +88,7 @@ module.exports = {
 				});
 		}
 		else if (type === 'bedrock') {
-			util.query(ip, { port: pingport }) // pings a minecraft server
+			util.statusBedrock(ip, pingport) // pings a minecraft server
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)

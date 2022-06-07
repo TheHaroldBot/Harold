@@ -22,6 +22,7 @@
     "remove-from-array": "^0.1.0",
     "tall": "^5.0.0",
     "topgg-autoposter": "^2.0.1",
+    "valid-url": "^1.0.9",
     "ytdl": "^1.4.1",
     "ytdl-core": "^4.9.0"
   },

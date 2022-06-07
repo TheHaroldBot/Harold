@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
-const { makeid, validURL } = require('../functions.js');
+const { makeid } = require('../functions.js');
+const validUrl = require('valid-url');
 
 module.exports = {
 	name: 'shorten', // command name
@@ -24,7 +25,7 @@ module.exports = {
 		),
 
 	execute(interaction) { // inside here command stuff
-		if (!validURL(interaction.options.getString('url'))) {
+		if (!validUrl.isWebUri(interaction.options.getString('url'))) {
 			return interaction.reply({ content: 'Invalid URL.', ephemeral: true });
 		}
 		const urlList = JSON.parse(fs.readFileSync('././shorturls.json'));
