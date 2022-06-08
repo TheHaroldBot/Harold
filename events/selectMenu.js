@@ -40,7 +40,12 @@ module.exports = {
 				.setImage('https://http.cat/' + (error?.code ?? 500));
 			console.error(`Error executing ${selectMenu.customId}:\n${error}`);
 			if (ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-			await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+			try {
+				await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+			}
+			catch {
+				await interaction.editReply({ ephemeral: true, embeds: [errorEmbed] });
+			}
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 				await interaction.client.channels.cache.get(errorChannel).send({ embeds: [errorEmbed], components: [row] });
