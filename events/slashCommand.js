@@ -59,14 +59,14 @@ module.exports = {
 			const authorPerms = interaction.channel.permissionsFor(interaction.member);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
 				const missingYourPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${command.permissions}.` }).setColor('RED');
-				interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
+				return interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
 			}
 		}
 
 		if (interaction.guild !== null && command.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.me).has(command.myPermissions)) {
 				const missingMyPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('RED');
-				interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
+				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}
 
