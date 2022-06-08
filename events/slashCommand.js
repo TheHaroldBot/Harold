@@ -1,7 +1,7 @@
 const { Collection } = require('discord.js');
 const Discord = require('discord.js');
 const fs = require('fs');
-const { ownerids } = require('../config.json');
+const { ownerids, errorChannel } = require('../config.json');
 const { logUsage } = require('../functions.js');
 
 module.exports = {
@@ -86,7 +86,7 @@ module.exports = {
 			await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-				await interaction.client.channels.cache.get('956057194971942992').send({ embeds: [errorEmbed], components: [row] });
+				await interaction.client.channels.cache.get(errorChannel).send({ embeds: [errorEmbed], components: [row] });
 			}
 		}
 	},

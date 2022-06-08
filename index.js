@@ -23,13 +23,13 @@
 const { Client, Intents, Collection } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
-const { token, topggAuth, topggToken } = require('./config.json');
+const { token, topggAuth, topggToken, webPort } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const app = express();
-const PORT = 80;
+const PORT = webPort;
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)

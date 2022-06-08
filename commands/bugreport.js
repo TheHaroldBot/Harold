@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
+const { bugChannel } = require('../config.json');
 
 module.exports = {
 	name: 'bugreport',
@@ -38,7 +39,7 @@ module.exports = {
 					.setEmoji('✅')
 					.setCustomId('resolve'), // remove if style is LINK
 			);
-		const supportchannel = interaction.client.channels.cache.get('905621722978467860');
+		const supportchannel = interaction.client.channels.cache.get(bugChannel);
 		try {
 			await supportchannel.send({ embeds: [bugreportembed], components: [bugreportRow] });
 			// await bugReportWebhook.send({ embeds: [bugreportembed] });
