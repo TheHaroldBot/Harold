@@ -36,6 +36,13 @@ const limiter = rateLimit({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+const options = {
+    key: fs.readFileSync('./web/ssl/privatekey.pem'),
+    cert: fs.readFileSync('./web/ssl/certificate.pem'),
+};
+const server = https.createServer(options, app).listen(port, function(){
+	console.log("Express server listening on port " + port);
+});
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -158,4 +165,3 @@ app.all('*', (req, res) => {
 
 
 client.login(token).then(console.info('Logged in.'));
-app.listen(PORT, () => console.log(`Web server running on port ${PORT}`));
