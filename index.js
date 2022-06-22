@@ -43,7 +43,7 @@ const options = {
     cert: fs.readFileSync('./web/ssl/certificate.pem'),
 };
 const server = https.createServer(options, app).listen(PORT, function(){
-	console.log("Express server listening on port " + port);
+	console.log("Express server listening on port " + PORT);
 });
 
 client.commands = new Collection();
