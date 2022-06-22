@@ -26,6 +26,8 @@ const fs = require('fs');
 const { token, topggAuth, topggToken, webPort } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
+const http = require('http');
+const https = require('https');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const app = express();
