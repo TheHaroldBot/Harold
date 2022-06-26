@@ -23,6 +23,11 @@
 const { Client, Intents, Collection } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
+const readline = require('readline');
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 const { token, topggAuth, topggToken, webPort } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
@@ -114,10 +119,19 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.on('debug', console.debug);
+// client.on('debug', console.debug);
 client.on('warn', console.warn);
 client.on('error', console.error);
 client.on('rateLimit', console.warn);
+
+rl.on('line', async (input) => {
+	try {
+		await eval(input);
+	}
+	catch (error) {
+		console.error(error);
+	}
+})
 
 
 app.use(bodyParser.json(), limiter);
