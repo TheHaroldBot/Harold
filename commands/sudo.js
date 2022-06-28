@@ -26,28 +26,29 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		try {
 			await interaction.channel.createWebhook('Snek', {
-			reason: 'Temp webhook for sudo command',
-		})
-			.then(async webhook => {
-				try {
-					const webhookto = new WebhookClient({ token: webhook.token, id: webhook.id });
-					await webhookto.send({
-						username: interaction.options.getUser('target').username,
-						avatarURL: interaction.options.getUser('target').avatarURL(),
-						content: interaction.options.getString('message'),
-					});
-					await interaction.reply({ content: 'Done!', ephemeral: true });
-					await webhook.delete();
-				}
-				catch (error) {
-					const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong! This channel might have reached the maximum number of webhooks (10)' };
-					throw returnError;
-				}
+				reason: 'Temp webhook for sudo command',
+			})
+				.then(async webhook => {
+					try {
+						const webhookto = new WebhookClient({ token: webhook.token, id: webhook.id });
+						await webhookto.send({
+							username: interaction.options.getUser('target').username,
+							avatarURL: interaction.options.getUser('target').avatarURL(),
+							content: interaction.options.getString('message'),
+						});
+						await interaction.reply({ content: 'Done!', ephemeral: true });
+						await webhook.delete();
+					}
+					catch (error) {
+						const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong! This channel might have reached the maximum number of webhooks (10)' };
+						throw returnError;
+					}
 
-			});
-		} catch (error) {
-			interaction.reply('Uh-oh! Something went wrong!')
+				});
 		}
-		
+		catch (error) {
+			interaction.reply('Uh-oh! Something went wrong!');
+		}
+
 	},
 };
