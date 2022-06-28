@@ -15,7 +15,8 @@ module.exports = {
 	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')
-		.setDescription('Decorate channels with fancy emojis!'),
+		.setDescription('Decorate channels with fancy emojis!')
+		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
 		const row = new Discord.MessageActionRow()

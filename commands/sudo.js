@@ -21,7 +21,8 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('message')
 				.setRequired(true)
-				.setDescription('The message to send as the mentioned person.')),
+				.setDescription('The message to send as the mentioned person.'))
+		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
 		try {
