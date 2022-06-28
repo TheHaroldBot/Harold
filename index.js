@@ -53,7 +53,6 @@ const server = https.createServer(options, app).listen(PORT, function(){
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
-client.aliases = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
 
