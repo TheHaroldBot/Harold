@@ -95,27 +95,32 @@ for (const file of eventFiles) {
 }
 
 client.on('interactionCreate', async interaction => {
-	console.log(`Received interaction ${interaction.id ?? 'unknown id'}`);
-	if (interaction.isButton()) {
-		await button.execute(interaction);
+	try {
+		console.log(`Received interaction ${interaction.id ?? 'unknown id'}`);
+		if (interaction.isButton()) {
+			await button.execute(interaction);
+		}
+		else if (interaction.isSelectMenu()) {
+			await selectMenu.execute(interaction);
+		}
+		else if (interaction.isCommand()) {
+			await slashCommand.execute(interaction);
+		}
+		else if (interaction.isMessageContextMenu()) {
+			return;
+		}
+		else if (interaction.isUserContextMenu()) {
+			return;
+		}
+		else if (interaction.isAutocomplete()) {
+			await autoComplete.execute(interaction);
+		}
+		else {
+			return;
+		}
 	}
-	else if (interaction.isSelectMenu()) {
-		await selectMenu.execute(interaction);
-	}
-	else if (interaction.isCommand()) {
-		await slashCommand.execute(interaction);
-	}
-	else if (interaction.isMessageContextMenu()) {
-		return;
-	}
-	else if (interaction.isUserContextMenu()) {
-		return;
-	}
-	else if (interaction.isAutocomplete()) {
-		await autoComplete.execute(interaction);
-	}
-	else {
-		return;
+	catch (error) {
+		console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`)
 	}
 });
 
