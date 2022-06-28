@@ -16,7 +16,8 @@ module.exports = {
 		.addIntegerOption(option =>
 			option.setName('slowmode')
 				.setRequired(true)
-				.setDescription('The slowmode in seconds.')),
+				.setDescription('The slowmode in seconds.'))
+		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
 		try {

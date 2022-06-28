@@ -51,7 +51,7 @@ module.exports = {
 				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
 				.setColor('RANDOM')
-				.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
+				.addField('Support', '[Support server](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`')
 				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 			try {

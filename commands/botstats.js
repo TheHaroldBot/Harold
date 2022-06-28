@@ -29,7 +29,7 @@ module.exports = {
 			);
 		const inviteembed = new Discord.MessageEmbed()
 			.setTitle('Invite or vote here!')
-			.setDescription(`\n🏓 Latency is ${interaction.client.ws.ping}ms\nWe are in ${interaction.client.guilds.cache.size} guilds!\nVote for me at [top.gg](https://top.gg/bot/808750224033185794)\nInvite me [here.](${invite})
+			.setDescription(`\n🏓 Latency is ${interaction.client.ws.ping}ms\nI am in ${interaction.client.guilds.cache.size} guilds!\nVote for me at [top.gg](https://top.gg/bot/808750224033185794)\nInvite me [here.](${invite})
 			`)
 			.setColor('RANDOM');
 		interaction.reply({ embeds: [inviteembed], components: [linkButtons] });

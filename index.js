@@ -23,9 +23,16 @@
 const { Client, Intents, Collection } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
 const fs = require('fs');
+const readline = require('readline');
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 const { token, topggAuth, topggToken, webPort } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
+const http = require('http');
+const https = require('https');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const app = express();
@@ -36,10 +43,16 @@ const limiter = rateLimit({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+const options = {
+    key: fs.readFileSync('./web/ssl/privatekey.pem'),
+    cert: fs.readFileSync('./web/ssl/certificate.pem'),
+};
+const server = https.createServer(options, app).listen(PORT, function(){
+	console.log("Express server listening on port " + PORT);
+});
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
-client.aliases = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
 
@@ -81,34 +94,48 @@ for (const file of eventFiles) {
 }
 
 client.on('interactionCreate', async interaction => {
-	console.log(`Received interaction ${interaction.id ?? 'unknown id'}`);
-	if (interaction.isButton()) {
-		await button.execute(interaction);
+	try {
+		console.log(`Received interaction ${interaction.id ?? 'unknown id'}`);
+		if (interaction.isButton()) {
+			await button.execute(interaction);
+		}
+		else if (interaction.isSelectMenu()) {
+			await selectMenu.execute(interaction);
+		}
+		else if (interaction.isCommand()) {
+			await slashCommand.execute(interaction);
+		}
+		else if (interaction.isMessageContextMenu()) {
+			return;
+		}
+		else if (interaction.isUserContextMenu()) {
+			return;
+		}
+		else if (interaction.isAutocomplete()) {
+			await autoComplete.execute(interaction);
+		}
+		else {
+			return;
+		}
 	}
-	else if (interaction.isSelectMenu()) {
-		await selectMenu.execute(interaction);
-	}
-	else if (interaction.isCommand()) {
-		await slashCommand.execute(interaction);
-	}
-	else if (interaction.isMessageContextMenu()) {
-		return;
-	}
-	else if (interaction.isUserContextMenu()) {
-		return;
-	}
-	else if (interaction.isAutocomplete()) {
-		await autoComplete.execute(interaction);
-	}
-	else {
-		return;
+	catch (error) {
+		console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`)
 	}
 });
 
-client.on('debug', console.debug);
+// client.on('debug', console.debug);
 client.on('warn', console.warn);
 client.on('error', console.error);
 client.on('rateLimit', console.warn);
+
+rl.on('line', async (input) => {
+	try {
+		await eval(input);
+	}
+	catch (error) {
+		console.error(error);
+	}
+})
 
 
 app.use(bodyParser.json(), limiter);
@@ -158,4 +185,3 @@ app.all('*', (req, res) => {
 
 
 client.login(token).then(console.info('Logged in.'));
-app.listen(PORT, () => console.log(`Web server running on port ${PORT}`));

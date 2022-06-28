@@ -15,7 +15,8 @@ module.exports = {
 	aliases: ['guildinfo'],
 	data: new SlashCommandBuilder()
 		.setName('serverinfo')
-		.setDescription('Gets the server info'),
+		.setDescription('Gets the server info')
+		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
 		const targetGuild = await interaction.guild.fetch();

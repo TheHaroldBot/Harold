@@ -26,7 +26,7 @@ module.exports = {
 						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 						.setColor('RANDOM');
 					try {
-						interaction.reply({ embeds: [boredembed] });
+						await interaction.reply({ embeds: [boredembed] });
 					}
 					catch (error) {
 						throw new Error(error.stack);

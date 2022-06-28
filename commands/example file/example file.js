@@ -15,6 +15,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('example')
 		.setDescription('A command template')
+		.setDMPermission(false)
 		.addStringOption(option =>
 			option.setName('option1')
 				.setRequired(true)
