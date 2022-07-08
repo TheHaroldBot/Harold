@@ -22,8 +22,8 @@ module.exports = {
 		const data = interaction.options.getString('json');
 		try {
 			const embedjson = await JSON.parse(data);
-			// embedjson.channel_id = interaction.channel.id;
-			const sendMessage = new Discord.Message(interaction.client, embedjson);
+			embedjson.channel_id = interaction.channel.id;
+			const sendMessage = new Discord.Message(embedjson);
 			await interaction.channel.send(sendMessage);
 			await interaction.reply({ content: 'Sent!', ephemeral: true });
 		}
