@@ -33,6 +33,8 @@ module.exports = {
 				.addField('Error Message', `>>> ${error.toString()}`)
 				.setColor('#ff0000');
 			await interaction.reply({ embeds: [errorembed], ephemeral: true });
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 	},
 };
