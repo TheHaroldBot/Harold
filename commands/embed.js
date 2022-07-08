@@ -21,8 +21,10 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		const data = interaction.options.getString('json');
 		try {
-			const embedjson = await new Discord.Message(JSON.parse(data));
-			await interaction.channel.send(embedjson);
+			const embedjson = await JSON.parse(data);
+			embedjson.channel_id = interaction.channel.id;
+			const sendMessage = new Discord.Message(embedjson);
+			await interaction.channel.send(sendMessage);
 			await interaction.reply({ content: 'Sent!', ephemeral: true });
 		}
 		catch (error) {
@@ -33,8 +35,6 @@ module.exports = {
 				.addField('Error Message', `>>> ${error.toString()}`)
 				.setColor('#ff0000');
 			await interaction.reply({ embeds: [errorembed], ephemeral: true });
-			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };
-			throw returnError;
 		}
 	},
 };
