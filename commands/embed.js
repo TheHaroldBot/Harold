@@ -21,13 +21,12 @@ module.exports = {
 		const data = interaction.options.getString('json');
 		try {
 			const embedjson = await JSON.parse(data);
-			embedjson.channel_id = interaction.channel.id;
-			const sendMessage = new Discord.Message(embedjson);
-			await interaction.channel.send(sendMessage);
+			await interaction.channel.send(embedjson);
 			await interaction.reply({ content: 'Sent!', ephemeral: true });
 		}
 		catch (error) {
 			console.log('Failed to send a custom embed!');
+			console.error(error);
 			const errorembed = await new Discord.MessageEmbed()
 				.setTitle('Error!')
 				.setDescription('\nSomething went wrong! There are a few possible issues:\n1. You tried to put text in a link option (Like putting \'hello\' in the image option, or \'never gonna give you up\' in the thumbnail option.)\n2. Something else\nI\'ll attatch the error below:')
