@@ -60,7 +60,7 @@ module.exports = {
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`\n**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Server version:** ${response.version}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
+						.setDescription(`\n**Online players:** ${response.players.online}/${response.players.max}\n**Server version:** ${response.version.name}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.motd.clean}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					try {
@@ -92,7 +92,7 @@ module.exports = {
 				.then(async (response) => {
 					const mcpingembed = new Discord.MessageEmbed()
 						.setTitle(ip)
-						.setDescription(`**Online players:** ${response.onlinePlayers}/${response.maxPlayers}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.description.descriptionText}`)
+						.setDescription(`**Online players:** ${response.players.online}/${response.players.max}\n**Latency:** unknown\n**Motd:** ${response.motd.clean}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
 						.setColor('#0ffc03');
 					try {

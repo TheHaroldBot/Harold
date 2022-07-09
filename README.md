@@ -13,4 +13,4 @@ To Do:
 - [x] Update footers to use objects { text: "text", iconUrl: "iconUrl" }
 - [x] Update authors to use objects { name: "name", url: "url", iconUrl: "iconUrl" }
 - [x] Fix embed command
-- [ ] Fix mcping command
+- [x] Fix mcping command
