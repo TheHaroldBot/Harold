@@ -19,7 +19,7 @@ module.exports = {
 				.then(async response => {
 					const [body] = await response.json();
 					const triviaembed = new Discord.MessageEmbed()
-						.setTitle('Catrgory: ' + body.category.title)
+						.setTitle('Category: ' + body.category.title)
 						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
 						.setColor('RANDOM');
 					interaction.reply({ embeds: [triviaembed] });
