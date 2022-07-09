@@ -151,6 +151,7 @@ app.post('/tggwg', (req, res) => {
 		res.status(200).end();
 	}
 	else {
+		console.log('Unauthorized vote request attempt.');
 		res.send('Unauthorized');
 		res.status(401).end();
 	}
