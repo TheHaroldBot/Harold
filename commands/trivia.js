@@ -7,7 +7,6 @@ module.exports = {
 	description: 'Trivia questions!', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 2, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()

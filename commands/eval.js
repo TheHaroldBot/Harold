@@ -6,7 +6,6 @@ module.exports = {
 	args: true, // needs arguments? delete line if no
 	usage: '<code>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: [], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['run', 'code', 'script'],

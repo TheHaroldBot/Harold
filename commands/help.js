@@ -8,7 +8,6 @@ module.exports = {
 	usage: '(command name)',
 	guildOnly: false,
 	cooldown: 5,
-	permissions: [],
 	myPermissions: ['SEND_MESSAGES'],
 	data: new SlashCommandBuilder()
 		.setName('help')

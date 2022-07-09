@@ -8,7 +8,6 @@ module.exports = {
 	usage: '<mention> <message>', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES', 'MANAGE_WEBHOOKS'], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()

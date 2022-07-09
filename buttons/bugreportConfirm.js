@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 
 module.exports = {
 	customId: 'resolve',
-	permissions: [],
 	myPermissions: [],
 	async execute(interaction) {
 		const embed = new Discord.MessageEmbed(interaction.message.embeds[0]);

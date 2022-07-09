@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
 	name: 'args-info', // command name
@@ -16,6 +17,7 @@ module.exports = {
 		.setName('example')
 		.setDescription('A command template')
 		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers | PermissionFlagsBits.BanMembers)
 		.addStringOption(option =>
 			option.setName('option1')
 				.setRequired(true)

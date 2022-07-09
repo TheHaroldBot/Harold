@@ -7,7 +7,6 @@ module.exports = {
 	description: 'Get bot stats, ping, invite, and other info.', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	disabled: false, // whether the command is disabled
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['vote'],

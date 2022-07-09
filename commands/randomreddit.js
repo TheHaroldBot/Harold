@@ -7,7 +7,6 @@ module.exports = {
 	description: 'Gets random post from specified subreddit.', // command description
 	usage: '<subreddit without the r/>', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	aliases: ['redditpost', 'reddit', 'rr'],
 	data: new SlashCommandBuilder()

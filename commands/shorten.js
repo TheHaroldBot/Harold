@@ -10,7 +10,6 @@ module.exports = {
 	usage: '<url>', // usage instructions w/o command name and prefix
 	guildOnly: false, // execute in a guild only?
 	cooldown: 60, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: [], // permissions required for bot
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
 	name: 'slowmode', // command name
@@ -7,7 +8,6 @@ module.exports = {
 	usage: '<slowmode in seconds>', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	permissions: ['MANAGE_CHANNELS'], // permissions required for command
 	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
 	aliases: ['slow', 'messagerate'],
 	data: new SlashCommandBuilder()
@@ -17,6 +17,7 @@ module.exports = {
 			option.setName('slowmode')
 				.setRequired(true)
 				.setDescription('The slowmode in seconds.'))
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
 		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff

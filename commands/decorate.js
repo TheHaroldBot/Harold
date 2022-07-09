@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
 const Discord = require('discord.js');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 
 module.exports = {
@@ -10,12 +11,12 @@ module.exports = {
 	usage: `<${options.join('|')}>`, // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 300, // cooldown in seconds, defaults to 3
-	permissions: ['MANAGE_CHANNELS'], // permissions required for command
 	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
 	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')
 		.setDescription('Decorate channels with fancy emojis!')
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
 		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
@@ -72,6 +73,6 @@ module.exports = {
 						},
 					]),
 			);
-		interaction.reply({ components: [row] });
+		interaction.reply({ components: [row], ephemeral: true });
 	},
 };

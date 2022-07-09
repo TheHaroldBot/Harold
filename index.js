@@ -26,12 +26,11 @@ const fs = require('fs');
 const readline = require('readline');
 const rl = readline.createInterface({
 	input: process.stdin,
-	output: process.stdout
+	output: process.stdout,
 });
 const { token, topggAuth, topggToken, webPort } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
-const http = require('http');
 const https = require('https');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
@@ -44,11 +43,11 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 const options = {
-    key: fs.readFileSync('./web/ssl/privatekey.pem'),
-    cert: fs.readFileSync('./web/ssl/certificate.pem'),
+	key: fs.readFileSync('./web/ssl/privatekey.pem'),
+	cert: fs.readFileSync('./web/ssl/certificate.pem'),
 };
-const server = https.createServer(options, app).listen(PORT, function(){
-	console.log("Express server listening on port " + PORT);
+https.createServer(options, app).listen(PORT, function() {
+	console.log('Express server listening on port ' + PORT);
 });
 
 client.commands = new Collection();
@@ -119,7 +118,7 @@ client.on('interactionCreate', async interaction => {
 		}
 	}
 	catch (error) {
-		console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`)
+		console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`);
 	}
 });
 
@@ -135,7 +134,7 @@ rl.on('line', async (input) => {
 	catch (error) {
 		console.error(error);
 	}
-})
+});
 
 
 app.use(bodyParser.json(), limiter);

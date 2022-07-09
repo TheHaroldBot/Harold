@@ -6,7 +6,6 @@ module.exports = {
 	description: 'Send an embed using JSON data.\nBuild an embed here: https://eb.nadeko.bot/ and navigate to the old version, then copy the JSON code on the right. (Remove tabs before use)', // command description
 	usage: '<JSON>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	args: true,
 	aliases: [],

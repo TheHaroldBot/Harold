@@ -6,7 +6,6 @@ module.exports = {
 	usage: '<command>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	args: true,
-	permissions: [], // permissions required for command
 	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
