@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = webPort;
-const routes = require('../routes.js');
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -38,6 +37,7 @@ module.exports = {
 			});
 
 		refreshShortUrls();
+		const routes = require('../routes.js');
 		app.use(bodyParser.json(), routes, limiter);
 
 	},
