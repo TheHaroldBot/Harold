@@ -94,7 +94,7 @@ for (const file of eventFiles) {
 
 client.on('interactionCreate', async interaction => {
 	try {
-		console.log(`Received interaction ${interaction.id ?? 'unknown id'}`);
+		console.log(`Received ${interaction.type} interaction ${interaction.id ?? 'unknown id'}`);
 		if (interaction.isButton()) {
 			await button.execute(interaction);
 		}

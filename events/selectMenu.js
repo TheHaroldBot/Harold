@@ -14,7 +14,7 @@ module.exports = {
 		const selectMenu = interaction.client.selectMenus.get(interaction.customId);
 		if (!selectMenu) return interaction.reply({ content: 'Select menu not found.', ephemeral: true });
 		if (selectMenu.permissions && interaction.guild !== null) {
-			const authorPerms = interaction.channel.permissionsFor(interaction.member);
+			const authorPerms = interaction.memberPermissions;
 			if (!authorPerms || !authorPerms.has(selectMenu.permissions)) {
 				const missingYourPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${selectMenu.permissions}.` }).setColor('RED');
 				return interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
