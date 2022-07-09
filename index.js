@@ -28,44 +28,17 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta, topggAuth } = require('./config.json');
-const { refreshShortUrls } = require('./functions.js');
+const { token, topggToken, beta } = require('./config.json');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
 	AutoPoster(topggToken, client);
 	console.log('Started top.gg autoposter.');
 }
-const https = require('https');
-const express = require('express');
-const routes = require('./routes.js');
-const rateLimit = require('express-rate-limit');
-const app = express();
-const PORT = webPort;
-const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-});
-const options = {
-	key: fs.readFileSync('./web/ssl/privatekey.pem'),
-	cert: fs.readFileSync('./web/ssl/certificate.pem'),
-};
-https.createServer(options, app).listen(PORT, function() {
-	console.log('Express server listening on port ' + PORT);
-});
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
-
-const button = require('./events/button.js');
-const selectMenu = require('./events/selectMenu.js');
-const slashCommand = require('./events/slashCommand.js');
-const autoComplete = require('./events/autocomplete.js');
-const vote = require('./events/vote.js');
-const bodyParser = require('body-parser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -97,35 +70,6 @@ for (const file of eventFiles) {
 	}
 }
 
-client.on('interactionCreate', async interaction => {
-	try {
-		console.log(`Received ${interaction.type} interaction ${interaction.id ?? 'unknown id'}`);
-		if (interaction.isButton()) {
-			await button.execute(interaction);
-		}
-		else if (interaction.isSelectMenu()) {
-			await selectMenu.execute(interaction);
-		}
-		else if (interaction.isCommand()) {
-			await slashCommand.execute(interaction);
-		}
-		else if (interaction.isMessageContextMenu()) {
-			return;
-		}
-		else if (interaction.isUserContextMenu()) {
-			return;
-		}
-		else if (interaction.isAutocomplete()) {
-			await autoComplete.execute(interaction);
-		}
-		else {
-			return;
-		}
-	}
-	catch (error) {
-		console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`);
-	}
-});
 
 // client.on('debug', console.debug);
 client.on('warn', console.warn);
@@ -141,20 +85,6 @@ rl.on('line', async (input) => {
 	}
 });
 
-refreshShortUrls();
-
-app.use(bodyParser.json(), routes, limiter);
-
-app.post('/api/tggwg', (req, res) => {
-	if (req.header('authorization') === topggAuth) {
-		vote.execute(client, req.body);
-		res.status(200).end();
-	}
-	else {
-		console.log('Unauthorized vote request attempt.');
-		res.send('Unauthorized');
-		res.status(401).end();
-	}
-});
-
 client.login(token).then(console.info('Logged in.'));
+
+module.exports = { client };
