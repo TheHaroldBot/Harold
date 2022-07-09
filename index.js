@@ -28,10 +28,13 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggAuth, topggToken, webPort } = require('./config.json');
+const { token, topggAuth, topggToken, webPort, beta } = require('./config.json');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
-AutoPoster(topggToken, client);
+if (!beta) {
+	AutoPoster(topggToken, client);
+	console.log('Started top.gg autoposter.');
+}
 const https = require('https');
 const express = require('express');
 const rateLimit = require('express-rate-limit');

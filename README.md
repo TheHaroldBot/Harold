@@ -12,5 +12,5 @@ To Do:
 - [x] Appeal top.gg ban (It was because the bot crashed when joining their test server.) [**APPROVED**]
 - [x] Update footers to use objects { text: "text", iconUrl: "iconUrl" }
 - [x] Update authors to use objects { name: "name", url: "url", iconUrl: "iconUrl" }
-- [ ] Fix embed command
+- [x] Fix embed command
 - [ ] Fix mcping command

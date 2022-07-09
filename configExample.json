@@ -13,5 +13,6 @@
     "bugChannel": "xxxxxxxxxxxxxxxxxx",
 	"invite": "https://discord.com/api/oauth2/authorize?client_id=xxxxxxxxxxxxxxxxxx&permissions=xxxxxxxxxxxx&scope=bot%20applications.commands",
 	"topggAuth": "xxxxxxxxxxxxxxxxxx",
-	"webPort": 80
+	"webPort": 80,
+	"beta": false
 }
