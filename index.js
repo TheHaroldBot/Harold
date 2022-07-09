@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggAuth, topggToken, webPort, beta } = require('./config.json');
+const { token, topggToken, webPort, beta } = require('./config.json');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
@@ -37,6 +37,7 @@ if (!beta) {
 }
 const https = require('https');
 const express = require('express');
+const routes = require('./routes.js');
 const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = webPort;
@@ -63,7 +64,6 @@ const button = require('./events/button.js');
 const selectMenu = require('./events/selectMenu.js');
 const slashCommand = require('./events/slashCommand.js');
 const autoComplete = require('./events/autocomplete.js');
-const vote = require('./events/vote.js');
 const bodyParser = require('body-parser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -142,50 +142,8 @@ rl.on('line', async (input) => {
 
 refreshShortUrls();
 
-app.use(bodyParser.json(), limiter);
-app.post('/tggwh', (req, res) => {
-	if (req.header('authorization') === topggAuth) {
-		vote.execute(client, req.body);
-		res.status(200).end();
-	}
-	else {
-		res.send('Unauthorized');
-		res.status(401).end();
-	}
-});
-
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/web/index.html');
-});
-
-app.get('/404', (req, res) => {
-	res.sendFile(__dirname + '/web/404.html');
-});
-
-app.get('/shorts', async (req, res) => {
-	const urls = process.shortUrls;
-	if
-	(urls[req.query.id]) {
-		res.redirect(urls[req.query.id]);
-	}
-	else {
-		res.redirect(urls.unknown);
-	}
-});
-
-app.get('/docs', (req, res) => {
-	const docs = require('./web/docs.json');
-	if (!docs[req.query.page]) {
-		res.redirect('/404');
-	}
-	else {
-		res.redirect(docs[req.query.page]);
-	}
-});
-
-app.all('*', (req, res) => {
-	res.redirect('/404');
-});
-
+app.use(bodyParser.json(), routes, limiter);
 
 client.login(token).then(console.info('Logged in.'));
+
+module.exports = client;
