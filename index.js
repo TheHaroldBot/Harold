@@ -145,7 +145,7 @@ refreshShortUrls();
 
 app.use(bodyParser.json(), routes, limiter);
 
-app.post('/tggwg', (req, res) => {
+app.post('/api/tggwg', (req, res) => {
 	if (req.header('authorization') === topggAuth) {
 		vote.execute(client, req.body);
 		res.status(200).end();
