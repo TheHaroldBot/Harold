@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta } = require('./config.json');
+const { token, topggToken, webPort, beta, topggAuth } = require('./config.json');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
@@ -64,6 +64,7 @@ const button = require('./events/button.js');
 const selectMenu = require('./events/selectMenu.js');
 const slashCommand = require('./events/slashCommand.js');
 const autoComplete = require('./events/autocomplete.js');
+const vote = require('./events/vote.js');
 const bodyParser = require('body-parser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -144,6 +145,15 @@ refreshShortUrls();
 
 app.use(bodyParser.json(), routes, limiter);
 
-client.login(token).then(console.info('Logged in.'));
+app.post('/tggwg', (req, res) => {
+	if (req.header('authorization') === topggAuth) {
+		vote.execute(client, req.body);
+		res.status(200).end();
+	}
+	else {
+		res.send('Unauthorized');
+		res.status(401).end();
+	}
+});
 
-module.exports = client;
+client.login(token).then(console.info('Logged in.'));

@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { topggAuth, invite } = require('./config.json');
-const vote = require('./events/vote.js');
-const client = require('./index.js');
+const { invite } = require('./config.json');
 
 router.route('/invite').get((req, res) => {
 	res.redirect(invite);
@@ -36,17 +34,6 @@ router.route('/404').get((req, res) => {
 
 router.route('/').get((req, res) => {
 	res.sendFile(__dirname + '/web/index.html');
-});
-
-router.route('/tggwh').post((req, res) => {
-	if (req.header('authorization') === topggAuth) {
-		vote.execute(client, req.body);
-		res.status(200).end();
-	}
-	else {
-		res.send('Unauthorized');
-		res.status(401).end();
-	}
 });
 
 router.route('*').all((req, res) => {
