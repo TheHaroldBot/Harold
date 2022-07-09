@@ -29,6 +29,7 @@ const rl = readline.createInterface({
 	output: process.stdout,
 });
 const { token, topggAuth, topggToken, webPort } = require('./config.json');
+const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 AutoPoster(topggToken, client);
 const https = require('https');
@@ -136,6 +137,7 @@ rl.on('line', async (input) => {
 	}
 });
 
+refreshShortUrls();
 
 app.use(bodyParser.json(), limiter);
 app.post('/tggwh', (req, res) => {
@@ -158,7 +160,7 @@ app.get('/404', (req, res) => {
 });
 
 app.get('/shorts', async (req, res) => {
-	const urls = JSON.parse(fs.readFileSync('./shorturls.json', 'utf8'));
+	const urls = process.shortUrls;
 	if
 	(urls[req.query.id]) {
 		res.redirect(urls[req.query.id]);

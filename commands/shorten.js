@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
-const { makeid } = require('../functions.js');
+const { makeid, refreshShortUrls } = require('../functions.js');
 const validUrl = require('valid-url');
 
 module.exports = {
@@ -36,6 +36,7 @@ module.exports = {
 		}
 		urlList[id] = interaction.options.getString('url');
 		fs.writeFileSync('././shorturls.json', JSON.stringify(urlList, null, 4));
+		refreshShortUrls();
 		interaction.reply({ content: 'http://theharoldbot.com/shorts?id=' + id, ephemeral: true });
 	},
 };

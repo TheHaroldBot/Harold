@@ -17,4 +17,17 @@ function makeid(length) {
 	return result;
 }
 
-module.exports = { logUsage, makeid };
+async function refreshShortUrls() {
+	try {
+		const newUrls = JSON.parse(fs.readFileSync('./shorturls.json', 'utf8'));
+		if (process.shortUrls) {
+			await delete process.shortUrls;
+		}
+		process.shortUrls = newUrls;
+	}
+	catch (error) {
+		return error;
+	}
+}
+
+module.exports = { logUsage, makeid, refreshShortUrls };
