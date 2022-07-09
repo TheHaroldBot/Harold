@@ -37,7 +37,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('*').all((req, res) => {
-	if (!req.url.startsWith('/api')) res.redirect('/404');
+	if (!req.url.startsWith('/api')) res.redirect('/404'); else return;
 });
 
 module.exports = router;
