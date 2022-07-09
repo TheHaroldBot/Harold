@@ -36,8 +36,8 @@ router.route('/').get((req, res) => {
 	res.sendFile(__dirname + '/web/index.html');
 });
 
-router.route('*').all((req, res) => {
+/* router.route('*').all((req, res) => {
 	if (!req.url.startsWith('/api')) res.redirect('/404'); else return;
-});
+}); */
 
 module.exports = router;
