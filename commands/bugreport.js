@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { Discord, ButtonStyle } = require('discord.js');
 const { bugChannel } = require('../config.json');
 
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
 			.addComponents(
 				new Discord.MessageButton()
 					.setLabel('Resolve')
-					.setStyle('SUCCESS')
+					.setStyle(ButtonStyle.Success)
 					.setEmoji('✅')
 					.setCustomId('resolve'), // remove if style is LINK
 			);

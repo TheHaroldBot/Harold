@@ -77,7 +77,7 @@
 		"prefix": "buttonFile",
 		"description": "Template for a new button file.",
 		"body": [
-			"const Discord = require('discord.js');",
+			"const { Discord } = require('discord.js');",
 			"",
 			"module.exports = {",
 			"\tcustomId: '$1',",
@@ -96,7 +96,7 @@
 		"body": [
 			"new Discord.MessageButton()",
 			"\t.setLabel('$2')",
-			"\t.setStyle('${3|PRIMARY,SECONDARY,SUCCESS,DANGER,LINK|}')",
+			"\t.setStyle(ButtonStyle.${3|Primary,Secondary,Success,Danger,Link|})",
 			"\t.setCustomId('$4') // remove if style is LINK",
 			"\t.setURL('$5'), // remove if style is not LINK",
 		]
