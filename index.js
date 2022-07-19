@@ -28,17 +28,38 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, beta } = require('./config.json');
+const { token, topggToken, webPort, beta } = require('./config.json');
+const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
 	AutoPoster(topggToken, client);
 	console.log('Started top.gg autoposter.');
 }
+const https = require('https');
+const express = require('express');
+const routes = require('./routes.js');
+const rateLimit = require('express-rate-limit');
+const app = express();
+const PORT = webPort;
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+const options = {
+	key: fs.readFileSync('./web/ssl/privatekey.pem'),
+	cert: fs.readFileSync('./web/ssl/certificate.pem'),
+};
+https.createServer(options, app).listen(PORT, function() {
+	console.log('Express server listening on port ' + PORT);
+});
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
+const bodyParser = require('body-parser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -85,6 +106,10 @@ rl.on('line', async (input) => {
 	}
 });
 
-client.login(token).then(console.info('Logged in.'));
+refreshShortUrls();
+
+app.use(bodyParser.json(), routes, limiter);
+
+client.login(token).then(() => {console.info('Logged in.');});
 
 module.exports = { client };

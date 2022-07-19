@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { invite, topggAuth } = require('./config.json');
 const client = require('./index.js');
-const vote = require('./events/vote');
+const vote = require('./events/vote.js');
 
 router.route('/invite').get((req, res) => {
 	res.redirect(invite);
