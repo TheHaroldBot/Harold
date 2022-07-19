@@ -20,8 +20,8 @@
 	Questions, comments, or concerns? Contact me at: johnnyg3587@gmail.com
 */
 
-const { Client, Intents, Collection } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS], partials: ['MESSAGE', 'CHANNEL'] });
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.Message, Partials.Channel] });
 const fs = require('fs');
 const readline = require('readline');
 const rl = readline.createInterface({
