@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Trivia questions!', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 2, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('trivia')
@@ -15,13 +15,13 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await fetch('https://jservice.io/api/random', { method: 'Get' })
+			await fetch('https://the-trivia-api.com/api/questions', { method: 'Get' })
 				.then(async response => {
-					const [body] = await response.json();
-					const triviaembed = new Discord.MessageEmbed()
-						.setTitle('Category: ' + body.category.title)
-						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
-						.setColor('RANDOM');
+					const body = await response.json();
+					const triviaembed = new EmbedBuilder()
+						.setTitle('Category: ' + body[0].category)
+						.setDescription(`${body[0].question}\n\nAnswer: ||${body[0].correctAnswer}||`)
+						.setColor('Random');
 					interaction.reply({ embeds: [triviaembed] });
 				});
 		}

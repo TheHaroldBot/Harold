@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only?
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: [], // permissions required for bot
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions required for bot
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['guildinfo'],
@@ -21,7 +21,7 @@ module.exports = {
 		const targetGuild = await interaction.guild.fetch();
 		if (targetGuild.avaliable === false) return (interaction.reply('Ohnoes! This server appears to be unavaliable at this time, try again later!'));
 		try {
-			const serverInfoEmbed = await new Discord.MessageEmbed()
+			const serverInfoEmbed = await new EmbedBuilder()
 				.setTitle('Server info')
 				.setDescription(`
 					**Name:** ${targetGuild.name}
@@ -60,7 +60,7 @@ module.exports = {
 					**Invite splash:** [Link↗](${targetGuild.splashURL()})
 				`)
 				.setAuthor({ name: 'Details provided by Harold, recorded by Discord', iconUrl: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
-				.setColor('RANDOM')
+				.setColor('Random')
 				.setThumbnail(targetGuild.iconURL({ dynamic: true, size: 512 }) ? targetGuild.iconURL({ dynamic: true, size: 512 }) : 'https://i.imgflip.com/69ocml.jpg')
 				.setTimestamp();
 			await interaction.reply({ embeds: [serverInfoEmbed] });

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
 	usage: '[comicNumber|latest]', // usage instructions w/o command name and prefix
 	guildOnly: false, // execute in a guild only?
 	cooldown: 3, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['randomxkcd', 'rnxkcd', 'comic', 'randomcomic', 'rncomic'],
@@ -40,10 +40,10 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.MessageEmbed()
+						const xkcdEmbed = new EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
@@ -75,10 +75,10 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.MessageEmbed()
+						const xkcdEmbed = new EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {

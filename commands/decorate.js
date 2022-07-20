@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
-const Discord = require('discord.js');
+const { SelectMenuBuilder, ActionRowBuilder } = require('discord.js');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 
@@ -11,7 +11,7 @@ module.exports = {
 	usage: `<${options.join('|')}>`, // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 300, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels], // permissions bot needs for command
 	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')
@@ -20,9 +20,9 @@ module.exports = {
 		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
-		const row = new Discord.MessageActionRow()
+		const row = new ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageSelectMenu()
+				new SelectMenuBuilder()
 					.setCustomId('decorate')
 					.setPlaceholder('Pick a theme!')
 					.addOptions([

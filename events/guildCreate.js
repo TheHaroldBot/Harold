@@ -1,25 +1,25 @@
-const Discord = require('discord.js');
+const { ButtonBuilder, EmbedBuilder, ActionRowBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'guildCreate',
 	once: true,
 	async execute(guild) {
-		const row = new Discord.MessageActionRow()
+		const row = new ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new ButtonBuilder()
 					.setLabel('GitHub')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setEmoji('<:ghub:971219159088250900>')
 					.setURL('https://github.com/TheHaroldBot/Harold'),
-				new Discord.MessageButton()
+				new ButtonBuilder()
 					.setLabel('Vote')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setEmoji('⭐')
 					.setURL('https://top.gg/bot/808750224033185794'),
 			);
-		const introembed = new Discord.MessageEmbed()
+		const introembed = new EmbedBuilder()
 			.setTitle('Hiya!')
-			.setColor('RANDOM')
+			.setColor('Random')
 			.setDescription('Thank you for adding me to your server!\nRun `/help` to get my commands!\nThings to know: I am still under developement, and will have a few bugs, feel free to report them with `/bugreport`, email us at support@theharoldbot.com, or join our [support server](https://discord.gg/xnY4SZV2Cd)\nI collect anonymous usage data to help me improve my features. Read my [privacy policy](https://github.com/TheHaroldBot/Harold/blob/main/PRIVACY) to learn more.\nBy using this bot you agree to the [Terms of Service](https://github.com/TheHaroldBot/Harold/blob/main/TERMS.md)');
 		const owner = await guild.fetchOwner();
 		try {

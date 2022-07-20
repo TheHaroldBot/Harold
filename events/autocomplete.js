@@ -1,7 +1,9 @@
+const { InteractionType } = require('discord.js');
+
 module.exports = {
 	name: 'autocomplete',
 	async execute(interaction) {
-		if (!interaction.isAutocomplete()) return;
+		if (!interaction.type === InteractionType.ApplicationCommandAutocomplete) return;
 		const command = interaction.client.commands.get(interaction.commandName);
 		if (!command || !command.autoComplete) {
 			interaction.respond([]);

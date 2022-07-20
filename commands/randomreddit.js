@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Gets random post from specified subreddit.', // command description
 	usage: '<subreddit without the r/>', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: ['redditpost', 'reddit', 'rr'],
 	data: new SlashCommandBuilder()
 		.setName('randomreddit')
@@ -69,10 +69,10 @@ module.exports = {
 						if (nsfw === true) {
 							posttitle = `[NSFW] ${posttitle}`;
 						}
-						const redditembed = new Discord.MessageEmbed()
+						const redditembed = new EmbedBuilder()
 							.setTitle(posttitle)
 							.setURL(posturl)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setFooter({ text: footer })
 							.setDescription(description)
 							.setTimestamp(posttime)
@@ -104,10 +104,10 @@ module.exports = {
 						if (nsfw === true) {
 							postTitle = `[NSFW] ${postTitle}`;
 						}
-						const redditembed = new Discord.MessageEmbed()
+						const redditembed = new EmbedBuilder()
 							.setTitle(`${postTitle}`)
 							.setURL(`${postUrl}`)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setImage(postImage)
 							.setFooter({ text: footer })
 							.setTimestamp(posttime)

@@ -1,5 +1,5 @@
+const { ButtonStyle, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
 const { bugChannel } = require('../config.json');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	args: true,
 	usage: '<message>',
 	cooldown: 60,
-	myPermissions: ['SEND_MESSAGES'],
+	myPermissions: [PermissionFlagsBits.SendMessages],
 	aliases: ['messagedevs', 'telldevs', 'suggest', 'reportbug', 'bug', 'feedback', 'report'],
 	data: new SlashCommandBuilder()
 		.setName('bugreport')
@@ -19,23 +19,31 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-		const bugreportembed = new Discord.MessageEmbed()
+		const bugreportembed = new EmbedBuilder()
 			.setTitle('New Message!')
-			.addField('Info', `From ${interaction.user.tag}`)
-			.setColor('YELLOW')
-			.addField('Description', interaction.options.getString('message'));
+			.addFields([
+				{ name: 'Info', value: `From ${interaction.user.tag}` },
+				{ name: 'Description', value: interaction.options.getString('message') },
+			])
+			.setColor('Yellow');
 		if (interaction.guild) {
-			bugreportembed.addField('From guild:', `Name: ${interaction.guild.name}, ID: ${interaction.guild.id}\nUser ID: ${interaction.user.id}`);
+			bugreportembed.addFields([
+				{ name: 'From guild:', value: `Name: ${interaction.guild.name}, ID: ${interaction.guild.id}\nUser ID: ${interaction.user.id}` },
+			]);
 		}
 		else {
-			bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${interaction.user.id}`);
+			bugreportembed.addFields([
+				{ name: 'From direct message:', value: `No guild information avaliable.\nUser ID: ${interaction.user.id}` },
+			]);
 		}
-		bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with `/message`.');
-		const bugreportRow = new Discord.MessageActionRow()
+		bugreportembed.addFields([
+			{ name: 'Contact method:', value: 'You can send a friend request to the sender, or talk through harold with `/message`.' },
+		]);
+		const bugreportRow = new ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new ButtonBuilder()
 					.setLabel('Resolve')
-					.setStyle('SUCCESS')
+					.setStyle(ButtonStyle.Success)
 					.setEmoji('✅')
 					.setCustomId('resolve'), // remove if style is LINK
 			);
