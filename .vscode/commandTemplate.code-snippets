@@ -31,7 +31,7 @@
 			"\targs: ${3:true}, // needs arguments?",
 			"\tusage: '$4', // usage instructions w/o command name and prefix",
 			"\tcooldown: ${5:3}, // cooldown in seconds, defaults to 3",
-			"\tmyPermissions: [$6], // permissions required for bot",
+			"\tmyPermissions: [${6:PermissionFlagsBits.something}], // permissions required for bot",
 			"\townerOnly: ${7:false}, // need to be the owner? delete line if no",
 			"\tdisabled: ${8:false}, // command disabled to all? delete line if no",
 			"\tdata: new SlashCommandBuilder()",

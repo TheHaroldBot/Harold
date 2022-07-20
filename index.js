@@ -110,6 +110,7 @@ refreshShortUrls();
 
 app.use(bodyParser.json(), routes, limiter);
 
-client.login(token).then(() => {console.info('Logged in.');});
-
-module.exports = { client };
+client.login(token).then(() => {
+	console.info('Logged in.');
+	module.exports = { client };
+});
