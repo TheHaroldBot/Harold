@@ -25,7 +25,8 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await interaction.channel.createWebhook('Snek', {
+			await interaction.channel.createWebhook({
+				name: 'Snek',
 				reason: 'Temp webhook for sudo command',
 			})
 				.then(async webhook => {
@@ -48,6 +49,7 @@ module.exports = {
 		}
 		catch (error) {
 			interaction.reply('Uh-oh! Something went wrong!');
+			console.error(error);
 		}
 
 	},

@@ -1,9 +1,11 @@
 // const Discord = require('discord.js');
 
+const { PermissionFlagsBits } = require('discord.js');
+
 module.exports = {
 	customId: 'decorate',
-	permissions: ['MANAGE_CHANNELS'],
-	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'],
+	permissions: [PermissionFlagsBits.ManageChannels],
+	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels],
 	async execute(interaction) {
 		const themes = {
 			summer: ['🌴', '🏝️', '🕶️', '⛱️', '🦩'],

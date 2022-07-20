@@ -15,12 +15,12 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await fetch('https://jservice.io/api/random', { method: 'Get' })
+			await fetch('https://the-trivia-api.com/api/questions', { method: 'Get' })
 				.then(async response => {
-					const [body] = await response.json();
+					const body = await response.json();
 					const triviaembed = new EmbedBuilder()
-						.setTitle('Category: ' + body.category.title)
-						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
+						.setTitle('Category: ' + body[0].category)
+						.setDescription(`${body[0].question}\n\nAnswer: ||${body[0].correctAnswer}||`)
 						.setColor('Random');
 					interaction.reply({ embeds: [triviaembed] });
 				});

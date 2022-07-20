@@ -15,7 +15,7 @@ module.exports = {
 		.setDescription('Get bot stats, ping, invite, and other info.'),
 
 	execute(interaction) { // inside here command stuff
-		const linkButtons = new ActionRowBuilder
+		const linkButtons = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('Vote')

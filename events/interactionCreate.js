@@ -9,7 +9,7 @@ module.exports = {
 	once: false,
 	async execute(interaction) {
 		try {
-			console.log(`Received ${interaction.type} interaction ${interaction.id ?? 'unknown id'}`);
+			console.log(`Received type ${interaction.type} interaction: ${interaction.id ?? 'unknown id'}`);
 			if (interaction.isButton()) {
 				await button.execute(interaction);
 			}
