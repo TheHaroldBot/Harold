@@ -39,7 +39,7 @@ module.exports = {
 				const memeembed = new Discord.EmbedBuilder()
 					.setTitle(`${memeTitle}`)
 					.setURL(`${memeUrl}`)
-					.setColor('RANDOM')
+					.setColor('Random')
 					.setImage(memeImage)
 					.setAuthor({ name: postauthor, iconUrl: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` })
 					.setFooter({ text: `👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}` })

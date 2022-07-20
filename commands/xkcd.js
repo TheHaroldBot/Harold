@@ -43,7 +43,7 @@ module.exports = {
 						const xkcdEmbed = new Discord.EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
@@ -78,7 +78,7 @@ module.exports = {
 						const xkcdEmbed = new Discord.EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('RANDOM')
+							.setColor('Random')
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {

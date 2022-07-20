@@ -23,11 +23,11 @@ module.exports = {
 			cooldowns.set(command.name, new Collection());
 		}
 
-		const commandDisabledEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/503').setFooter({ text: 'Command currently disabled.' }).setColor('RED');
+		const commandDisabledEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/503').setFooter({ text: 'Command currently disabled.' }).setColor('Red');
 		if (command.disabled === true) return (interaction.reply({ embeds: [commandDisabledEmbed], ephemeral: true }), console.log('Command disabled.'));
-		const guildOnlyEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/405').setFooter({ text: 'Can\'t run in a DM, only a server.' }).setColor('RED');
+		const guildOnlyEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/405').setFooter({ text: 'Can\'t run in a DM, only a server.' }).setColor('Red');
 		if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }), console.log('Command run in inappropriate environment.'));
-		const notOwnerEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: 'You are not the owner of this bot.' }).setColor('RED');
+		const notOwnerEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: 'You are not the owner of this bot.' }).setColor('Red');
 		if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }), console.log('Command executed by non-owner.'));
 
 		const now = Date.now();
@@ -57,7 +57,7 @@ module.exports = {
 
 		if (interaction.guild !== null && command.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.me).has(command.myPermissions)) {
-				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('RED');
+				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('Red');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}

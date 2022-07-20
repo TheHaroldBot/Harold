@@ -60,7 +60,7 @@ module.exports = {
 					**Invite splash:** [Link↗](${targetGuild.splashURL()})
 				`)
 				.setAuthor({ name: 'Details provided by Harold, recorded by Discord', iconUrl: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
-				.setColor('RANDOM')
+				.setColor('Random')
 				.setThumbnail(targetGuild.iconURL({ dynamic: true, size: 512 }) ? targetGuild.iconURL({ dynamic: true, size: 512 }) : 'https://i.imgflip.com/69ocml.jpg')
 				.setTimestamp();
 			await interaction.reply({ embeds: [serverInfoEmbed] });

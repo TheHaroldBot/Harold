@@ -22,7 +22,7 @@ module.exports = {
 		const bugreportembed = new Discord.EmbedBuilder()
 			.setTitle('New Message!')
 			.addField('Info', `From ${interaction.user.tag}`)
-			.setColor('YELLOW')
+			.setColor('Yellow')
 			.addField('Description', interaction.options.getString('message'));
 		if (interaction.guild) {
 			bugreportembed.addField('From guild:', `Name: ${interaction.guild.name}, ID: ${interaction.guild.id}\nUser ID: ${interaction.user.id}`);

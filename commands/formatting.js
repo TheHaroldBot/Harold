@@ -27,7 +27,7 @@ module.exports = {
 				{ name: 'Code Formatting', value: '\\\`Single line code block, no color\\\`\n\\\`\\\`‎\\\`codingLanguage\nMulti-line code block, with language color\n\\\`\\\`‎\\\`' },
 				{ name: 'Time Formatting', value: '<t:unixTimestamp:d> - send a timestamp in mm/dd/yyyy format\n<t:unixTimestamp:D> - send a timestamp in Month Day, Year format\n<t:unixTimestamp:t> - send a timestamp in hh:mm AM/PM format\n<t:unixTimestamp:T> - send a timestamp in hh:mm:ss AM/PM format\n<t:unixTimestamp:f> - send a timestamp in Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp> - send a timestamp in Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp:F> - send a timestamp in Weekday, Month Day, Year hh:mm AM/PM format\n<t:unixTimestamp:R> - send a timestamp in relative format\nunixTimestamp - send a timestamp in unix format\nTime formatting converter at [hammertime](https://hammertime.djdavid98.art/)' },
 			)
-			.setColor('RANDOM');
+			.setColor('Random');
 		try {
 			await interaction.reply({ embeds: [formatembed], ephemeral: true });
 		}

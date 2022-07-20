@@ -30,7 +30,7 @@ module.exports = {
 			.setTitle('Invite or vote here!')
 			.setDescription(`\n🏓 Latency is ${interaction.client.ws.ping}ms\nUptime: ${process.uptime() < 3600 ? Math.round(process.uptime() / 60) + ' minutes' : Math.round((process.uptime() / 60) / 60) + ' hours'}\nI am in ${interaction.client.guilds.cache.size} guilds!\nVote for me at [top.gg](https://top.gg/bot/808750224033185794)\nInvite me [here.](${invite})
 			`)
-			.setColor('RANDOM');
+			.setColor('Random');
 		interaction.reply({ embeds: [inviteembed], components: [linkButtons] });
 	},
 };

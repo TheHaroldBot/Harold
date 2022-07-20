@@ -24,7 +24,7 @@ module.exports = {
 					const jokeembed = new Discord.EmbedBuilder()
 						.setTitle(json.setup)
 						.setDescription(json.delivery)
-						.setColor('RANDOM')
+						.setColor('Random')
 						.setFooter({ text: 'jokeapi.dev' });
 					await interaction.editReply({ embeds: [jokeembed], ephemeral: false });
 				});

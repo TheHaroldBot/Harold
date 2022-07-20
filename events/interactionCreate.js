@@ -34,6 +34,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`);
+			console.error(error);
 		}
 	},
 };

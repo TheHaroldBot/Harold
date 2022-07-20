@@ -12,7 +12,7 @@ module.exports = {
 					.setCustomId('resolve'), // remove if style is LINK
 			);
 		const embed = new Discord.EmbedBuilder(interaction.message.embeds[0]);
-		embed.setColor('GREEN');
+		embed.setColor('Green');
 		interaction.message.edit({ embeds: [embed], components: [row] });
 		interaction.deferUpdate();
 	},

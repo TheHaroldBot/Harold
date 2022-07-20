@@ -49,7 +49,7 @@ module.exports = {
 				.setTitle('Here\'s a list of all my commands:')
 				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
-				.setColor('RANDOM')
+				.setColor('Random')
 				.addField('Support', '[Support server](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`')
 				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
@@ -74,7 +74,7 @@ module.exports = {
 			.setTitle(`Name: ${command.name}`)
 			.setDescription(data.join('\n'), { split: true })
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
-			.setColor('RANDOM');
+			.setColor('Random');
 		if (command.ownerOnly) {
 			helpembed.setDescription(`${helpembed.description}\n\n**This is an owner only command!**\nBe careful using these, as they may affect the bot significantly.`);
 		}

@@ -24,7 +24,7 @@ module.exports = {
 						.setTitle('Random Fact')
 						.setDescription(json.text.replaceAll('`', '\''))
 						.setFooter({ text: 'From djtech.net' })
-						.setColor('RANDOM');
+						.setColor('Random');
 					interaction.reply({ embeds: [factembed] });
 				})
 				.catch(err => {

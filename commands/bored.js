@@ -23,7 +23,7 @@ module.exports = {
 					const boredembed = new Discord.EmbedBuilder()
 						.setTitle('Bored? Try this:')
 						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
-						.setColor('RANDOM');
+						.setColor('Random');
 					try {
 						await interaction.reply({ embeds: [boredembed] });
 					}

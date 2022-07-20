@@ -21,7 +21,7 @@ module.exports = {
 					const triviaembed = new Discord.EmbedBuilder()
 						.setTitle('Category: ' + body.category.title)
 						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
-						.setColor('RANDOM');
+						.setColor('Random');
 					interaction.reply({ embeds: [triviaembed] });
 				});
 		}

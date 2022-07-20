@@ -29,7 +29,7 @@ module.exports = {
 			.setAuthor({ name: interaction.user.tag, iconUrl: interaction.user.avatarURL() })
 			.setDescription('>>> ' + interaction.options.getString('message'))
 			.setTimestamp()
-			.setColor('RANDOM');
+			.setColor('Random');
 		try {
 			await dmme.send({ embeds: [msgembed] });
 			await interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);
