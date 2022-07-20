@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { Discord } = require('discord.js');
 const { invite } = require('../config.json');
 
 module.exports = {
@@ -19,11 +19,11 @@ module.exports = {
 			.addComponents(
 				new Discord.ButtonBuilder()
 					.setLabel('Vote')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setURL('https://top.gg/bot/808750224033185794'),
 				new Discord.ButtonBuilder()
 					.setLabel('Invite')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setURL(invite),
 			);
 		const inviteembed = new Discord.EmbedBuilder()

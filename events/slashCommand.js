@@ -37,7 +37,7 @@ module.exports = {
 			.addComponents(
 				new Discord.ButtonBuilder()
 					.setLabel('Resolve')
-					.setStyle('DANGER')
+					.setStyle('Danger')
 					.setCustomId('resolve'), // remove if style is LINK
 			);
 
