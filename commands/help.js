@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const ownerids = require('../config.json').ownerids;
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	usage: '(command name)',
 	guildOnly: false,
 	cooldown: 5,
-	myPermissions: ['SEND_MESSAGES'],
+	myPermissions: [PermissionFlagsBits.SendMessages],
 	data: new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Lists commands or gets info about a specific command.')
@@ -45,12 +45,14 @@ module.exports = {
 			data.push(commands.filter(command => !command.ownerOnly).map(command => command.name).join('\n'));
 			data.push('\n**\nYou can send `/help [command name]` to get info on a specific command!');
 			const description = '**' + data;
-			const helpembed = new Discord.MessageEmbed()
+			const helpembed = new EmbedBuilder()
 				.setTitle('Here\'s a list of all my commands:')
 				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
-				.setColor('RANDOM')
-				.addField('Support', '[Support server](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`')
+				.setColor('Random')
+				.addFields([
+					{ name: 'Support', value: '[Support server: https://discord.gg/xnY4SZV2Cd](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`' },
+				])
 				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 			try {
@@ -70,11 +72,13 @@ module.exports = {
 		if (command.description) data.push(`**Description:** ${command.description}`);
 		if (command.usage) data.push(`**Usage:** /${command.name} ${command.usage}`);
 		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-		const helpembed = new Discord.MessageEmbed()
+		const helpembed = new EmbedBuilder()
 			.setTitle(`Name: ${command.name}`)
 			.setDescription(data.join('\n'), { split: true })
-			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
-			.setColor('RANDOM');
+			.addFields([
+				{ name: 'Join our support server!', value: '[Join here: https://discord.gg/xnY4SZV2Cd](https://discord.gg/xnY4SZV2Cd)' },
+			])
+			.setColor('Random');
 		if (command.ownerOnly) {
 			helpembed.setDescription(`${helpembed.description}\n\n**This is an owner only command!**\nBe careful using these, as they may affect the bot significantly.`);
 		}

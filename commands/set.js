@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	name: 'set', // command name
@@ -6,7 +7,7 @@ module.exports = {
 	args: true, // needs arguments? delete line if no
 	usage: '<presence|activity|avatar>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: [],
 	data: new SlashCommandBuilder()

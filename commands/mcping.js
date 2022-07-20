@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const util = require('minecraft-server-util');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
 	usage: '<bedrock|java> <IP> [port]', // usage instructions w/o command name and prefix
 	cooldown: 10, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: ['pingmc'],
 	data: new SlashCommandBuilder()
 		.setName('mcping')
@@ -58,7 +58,7 @@ module.exports = {
 		if (type === 'java') {
 			util.status(ip, pingport) // pings a minecraft server
 				.then(async (response) => {
-					const mcpingembed = new Discord.MessageEmbed()
+					const mcpingembed = new EmbedBuilder()
 						.setTitle(ip)
 						.setDescription(`\n**Online players:** ${response.players.online}/${response.players.max}\n**Server version:** ${response.version.name}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.motd.clean}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
@@ -72,7 +72,7 @@ module.exports = {
 					}
 				})
 				.catch(async () => {
-					const mcpingembed = new Discord.MessageEmbed()
+					const mcpingembed = new EmbedBuilder()
 						.setTitle(ip)
 						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
@@ -90,7 +90,7 @@ module.exports = {
 		else if (type === 'bedrock') {
 			util.statusBedrock(ip, pingport) // pings a minecraft server
 				.then(async (response) => {
-					const mcpingembed = new Discord.MessageEmbed()
+					const mcpingembed = new EmbedBuilder()
 						.setTitle(ip)
 						.setDescription(`**Online players:** ${response.players.online}/${response.players.max}\n**Latency:** unknown\n**Motd:** ${response.motd.clean}`)
 						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
@@ -104,7 +104,7 @@ module.exports = {
 					}
 				})
 				.catch(async () => {
-					const mcpingembed = new Discord.MessageEmbed()
+					const mcpingembed = new EmbedBuilder()
 						.setTitle(ip)
 						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
 						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')

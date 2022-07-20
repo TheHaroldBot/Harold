@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -6,7 +7,7 @@ module.exports = {
 	description: 'Insults you.', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('insult')

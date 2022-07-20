@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { WebhookClient } = require('discord.js');
+const { WebhookClient, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	name: 'sudo', // command name
@@ -8,7 +8,7 @@ module.exports = {
 	usage: '<mention> <message>', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES', 'MANAGE_WEBHOOKS'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageWebhooks], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('sudo')
@@ -25,7 +25,8 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			await interaction.channel.createWebhook('Snek', {
+			await interaction.channel.createWebhook({
+				name: 'Snek',
 				reason: 'Temp webhook for sudo command',
 			})
 				.then(async webhook => {
@@ -48,6 +49,7 @@ module.exports = {
 		}
 		catch (error) {
 			interaction.reply('Uh-oh! Something went wrong!');
+			console.error(error);
 		}
 
 	},

@@ -8,7 +8,7 @@ module.exports = {
 	usage: '<slowmode in seconds>', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels], // permissions bot needs for command
 	aliases: ['slow', 'messagerate'],
 	data: new SlashCommandBuilder()
 		.setName('slowmode')

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	name: 'message', // command name
@@ -7,7 +7,7 @@ module.exports = {
 	args: true, // needs arguments? delete line if no
 	usage: '<user id> <message>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	aliases: ['msg'], // aliases for command
 	data: new SlashCommandBuilder()
@@ -24,12 +24,12 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		const dmme = await interaction.client.users.fetch(interaction.options.getString('userid'));
-		const msgembed = new Discord.MessageEmbed()
+		const msgembed = new EmbedBuilder()
 			.setTitle('New message!')
 			.setAuthor({ name: interaction.user.tag, iconUrl: interaction.user.avatarURL() })
 			.setDescription('>>> ' + interaction.options.getString('message'))
 			.setTimestamp()
-			.setColor('RANDOM');
+			.setColor('Random');
 		try {
 			await dmme.send({ embeds: [msgembed] });
 			await interaction.reply(`Message sent:\n >>> ${interaction.options.getString('message')}`);

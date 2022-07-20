@@ -9,7 +9,7 @@ module.exports = {
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	permissions: ['KICK_MEMBERS', 'BAN_MEMBERS'], // permissions required for command
-	myPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.KickMembers, PermissionFlagsBits.BanMembers], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	disabled: true, // command disabled to all? delete line if no
 	aliases: ['args', 'arguments', 'argument-info', 'arguments-info'],
