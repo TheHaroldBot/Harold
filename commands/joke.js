@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
 			await fetch(jokeurl, jokesettings)
 				.then(res => res.json())
 				.then(async (json) => {
-					const jokeembed = new Discord.EmbedBuilder()
+					const jokeembed = new EmbedBuilder()
 						.setTitle(json.setup)
 						.setDescription(json.delivery)
 						.setColor('Random')

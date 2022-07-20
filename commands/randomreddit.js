@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -69,7 +69,7 @@ module.exports = {
 						if (nsfw === true) {
 							posttitle = `[NSFW] ${posttitle}`;
 						}
-						const redditembed = new Discord.EmbedBuilder()
+						const redditembed = new EmbedBuilder()
 							.setTitle(posttitle)
 							.setURL(posturl)
 							.setColor('Random')
@@ -104,7 +104,7 @@ module.exports = {
 						if (nsfw === true) {
 							postTitle = `[NSFW] ${postTitle}`;
 						}
-						const redditembed = new Discord.EmbedBuilder()
+						const redditembed = new EmbedBuilder()
 							.setTitle(`${postTitle}`)
 							.setURL(`${postUrl}`)
 							.setColor('Random')

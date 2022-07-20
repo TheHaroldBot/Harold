@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Discord } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
 const { invite } = require('../config.json');
 
 module.exports = {
@@ -15,18 +15,18 @@ module.exports = {
 		.setDescription('Get bot stats, ping, invite, and other info.'),
 
 	execute(interaction) { // inside here command stuff
-		const linkButtons = new Discord.ActionRowBuilder()
+		const linkButtons = new ActionRowBuilder
 			.addComponents(
-				new Discord.ButtonBuilder()
+				new ButtonBuilder()
 					.setLabel('Vote')
 					.setStyle('Link')
 					.setURL('https://top.gg/bot/808750224033185794'),
-				new Discord.ButtonBuilder()
+				new ButtonBuilder()
 					.setLabel('Invite')
 					.setStyle('Link')
 					.setURL(invite),
 			);
-		const inviteembed = new Discord.EmbedBuilder()
+		const inviteembed = new EmbedBuilder()
 			.setTitle('Invite or vote here!')
 			.setDescription(`\n🏓 Latency is ${interaction.client.ws.ping}ms\nUptime: ${process.uptime() < 3600 ? Math.round(process.uptime() / 60) + ' minutes' : Math.round((process.uptime() / 60) / 60) + ' hours'}\nI am in ${interaction.client.guilds.cache.size} guilds!\nVote for me at [top.gg](https://top.gg/bot/808750224033185794)\nInvite me [here.](${invite})
 			`)

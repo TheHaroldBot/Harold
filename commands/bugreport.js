@@ -1,4 +1,4 @@
-const { Discord, ButtonStyle, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
+const { ButtonStyle, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { bugChannel } = require('../config.json');
 
@@ -39,9 +39,9 @@ module.exports = {
 		bugreportembed.addFields([
 			{ name: 'Contact method:', value: 'You can send a friend request to the sender, or talk through harold with `/message`.' },
 		]);
-		const bugreportRow = new Discord.ActionRowBuilder()
+		const bugreportRow = new ActionRowBuilder()
 			.addComponents(
-				new Discord.ButtonBuilder()
+				new ButtonBuilder()
 					.setLabel('Resolve')
 					.setStyle(ButtonStyle.Success)
 					.setEmoji('✅')

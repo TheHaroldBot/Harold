@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'formatting', // command name
@@ -18,7 +18,7 @@ module.exports = {
 		.setDescription('A guide to Discord formatting'),
 
 	async execute(interaction) { // inside here command stuff
-		const formatembed = new Discord.EmbedBuilder()
+		const formatembed = new EmbedBuilder()
 			.setTitle('A handy guide to Discord formatting')
 			.addFields([
 				{ name: 'Text Formatting', value: '\\*\\*bold\\*\\*\n\\*italic\\* **or** \\_italic\\_\n\\_\\_underline\\_\\_\n\\~\\~strikethrough\\~\\~\n\\*\\*\\*bold and italic\\*\\*\\*\n\\*\\*\\*\\_\\_\\~\\~bold, italic, underlined, and strikethrough\\~\\~\\_\\_\\*\\*\\*\n\\|\\|spoiler\\|\\|' },

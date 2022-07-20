@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 			await fetch('https://jservice.io/api/random', { method: 'Get' })
 				.then(async response => {
 					const [body] = await response.json();
-					const triviaembed = new Discord.EmbedBuilder()
+					const triviaembed = new EmbedBuilder()
 						.setTitle('Category: ' + body.category.title)
 						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
 						.setColor('Random');

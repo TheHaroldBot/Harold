@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.EmbedBuilder()
+						const xkcdEmbed = new EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('Random')
@@ -75,7 +75,7 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.EmbedBuilder()
+						const xkcdEmbed = new EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('Random')

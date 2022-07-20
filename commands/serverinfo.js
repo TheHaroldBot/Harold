@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
 		const targetGuild = await interaction.guild.fetch();
 		if (targetGuild.avaliable === false) return (interaction.reply('Ohnoes! This server appears to be unavaliable at this time, try again later!'));
 		try {
-			const serverInfoEmbed = await new Discord.EmbedBuilder()
+			const serverInfoEmbed = await new EmbedBuilder()
 				.setTitle('Server info')
 				.setDescription(`
 					**Name:** ${targetGuild.name}

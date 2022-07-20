@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 			await fetch(boredurl, boredsettings) // im bored
 				.then(async response => {
 					const data = await response.json();
-					const boredembed = new Discord.EmbedBuilder()
+					const boredembed = new EmbedBuilder()
 						.setTitle('Bored? Try this:')
 						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 						.setColor('Random');

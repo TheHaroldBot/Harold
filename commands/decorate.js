@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
-const Discord = require('discord.js');
+const { SelectMenuBuilder, ActionRowBuilder } = require('discord.js');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 
@@ -20,9 +20,9 @@ module.exports = {
 		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
-		const row = new Discord.ActionRowBuilder()
+		const row = new ActionRowBuilder()
 			.addComponents(
-				new Discord.SelectMenuBuilder()
+				new SelectMenuBuilder()
 					.setCustomId('decorate')
 					.setPlaceholder('Pick a theme!')
 					.addOptions([

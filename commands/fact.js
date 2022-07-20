@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 			await fetch(facturl, factsettings)
 				.then(res => res.json())
 				.then((json) => {
-					const factembed = new Discord.EmbedBuilder()
+					const factembed = new EmbedBuilder()
 						.setTitle('Random Fact')
 						.setDescription(json.text.replaceAll('`', '\''))
 						.setFooter({ text: 'From djtech.net' })

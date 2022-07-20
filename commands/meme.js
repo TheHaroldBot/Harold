@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -36,7 +36,7 @@ module.exports = {
 					memeTitle = `[NSFW] ${memeTitle}`;
 				}
 
-				const memeembed = new Discord.EmbedBuilder()
+				const memeembed = new EmbedBuilder()
 					.setTitle(`${memeTitle}`)
 					.setURL(`${memeUrl}`)
 					.setColor('Random')

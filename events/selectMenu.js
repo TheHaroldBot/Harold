@@ -1,12 +1,12 @@
-const Discord = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
 const { ownerids, errorChannel } = require('../config.json');
 
 module.exports = {
 	name: 'selectMenu',
 	async execute(interaction) {
-		const row = new Discord.ActionRowBuilder()
+		const row = new ActionRowBuilder()
 			.addComponents(
-				new Discord.ButtonBuilder()
+				new ButtonBuilder()
 					.setLabel('Resolve')
 					.setStyle('Danger')
 					.setCustomId('resolve'), // remove if style is LINK
@@ -16,14 +16,14 @@ module.exports = {
 		if (selectMenu.permissions && interaction.guild !== null) {
 			const authorPerms = interaction.memberPermissions;
 			if (!authorPerms || !authorPerms.has(selectMenu.permissions)) {
-				const missingYourPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${selectMenu.permissions}.` }).setColor('Red');
+				const missingYourPerms = new EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${selectMenu.permissions}.` }).setColor('Red');
 				return interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
 			}
 		}
 
 		if (interaction.guild !== null && selectMenu.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(selectMenu.myPermissions)) {
-				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${selectMenu.myPermissions}.` }).setColor('Red');
+				const missingMyPerms = new EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${selectMenu.myPermissions}.` }).setColor('Red');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}
@@ -33,7 +33,7 @@ module.exports = {
 			await selectMenu.execute(interaction);
 		}
 		catch (error) {
-			const errorEmbed = new Discord.EmbedBuilder()
+			const errorEmbed = new EmbedBuilder()
 				.setTitle('Error')
 				.setColor('#ff0000')
 				.setDescription(`An error occured while executing the command ${selectMenu.customId}:\n${error?.myMessage ?? 'Error message undefined'}`)
