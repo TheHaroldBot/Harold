@@ -1,8 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
 const { makeid, refreshShortUrls } = require('../functions.js');
 const validUrl = require('valid-url');
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'shorten', // command name

@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { WebhookClient, PermissionFlagsBits } = require('discord.js');
+const { WebhookClient, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'sudo', // command name

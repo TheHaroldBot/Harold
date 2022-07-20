@@ -1,6 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
-const { SelectMenuBuilder, ActionRowBuilder } = require('discord.js');
+const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder } = require('discord.js');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
 

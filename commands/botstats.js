@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 const { invite } = require('../config.json');
 
 module.exports = {
