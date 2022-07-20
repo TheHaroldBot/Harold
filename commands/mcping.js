@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const util = require('minecraft-server-util');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
 	usage: '<bedrock|java> <IP> [port]', // usage instructions w/o command name and prefix
 	cooldown: 10, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: ['pingmc'],
 	data: new SlashCommandBuilder()
 		.setName('mcping')

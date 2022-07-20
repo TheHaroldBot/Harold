@@ -1,12 +1,12 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	name: 'embed', // command name
 	description: 'Send an embed using JSON data.\nBuild an embed here: https://eb.nadeko.bot/ then copy the JSON code on the right. (Remove tabs before use)', // command description
 	usage: '<JSON>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	args: true,
 	aliases: [],
 	data: new SlashCommandBuilder()

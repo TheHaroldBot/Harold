@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const ownerids = require('../config.json').ownerids;
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	usage: '(command name)',
 	guildOnly: false,
 	cooldown: 5,
-	myPermissions: ['SEND_MESSAGES'],
+	myPermissions: [PermissionFlagsBits.SendMessages],
 	data: new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Lists commands or gets info about a specific command.')

@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only?
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: [], // permissions required for bot
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions required for bot
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	aliases: ['guildinfo'],

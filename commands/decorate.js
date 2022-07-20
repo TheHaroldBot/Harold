@@ -11,7 +11,7 @@ module.exports = {
 	usage: `<${options.join('|')}>`, // usage instructions w/o command name and prefix
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 300, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels], // permissions bot needs for command
 	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')

@@ -1,4 +1,5 @@
 const Chatbot = require('discord-chatbot');
+const { PermissionFlagsBits } = require('discord.js');
 const config = require('../config.json');
 
 const chatbot = new Chatbot({ name: 'harold', gender: 'Male' });
@@ -9,7 +10,7 @@ module.exports = {
 	usage: '<seconds to keep the chat bot open, maximum of 1800>', // usage instructions w/o command name and prefix
 	disabled: true,
 	cooldown: 5, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: [],
 	execute(message, args, prefix) { // inside here command stuff
 		let time = 60;

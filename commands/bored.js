@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Gives you something to do.', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 1, // cooldown in seconds, defaults to 3
-	myPermissions: ['SEND_MESSAGES'], // permissions bot needs for command
+	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: ['imbored'],
 	data: new SlashCommandBuilder()
 		.setName('bored')

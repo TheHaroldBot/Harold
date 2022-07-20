@@ -9,9 +9,10 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('Resolved')
 					.setStyle(ButtonStyle.Secondary)
+					.setDisabled(true)
 					.setCustomId('resolve'), // remove if style is LINK
 			);
-		const embed = new EmbedBuilder(interaction.message.embeds[0]);
+		const embed = EmbedBuilder.from(interaction.message.embeds[0]);
 		embed.setColor('Green');
 		interaction.message.edit({ embeds: [embed], components: [row] });
 		interaction.deferUpdate();
