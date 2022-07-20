@@ -2,9 +2,9 @@ const { logUsage } = require('../functions.js');
 
 module.exports = {
 	name: 'vote', // name, duh
-	async execute(client, data) { // stuff to do
+	async execute(client, id) { // stuff to do
 		try {
-			const targetUser = await client.users.cache.get(data.user);
+			const targetUser = await client.users.cache.get(id);
 			await targetUser.send('Thank you for voting!');
 			logUsage({ name: 'vote' });
 		}
