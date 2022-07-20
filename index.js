@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta, topggAuth, dblAuth } = require('./config.json');
+const { token, topggToken, webPort, beta, topggAuth } = require('./config.json');
 const vote = require('./events/vote.js');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
@@ -101,18 +101,6 @@ client.rest.on('rateLimited', console.warn);
 app.post('/api/tggwh', bodyParser.json(), (req, res) => {
 	if (req.header('authorization') === topggAuth) {
 		vote.execute(client, req.body.user);
-		res.status(200).end();
-	}
-	else {
-		console.log('Unauthorized vote request attempt.');
-		res.send('Unauthorized');
-		res.status(401).end();
-	}
-});
-
-app.post('/api/dblwh', bodyParser.json(), (req, res) => {
-	if (req.header('Authorization') === dblAuth) {
-		vote.execute(client, req.body.id);
 		res.status(200).end();
 	}
 	else {
