@@ -95,7 +95,6 @@ for (const file of eventFiles) {
 // client.on('debug', console.debug);
 client.on('warn', console.warn);
 client.on('error', console.error);
-client.on('rateLimit', console.warn);
 
 rl.on('line', async (input) => {
 	try {
