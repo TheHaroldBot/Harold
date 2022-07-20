@@ -98,7 +98,7 @@ client.on('warn', console.warn);
 client.on('error', console.error);
 client.rest.on('rateLimited', console.warn);
 
-app.post('/api/tggwh', (req, res) => {
+app.post('/api/tggwh', bodyParser.json(), (req, res) => {
 	if (req.header('authorization') === topggAuth) {
 		vote.execute(client, req.body);
 		res.status(200).end();

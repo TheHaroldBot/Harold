@@ -36,7 +36,7 @@ router.route('/').get((req, res) => {
 	res.sendFile(__dirname + '/web/index.html');
 });
 
-router.route('*').get((req, res) => {
+router.route('*').all((req, res) => {
 	res.redirect('/404');
 });
 
