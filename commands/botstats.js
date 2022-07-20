@@ -15,13 +15,13 @@ module.exports = {
 		.setDescription('Get bot stats, ping, invite, and other info.'),
 
 	execute(interaction) { // inside here command stuff
-		const linkButtons = new Discord.MessageActionRow()
+		const linkButtons = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Vote')
 					.setStyle('LINK')
 					.setURL('https://top.gg/bot/808750224033185794'),
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Invite')
 					.setStyle('LINK')
 					.setURL(invite),

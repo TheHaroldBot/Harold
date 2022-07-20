@@ -20,9 +20,9 @@ module.exports = {
 		.setDMPermission(false),
 
 	async execute(interaction) { // inside here command stuff
-		const row = new Discord.MessageActionRow()
+		const row = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageSelectMenu()
+				new Discord.SelectMenuBuilder()
 					.setCustomId('decorate')
 					.setPlaceholder('Pick a theme!')
 					.addOptions([

@@ -33,9 +33,9 @@ module.exports = {
 		const now = Date.now();
 		const timestamps = cooldowns.get(command.name);
 		const cooldownAmount = (command.cooldown || 3) * 1000;
-		const row = new Discord.MessageActionRow()
+		const row = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Resolve')
 					.setStyle('DANGER')
 					.setCustomId('resolve'), // remove if style is LINK

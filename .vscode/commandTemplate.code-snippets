@@ -94,7 +94,7 @@
 		"prefix": "buttonTemplate",
 		"description": "Template for a new button",
 		"body": [
-			"new Discord.MessageButton()",
+			"new Discord.ButtonBuilder()",
 			"\t.setLabel('$2')",
 			"\t.setStyle(ButtonStyle.${3|Primary,Secondary,Success,Danger,Link|})",
 			"\t.setCustomId('$4') // remove if style is LINK",
@@ -123,7 +123,7 @@
 		"prefix": ["selectMenuTemplate", "messageSelectMenuTemplate"],
 		"description": "Template for a new select menu",
 		"body": [
-			"new Discord.MessageSelectMenu()",
+			"new Discord.SelectMenuBuilder()",
 			"\t.setCustomId('$2')",
 			"\t.setPlaceholder('$3')",
 			"\t.addOptions([",
@@ -140,7 +140,7 @@
 		"prefix": ["messageActionRowTemplate", "actionRowTemplate"],
 		"description": "Template for a new message action row",
 		"body": [
-			"const $1 = new Discord.MessageActionRow()",
+			"const $1 = new Discord.ActionRowBuilder()",
 			"\t.addComponents(",
 			"\t\t$0",
 			"\t);"

@@ -31,9 +31,9 @@ module.exports = {
 			bugreportembed.addField('From direct message:', `No guild information avaliable.\nUser ID: ${interaction.user.id}`);
 		}
 		bugreportembed.addField('Contact method:', 'You can send a friend request to the sender, or talk through harold with `/message`.');
-		const bugreportRow = new Discord.MessageActionRow()
+		const bugreportRow = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Resolve')
 					.setStyle(ButtonStyle.Success)
 					.setEmoji('✅')

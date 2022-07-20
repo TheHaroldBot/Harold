@@ -1,13 +1,18 @@
-const Discord = require('discord.js');
+const { Discord, ButtonStyle } = require('discord.js');
 
 module.exports = {
 	customId: 'resolve',
 	myPermissions: [],
 	async execute(interaction) {
+		const row = new Discord.ActionRowBuilder()
+			.addComponents(
+				new Discord.ButtonBuilder()
+					.setLabel('Resolved')
+					.setStyle(ButtonStyle.Secondary)
+					.setCustomId('resolve'), // remove if style is LINK
+			);
 		const embed = new Discord.MessageEmbed(interaction.message.embeds[0]);
-		const row = new Discord.MessageActionRow(interaction.message.components[0]);
 		embed.setColor('GREEN');
-		row.components[0].setDisabled(true).setStyle('SECONDARY').setLabel('Resolved');
 		interaction.message.edit({ embeds: [embed], components: [row] });
 		interaction.deferUpdate();
 	},

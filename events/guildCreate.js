@@ -4,14 +4,14 @@ module.exports = {
 	name: 'guildCreate',
 	once: true,
 	async execute(guild) {
-		const row = new Discord.MessageActionRow()
+		const row = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('GitHub')
 					.setStyle('LINK')
 					.setEmoji('<:ghub:971219159088250900>')
 					.setURL('https://github.com/TheHaroldBot/Harold'),
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Vote')
 					.setStyle('LINK')
 					.setEmoji('⭐')

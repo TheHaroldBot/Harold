@@ -4,9 +4,9 @@ const { ownerids, errorChannel } = require('../config.json');
 module.exports = {
 	name: 'selectMenu',
 	async execute(interaction) {
-		const row = new Discord.MessageActionRow()
+		const row = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel('Resolve')
 					.setStyle('DANGER')
 					.setCustomId('resolve'), // remove if style is LINK
