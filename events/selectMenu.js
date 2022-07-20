@@ -22,7 +22,7 @@ module.exports = {
 		}
 
 		if (interaction.guild !== null && selectMenu.myPermissions) {
-			if (!interaction.channel.permissionsFor(interaction.guild.me).has(selectMenu.myPermissions)) {
+			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(selectMenu.myPermissions)) {
 				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${selectMenu.myPermissions}.` }).setColor('Red');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}

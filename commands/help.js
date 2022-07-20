@@ -50,7 +50,9 @@ module.exports = {
 				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
 				.setColor('Random')
-				.addField('Support', '[Support server](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`')
+				.addFields([
+					{ name: 'Support', value: '[Support server](https://discord.gg/xnY4SZV2Cd)\nSupport email: support@theharoldbot.com\nOr use `/bugreport`' },
+				])
 				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 			try {
@@ -73,7 +75,9 @@ module.exports = {
 		const helpembed = new Discord.EmbedBuilder()
 			.setTitle(`Name: ${command.name}`)
 			.setDescription(data.join('\n'), { split: true })
-			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')
+			.addFields([
+				{ name: 'Join our support server!', value: '[Join here!](https://discord.gg/xnY4SZV2Cd)' },
+			])
 			.setColor('Random');
 		if (command.ownerOnly) {
 			helpembed.setDescription(`${helpembed.description}\n\n**This is an owner only command!**\nBe careful using these, as they may affect the bot significantly.`);

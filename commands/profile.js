@@ -49,14 +49,16 @@ module.exports = {
 		if (interaction.guild !== null) {
 			const guildMember = interaction.guild.members.cache.find(user => user.id === pfptarget.id);
 			const joinedGuild = Math.round(guildMember.joinedTimestamp / 1000);
-			pfpembed.addField('Server-specific information', `
-				**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)
-				**Display name:** ${guildMember.displayName}
-				**Display color:** ${guildMember.displayHexColor}
-				**Pending membership:** ${guildMember.pending}
-				**Kickable:** ${guildMember.kickable}
-				**Bannable:** ${guildMember.bannable}
-			`);
+			pfpembed.addFields([
+				{ name: 'Server-specific information', value: `
+					**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)
+					**Display name:** ${guildMember.displayName}
+					**Display color:** ${guildMember.displayHexColor}
+					**Pending membership:** ${guildMember.pending}
+					**Kickable:** ${guildMember.kickable}
+					**Bannable:** ${guildMember.bannable}
+				` },
+			]);
 		}
 		interaction.reply({ embeds: [pfpembed] });
 	},

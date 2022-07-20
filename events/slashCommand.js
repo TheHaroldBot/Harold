@@ -56,7 +56,7 @@ module.exports = {
 		setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 
 		if (interaction.guild !== null && command.myPermissions) {
-			if (!interaction.channel.permissionsFor(interaction.guild.me).has(command.myPermissions)) {
+			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(command.myPermissions)) {
 				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('Red');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}

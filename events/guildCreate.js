@@ -8,12 +8,12 @@ module.exports = {
 			.addComponents(
 				new Discord.ButtonBuilder()
 					.setLabel('GitHub')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setEmoji('<:ghub:971219159088250900>')
 					.setURL('https://github.com/TheHaroldBot/Harold'),
 				new Discord.ButtonBuilder()
 					.setLabel('Vote')
-					.setStyle('LINK')
+					.setStyle('Link')
 					.setEmoji('⭐')
 					.setURL('https://top.gg/bot/808750224033185794'),
 			);
