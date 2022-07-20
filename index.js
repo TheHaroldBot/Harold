@@ -28,7 +28,8 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta } = require('./config.json');
+const { token, topggToken, webPort, beta, topggAuth } = require('./config.json');
+const vote = require('./events/vote.js');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
@@ -96,6 +97,19 @@ for (const file of eventFiles) {
 client.on('warn', console.warn);
 client.on('error', console.error);
 client.rest.on('rateLimited', console.warn);
+
+app.post('/api/tggwh', (req, res) => {
+	if (req.header('authorization') === topggAuth) {
+		vote.execute(client, req.body);
+		res.status(200).end();
+	}
+	else {
+		console.log('Unauthorized vote request attempt.');
+		res.send('Unauthorized');
+		res.status(401).end();
+	}
+});
+
 
 rl.on('line', async (input) => {
 	try {
