@@ -16,14 +16,14 @@ module.exports = {
 		if (button.permissions && interaction.guild !== null) {
 			const authorPerms = interaction.memberPermissions;
 			if (!authorPerms || !authorPerms.has(button.permissions)) {
-				const missingYourPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${button.permissions}.` }).setColor('RED');
+				const missingYourPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `You are missing permission to do this. You need ${button.permissions}.` }).setColor('RED');
 				return interaction.reply({ embeds: [missingYourPerms], ephemeral: true });
 			}
 		}
 
 		if (interaction.guild !== null && button.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.me).has(button.myPermissions)) {
-				const missingMyPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${button.myPermissions}.` }).setColor('RED');
+				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${button.myPermissions}.` }).setColor('RED');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}
@@ -33,7 +33,7 @@ module.exports = {
 			await button.execute(interaction);
 		}
 		catch (error) {
-			const errorEmbed = new Discord.MessageEmbed()
+			const errorEmbed = new Discord.EmbedBuilder()
 				.setTitle('Error')
 				.setColor('#ff0000')
 				.setDescription(`An error occured while executing the command ${button.customId}:\n${error?.myMessage ?? 'Error message undefined'}`)

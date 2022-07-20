@@ -19,7 +19,7 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-		const bugreportembed = new Discord.MessageEmbed()
+		const bugreportembed = new Discord.EmbedBuilder()
 			.setTitle('New Message!')
 			.addField('Info', `From ${interaction.user.tag}`)
 			.setColor('YELLOW')

@@ -21,7 +21,7 @@ module.exports = {
 			await fetch(jokeurl, jokesettings)
 				.then(res => res.json())
 				.then(async (json) => {
-					const jokeembed = new Discord.MessageEmbed()
+					const jokeembed = new Discord.EmbedBuilder()
 						.setTitle(json.setup)
 						.setDescription(json.delivery)
 						.setColor('RANDOM')

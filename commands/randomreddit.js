@@ -69,7 +69,7 @@ module.exports = {
 						if (nsfw === true) {
 							posttitle = `[NSFW] ${posttitle}`;
 						}
-						const redditembed = new Discord.MessageEmbed()
+						const redditembed = new Discord.EmbedBuilder()
 							.setTitle(posttitle)
 							.setURL(posturl)
 							.setColor('RANDOM')
@@ -104,7 +104,7 @@ module.exports = {
 						if (nsfw === true) {
 							postTitle = `[NSFW] ${postTitle}`;
 						}
-						const redditembed = new Discord.MessageEmbed()
+						const redditembed = new Discord.EmbedBuilder()
 							.setTitle(`${postTitle}`)
 							.setURL(`${postUrl}`)
 							.setColor('RANDOM')

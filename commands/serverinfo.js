@@ -21,7 +21,7 @@ module.exports = {
 		const targetGuild = await interaction.guild.fetch();
 		if (targetGuild.avaliable === false) return (interaction.reply('Ohnoes! This server appears to be unavaliable at this time, try again later!'));
 		try {
-			const serverInfoEmbed = await new Discord.MessageEmbed()
+			const serverInfoEmbed = await new Discord.EmbedBuilder()
 				.setTitle('Server info')
 				.setDescription(`
 					**Name:** ${targetGuild.name}

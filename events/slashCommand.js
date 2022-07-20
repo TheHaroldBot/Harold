@@ -23,11 +23,11 @@ module.exports = {
 			cooldowns.set(command.name, new Collection());
 		}
 
-		const commandDisabledEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/503').setFooter({ text: 'Command currently disabled.' }).setColor('RED');
+		const commandDisabledEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/503').setFooter({ text: 'Command currently disabled.' }).setColor('RED');
 		if (command.disabled === true) return (interaction.reply({ embeds: [commandDisabledEmbed], ephemeral: true }), console.log('Command disabled.'));
-		const guildOnlyEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/405').setFooter({ text: 'Can\'t run in a DM, only a server.' }).setColor('RED');
+		const guildOnlyEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/405').setFooter({ text: 'Can\'t run in a DM, only a server.' }).setColor('RED');
 		if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }), console.log('Command run in inappropriate environment.'));
-		const notOwnerEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: 'You are not the owner of this bot.' }).setColor('RED');
+		const notOwnerEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: 'You are not the owner of this bot.' }).setColor('RED');
 		if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }), console.log('Command executed by non-owner.'));
 
 		const now = Date.now();
@@ -46,7 +46,7 @@ module.exports = {
 
 			if (now < expirationTime) {
 				const timeLeft = (expirationTime - now) / 1000;
-				const slowDownEmbed = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/420').setFooter({ text: `Woah dude, calm down, you can use this again in ${timeLeft.toFixed(1)} seconds.` });
+				const slowDownEmbed = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/420').setFooter({ text: `Woah dude, calm down, you can use this again in ${timeLeft.toFixed(1)} seconds.` });
 				return interaction.reply({ embeds: [slowDownEmbed], ephemeral: true });
 			}
 		}
@@ -57,7 +57,7 @@ module.exports = {
 
 		if (interaction.guild !== null && command.myPermissions) {
 			if (!interaction.channel.permissionsFor(interaction.guild.me).has(command.myPermissions)) {
-				const missingMyPerms = new Discord.MessageEmbed().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('RED');
+				const missingMyPerms = new Discord.EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: `I am missing permission to do this. I need ${command.myPermissions}.` }).setColor('RED');
 				return interaction.reply({ embeds: [missingMyPerms], ephemeral: true });
 			}
 		}
@@ -68,7 +68,7 @@ module.exports = {
 			await command.execute(interaction);
 		}
 		catch (error) {
-			const errorEmbed = new Discord.MessageEmbed()
+			const errorEmbed = new Discord.EmbedBuilder()
 				.setTitle('Error')
 				.setColor('#ff0000')
 				.setDescription(`An error occured while executing the command ${command.name}:\n${error?.myMessage ?? 'Error message undefined'}`)

@@ -20,7 +20,7 @@ module.exports = {
 			await fetch(facturl, factsettings)
 				.then(res => res.json())
 				.then((json) => {
-					const factembed = new Discord.MessageEmbed()
+					const factembed = new Discord.EmbedBuilder()
 						.setTitle('Random Fact')
 						.setDescription(json.text.replaceAll('`', '\''))
 						.setFooter({ text: 'From djtech.net' })

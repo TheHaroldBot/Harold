@@ -36,7 +36,7 @@ module.exports = {
 					memeTitle = `[NSFW] ${memeTitle}`;
 				}
 
-				const memeembed = new Discord.MessageEmbed()
+				const memeembed = new Discord.EmbedBuilder()
 					.setTitle(`${memeTitle}`)
 					.setURL(`${memeUrl}`)
 					.setColor('RANDOM')

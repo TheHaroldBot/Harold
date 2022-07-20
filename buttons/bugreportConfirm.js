@@ -11,7 +11,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary)
 					.setCustomId('resolve'), // remove if style is LINK
 			);
-		const embed = new Discord.MessageEmbed(interaction.message.embeds[0]);
+		const embed = new Discord.EmbedBuilder(interaction.message.embeds[0]);
 		embed.setColor('GREEN');
 		interaction.message.edit({ embeds: [embed], components: [row] });
 		interaction.deferUpdate();

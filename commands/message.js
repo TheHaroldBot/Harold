@@ -24,7 +24,7 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		const dmme = await interaction.client.users.fetch(interaction.options.getString('userid'));
-		const msgembed = new Discord.MessageEmbed()
+		const msgembed = new Discord.EmbedBuilder()
 			.setTitle('New message!')
 			.setAuthor({ name: interaction.user.tag, iconUrl: interaction.user.avatarURL() })
 			.setDescription('>>> ' + interaction.options.getString('message'))

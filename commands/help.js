@@ -45,7 +45,7 @@ module.exports = {
 			data.push(commands.filter(command => !command.ownerOnly).map(command => command.name).join('\n'));
 			data.push('\n**\nYou can send `/help [command name]` to get info on a specific command!');
 			const description = '**' + data;
-			const helpembed = new Discord.MessageEmbed()
+			const helpembed = new Discord.EmbedBuilder()
 				.setTitle('Here\'s a list of all my commands:')
 				.setURL('https://discord.gg/xnY4SZV2Cd')
 				.setDescription(description, { split: true })
@@ -70,7 +70,7 @@ module.exports = {
 		if (command.description) data.push(`**Description:** ${command.description}`);
 		if (command.usage) data.push(`**Usage:** /${command.name} ${command.usage}`);
 		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-		const helpembed = new Discord.MessageEmbed()
+		const helpembed = new Discord.EmbedBuilder()
 			.setTitle(`Name: ${command.name}`)
 			.setDescription(data.join('\n'), { split: true })
 			.addField('Join our support server!', '[Join here!](https://discord.gg/xnY4SZV2Cd)')

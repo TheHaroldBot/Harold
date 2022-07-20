@@ -40,7 +40,7 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.MessageEmbed()
+						const xkcdEmbed = new Discord.EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('RANDOM')
@@ -75,7 +75,7 @@ module.exports = {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
 						response = await response.json();
-						const xkcdEmbed = new Discord.MessageEmbed()
+						const xkcdEmbed = new Discord.EmbedBuilder()
 							.setTitle(response.title)
 							.setURL(`https://xkcd.com/${targetComic}`)
 							.setColor('RANDOM')

@@ -18,7 +18,7 @@ module.exports = {
 			await fetch('https://jservice.io/api/random', { method: 'Get' })
 				.then(async response => {
 					const [body] = await response.json();
-					const triviaembed = new Discord.MessageEmbed()
+					const triviaembed = new Discord.EmbedBuilder()
 						.setTitle('Category: ' + body.category.title)
 						.setDescription(`${body.question}\nAnswer: ||${body.answer}||`)
 						.setColor('RANDOM');

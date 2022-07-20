@@ -20,7 +20,7 @@ module.exports = {
 			await fetch(boredurl, boredsettings) // im bored
 				.then(async response => {
 					const data = await response.json();
-					const boredembed = new Discord.MessageEmbed()
+					const boredembed = new Discord.EmbedBuilder()
 						.setTitle('Bored? Try this:')
 						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
 						.setColor('RANDOM');

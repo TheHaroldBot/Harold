@@ -18,7 +18,7 @@ module.exports = {
 		.setDescription('A guide to Discord formatting'),
 
 	async execute(interaction) { // inside here command stuff
-		const formatembed = new Discord.MessageEmbed()
+		const formatembed = new Discord.EmbedBuilder()
 			.setTitle('A handy guide to Discord formatting')
 			.addFields(
 				{ name: 'Text Formatting', value: '\\*\\*bold\\*\\*\n\\*italic\\* **or** \\_italic\\_\n\\_\\_underline\\_\\_\n\\~\\~strikethrough\\~\\~\n\\*\\*\\*bold and italic\\*\\*\\*\n\\*\\*\\*\\_\\_\\~\\~bold, italic, underlined, and strikethrough\\~\\~\\_\\_\\*\\*\\*\n\\|\\|spoiler\\|\\|' },
