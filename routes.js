@@ -50,6 +50,27 @@ router.route('/api/tggwh').post((req, res) => {
 	}
 });
 
+router.route('/api/botinfo').get((req, res) => {
+	const response = {};
+	response.isReady = client.isReady();
+	response.uptime = client.uptime;
+	response.wslatency = client.ws.ping;
+	response.username = client.user.tag;
+	response.verified = client.user.verified;
+	response.createdAt = client.user.createdAt;
+	response.guildCount = client.guilds.cache.size;
+	response.invite = invite;
+	response.github = 'https://theharoldbot.com/shorts?id=github';
+	response.discord = 'https://theharoldbot.com/shorts?id=discord';
+	response.home = 'https://theharoldbot.com';
+	response.presence = {};
+	response.presence.status = client.user.presence.status;
+	response.presence.activity = {};
+	response.presence.activity.name = client.user.presence.activities[0].name;
+	response.presence.activity.type = client.user.presence.activities[0].type;
+	res.send(response);
+});
+
 router.route('*').all((req, res) => {
 	res.redirect('/404');
 });
