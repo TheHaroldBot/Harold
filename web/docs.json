@@ -4,5 +4,6 @@
 	"license": "https://github.com/TheHaroldBot/Harold/blob/main/LICENSE",
 	"github": "https://github.com/TheHaroldBot/Harold",
 	"wiki": "https://github.com/TheHaroldBot/Harold/wiki",
-	"commands": "https://github.com/TheHaroldBot/Harold/wiki/Commands"
+	"commands": "https://github.com/TheHaroldBot/Harold/wiki/Commands",
+	"api": "https://github.com/TheHaroldBot/Harold/wiki/API"
 }
