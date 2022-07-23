@@ -20,16 +20,15 @@
 	Questions, comments, or concerns? Contact me at: johnnyg3587@gmail.com
 */
 
-const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.Message, Partials.Channel] });
+const { Collection } = require('discord.js');
+const { client } = require('./client.js');
 const fs = require('fs');
 const readline = require('readline');
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta, topggAuth } = require('./config.json');
-const vote = require('./events/vote.js');
+const { token, topggToken, webPort, beta } = require('./config.json');
 const { refreshShortUrls } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
@@ -98,18 +97,6 @@ client.on('warn', console.warn);
 client.on('error', console.error);
 client.rest.on('rateLimited', console.warn);
 
-app.post('/api/tggwh', bodyParser.json(), (req, res) => {
-	if (req.header('authorization') === topggAuth) {
-		vote.execute(client, req.body.user);
-		res.status(200).end();
-	}
-	else {
-		console.log('Unauthorized vote request attempt.');
-		res.send('Unauthorized');
-		res.status(401).end();
-	}
-});
-
 
 rl.on('line', async (input) => {
 	try {
@@ -126,5 +113,4 @@ app.use(bodyParser.json(), routes, limiter);
 
 client.login(token).then(() => {
 	console.info('Logged in.');
-	module.exports = { client };
 });
