@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, ActivityType } = require('discord.js');
 
 module.exports = {
 	name: 'set', // command name
@@ -49,23 +49,23 @@ module.exports = {
 						.addChoices(
 							{
 								name: 'playing',
-								value: 'PLAYING',
+								value: 'Playing',
 							},
 							{
 								name: 'streaming',
-								value: 'STREAMING',
+								value: 'Streaming',
 							},
 							{
 								name: 'listening',
-								value: 'LISTENING',
+								value: 'Listening',
 							},
 							{
 								name: 'watching',
-								value: 'WATCHING',
+								value: 'Watching',
 							},
 							{
 								name: 'competing',
-								value: 'COMPETING',
+								value: 'Competing',
 							},
 						),
 				)
@@ -103,7 +103,7 @@ module.exports = {
 		else if (interaction.options.getSubcommand() === 'activity') {
 			try {
 				await interaction.client.user.setActivity(interaction.options.getString('name'), {
-					type: interaction.options.getString('type'),
+					type: ActivityType[interaction.options.getString('type')],
 					url: interaction.options.getString('url'),
 				});
 				await interaction.reply(`Activity set to ${interaction.options.getString('type')} ${interaction.options.getString('name')}`);
