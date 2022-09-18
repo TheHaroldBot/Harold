@@ -1,7 +1,5 @@
 const { Collection } = require('discord.js');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
-const fs = require('fs');
-const { ownerids, errorChannel } = require('../config.json');
 const { logUsage } = require('../functions.js');
 
 module.exports = {
@@ -9,8 +7,8 @@ module.exports = {
 	async execute(interaction) {
 		const { cooldowns } = interaction.client;
 
-		const config = JSON.parse(fs.readFileSync('config.json'));
-		if (config.blocked.includes(interaction.user.id) && ownerids.includes(interaction.user.id)) {
+		const config = process.haroldConfig;
+		if (config.blocked.includes(interaction.user.id) && config.ownerids.includes(interaction.user.id)) {
 			interaction.reply({ content: 'You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.', ephemeral: true });
 			return;
 		}
@@ -28,7 +26,7 @@ module.exports = {
 		const guildOnlyEmbed = new EmbedBuilder().setTitle('Error!').setImage('https://http.cat/405').setFooter({ text: 'Can\'t run in a DM, only a server.' }).setColor('Red');
 		if (command.guildOnly === true && interaction.guild === null) return (interaction.reply({ embeds: [guildOnlyEmbed], ephemeral: true }), console.log('Command run in inappropriate environment.'));
 		const notOwnerEmbed = new EmbedBuilder().setTitle('Error!').setImage('https://http.cat/401').setFooter({ text: 'You are not the owner of this bot.' }).setColor('Red');
-		if (command.ownerOnly === true && !ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }), console.log('Command executed by non-owner.'));
+		if (command.ownerOnly === true && !config.ownerids.includes(interaction.user.id)) return (interaction.reply({ embeds: [notOwnerEmbed], ephemeral: true }), console.log('Command executed by non-owner.'));
 
 		const now = Date.now();
 		const timestamps = cooldowns.get(command.name);
@@ -50,7 +48,7 @@ module.exports = {
 				return interaction.reply({ embeds: [slowDownEmbed], ephemeral: true });
 			}
 		}
-		if (!ownerids.includes(interaction.user.id)) {
+		if (!config.ownerids.includes(interaction.user.id)) {
 			timestamps.set(interaction.user.id, now);
 		}
 		setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
@@ -74,7 +72,7 @@ module.exports = {
 				.setDescription(`An error occured while executing the command ${command.name}:\n${error?.myMessage ?? 'Error message undefined'}`)
 				.setImage('https://http.cat/' + (error?.code ?? 500));
 			console.error(`Error executing ${command.name}:\n${error}`);
-			if (ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
+			if (config.ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 			try {
 				await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 			}
@@ -83,7 +81,7 @@ module.exports = {
 			}
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-				await interaction.client.channels.cache.get(errorChannel).send({ embeds: [errorEmbed], components: [row] });
+				await interaction.client.channels.cache.get(config.errorChannel).send({ embeds: [errorEmbed], components: [row] });
 			}
 		}
 	},

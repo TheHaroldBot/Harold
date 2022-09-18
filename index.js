@@ -29,7 +29,7 @@ const rl = readline.createInterface({
 	output: process.stdout,
 });
 const { token, topggToken, webPort, beta } = require('./config.json');
-const { refreshShortUrls } = require('./functions.js');
+const { refreshShortUrls, refreshConfig } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
 	AutoPoster(topggToken, client);
@@ -108,6 +108,7 @@ rl.on('line', async (input) => {
 });
 
 refreshShortUrls();
+refreshConfig();
 
 app.use(bodyParser.json(), routes, limiter);
 

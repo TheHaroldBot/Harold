@@ -30,4 +30,17 @@ async function refreshShortUrls() {
 	}
 }
 
-module.exports = { logUsage, makeid, refreshShortUrls };
+async function refreshConfig() {
+	try {
+		const newConfig = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+		if (process.haroldConfig) {
+			await delete process.haroldConfig;
+		}
+		process.haroldConfig = newConfig;
+	}
+	catch (error) {
+		return error;
+	}
+}
+
+module.exports = { logUsage, makeid, refreshShortUrls, refreshConfig };

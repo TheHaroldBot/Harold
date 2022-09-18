@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
-const { ownerids, errorChannel } = require('../config.json');
+const config = process.haroldConfig;
 
 module.exports = {
 	name: 'selectMenu',
@@ -39,7 +39,7 @@ module.exports = {
 				.setDescription(`An error occured while executing the command ${selectMenu.customId}:\n${error?.myMessage ?? 'Error message undefined'}`)
 				.setImage('https://http.cat/' + (error?.code ?? 500));
 			console.error(`Error executing ${selectMenu.customId}:\n${error}`);
-			if (ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
+			if (config.ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 			try {
 				await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
 			}
@@ -48,7 +48,7 @@ module.exports = {
 			}
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${selectMenu.customId}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
-				await interaction.client.channels.cache.get(errorChannel).send({ embeds: [errorEmbed], components: [row] });
+				await interaction.client.channels.cache.get(config.errorChannel).send({ embeds: [errorEmbed], components: [row] });
 			}
 		}
 	},
