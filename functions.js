@@ -24,6 +24,7 @@ async function refreshShortUrls() {
 			await delete process.shortUrls;
 		}
 		process.shortUrls = newUrls;
+		console.log('Refreshed short URls!');
 	}
 	catch (error) {
 		return error;
@@ -37,6 +38,7 @@ async function refreshConfig() {
 			await delete process.haroldConfig;
 		}
 		process.haroldConfig = newConfig;
+		console.log('Refreshed config!');
 	}
 	catch (error) {
 		return error;

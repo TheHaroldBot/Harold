@@ -1,6 +1,5 @@
 const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
-const removeFromArray = require('remove-from-array');
 
 module.exports = {
 	name: 'block', // command name
@@ -33,21 +32,26 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('userid')
 				.setDescription('The user ID to block or unblock.')
-				.setRequired(true)),
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('reason')
+				.setDescription('Why they are blocked')
+				.setRequired(true),
+		),
 
 	execute(interaction) { // inside here command stuff
 		if (interaction.options.getString('type') === 'add') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is already blocked.'));
-			data.blocked.push(interaction.options.getString('userid'));
-			fs.writeFileSync('././config.json', JSON.stringify(data, null, 4));
+			if (data.blocked[interaction.options.getString('userid')]) return (interaction.reply('That person is already blocked.'));
+			process.haroldConfig.blocked[interaction.options.getString('userid')] = interaction.options.getString('reason');
+			fs.writeFileSync('././config.json', JSON.stringify(process.haroldConfig, null, 4));
 			interaction.reply(`Successfully blocked ${interaction.options.getString('userid')}.`);
 		}
 		else if (interaction.options.getString('type') === 'remove') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
-			if (!data.blocked.includes(interaction.options.getString('userid'))) return (interaction.reply('That person is not blocked.'));
-			removeFromArray(data.blocked, interaction.options.getString('userid'));
-			fs.writeFileSync('././config.json', JSON.stringify(data, null, 4));
+			if (!data.blocked[interaction.options.getString('userid')]) return (interaction.reply('That person is not blocked.'));
+			delete process.haroldConfig.blocked[interaction.options.getString('userid')];
+			fs.writeFileSync('././config.json', JSON.stringify(process.haroldConfig, null, 4));
 			interaction.reply(`Successfully unblocked ${interaction.options.getString('userid')}.`);
 		}
 	},

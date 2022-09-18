@@ -8,11 +8,11 @@ module.exports = {
 		const { cooldowns } = interaction.client;
 
 		const config = process.haroldConfig;
-		if (config.blocked.includes(interaction.user.id) && config.ownerids.includes(interaction.user.id)) {
+		if (config.blocked[interaction.user.id] && config.ownerids.includes(interaction.user.id)) {
 			interaction.reply({ content: 'You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.', ephemeral: true });
 			return;
 		}
-		if (config.blocked.includes(interaction.user.id)) return;
+		if (config.blocked[interaction.user.id]) return;
 
 		const command = interaction.client.commands.get(interaction.commandName);
 		if (!command) return (interaction.reply('Command not found'));
