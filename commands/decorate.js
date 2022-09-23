@@ -1,7 +1,7 @@
 const config = require('../config.json');
 const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder } = require('discord.js');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
-const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'clear'];
+const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'redgreen', 'clear'];
 
 module.exports = {
 	name: 'decorate', // command name
@@ -64,6 +64,11 @@ module.exports = {
 							label: 'Hanukkah',
 							value: 'hanukkah',
 							description: '🕎 A Hanukkah theme!',
+						},
+						{
+							label: 'Red/Green',
+							value: 'redgreen',
+							description: '🍉 🥒 A theme surrounding red & green emojis'
 						},
 						{
 							label: 'Clear',
