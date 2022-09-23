@@ -4,7 +4,7 @@ module.exports = {
 	name: 'vote', // name, duh
 	async execute(client, id) { // stuff to do
 		try {
-			const targetUser = await client.users.cache.get(id);
+			const targetUser = await client.users.fetch(id);
 			await targetUser.send('Thank you for voting!');
 			logUsage({ name: 'vote' });
 		}
