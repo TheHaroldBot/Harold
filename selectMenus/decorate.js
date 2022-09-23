@@ -16,7 +16,7 @@ module.exports = {
 			halloween: ['🕸️', '🕷️', '🦇', '🎃', '⚰️', '🧛', '👻'],
 			easter: ['🐇', '🍫', '🐤', '🥚', '🥕', '🔔'],
 			hanukkah: ['🕎', '✡️', '🕍', '🕯️'],
-			redgreen: ['🍉', '🥒', '🍎', '🍏', '🔴', '🟢', '🥬', '☘', '🌹', '🍒', '🌵']
+			redgreen: ['🍉', '🥒', '🍎', '🍏', '🔴', '🟢', '🥬', '🌹', '🍒', '🌵']
 			/* other seasons here */
 		};
 		const allemojis = themes.summer.concat(themes.fall, themes.winter, themes.spring, themes.christmas, themes.halloween, themes.easter, themes.hanukkah);
