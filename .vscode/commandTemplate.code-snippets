@@ -79,6 +79,7 @@
 			"",
 			"module.exports = {",
 			"\tcustomId: '$1',",
+			"\tpermissions: [$2]",
 			"\tmyPermissions: [$3],",
 			"\tasync execute(interaction) {",
 			"\t\t$0",
