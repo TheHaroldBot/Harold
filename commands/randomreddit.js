@@ -48,9 +48,9 @@ module.exports = {
 				.then(async response => {
 					const [list] = await response.json();
 					const [post] = list.data.children;
-					const type = post.data.post_hint;
-
-					if (type !== 'image') {
+					const type = post.data.post_hint ?? "text"; //added double question mark thing
+					
+					if (type != 'image') { //changed two equals to one
 						let posttitle = post.data.title;
 						const permalink = post.data.permalink;
 						const posturl = `https://reddit.com${permalink}`;
