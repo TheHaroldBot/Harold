@@ -50,6 +50,7 @@ module.exports = {
 					const [post] = list.data.children;
 					const type = post.data.post_hint;
 
+					if (type === 'hosted:video') return (console.log('Sorry, we can\'t handle videos right now, try again!'));
 					if (type !== 'image') {
 						let posttitle = post.data.title;
 						const permalink = post.data.permalink;
