@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 const fs = require('fs');
+const fetch = require('node-fetch');
+const { EmbedBuilder } = require('discord.js');
 
 function logUsage(command) {
 	const usage = JSON.parse(fs.readFileSync('./usage.json', 'utf8'));
@@ -46,57 +48,61 @@ async function refreshConfig() {
 }
 
 async function getRedditPost(subreddit) {
-	await fetch(`https://www.reddit.com/r/${subreddit}/random/.json`, { method: 'Get' }) // random reddit post
-		.then(async response => {
-			const [list] = await response.json();
-			const [post] = list.data.children;
-			const type = post.data.post_hint;
+	const response = await fetch(`https://www.reddit.com/r/${subreddit}/random/.json`, { method: 'Get' }); // random reddit post
+	const [list] = await response.json();
+	const [post] = list.data.children;
+	let type = post.data.post_hint;
 
-			let title = post.data.title;
-			const permalink = post.data.permalink;
-			const url = `https://reddit.com${permalink}`;
-			const image = post.data.url;
-			const upvotes = post.data.ups;
-			const comments = post.data.num_comments;
-			const nsfw = post.data.over_18;
-			const description = post.data.selftext;
-			const author = `u/${post.data.author}`;
-			const posttime = post.data.created * 1000;
-			const footer = `👍 ${upvotes} 💬 ${comments} • r/${post.data.subreddit}`;
-			if (nsfw === true) {
-				title = `[NSFW] ${posttitle}`;
-			}
-			const redditembed = new EmbedBuilder()
-				.setTitle(title)
-				.setURL(url)
-				.setColor('Random')
-				.setFooter({ text: footer })
-				.setDescription(description)
-				.setTimestamp(posttime)
-				.setAuthor({ name: author, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` });
+	let title = post.data.title;
+	const permalink = post.data.permalink;
+	const url = `https://reddit.com${permalink}`;
+	const image = post.data.url;
+	const upvotes = post.data.ups;
+	const comments = post.data.num_comments;
+	const nsfw = post.data.over_18;
+	const description = post.data.selftext;
+	const author = `u/${post.data.author}`;
+	const posttime = post.data.created * 1000;
+	const footer = `👍 ${upvotes} 💬 ${comments} • r/${post.data.subreddit}`;
+	if (nsfw === true) {
+		title = `[NSFW] ${posttitle}`;
+	}
+	console.log(permalink);
+	if (post.data.is_gallery) return;
+	if (!type) type = 'text';
+	if (type !== 'text' && type !== 'image') return;
+	const redditembed = new EmbedBuilder()
+		.setTitle(title)
+		.setURL(url)
+		.setColor('Random')
+		.setFooter({ text: footer })
+		.setTimestamp(posttime)
+		.setAuthor({ name: author, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${author}` });
+	if (type === 'image') {
+		redditembed.setImage(image);
+	}
+	else if (type === 'text') {
+		redditembed.setDescription(description/*  ?? '(No description.)' */);
+	}
+	else {
+		return;
+	}
 
-			if (type !== 'image') {
-				redditembed.setDescription(description);
-			}
-			else {
-				redditembed.setImage(image);
-			}
-
-			const returnPost = {
-				title,
-				permalink,
-				url,
-				upvotes,
-				comments,
-				nsfw,
-				description,
-				author,
-				posttime,
-				footer,
-				redditembed,
-			};
-			return returnPost;
-		});
+	const returnPost = {
+		title,
+		permalink,
+		url,
+		upvotes,
+		comments,
+		nsfw,
+		description,
+		author,
+		posttime,
+		footer,
+		redditembed,
+		type,
+	};
+	return returnPost;
 }
 
 module.exports = { logUsage, makeid, refreshShortUrls, refreshConfig, getRedditPost };

@@ -1,9 +1,9 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
-const config = process.haroldConfig;
 
 module.exports = {
 	name: 'selectMenu',
 	async execute(interaction) {
+		const config = process.haroldConfig;
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()

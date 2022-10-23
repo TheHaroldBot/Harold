@@ -1,3 +1,5 @@
+// Credit to Monbrey#4502 on Discord for helping me out on a bit of processing
+
 const { PermissionFlagsBits, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 const { getRedditPost } = require('../functions');
@@ -51,20 +53,28 @@ module.exports = {
 		}
 		try {
 			let pass = false;
-			while (pass === false) {
-				const post = getRedditPost(subreddit);
-				if (post.nsfw === true && interaction.channel.nsfw !== true) {
-					pass = false;
+			let count = 0;
+			while (pass === false && count < 5) {
+				try {
+					const post = await getRedditPost(subreddit);
+					if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
+						pass = false;
+					}
+					else {
+						pass = true;
+						await interaction.reply({ embeds: [post.redditembed], components: [row] });
+					}
 				}
-				else {
-					pass = true;
-					await interaction.reply({ embeds: [post.redditembed], components: [row] });
+				catch (error) {
+					// nothing, just the post not existing.
 				}
+				count = count + 1;
 			}
+			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;
-			const returnError = { message: error.message, stack: error.stack, code: 404, report: false, myMessage: 'Error completing your request, did you spell the subreddit right?' };
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Error completing your request, we reported this error and will look in to it.' };
 			throw returnError;
 		}
 	},
