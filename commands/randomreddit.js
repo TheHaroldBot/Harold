@@ -1,5 +1,8 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+// Credit to Monbrey#4502 on Discord for helping me out on a bit of processing
+
+const { PermissionFlagsBits, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const fetch = require('node-fetch');
+const { getRedditPost } = require('../functions');
 
 module.exports = {
 	name: 'randomreddit', // command name
@@ -36,96 +39,42 @@ module.exports = {
 	},
 
 	async execute(interaction) { // inside here command stuff
+		const row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('Reroll')
+					.setStyle(ButtonStyle.Primary)
+					.setCustomId('redditreroll'), // remove if style is LINK
+			);
+
 		let subreddit = interaction.options.getString('subreddit');
 		if (!interaction.options.getString('subreddit')) {
 			subreddit = 'random';
 		}
-		else {
-			subreddit = interaction.options.getString('subreddit');
-		}
 		try {
-			await fetch(`https://www.reddit.com/r/${subreddit}/random/.json`, { method: 'Get' }) // random reddit post
-				.then(async response => {
-					const [list] = await response.json();
-					const [post] = list.data.children;
-					const type = post.data.post_hint;
-
-					if (type === 'hosted:video') return (console.log('Sorry, we can\'t handle videos right now, try again!'));
-					if (type !== 'image') {
-						let posttitle = post.data.title;
-						const permalink = post.data.permalink;
-						const posturl = `https://reddit.com${permalink}`;
-						const postupvotes = post.data.ups;
-						const postcomments = post.data.num_comments;
-						const nsfw = post.data.over_18;
-						const description = post.data.selftext;
-						const postauthor = `u/${post.data.author}`;
-						const posttime = post.data.created * 1000;
-						const footer = `👍 ${postupvotes} 💬 ${postcomments} • r/${post.data.subreddit}`;
-						if (nsfw === true && interaction.channel.nsfw !== true) {
-							interaction.reply({ content: 'Oops! thats a nsfw post, either try again, or set this channel to nsfw', ephemeral: true });
-							return;
-						}
-						if (nsfw === true) {
-							posttitle = `[NSFW] ${posttitle}`;
-						}
-						const redditembed = new EmbedBuilder()
-							.setTitle(posttitle)
-							.setURL(posturl)
-							.setColor('Random')
-							.setFooter({ text: footer })
-							.setDescription(description)
-							.setTimestamp(posttime)
-							.setAuthor({ name: postauthor, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` });
-
-						try {
-							await interaction.reply({ embeds: [redditembed] });
-						}
-						catch (error) {
-							const returnError = { message: error.message, stack: error.stack, code: 413, report: false, myMessage: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>` };
-							throw returnError;
-						}
+			let pass = false;
+			let count = 0;
+			while (pass === false && count < 5) {
+				try {
+					const post = await getRedditPost(subreddit);
+					if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
+						pass = false;
 					}
 					else {
-						const permalink = post.data.permalink;
-						const postUrl = `https://reddit.com${permalink}`;
-						const postImage = post.data.url;
-						let postTitle = post.data.title;
-						const postUpvotes = post.data.ups;
-						const postNumComments = post.data.num_comments;
-						const nsfw = post.data.over_18;
-						const postauthor = `u/${post.data.author}`;
-						const posttime = post.data.created * 1000;
-						const footer = `👍 ${postUpvotes} 💬 ${postNumComments} • r/${post.data.subreddit}`;
-						if (nsfw === true && interaction.channel.nsfw !== true) {
-							interaction.reply({ content: 'Oops, that one is nsfw, either try again, or set this channel to nsfw', ephemeral: true });
-							return;
-						}
-						if (nsfw === true) {
-							postTitle = `[NSFW] ${postTitle}`;
-						}
-						const redditembed = new EmbedBuilder()
-							.setTitle(`${postTitle}`)
-							.setURL(`${postUrl}`)
-							.setColor('Random')
-							.setImage(postImage)
-							.setFooter({ text: footer })
-							.setTimestamp(posttime)
-							.setAuthor({ name: postauthor, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` });
-
-						try {
-							await interaction.reply({ embeds: [redditembed] });
-						}
-						catch (error) {
-							const returnError = { message: error.message, stack: error.stack, code: 413, report: false, myMessage: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>` };
-							throw returnError;
-						}
+						pass = true;
+						await interaction.reply({ embeds: [post.redditembed], components: [row] });
 					}
-				});
+				}
+				catch (error) {
+					// nothing, just the post not existing.
+				}
+				count = count + 1;
+			}
+			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;
-			const returnError = { message: error.message, stack: error.stack, code: 404, report: false, myMessage: 'Error completing your request, did you spell the subreddit right?' };
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Error completing your request, we reported this error and will look in to it.' };
 			throw returnError;
 		}
 	},
