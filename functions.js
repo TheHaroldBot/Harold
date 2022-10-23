@@ -67,7 +67,6 @@ async function getRedditPost(subreddit) {
 	if (nsfw === true) {
 		title = `[NSFW] ${posttitle}`;
 	}
-	console.log(permalink);
 	if (post.data.is_gallery) return;
 	if (!type) type = 'text';
 	if (type !== 'text' && type !== 'image') return;
