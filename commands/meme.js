@@ -1,5 +1,5 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
-const fetch = require('node-fetch');
+const { PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { getRedditPost } = require('../functions');
 
 module.exports = {
 	name: 'meme', // command name
@@ -13,45 +13,15 @@ module.exports = {
 		.setDescription('Gets a random meme from r/dankmemes'),
 
 	async execute(interaction) { // inside here command stuff
-		await fetch('https://www.reddit.com/r/dankmemes/random/.json', { method: 'Get' }) // get random meme from r/dankmemes
-			.then(async response => {
-				const [list] = await response.json();
-				const [post] = list.data.children;
-
-				const permalink = post.data.permalink;
-				const memeUrl = `https://reddit.com${permalink}`;
-				const memeImage = post.data.url;
-				let memeTitle = post.data.title;
-				const memeUpvotes = post.data.ups;
-				const memeNumComments = post.data.num_comments;
-				const posttime = post.data.created * 1000;
-				const nsfw = post.data.over_18;
-				const postauthor = `u/${post.data.author}`;
-				if (nsfw === true && interaction.channel.nsfw !== true) {
-					interaction.reply({ content: 'Oops, that one is nsfw, either try again, or set this channel to nsfw', ephemeral: true });
-					return;
-				}
-				if (nsfw === true) {
-					memeTitle = `[NSFW] ${memeTitle}`;
-				}
-
-				const memeembed = new EmbedBuilder()
-					.setTitle(`${memeTitle}`)
-					.setURL(`${memeUrl}`)
-					.setColor('Random')
-					.setImage(memeImage)
-					.setAuthor({ name: postauthor, iconUrl: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${postauthor}` })
-					.setFooter({ text: `👍 ${memeUpvotes} 💬 ${memeNumComments} • r/${post.data.subreddit}` })
-					.setTimestamp(posttime);
-
-				interaction.reply({ embeds: [memeembed] }).catch(err => {
-					const returnError = { message: err.message, stack: err.stack, code: 500, report: false, myMessage: `Error sending embed, something might be too long, check out the post yourself here: <https://reddit.com${post.data.permalink}>` };
-					throw returnError;
-				});
-			})
-			.catch(err => {
-				const returnError = { message: err.message, stack: err.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-				throw returnError;
-			});
+		const row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('Reroll')
+					.setStyle(ButtonStyle.Primary)
+					.setCustomId('redditreroll'), // remove if style is LINK
+			);
+		const post = await getRedditPost('dankmemes');
+		console.log(post.redditembed);
+		await interaction.reply({ embeds: [post.redditembed], components: [row] });
 	},
 };
