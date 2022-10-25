@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -21,6 +21,13 @@ module.exports = {
 				.setDescription('The comic number to get, or \'latest\' for the latest comic.')),
 
 	async execute(interaction) { // inside here command stuff
+		const row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('Reroll')
+					.setStyle(ButtonStyle.Primary)
+					.setCustomId('xkcdreroll'), // remove if style is LINK
+			);
 		let maxComic = 0;
 		try {
 			await fetch('https://xkcd.com/info.0.json', { method: 'Get' })
@@ -34,7 +41,8 @@ module.exports = {
 			throw returnError;
 		}
 		if (!interaction.options.getString('comicnumber')) {
-			const targetComic = Math.floor(Math.random() * maxComic + 1);
+			let targetComic = Math.floor(Math.random() * maxComic + 1);
+			if (targetComic === 404) targetComic++;
 			try {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
@@ -46,7 +54,7 @@ module.exports = {
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
-							interaction.reply({ embeds: [xkcdEmbed] });
+							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
 						}
 						catch (error) {
 							console.log(error);
@@ -70,6 +78,7 @@ module.exports = {
 			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
 			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
+			if (targetComic === 404) return (interaction.reply({ content: 'Not found.' }));
 			try {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
 					.then(async response => {
@@ -81,7 +90,7 @@ module.exports = {
 							.setImage(response.img)
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
-							interaction.reply({ embeds: [xkcdEmbed] });
+							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
 						}
 						catch (error) {
 							console.log(error);
