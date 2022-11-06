@@ -28,7 +28,7 @@ module.exports = {
 				}
 				count = count + 1;
 			}
-			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
+			if (count >= 5) await interaction.message.edit({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;
