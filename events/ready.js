@@ -6,7 +6,7 @@ module.exports = {
 	once: true, // remove if false
 	async execute(client) { // stuff to do
 		console.info(`Ready at: ${client.readyAt}`);
-		console.info('Harold Bot Copyright (C) 2022  John Gooden');
+		console.info('Harold Bot Copyright (C) 2021-Present  John Gooden');
 		console.info('Copyright info: https://github.com/TheHaroldBot/Harold/blob/main/LICENSE\n\n');
 		await fetch('https://api.github.com/repos/TheHaroldBot/Harold/commits', { method: 'Get' })
 			.then(async response => {
