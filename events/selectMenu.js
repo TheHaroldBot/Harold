@@ -31,7 +31,7 @@ module.exports = {
 
 		try {
 			console.log(`Executing select menu '${selectMenu.customId}' on behalf of ${interaction.user.id}`);
-			logUsage(selectMenu.customId)
+			logUsage(selectMenu)
 			await selectMenu.execute(interaction);
 		}
 		catch (error) {
