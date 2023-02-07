@@ -1,4 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
+const { logUsage } = require('../functions.js');
 
 module.exports = {
 	name: 'selectMenu',
@@ -30,6 +31,7 @@ module.exports = {
 
 		try {
 			console.log(`Executing select menu '${selectMenu.customId}' on behalf of ${interaction.user.id}`);
+			logUsage(selectMenu.customId)
 			await selectMenu.execute(interaction);
 		}
 		catch (error) {

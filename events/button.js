@@ -1,4 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
+const { logUsage } = require('../functions.js');
 
 module.exports = {
 	name: 'button',
@@ -30,6 +31,7 @@ module.exports = {
 
 		try {
 			console.log(`Executing button '${button.customId}' on behalf of ${interaction.user.id}`);
+			logUsage(button.customId)
 			await button.execute(interaction);
 		}
 		catch (error) {

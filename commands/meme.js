@@ -21,7 +21,6 @@ module.exports = {
 					.setCustomId('redditreroll'), // remove if style is LINK
 			);
 		const post = await getRedditPost('dankmemes');
-		console.log(post.redditembed);
 		await interaction.reply({ embeds: [post.redditembed], components: [row] });
 	},
 };
