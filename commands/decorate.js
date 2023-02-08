@@ -22,7 +22,7 @@ module.exports = {
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new SelectMenuBuilder()
-					.setCustomId('decorate')
+					.setCustomId('decoratemenu')
 					.setPlaceholder('Pick a theme!')
 					.addOptions([
 						{
@@ -68,7 +68,7 @@ module.exports = {
 						{
 							label: 'Red/Green',
 							value: 'redgreen',
-							description: '🍉 🥒 A theme surrounding red & green emojis'
+							description: '🍉 🥒 A theme surrounding red & green emojis',
 						},
 						{
 							label: 'Clear',

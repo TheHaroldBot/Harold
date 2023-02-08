@@ -31,7 +31,7 @@ module.exports = {
 
 		try {
 			console.log(`Executing button '${button.customId}' on behalf of ${interaction.user.id}`);
-			logUsage(button)
+			logUsage({ name: button.customId });
 			await button.execute(interaction);
 		}
 		catch (error) {
