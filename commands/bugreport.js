@@ -36,7 +36,7 @@ module.exports = {
 			]);
 		}
 		bugreportembed.addFields([
-			{ name: 'Contact method:', value: 'You can send a friend request to the sender, or talk through harold with `/message`.' },
+			{ name: 'Contact method:', value: 'You can send a friend request to the sender.' },
 		]);
 		const bugreportRow = new ActionRowBuilder()
 			.addComponents(
@@ -50,7 +50,7 @@ module.exports = {
 		try {
 			await supportchannel.send({ embeds: [bugreportembed], components: [bugreportRow] });
 			// await bugReportWebhook.send({ embeds: [bugreportembed] });
-			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more. As an alternantive, an owner may talk through Harold.');
+			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more.');
 		}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500 };
