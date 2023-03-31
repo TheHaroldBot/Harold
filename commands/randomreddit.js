@@ -52,7 +52,7 @@ module.exports = {
 			subreddit = 'random';
 		}
 		try {
-			let pass = false;
+/* 			let pass = false;
 			let count = 0;
 			while (pass === false && count < 5) {
 				try {
@@ -70,7 +70,10 @@ module.exports = {
 				}
 				count = count + 1;
 			}
-			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
+			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true }); */
+			const redditPosts = await getRedditPost(subreddit, interaction.channel.nsfw);
+
+			await interaction.reply({ embeds: [redditPosts[0].redditembed], components: [row] });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;
