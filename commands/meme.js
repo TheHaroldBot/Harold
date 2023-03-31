@@ -13,6 +13,7 @@ module.exports = {
 		.setDescription('Gets a random meme from r/dankmemes'),
 
 	async execute(interaction) { // inside here command stuff
+		interaction.deferReply();
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -20,7 +21,24 @@ module.exports = {
 					.setStyle(ButtonStyle.Primary)
 					.setCustomId('redditreroll'), // remove if style is LINK
 			);
-		const post = await getRedditPost('dankmemes');
-		await interaction.reply({ embeds: [post.redditembed], components: [row] });
+		let pass = false;
+		let count = 0;
+		while (pass === false && count < 5) {
+			try {
+				const post = await getRedditPost('dankmemes');
+				if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
+					pass = false;
+				}
+				else {
+					pass = true;
+					await interaction.editReply({ embeds: [post.redditembed], components: [row] });
+				}
+			}
+			catch (error) {
+				// nothing, just the post not existing.
+			}
+			count = count + 1;
+		}
+		if (count >= 5) await interaction.editReply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
 	},
 };
