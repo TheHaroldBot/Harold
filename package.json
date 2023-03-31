@@ -19,6 +19,7 @@
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "remove-from-array": "^0.1.0",
+    "request": "^2.88.2",
     "tall": "^5.0.0",
     "topgg-autoposter": "^2.0.1",
     "valid-url": "^1.0.9",
