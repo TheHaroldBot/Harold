@@ -13,7 +13,7 @@ module.exports = {
 			if (interaction.isButton()) {
 				await button.execute(interaction);
 			}
-			else if (interaction.isSelectMenu()) {
+			else if (interaction.isStringSelectMenu()) {
 				await selectMenu.execute(interaction);
 			}
 			else if (interaction.type === InteractionType.ApplicationCommand) {

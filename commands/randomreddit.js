@@ -39,6 +39,7 @@ module.exports = {
 	},
 
 	async execute(interaction) { // inside here command stuff
+		interaction.deferReply();
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -52,7 +53,7 @@ module.exports = {
 			subreddit = 'random';
 		}
 		try {
-/* 			let pass = false;
+			let pass = false;
 			let count = 0;
 			while (pass === false && count < 5) {
 				try {
@@ -62,7 +63,7 @@ module.exports = {
 					}
 					else {
 						pass = true;
-						await interaction.reply({ embeds: [post.redditembed], components: [row] });
+						await interaction.editReply({ embeds: [post.redditembed], components: [row] });
 					}
 				}
 				catch (error) {
@@ -70,10 +71,7 @@ module.exports = {
 				}
 				count = count + 1;
 			}
-			if (count >= 5) await interaction.reply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true }); */
-			const redditPosts = await getRedditPost(subreddit, interaction.channel.nsfw);
-
-			await interaction.reply({ embeds: [redditPosts[0].redditembed], components: [row] });
+			if (count >= 5) await interaction.editReply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;
