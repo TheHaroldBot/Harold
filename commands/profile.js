@@ -29,8 +29,7 @@ module.exports = {
 			.setColor('Random')
 			.setTitle('Profile info')
 			.setDescription(`
-				**Name:** ${pfptarget.tag}
-				**Discriminator:** ${pfptarget.discriminator}
+				**Name:** ${pfptarget.username}
 				**ID:** ${pfptarget.id}
 				**Bot:** ${pfptarget.bot}
 				**System:** ${pfptarget.system}
@@ -41,7 +40,7 @@ module.exports = {
 				**Avatar hash:** ${pfptarget.avatar}
 				**Banner hash:** ${pfptarget.banner}
 				**Avatar URL:** [Link↗](${pfptarget.displayAvatarURL()})
-				**Banner URL:** [Link↗](${pfptarget.bannerURL()})
+				**Banner URL:** [Link↗](${pfptarget.bannerURL() === null ? 'null' : pfptarget.bannerURL()})
 			`)
 			.setThumbnail(pfptarget.avatarURL({ dynamic: true, size: 512 }) || 'https://i.imgflip.com/6e4j42.jpg')
 			.setTimestamp();
@@ -52,6 +51,7 @@ module.exports = {
 				{ name: 'Server-specific information', value: `
 					**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)
 					**Display name:** ${guildMember.displayName}
+					**Nickname:** ${guildMember.nickname}
 					**Display color:** ${guildMember.displayHexColor}
 					**Pending membership:** ${guildMember.pending}
 					**Kickable:** ${guildMember.kickable}
