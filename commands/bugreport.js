@@ -21,7 +21,7 @@ module.exports = {
 		const bugreportembed = new EmbedBuilder()
 			.setTitle('New Message!')
 			.addFields([
-				{ name: 'Info', value: `From ${interaction.user.tag}` },
+				{ name: 'Info', value: `From ${interaction.user.username}` },
 				{ name: 'Description', value: interaction.options.getString('message') },
 			])
 			.setColor('Yellow');

@@ -51,7 +51,6 @@ module.exports = {
 				{ name: 'Server-specific information', value: `
 					**Joined on: ** <t:${joinedGuild}:D> at <t:${joinedGuild}:t> (Translated into your time zone)
 					**Display name:** ${guildMember.displayName}
-					**Nickname:** ${guildMember.nickname}
 					**Display color:** ${guildMember.displayHexColor}
 					**Pending membership:** ${guildMember.pending}
 					**Kickable:** ${guildMember.kickable}

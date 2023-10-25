@@ -37,6 +37,21 @@ module.exports = {
 			option.setName('reason')
 				.setDescription('Why they are blocked')
 				.setRequired(true),
+		)
+		.addStringOption(option =>
+			option.setName('Notify')
+				.setDescription('DM them with the reason, or notify of being unblocked. Default false')
+				.setRequired(false)
+				.addChoices(
+					{
+						name: 'Yes',
+						value: true,
+					},
+					{
+						name: 'No',
+						value: false,
+					},
+				),
 		),
 
 	execute(interaction) { // inside here command stuff
@@ -45,6 +60,7 @@ module.exports = {
 			if (data.blocked[interaction.options.getString('userid')]) return (interaction.reply('That person is already blocked.'));
 			process.haroldConfig.blocked[interaction.options.getString('userid')] = interaction.options.getString('reason');
 			fs.writeFileSync('././config.json', JSON.stringify(process.haroldConfig, null, 4));
+			// add dm code
 			interaction.reply(`Successfully blocked ${interaction.options.getString('userid')}.`);
 		}
 		else if (interaction.options.getString('type') === 'remove') {
@@ -52,6 +68,7 @@ module.exports = {
 			if (!data.blocked[interaction.options.getString('userid')]) return (interaction.reply('That person is not blocked.'));
 			delete process.haroldConfig.blocked[interaction.options.getString('userid')];
 			fs.writeFileSync('././config.json', JSON.stringify(process.haroldConfig, null, 4));
+			// add dm code
 			interaction.reply(`Successfully unblocked ${interaction.options.getString('userid')}.`);
 		}
 	},
