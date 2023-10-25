@@ -37,22 +37,12 @@ module.exports = {
 			option.setName('reason')
 				.setDescription('Why they are blocked')
 				.setRequired(true),
-		)
-		.addStringOption(option =>
-			option.setName('Notify')
-				.setDescription('DM them with the reason, or notify of being unblocked. Default false')
-				.setRequired(false)
-				.addChoices(
-					{
-						name: 'Yes',
-						value: true,
-					},
-					{
-						name: 'No',
-						value: false,
-					},
-				),
 		),
+	/* .addBooleanOption(option =>
+			option.setName('notify')
+				.setDescription('DM them with the reason, or notify of being unblocked. Default false')
+				.setRequired(true),
+		) */
 
 	execute(interaction) { // inside here command stuff
 		if (interaction.options.getString('type') === 'add') {

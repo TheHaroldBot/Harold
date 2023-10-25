@@ -12,7 +12,7 @@ module.exports = {
 			interaction.reply({ content: 'You have been blocked by the bot! As the bot owner, this is an issue, go to the config.json file to remove yourself.', ephemeral: true });
 			return;
 		}
-		if (config.blocked[interaction.user.id]) return;
+		if (config.blocked[interaction.user.id]) return interaction.reply({ content: `Whoops! You got blocked! Here's why:\n"${config.blocked[interaction.user.id]}"\nVisit #support in our Discord server and make a ticket if you think this is a mistake, or if you want to appeal.`, ephemeral: true });
 
 		const command = interaction.client.commands.get(interaction.commandName);
 		if (!command) return (interaction.reply('Command not found'));
