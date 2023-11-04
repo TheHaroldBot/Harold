@@ -21,7 +21,7 @@
 		"prefix": "commandFile",
 		"description": "Template for a new command file.",
 		"body": [
-			"const { SlashCommandBuilder, PermissionFlagsBits } = require('@discordjs/builders');",
+			"const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');",
 			"",
 			"module.exports = {",
 			"\tname: '$1', // command name",

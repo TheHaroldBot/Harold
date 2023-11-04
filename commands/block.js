@@ -32,7 +32,9 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('userid')
 				.setDescription('The user ID to block or unblock.')
-				.setRequired(true))
+				.setRequired(true)
+				.setMinLength(17)
+				.setMaxLength(18))
 		.addStringOption(option =>
 			option.setName('reason')
 				.setDescription('Why they are blocked')

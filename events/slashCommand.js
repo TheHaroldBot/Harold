@@ -71,7 +71,7 @@ module.exports = {
 				.setColor('#ff0000')
 				.setDescription(`An error occured while executing the command ${command.name}:\n${error?.myMessage ?? 'Error message undefined'}`)
 				.setImage('https://http.cat/' + (error?.code ?? 500));
-			console.error(`Error executing ${command.name}:\n${error}`);
+			console.error(`Error executing ${command.name}:\n${error?.stack ?? error}`);
 			if (config.ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 			try {
 				await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });

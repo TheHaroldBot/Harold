@@ -1,11 +1,10 @@
-/* eslint-disable no-undef */
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { EmbedBuilder } = require('discord.js');
 
 /**
 	* Logs a command usage to the usage file.
-	* @param { JSON } command - The length of the generated string. If no command can be provided, use `{ name: "name" }`
+	* @param { JSON } command - If no command can be provided, use `{ name: "name" }`
 */
 function logUsage(command) {
 	const usage = JSON.parse(fs.readFileSync('./usage.json', 'utf8'));
@@ -85,7 +84,7 @@ async function getRedditPost(subreddit, allowNSFW) {
 	const posttime = post.data.created * 1000;
 	const footer = `👍 ${upvotes} 💬 ${comments} • r/${post.data.subreddit}`;
 	if (nsfw === true) {
-		title = `[NSFW] ${posttitle}`;
+		title = `[NSFW] ${title}`;
 	}
 	if (post.data.is_gallery) return;
 	if (!type) type = 'text';
