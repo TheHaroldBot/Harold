@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('discord.js');
+const { client } = require ('../client.js');
 
 module.exports = {
 	name: 'eval', // command name

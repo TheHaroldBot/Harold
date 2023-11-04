@@ -62,7 +62,7 @@ async function refreshConfig() {
 /**
 	* Gets a reddit post
 	* @param { string } subreddit - The subreddit to get, defaults to random.
-	* @param { boolean } allowNSFW - Whether to allow NSFW or not, defaults to no.
+	* @param { boolean } allowNSFW - Whether to allow NSFW or not, defaults to false.
 	* @returns { Array } Returns an array of posts and prebuilt embeds.
 */
 async function getRedditPost(subreddit, allowNSFW) {

@@ -57,8 +57,9 @@ module.exports = {
 			let count = 0;
 			while (pass === false && count < 5) {
 				try {
-					const post = await getRedditPost(subreddit);
-					if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
+					const post = await getRedditPost(subreddit, interaction.channel.nsfw);
+					console.log(`${post.nsfw} + ${interaction.channel.nsfw}\n${JSON.stringify(post)}`);
+					if (!post) {
 						pass = false;
 					}
 					else {
