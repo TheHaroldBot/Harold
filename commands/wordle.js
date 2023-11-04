@@ -8,7 +8,7 @@ module.exports = {
 	usage: '<green letters or *. EX: **a** or *b**a. Autocomplete will tell you if it\'s invalid. Use ***** if you have none>, <yellow letters>, <excluded letters>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [], // permissions required for bot
-	ownerOnly: true, // need to be the owner? delete line if no
+	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
 	data: new SlashCommandBuilder()
 		.setName('wordle')
