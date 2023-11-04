@@ -3,9 +3,9 @@ const { words } = require('../resources/wordleWords.json');
 
 module.exports = {
 	name: 'wordle', // command name
-	description: 'Generates a list of possible words solutions', // command description
+	description: 'Generates a list of possible wordle solutions', // command description
 	args: true, // needs arguments?
-	usage: '<green letters or *. EX: **a** or *b**a. Autocomplete will tell you if it\'s invalid. Use ***** if you have none>, <yellow letters>, <excluded letters>', // usage instructions w/o command name and prefix
+	usage: '<green letters or \\*. EX: \\*\\*a\\*\\* or \\*b\\*\\*a. Autocomplete will tell you if it\'s invalid. Use \\*\\*\\*\\*\\* if you have none>, <yellow letters>, <excluded letters>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [], // permissions required for bot
 	ownerOnly: false, // need to be the owner? delete line if no

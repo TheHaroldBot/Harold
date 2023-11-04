@@ -75,7 +75,7 @@ module.exports = {
 			.setTitle(`Name: ${command.name}`)
 			.setDescription(data.join('\n'), { split: true })
 			.addFields([
-				{ name: 'Join our support server!', value: '[Join here: https://discord.gg/xnY4SZV2Cd](https://discord.gg/xnY4SZV2Cd)' },
+				{ name: 'Join our support server!', value: 'Join here: https://discord.gg/xnY4SZV2Cd' },
 			])
 			.setColor('Random');
 		if (command.ownerOnly) {

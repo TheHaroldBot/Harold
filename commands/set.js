@@ -77,7 +77,7 @@ module.exports = {
 				.addStringOption(option =>
 					option.setName('url')
 						.setRequired(false)
-						.setDescription('The activity url.'),
+						.setDescription('The activity url. Twitch/YouTube only. For streaming activity only.'),
 				),
 		)
 		.addSubcommand(subcommand =>
