@@ -13,7 +13,7 @@ module.exports = {
 		.setDescription('Gets a random meme from r/dankmemes'),
 
 	async execute(interaction) { // inside here command stuff
-		interaction.deferReply();
+		await interaction.deferReply();
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
