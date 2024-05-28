@@ -14,7 +14,7 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		const yomamasettings = { method: 'Get' };
-		const yomamaurl = 'https://api.yomomma.info/'; // yo mama api
+		const yomamaurl = 'https://www.yomama-jokes.com/api/v1/jokes/random/'; // yo mama api
 		try {
 			await fetch(yomamaurl, yomamasettings)
 				.then(res => res.json())
