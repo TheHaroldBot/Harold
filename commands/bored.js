@@ -14,10 +14,13 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			const boredurl = 'http://www.boredapi.com/api/activity/';
+			const boredurl = 'https://bored-api.appbrewery.com/random';
 			const boredsettings = { method: 'Get' };
 			await fetch(boredurl, boredsettings) // im bored
 				.then(async response => {
+					if (response.status !== 200) {
+						throw { message: 'http error ' + response.status, code: response.status, report: false, myMessage: 'Uh-oh, looks like this isn\'t available right now, sorry about that!' };
+					}
 					const data = await response.json();
 					const boredembed = new EmbedBuilder()
 						.setTitle('Bored? Try this:')
