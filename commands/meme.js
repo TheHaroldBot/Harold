@@ -3,14 +3,14 @@ const { getRedditPost } = require('../functions');
 
 module.exports = {
 	name: 'meme', // command name
-	description: 'Gets a random meme from r/dankmemes', // command description
+	description: 'Gets a random meme from r/memes', // command description
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('meme')
-		.setDescription('Gets a random meme from r/dankmemes'),
+		.setDescription('Gets a random meme from r/memes'),
 
 	async execute(interaction) { // inside here command stuff
 		await interaction.deferReply();
@@ -25,7 +25,7 @@ module.exports = {
 		let count = 0;
 		while (pass === false && count < 5) {
 			try {
-				const post = await getRedditPost('dankmemes');
+				const post = await getRedditPost('memes');
 				if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
 					pass = false;
 				}
