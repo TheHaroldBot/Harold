@@ -1,4 +1,5 @@
 // Credit to Monbrey#4502 on Discord for helping me out on a bit of processing
+//TODO: Disable due to reddit api changes.
 
 const { PermissionFlagsBits, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const fetch = require('node-fetch');
@@ -16,7 +17,11 @@ module.exports = {
 		.setDescription('Gets random post from a specified subreddit.')
 		.addStringOption(option =>
 			option.setName('subreddit')
-				.setRequired(false)
+				/*
+				 * This will remain required until I can find
+				 * a better way to get a random subreddit.
+				*/
+				.setRequired(true)
 				.setAutocomplete(true)
 				.setDescription('The subreddit to get a post from.')),
 	autoComplete: async (interaction) => {
@@ -68,7 +73,7 @@ module.exports = {
 					}
 				}
 				catch (error) {
-					// nothing, just the post not existing.
+					console.log(error);
 				}
 				count = count + 1;
 			}

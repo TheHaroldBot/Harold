@@ -1,6 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { EmbedBuilder } = require('discord.js');
+const { response } = require('express');
 
 /**
 	* Logs a command usage to the usage file.
@@ -66,10 +67,16 @@ async function refreshConfig() {
 	* @returns { Array } Returns an array of posts and prebuilt embeds.
 */
 async function getRedditPost(subreddit, allowNSFW) {
-	const response = await fetch(`https://www.reddit.com/r/${subreddit ?? 'random'}/random/.json`, { method: 'Get' }); // random reddit post
-	const [list] = await response.json() ?? [];
-	const posts = list.data.children; // reddit returns 27 of these, do [post, post2] etc... // hmm maybe they don't
-	const post = posts[0];
+	console.log("Called!");
+	let responsejson = null;
+	const response = await fetch(`https://www.reddit.com/r/${subreddit ?? 'random'}.json`, { method: 'Get' }) // random reddit post
+		.then(response => response.json())
+		.then(json => responsejson = json)
+		.catch(error => console.error('Error:', error));
+	const posts = responsejson.data.children;
+	console.log(posts);
+	const post = posts[Math.floor(Math.random() * posts.length)];
+	console.log(post);
 	let type = post.data.post_hint;
 
 	let title = post.data.title;
@@ -86,16 +93,16 @@ async function getRedditPost(subreddit, allowNSFW) {
 	if (nsfw === true) {
 		title = `[NSFW] ${title}`;
 	}
-	if (post.data.is_gallery) return;
+	if (post.data.is_gallery) return "Gallery post rejected.";
 	if (!type) type = 'text';
-	if (type !== 'text' && type !== 'image') return;
+	if (type !== 'text' && type !== 'image') return "Unsupported post type.";
 	const redditembed = new EmbedBuilder()
 		.setTitle(title)
 		.setURL(url)
 		.setColor('Random')
 		.setFooter({ text: footer })
 		.setTimestamp(posttime)
-		.setAuthor({ name: author, iconURL: 'https://www.redditinc.com/assets/images/site/reddit-logo.png', url: `https://reddit.com/${author}` });
+		.setAuthor({ name: author, iconURL: `https://www.redditstatic.com/avatars/defaults/v2/avatar_default_${Math.floor(Math.random() * 7)}.png`, url: `https://reddit.com/${author}` });
 	if (type === 'image') {
 		redditembed.setImage(image);
 	}
@@ -120,7 +127,7 @@ async function getRedditPost(subreddit, allowNSFW) {
 		posttime,
 		footer,
 		redditembed,
-		type,
+		type
 	};
 	return returnPost;
 }
