@@ -4,4 +4,4 @@ supersecretstuffthattotallyexistsandisntjusthereforshow.json
 usage.json
 shorturls.json
 /web/ssl/*
-node_modules
+/node_modules/*
