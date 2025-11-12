@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
-const { token, topggToken, webPort, beta } = require('./config.json');
+const { token, topggToken, webPort, beta, ssl_enabled } = require('./config.json');
 const { refreshShortUrls, refreshConfig } = require('./functions.js');
 const { AutoPoster } = require('topgg-autoposter');
 if (!beta) {
@@ -36,6 +36,7 @@ if (!beta) {
 	console.log('Started top.gg autoposter.');
 }
 const https = require('https');
+const http = require('http');
 const express = require('express');
 const routes = require('./routes.js');
 const rateLimit = require('express-rate-limit');
@@ -47,13 +48,21 @@ const limiter = rateLimit({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
-const options = {
-	key: fs.readFileSync('./web/ssl/privatekey.pem'),
-	cert: fs.readFileSync('./web/ssl/certificate.pem'),
-};
-https.createServer(options, app).listen(PORT, function() {
-	console.log('Express server listening on port ' + PORT);
-});
+
+if (!ssl_enabled) {
+	const options = {
+		key: fs.readFileSync('./web/ssl/privatekey.pem'),
+		cert: fs.readFileSync('./web/ssl/certificate.pem'),
+	};
+	https.createServer(options, app).listen(PORT, function() {
+		console.log('Express server listening on port ' + PORT);
+	});
+} else {
+	http.createServer({}, app).listen(PORT, function() {
+		console.log('Express server listening on port ' + PORT);
+	});
+}
+
 
 client.commands = new Collection();
 client.cooldowns = new Collection();

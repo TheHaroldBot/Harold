@@ -15,5 +15,6 @@
 	"topggAuth": "xxxxxxxxxxxxxxxxxx",
 	"topggToken": "xxxxxxxxxxxxxxxxxx",
 	"webPort": 80,
-	"beta": false
+	"beta": false,
+	"ssl_enabled": false
 }
