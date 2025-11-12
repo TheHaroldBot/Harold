@@ -50,7 +50,7 @@ module.exports = {
 		try {
 			await supportchannel.send({ embeds: [bugreportembed], components: [bugreportRow] });
 			// await bugReportWebhook.send({ embeds: [bugreportembed] });
-			await interaction.reply('Sent! If you receive a friend request from one of the owners, they might want to talk more.');
+			await interaction.reply('Sent! We shared your username with the devs. If you receive a friend request from one of the developers, they might want to talk more.');
 		}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500 };

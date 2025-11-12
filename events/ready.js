@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 
 module.exports = {
-	name: 'ready', // name, duh
+	name: 'clientReady', // name, duh
 	once: true, // remove if false
 	async execute(client) { // stuff to do
 		console.info(`Ready at: ${client.readyAt}`);
