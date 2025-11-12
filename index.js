@@ -49,7 +49,7 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-if (!ssl_enabled) {
+if (ssl_enabled) {
 	const options = {
 		key: fs.readFileSync('./web/ssl/privatekey.pem'),
 		cert: fs.readFileSync('./web/ssl/certificate.pem'),
