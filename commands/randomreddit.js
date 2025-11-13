@@ -28,8 +28,8 @@ module.exports = {
 		const toRespond = [];
 		if (!currentValue) return toRespond;
 		await fetch(`https://www.reddit.com/subreddits/search.json?q=${currentValue}&include_over_18=on`, { method: 'Get' })
-			.then(async response => {
-				const list = await response.json();
+			.then(response => response.json())
+			.then(async list => {
 				const subreddits = list.data.children;
 				subreddits.forEach(subreddit => {
 					if (subreddit.data.over18 === true && interaction.channel.nsfw === false) return;

@@ -31,71 +31,50 @@ module.exports = {
 		let maxComic = 0;
 		try {
 			await fetch('https://xkcd.com/info.0.json', { method: 'Get' })
-				.then(async response => {
-					const body = await response.json();
-					maxComic = body.num;
+				.then(response => response.json())
+				.then(response => {
+					maxComic = response.num;
 				});
 		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}
+
+		let targetComic = null;
 		if (!interaction.options.getString('comicnumber')) {
-			let targetComic = Math.floor(Math.random() * maxComic + 1);
+			targetComic = Math.floor(Math.random() * maxComic + 1);
 			if (targetComic === 404) targetComic++;
-			try {
-				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
-					.then(async response => {
-						response = await response.json();
-						const xkcdEmbed = new EmbedBuilder()
-							.setTitle(response.title)
-							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('Random')
-							.setImage(response.img)
-							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
-						try {
-							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
-						} catch (error) {
-							console.log(error);
-							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
-						}
-					});
-			} catch (error) {
-				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-				throw returnError;
-			}
+		} else if (interaction.options.getString('comicnumber') === 'latest') {
+			targetComic = maxComic;
 		} else {
-			let targetComic = null;
-			if (interaction.options.getString('comicnumber') === 'latest') {
-				targetComic = maxComic;
-			} else {
-				targetComic = parseInt(interaction.options.getString('comicnumber'));
-			}
-			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
-			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
-			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', flags: MessageFlags.Ephemeral }));
-			if (targetComic === 404) return (interaction.reply({ content: 'Not found.' }));
-			try {
-				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
-					.then(async response => {
-						response = await response.json();
-						const xkcdEmbed = new EmbedBuilder()
-							.setTitle(response.title)
-							.setURL(`https://xkcd.com/${targetComic}`)
-							.setColor('Random')
-							.setImage(response.img)
-							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
-						try {
-							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
-						} catch (error) {
-							console.log(error);
-							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
-						}
-					});
-			} catch (error) {
-				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-				throw returnError;
-			}
+			targetComic = parseInt(interaction.options.getString('comicnumber'));
 		}
 
+		if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
+		if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
+		if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', flags: MessageFlags.Ephemeral }));
+		if (targetComic === 404) return (interaction.reply({ content: 'Not found.' }));
+
+		try {
+			await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
+				.then(response => response.json())
+				.then(async response => {
+					const xkcdEmbed = new EmbedBuilder()
+						.setTitle(response.title)
+						.setURL(`https://xkcd.com/${targetComic}`)
+						.setColor('Random')
+						.setImage(response.img)
+						.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
+					try {
+						interaction.reply({ embeds: [xkcdEmbed], components: [row] });
+					} catch (error) {
+						console.log(error);
+						interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
+					}
+				});
+		} catch (error) {
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
+		}
 	},
 };

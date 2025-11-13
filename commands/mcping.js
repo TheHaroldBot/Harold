@@ -79,8 +79,8 @@ module.exports = {
 
 		} else if (type == 'bedrock') {
 			await fetch(`https://api.mcstatus.io/v2/status/bedrock/${ip}:${port}`, { method: 'Get' })
-				.then((res) => res.json())
-				.then((res) => {
+				.then(res => res.json())
+				.then(res => {
 					if (res.online) {
 						mcpingembed = new EmbedBuilder()
 							.setTitle(res.host)

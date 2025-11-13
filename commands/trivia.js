@@ -15,8 +15,8 @@ module.exports = {
 	async execute(interaction) { // inside here command stuff
 		try {
 			await fetch('https://the-trivia-api.com/api/questions', { method: 'Get' })
-				.then(async response => {
-					const body = await response.json();
+				.then(response => response.json())
+				.then(async body => {
 					const triviaembed = new EmbedBuilder()
 						.setTitle('Category: ' + body[0].category)
 						.setDescription(`${body[0].question}\n\nAnswer: ||${body[0].correctAnswer}||`)

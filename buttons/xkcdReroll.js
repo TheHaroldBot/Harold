@@ -16,10 +16,8 @@ module.exports = {
 		let maxComic = 0;
 		try {
 			await fetch('https://xkcd.com/info.0.json', { method: 'Get' })
-				.then(async response => {
-					const body = await response.json();
-					maxComic = body.num;
-				});
+				.then(response => response.json())
+				.then(async response => maxComic = response.num);
 		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
@@ -28,8 +26,8 @@ module.exports = {
 		if (targetComic === 404) targetComic++;
 		try {
 			await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
-				.then(async response => {
-					response = await response.json();
+				.then(response => response.json())
+				.then(response => {
 					const xkcdEmbed = new EmbedBuilder()
 						.setTitle(response.title)
 						.setURL(`https://xkcd.com/${targetComic}`)

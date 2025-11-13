@@ -9,8 +9,8 @@ module.exports = {
 		console.info('Harold Bot Copyright (C) 2021-Present John Gooden');
 		console.info('Copyright info: https://github.com/TheHaroldBot/Harold/blob/main/LICENSE\n\n');
 		await fetch('https://api.github.com/repos/TheHaroldBot/Harold/commits', { method: 'Get' })
-			.then(async response => {
-				const commits = await response.json();
+			.then(response => response.json())
+			.then(commits => {
 				const latest = commits[0];
 				client.user.setActivity(`Latest update: ${latest.commit.message}`);
 			});

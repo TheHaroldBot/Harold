@@ -18,7 +18,7 @@ module.exports = {
 		try {
 			await fetch(facturl, factsettings)
 				.then(res => res.json())
-				.then((json) => {
+				.then(json => {
 					const factembed = new EmbedBuilder()
 						.setTitle('Random Fact')
 						.setDescription(json.text.replaceAll('`', '\''))
