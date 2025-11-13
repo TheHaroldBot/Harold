@@ -20,7 +20,7 @@
 	Questions, comments, or concerns? Contact me at: johnnyg3587@gmail.com
 */
 
-const { Collection } = require('discord.js');
+const { Collection, Events } = require('discord.js');
 const { client } = require('./client.js');
 const fs = require('fs');
 const readline = require('readline');
@@ -101,8 +101,8 @@ for (const file of eventFiles) {
 
 
 // client.on('debug', console.debug);
-client.on('warn', console.warn);
-client.on('error', console.error);
+client.on(Events.Warn, console.warn);
+client.on(Events.Error, console.error);
 client.rest.on('rateLimited', console.warn);
 
 
