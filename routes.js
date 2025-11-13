@@ -13,8 +13,7 @@ router.route('/docs').get((req, res) => {
 	const docs = require('./web/docs.json');
 	if (!docs[req.query.page]) {
 		res.redirect('/404');
-	}
-	else {
+	} else {
 		res.redirect(docs[req.query.page]);
 	}
 });
@@ -24,8 +23,7 @@ router.route('/shorts').get(async (req, res) => {
 	if
 	(urls[req.query.id]) {
 		res.redirect(urls[req.query.id]);
-	}
-	else {
+	} else {
 		res.redirect(urls.unknown);
 	}
 });
@@ -42,8 +40,7 @@ router.route('/api/tggwh').post((req, res) => {
 	if (req.header('authorization') === topggAuth) {
 		vote.execute(client, req.body.user);
 		res.status(200).end();
-	}
-	else {
+	} else {
 		console.log('Unauthorized vote request attempt.');
 		res.send('Unauthorized');
 		res.status(401).end();

@@ -30,8 +30,7 @@ module.exports = {
 			.setColor('Random');
 		try {
 			await interaction.reply({ embeds: [formatembed], flags: MessageFlags.Ephemeral });
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

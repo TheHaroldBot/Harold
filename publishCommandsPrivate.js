@@ -30,8 +30,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 		console.log(commands);
 		console.log(`Successfully reloaded ${commands.length} application (/) commands privately.`);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 	}
 })();

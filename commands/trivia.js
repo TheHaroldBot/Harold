@@ -23,8 +23,7 @@ module.exports = {
 						.setColor('Random');
 					interaction.reply({ embeds: [triviaembed] });
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

@@ -19,8 +19,7 @@ module.exports = {
 		let pfptarget;
 		if (!interaction.options.getUser('user')) {
 			pfptarget = await interaction.user.fetch({ force: true });
-		}
-		else {
+		} else {
 			pfptarget = await interaction.options.getUser('user').fetch({ force: true });
 		}
 		const accountCreated = Math.round(pfptarget.createdAt / 1000);

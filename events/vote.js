@@ -7,8 +7,7 @@ module.exports = {
 			const targetUser = await client.users.fetch(id);
 			await targetUser.send('Thank you for voting!');
 			logUsage({ name: 'vote' });
-		}
-		catch (error) {
+		} catch (error) {
 			console.error('Whoops! Something went wrong while thanking a vote.');
 			console.error(error);
 		}

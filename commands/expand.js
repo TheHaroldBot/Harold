@@ -21,8 +21,7 @@ module.exports = {
 		try {
 			await tall(interaction.options.getString('url'))
 				.then(async unshortenedUrl => await interaction.reply(`Expanded URL: ${unshortenedUrl}`));
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 400, report: false, myMessage: 'Did you provde a valid URL?' };
 			throw returnError;
 		}

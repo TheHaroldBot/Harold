@@ -28,13 +28,11 @@ module.exports = {
 						.setColor('Random');
 					try {
 						await interaction.reply({ embeds: [boredembed] });
-					}
-					catch (error) {
+					} catch (error) {
 						throw new Error(error.stack);
 					}
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500 };
 			throw returnError;
 		}

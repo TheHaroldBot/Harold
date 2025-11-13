@@ -29,8 +29,7 @@ module.exports = {
 			bugreportembed.addFields([
 				{ name: 'From guild:', value: `Name: ${interaction.guild.name}, ID: ${interaction.guild.id}\nUser ID: ${interaction.user.id}` },
 			]);
-		}
-		else {
+		} else {
 			bugreportembed.addFields([
 				{ name: 'From direct message:', value: `No guild information avaliable.\nUser ID: ${interaction.user.id}` },
 			]);
@@ -51,8 +50,7 @@ module.exports = {
 			await supportchannel.send({ embeds: [bugreportembed], components: [bugreportRow] });
 			// await bugReportWebhook.send({ embeds: [bugreportembed] });
 			await interaction.reply('Sent! We shared your username with the devs. If you receive a friend request from one of the developers, they might want to talk more.');
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500 };
 			throw returnError;
 		}

@@ -30,8 +30,7 @@ module.exports = {
 					console.log(err);
 					interaction.reply({ content: 'There was an error completing your request, try again later!', flags: MessageFlags.Ephemeral });
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

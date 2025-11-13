@@ -39,8 +39,7 @@ module.exports = {
 					name: focused.value,
 					value: focused.value,
 				}];
-			}
-			else {
+			} else {
 				return [{
 					name: 'Invalid input',
 					value: 'invalid',
@@ -53,8 +52,7 @@ module.exports = {
 					name: focused.value,
 					value: focused.value,
 				}];
-			}
-			else {
+			} else {
 				return [{
 					name: 'Invalid input',
 					value: 'Invalid',

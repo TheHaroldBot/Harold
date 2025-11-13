@@ -63,8 +63,7 @@ module.exports = {
 			console.log(`Executing slash command '${command.name}' on behalf of ${interaction.user.id}`);
 			logUsage(command);
 			await command.execute(interaction);
-		}
-		catch (error) {
+		} catch (error) {
 			const errorEmbed = new EmbedBuilder()
 				.setTitle('Error')
 				.setColor('#ff0000')
@@ -74,8 +73,7 @@ module.exports = {
 			if (config.ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 			try {
 				await interaction.reply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
-			}
-			catch {
+			} catch {
 				await interaction.editReply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
 			}
 			if (error.report !== false) {

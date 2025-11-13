@@ -35,8 +35,7 @@ module.exports = {
 					const body = await response.json();
 					maxComic = body.num;
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}
@@ -55,24 +54,20 @@ module.exports = {
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
 							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
-						}
-						catch (error) {
+						} catch (error) {
 							console.log(error);
 							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
 						}
 					});
-			}
-			catch (error) {
+			} catch (error) {
 				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 				throw returnError;
 			}
-		}
-		else {
+		} else {
 			let targetComic = null;
 			if (interaction.options.getString('comicnumber') === 'latest') {
 				targetComic = maxComic;
-			}
-			else {
+			} else {
 				targetComic = parseInt(interaction.options.getString('comicnumber'));
 			}
 			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
@@ -91,14 +86,12 @@ module.exports = {
 							.setFooter({ text: `"${response.alt}"\n#${targetComic}, ${response.month}/${response.day}/${response.year}` });
 						try {
 							interaction.reply({ embeds: [xkcdEmbed], components: [row] });
-						}
-						catch (error) {
+						} catch (error) {
 							console.log(error);
 							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
 						}
 					});
-			}
-			catch (error) {
+			} catch (error) {
 				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 				throw returnError;
 			}

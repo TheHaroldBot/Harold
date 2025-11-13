@@ -24,18 +24,12 @@ module.exports = {
 		let pass = false;
 		let count = 0;
 		while (pass === false && count < 5) {
-			try {
-				const post = await getRedditPost('memes');
-				if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
-					pass = false;
-				}
-				else {
-					pass = true;
-					await interaction.editReply({ embeds: [post.redditembed], components: [row] });
-				}
-			}
-			catch (error) {
-				// nothing, just the post not existing.
+			const post = await getRedditPost('memes');
+			if (!post || (post.nsfw === true && interaction.channel.nsfw !== true)) {
+				pass = false;
+			} else {
+				pass = true;
+				await interaction.editReply({ embeds: [post.redditembed], components: [row] });
 			}
 			count = count + 1;
 		}

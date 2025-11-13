@@ -36,8 +36,7 @@ module.exports = {
 					});
 					try {
 						await element.setName(name, 'Removed decoration');
-					}
-					catch (error) {
+					} catch {
 						console.error('Could not set a channel name using decor command');
 					}
 					return;
@@ -47,15 +46,13 @@ module.exports = {
 				const newname = randomemoji + element.name + randomemoji;
 				try {
 					await element.setName(newname);
-				}
-				catch (error) {
+				} catch {
 					console.error('Could not set a channel name using decor command');
 				}
 
 			});
 			interaction.update({ content: 'Decorating for ' + interaction.values, components: [] });
-		}
-		else {
+		} else {
 			interaction.reply({ content: 'You did not start this command, run it yourself!', flags: MessageFlags.Ephemeral });
 		}
 

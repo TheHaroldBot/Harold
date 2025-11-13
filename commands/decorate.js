@@ -1,5 +1,5 @@
 const config = require('../config.json');
-const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, StringSelectMenuBuilder, InteractionContextType, MessageFlags } = require('discord.js');
+const { ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, StringSelectMenuBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'redgreen', 'clear'];
 
 module.exports = {

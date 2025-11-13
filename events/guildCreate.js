@@ -24,8 +24,7 @@ module.exports = {
 		const owner = await guild.fetchOwner();
 		try {
 			await owner.send({ embeds: [introembed], components: [row] });
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(`
 				Error sending into embed to user ${owner.id} from server ${guild.id}:
 				${error}

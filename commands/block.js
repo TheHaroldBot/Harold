@@ -54,8 +54,7 @@ module.exports = {
 			fs.writeFileSync('././config.json', JSON.stringify(process.haroldConfig, null, 4));
 			// add dm code
 			interaction.reply(`Successfully blocked ${interaction.options.getString('userid')}.`);
-		}
-		else if (interaction.options.getString('type') === 'remove') {
+		} else if (interaction.options.getString('type') === 'remove') {
 			const data = JSON.parse(fs.readFileSync('././config.json'));
 			if (!data.blocked[interaction.options.getString('userid')]) return (interaction.reply('That person is not blocked.'));
 			delete process.haroldConfig.blocked[interaction.options.getString('userid')];

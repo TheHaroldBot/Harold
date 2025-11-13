@@ -22,8 +22,7 @@ module.exports = {
 		let commands = [];
 		if (ownerids.includes(interaction.user.id)) {
 			commands = await interaction.client.commands.filter(c => c.name.startsWith(currentValue));
-		}
-		else {
+		} else {
 			commands = await interaction.client.commands.filter(c => c.name.startsWith(currentValue) && !c.ownerOnly);
 		}
 
@@ -56,8 +55,7 @@ module.exports = {
 
 			try {
 				await interaction.reply({ embeds: [helpembed], flags: MessageFlags.Ephemeral });
-			}
-			catch (error) {
+			} catch (error) {
 				throw new error(error.stack);
 			}
 			return;
@@ -84,8 +82,7 @@ module.exports = {
 
 		try {
 			await interaction.reply({ embeds: [helpembed], flags: MessageFlags.Ephemeral });
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

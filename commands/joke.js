@@ -27,8 +27,7 @@ module.exports = {
 						.setFooter({ text: 'jokeapi.dev' });
 					await interaction.editReply({ embeds: [jokeembed], ephemeral: false });
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong! The joke server may be down, or we might have a bug. This error has been reported to the devs.' };
 			throw returnError;
 		}

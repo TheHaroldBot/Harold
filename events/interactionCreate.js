@@ -12,27 +12,20 @@ module.exports = {
 			console.log(`Received type ${interaction.type} interaction: ${interaction.id ?? 'unknown id'}`);
 			if (interaction.isButton()) {
 				await button.execute(interaction);
-			}
-			else if (interaction.isStringSelectMenu()) {
+			} else if (interaction.isStringSelectMenu()) {
 				await selectMenu.execute(interaction);
-			}
-			else if (interaction.type === InteractionType.ApplicationCommand) {
+			} else if (interaction.type === InteractionType.ApplicationCommand) {
 				await slashCommand.execute(interaction);
-			}
-			else if (interaction.isMessageContextMenuCommand()) {
+			} else if (interaction.isMessageContextMenuCommand()) {
 				return;
-			}
-			else if (interaction.isUserContextMenuCommand()) {
+			} else if (interaction.isUserContextMenuCommand()) {
 				return;
-			}
-			else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
+			} else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
 				await autoComplete.execute(interaction);
-			}
-			else {
+			} else {
 				return;
 			}
-		}
-		catch (error) {
+		} catch (error) {
 			console.log(`Error running interaction ${interaction.id ?? 'unknown id'}`);
 			console.error(error);
 		}

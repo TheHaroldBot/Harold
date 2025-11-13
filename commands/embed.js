@@ -22,8 +22,7 @@ module.exports = {
 			const embedjson = await JSON.parse(data);
 			await interaction.channel.send(embedjson);
 			await interaction.reply({ content: 'Sent!', flags: MessageFlags.Ephemeral });
-		}
-		catch (error) {
+		} catch (error) {
 			console.log('Failed to send a custom embed!');
 			console.error(error);
 			const errorembed = await new EmbedBuilder()

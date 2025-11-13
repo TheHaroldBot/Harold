@@ -94,8 +94,7 @@ for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once === true) {
 		client.once(event.name, (...args) => event.execute(...args));
-	}
-	else {
+	} else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
@@ -110,8 +109,7 @@ client.rest.on('rateLimited', console.warn);
 rl.on('line', async (input) => {
 	try {
 		await eval(input);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 	}
 });

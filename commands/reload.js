@@ -50,8 +50,7 @@ module.exports = {
 					});
 				}
 			});
-		}
-		else if (interaction.options.getString('type') === 'button') {
+		} else if (interaction.options.getString('type') === 'button') {
 			await buttons.forEach(button => {
 				if (button.customId.startsWith(currentValue)) {
 					toRespond.push({
@@ -60,8 +59,7 @@ module.exports = {
 					});
 				}
 			});
-		}
-		else if (interaction.options.getString('type') === 'selectMenu') {
+		} else if (interaction.options.getString('type') === 'selectMenu') {
 			await selectMenus.forEach(selectMenu => {
 				if (selectMenu.customId.startsWith(currentValue)) {
 					toRespond.push({
@@ -91,13 +89,11 @@ module.exports = {
 				const newCommand = require(`../commands/${command.name}.js`);
 				interaction.client.commands.set(newCommand.name, newCommand);
 				interaction.reply(`Command \`${newCommand.name}\` was reloaded!`);
-			}
-			catch (error) {
+			} catch (error) {
 				interaction.reply({ content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}
-		}
-		else if (interaction.options.getString('type') === 'button') {
+		} else if (interaction.options.getString('type') === 'button') {
 			const buttonName = interaction.options.getString('name');
 			const button = await interaction.client.buttons.get(buttonName);
 
@@ -111,13 +107,11 @@ module.exports = {
 				const newButton = require(`../buttons/${button.customId}.js`);
 				interaction.client.buttons.set(newButton.customId, newButton);
 				interaction.reply(`Button \`${newButton.customId}\` was reloaded!`);
-			}
-			catch (error) {
+			} catch (error) {
 				interaction.reply({ content: `There was an error while reloading a button \`${button.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}
-		}
-		else if (interaction.options.getString('type') === 'selectMenu') {
+		} else if (interaction.options.getString('type') === 'selectMenu') {
 			const selectMenuName = interaction.options.getString('name');
 			const selectMenu = interaction.client.selectMenus.get(selectMenuName);
 
@@ -131,8 +125,7 @@ module.exports = {
 				const newSelectMenu = require(`../selectMenus/${selectMenu.customId}.js`);
 				interaction.client.selectMenus.set(newSelectMenu.customId, newSelectMenu);
 				interaction.reply(`Select menu \`${newSelectMenu.customId}\` was reloaded!`);
-			}
-			catch (error) {
+			} catch (error) {
 				interaction.reply({ content: `There was an error while reloading a select menu \`${selectMenu.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}

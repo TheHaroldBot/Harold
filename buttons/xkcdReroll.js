@@ -20,8 +20,7 @@ module.exports = {
 					const body = await response.json();
 					maxComic = body.num;
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}
@@ -40,15 +39,13 @@ module.exports = {
 					try {
 						interaction.message.edit({ embeds: [xkcdEmbed], components: [row] });
 						interaction.deferUpdate();
-					}
-					catch (error) {
+					} catch (error) {
 						console.log(error);
 						interaction.message.edit({ content: 'Oops, something went wrong, try again!' });
 						interaction.deferUpdate();
 					}
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

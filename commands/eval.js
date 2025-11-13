@@ -23,8 +23,7 @@ module.exports = {
 		const code = interaction.options.getString('code');
 		try {
 			await eval(code);
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			interaction.reply({ content: 'Thats an error there buddy!', flags: MessageFlags.Ephemeral });
 		}

@@ -23,8 +23,7 @@ module.exports = {
 		try {
 			await interaction.channel.setRateLimitPerUser(interaction.options.getInteger('slowmode'), `${interaction.user.tag} requested a slowmode of ${interaction.options.getInteger('slowmode')} second(s) in #${interaction.channel.name}`);
 			await interaction.reply(`Success! Slowmode set to ${interaction.options.getInteger('slowmode')} second(s).`);
-		}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

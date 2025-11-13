@@ -38,15 +38,13 @@ module.exports = {
 						});
 						await interaction.reply({ content: 'Done!', flags: MessageFlags.Ephemeral });
 						await webhook.delete();
-					}
-					catch (error) {
+					} catch (error) {
 						const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong! This channel might have reached the maximum number of webhooks (10)' };
 						throw returnError;
 					}
 
 				});
-		}
-		catch (error) {
+		} catch (error) {
 			interaction.reply('Uh-oh! Something went wrong!');
 			console.error(error);
 		}

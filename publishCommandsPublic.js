@@ -27,8 +27,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 		console.log(commands);
 		console.log(`Successfully reloaded ${commands.length} application (/) commands publicly.`);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 	}
 })();

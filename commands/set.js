@@ -94,31 +94,26 @@ module.exports = {
 			try {
 				await interaction.client.user.setPresence({ status: interaction.options.getString('presence') });
 				await interaction.reply(`Status set to ${interaction.options.getString('presence')}`);
-			}
-			catch (error) {
+			} catch (error) {
 				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong when setting the presence!' };
 				throw returnError;
 			}
-		}
-		else if (interaction.options.getSubcommand() === 'activity') {
+		} else if (interaction.options.getSubcommand() === 'activity') {
 			try {
 				await interaction.client.user.setActivity(interaction.options.getString('name'), {
 					type: ActivityType[interaction.options.getString('type')],
 					url: interaction.options.getString('url'),
 				});
 				await interaction.reply(`Activity set to ${interaction.options.getString('type')} ${interaction.options.getString('name')}`);
-			}
-			catch (error) {
+			} catch (error) {
 				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong when setting a game!' };
 				throw returnError;
 			}
-		}
-		else if (interaction.options.getSubcommand() === 'avatar') {
+		} else if (interaction.options.getSubcommand() === 'avatar') {
 			try {
 				await interaction.client.user.setAvatar(interaction.options.getString('url'));
 				await interaction.reply(`Avatar set to ${interaction.options.getString('url')}`);
-			}
-			catch (error) {
+			} catch {
 				interaction.reply('Error setting avatar, check your URL and try again.');
 			}
 		}

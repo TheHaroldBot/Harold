@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, SlashCommandBuilder, Colors, EmbedBuilder } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -31,8 +31,7 @@ module.exports = {
 					throw new Error(err.stack);
 				});
 			interaction.editReply({ embeds: [insult] });
-			}
-		catch (error) {
+		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
 		}

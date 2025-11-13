@@ -37,8 +37,7 @@ async function refreshShortUrls() {
 		}
 		process.shortUrls = newUrls;
 		console.log('Refreshed short URls!');
-	}
-	catch (error) {
+	} catch (error) {
 		return error;
 	}
 }
@@ -54,8 +53,7 @@ async function refreshConfig() {
 		}
 		process.haroldConfig = newConfig;
 		console.log('Refreshed config!');
-	}
-	catch (error) {
+	} catch (error) {
 		return error;
 	}
 }
@@ -66,11 +64,8 @@ async function refreshConfig() {
 	* @returns { Array } Returns an array of posts and prebuilt embeds.
 */
 async function getRedditPost(subreddit, allowNSFW) {
-	let responsejson = null;
-	const response = await fetch(`https://www.reddit.com/r/${subreddit ?? 'random'}.json`, { method: 'Get' }) // random reddit post
-		.then(response => response.json())
-		.then(json => responsejson = json)
-		.catch(error => console.error('Error:', error));
+	const response = await fetch(`https://www.reddit.com/r/${subreddit ?? 'random'}.json`, { method: 'Get' });
+	const responsejson = await response.json();
 	const posts = responsejson.data.children;
 	const post = posts[Math.floor(Math.random() * posts.length)];
 	let type = post.data.post_hint;
@@ -89,9 +84,9 @@ async function getRedditPost(subreddit, allowNSFW) {
 	if (nsfw === true) {
 		title = `[NSFW] ${title}`;
 	}
-	if (post.data.is_gallery) return "Gallery post rejected.";
+	if (post.data.is_gallery) return 'Gallery post rejected.';
 	if (!type) type = 'text';
-	if (type !== 'text' && type !== 'image') return "Unsupported post type.";
+	if (type !== 'text' && type !== 'image') return 'Unsupported post type.';
 	const redditembed = new EmbedBuilder()
 		.setTitle(title)
 		.setURL(url)
@@ -101,11 +96,9 @@ async function getRedditPost(subreddit, allowNSFW) {
 		.setAuthor({ name: author, iconURL: `https://www.redditstatic.com/avatars/defaults/v2/avatar_default_${Math.floor(Math.random() * 7)}.png`, url: `https://reddit.com/${author}` });
 	if (type === 'image') {
 		redditembed.setImage(image);
-	}
-	else if (type === 'text') {
+	} else if (type === 'text') {
 		redditembed.setDescription(description ?? '(No description.)');
-	}
-	else {
+	} else {
 		return;
 	}
 
@@ -123,7 +116,7 @@ async function getRedditPost(subreddit, allowNSFW) {
 		posttime,
 		footer,
 		redditembed,
-		type
+		type,
 	};
 	return returnPost;
 }
