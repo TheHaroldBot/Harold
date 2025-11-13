@@ -1,5 +1,4 @@
 const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
-const util = require('minecraft-server-util');
 
 module.exports = {
 	name: 'mcping', // command name
@@ -19,21 +18,23 @@ module.exports = {
 				.setDescription('The type of server to ping.')
 				.addChoices(
 					{
-						name: 'bedrock',
-						value: 'bedrock',
-					},
-					{
 						name: 'java',
 						value: 'java',
 					},
+					{
+						name: 'bedrock',
+						value: 'bedrock',
+					}
 				))
 		.addStringOption(option =>
 			option.setName('ip')
 				.setRequired(true)
 				.setDescription('The IP of the server.'))
-		.addNumberOption(option =>
+		.addIntegerOption(option =>
 			option.setName('port')
 				.setRequired(false)
+				.setMinValue(1)
+				.setMaxValue(65535)
 				.setDescription('The port of the server.')),
 
 
@@ -41,82 +42,83 @@ module.exports = {
 		await interaction.deferReply();
 		const type = interaction.options.getString('type').toLowerCase();
 		const ip = interaction.options.getString('ip');
-		let pingport = 0;
-		if (!interaction.options.getNumber('port')) {
-			if (type === 'bedrock') {
-				pingport = 19132;
+		let port = null;
+
+		if (interaction.options.getNumber('port')) {
+			port = interaction.options.getNumber('port');
+		} else {
+			if (type === 'java') {
+				port = 25565;
 			}
-			else if (type === 'java') {
-				pingport = 25565;
+			else {
+				port = 19132;
 			}
-		}
-		else {
-			pingport = parseFloat(interaction.options.getNumber('port'));
 		}
 
-		if (type === 'java') {
-			util.status(ip, pingport) // pings a minecraft server
-				.then(async (response) => {
-					const mcpingembed = new EmbedBuilder()
-						.setTitle(ip)
-						.setDescription(`\n**Online players:** ${response.players.online}/${response.players.max}\n**Server version:** ${response.version.name}\n**Latency:** ${response.roundTripLatency}ms\n**Motd:** ${response.motd.clean}`)
-						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
-						.setColor('#0ffc03');
-					try {
-						await interaction.editReply({ embeds: [mcpingembed] });
-					}
-					catch (error) {
-						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-						throw returnError;
-					}
-				})
-				.catch(async () => {
-					const mcpingembed = new EmbedBuilder()
-						.setTitle(ip)
-						.setDescription('**Online players:** Cannot connect to server\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
-						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
-						.setColor('#fc0303');
-					try {
-						await interaction.editReply({ embeds: [mcpingembed] });
-					}
-					catch (error) {
-						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-						throw returnError;
-					}
-					return;
-				});
+		let mcpingembed = null;
+		if (type == 'java') {
+			let response = null;
+			let res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}:${port}`, { method: 'Get' })
+					.then(response => response.json())
+					.then(json => response = json)
+					.catch(error => console.error('Error:', error));
+
+			if (response.online) {
+				mcpingembed = new EmbedBuilder()
+				.setTitle(response.host)
+				.setDescription(`
+					**Online players:** ${response.players.online}/${response.players.max}
+					**Server version:** ${response.version.name_clean}
+					**EULA Blocked:** ${response.eula_blocked ? 'Yes' : 'No'}
+					**Motd:** ${response.motd.clean}`)
+				.setFooter({ text: `Hostname: ${response.host}, Port: ${response.port}` })
+				.setThumbnail(`https://api.mcstatus.io/v2/icon/${ip}`)
+				.setColor('#0ffc03');
+			} else {
+				mcpingembed = new EmbedBuilder()
+				.setTitle(ip)
+				.setDescription('The server is offline or unreachable.')
+				.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
+				.setColor('#ff0000');
+			}
+
+		} else if (type == 'bedrock') {
+			let response = null;
+			let res = await fetch(`https://api.mcstatus.io/v2/status/bedrock/${ip}:${port}`, { method: 'Get' })
+					.then(response => response.json())
+					.then(json => response = json)
+					.catch(error => console.error('Error:', error));
+
+			if (response.online) {
+				mcpingembed = new EmbedBuilder()
+				.setTitle(response.host)
+				.setDescription(`
+					**Online players:** ${response.players.online}/${response.players.max}
+					**Server version:** ${response.version.name}
+					**Gamemode:** ${response.gamemode}
+					**EULA Blocked:** ${response.eula_blocked ? 'Yes' : 'No'}
+					**Motd:** ${response.motd.clean}`)
+				.setFooter({ text: `Hostname: ${response.host}, Port: ${response.port}` })
+				.setThumbnail(`https://api.mcstatus.io/v2/icon/${ip}`)
+				.setColor('#0ffc03');
+			} else {
+				mcpingembed = new EmbedBuilder()
+				.setTitle(ip)
+				.setDescription('The server is offline or unreachable.')
+				.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
+				.setColor('#ff0000');
+			}
+		} else {
+			throw new error('Invalid type specified.');
 		}
-		else if (type === 'bedrock') {
-			util.statusBedrock(ip, pingport) // pings a minecraft server
-				.then(async (response) => {
-					const mcpingembed = new EmbedBuilder()
-						.setTitle(ip)
-						.setDescription(`**Online players:** ${response.players.online}/${response.players.max}\n**Latency:** unknown\n**Motd:** ${response.motd.clean}`)
-						.setThumbnail('https://media.minecraftforum.net/attachments/300/619/636977108000120237.png')
-						.setColor('#0ffc03');
-					try {
-						await interaction.editReply({ embeds: [mcpingembed] });
-					}
-					catch (error) {
-						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-						throw returnError;
-					}
-				})
-				.catch(async () => {
-					const mcpingembed = new EmbedBuilder()
-						.setTitle(ip)
-						.setDescription('**Online players:** Cannot connect\n**Server version:** Cannot connect to server\n**Latency:** Cannot connect to server\n**Motd:** Cannot connect to server')
-						.setThumbnail('https://www.freepnglogos.com/uploads/warning-sign-png/warning-sign-red-png-17.png')
-						.setColor('#fc0303');
-					try {
-						await interaction.editReply({ embeds: [mcpingembed] });
-					}
-					catch (error) {
-						const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
-						throw returnError;
-					}
-					return;
-				});
+		
+		
+		try {
+			await interaction.editReply({ embeds: [mcpingembed] });
+		}
+		catch (error) {
+			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
 		}
 	},
 };

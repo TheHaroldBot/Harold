@@ -1,5 +1,4 @@
 // Credit to Monbrey#4502 on Discord for helping me out on a bit of processing
-//TODO: Disable due to reddit api changes.
 
 const { PermissionFlagsBits, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const fetch = require('node-fetch');
@@ -63,7 +62,6 @@ module.exports = {
 			while (pass === false && count < 5) {
 				try {
 					const post = await getRedditPost(subreddit, interaction.channel.nsfw);
-					console.log(`${post.nsfw} + ${interaction.channel.nsfw}\n${JSON.stringify(post)}`);
 					if (!post) {
 						pass = false;
 					}
@@ -73,7 +71,7 @@ module.exports = {
 					}
 				}
 				catch (error) {
-					console.log(error);
+					throw error;
 				}
 				count = count + 1;
 			}

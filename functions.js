@@ -67,16 +67,13 @@ async function refreshConfig() {
 	* @returns { Array } Returns an array of posts and prebuilt embeds.
 */
 async function getRedditPost(subreddit, allowNSFW) {
-	console.log("Called!");
 	let responsejson = null;
 	const response = await fetch(`https://www.reddit.com/r/${subreddit ?? 'random'}.json`, { method: 'Get' }) // random reddit post
 		.then(response => response.json())
 		.then(json => responsejson = json)
 		.catch(error => console.error('Error:', error));
 	const posts = responsejson.data.children;
-	console.log(posts);
 	const post = posts[Math.floor(Math.random() * posts.length)];
-	console.log(post);
 	let type = post.data.post_hint;
 
 	let title = post.data.title;
