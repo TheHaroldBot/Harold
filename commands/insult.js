@@ -1,4 +1,5 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits, SlashCommandBuilder, Colors } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -14,26 +15,24 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		const insultsettings = { method: 'Get' };
-		// const insulturl = 'https://insult.mattbas.org/api/insult.json'; // insult api
-		const insulturl = 'https://pirate.monkeyness.com/api/insult'; // new one since the last stopped working
+		const insulturl = 'https://evilinsult.com/generate_insult.php?lang=en&type=json'; // new new one since the last was very pirate-y
+		await interaction.deferReply();
 		try {
-			/* await fetch(insulturl, insultsettings)
-				.then(res => res.json())
-				.then((json) => {
-					interaction.reply(json.insult);
-				})
-				.catch(err => {
-					throw new Error(err.stack);
-				}); */
+			let insult = null;
 			await fetch(insulturl, insultsettings)
-				.then(res => res.text())
+				.then(res => res.json())
 				.then((res) => {
-					interaction.reply(res);
+					insult = new EmbedBuilder()
+						.setTitle('Here\'s your insult:')
+						.setDescription(res.insult + ` - *${res.createdby == "" ? 'Unknown' : res.createdby}*`)
+						.setFooter({ text: 'Insults provided by evilinsult.com' })
+						.setColor(Math.floor(Math.random() * 0xffffff));
 				})
 				.catch(err => {
 					throw new Error(err.stack);
 				});
-		}
+			interaction.editReply({ embeds: [insult] });
+			}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
