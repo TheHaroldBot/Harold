@@ -1,7 +1,7 @@
-const { ButtonBuilder, EmbedBuilder, ActionRowBuilder } = require('discord.js');
+const { ButtonBuilder, EmbedBuilder, ActionRowBuilder, Events } = require('discord.js');
 
 module.exports = {
-	name: 'guildCreate',
+	name: Events.GuildCreate,
 	once: true,
 	async execute(guild) {
 		const row = new ActionRowBuilder()

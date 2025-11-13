@@ -1,9 +1,10 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Collection, MessageFlags } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Collection, MessageFlags, Events } = require('discord.js');
 const { logUsage } = require('../functions.js');
 
 module.exports = {
-	name: 'slashCommand',
+	name: Events.InteractionCreate,
 	async execute(interaction) {
+		if (!interaction.isChatInputCommand()) return;
 		const { cooldowns } = interaction.client;
 
 		const config = process.haroldConfig;

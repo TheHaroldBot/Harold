@@ -1,8 +1,8 @@
-const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags, Events } = require('discord.js');
 const { logUsage } = require('../functions.js');
 
 module.exports = {
-	name: 'selectMenu',
+	name: Events.InteractionCreate,
 	async execute(interaction) {
 		const config = process.haroldConfig;
 		const row = new ActionRowBuilder()
@@ -12,6 +12,7 @@ module.exports = {
 					.setStyle('Danger')
 					.setCustomId('resolve'), // remove if style is LINK
 			);
+		if (!interaction.isStringSelectMenu()) return;
 		const selectMenu = interaction.client.selectMenus.get(interaction.customId);
 		if (!selectMenu) return interaction.reply({ content: 'Select menu not found.', flags: MessageFlags.Ephemeral });
 		if (selectMenu.permissions && interaction.guild !== null) {

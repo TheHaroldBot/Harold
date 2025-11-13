@@ -1,8 +1,9 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
+const { Events } = require('discord.js');
 
 module.exports = {
-	name: 'clientReady', // name, duh
+	name: Events.ClientReady, // name, duh
 	once: true, // remove if false
 	async execute(client) { // stuff to do
 		console.info(`Ready at: ${client.readyAt}`);

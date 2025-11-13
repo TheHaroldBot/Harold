@@ -1,8 +1,8 @@
-const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags, Events } = require('discord.js');
 const { logUsage } = require('../functions.js');
 
 module.exports = {
-	name: 'button',
+	name: Events.InteractionCreate,
 	async execute(interaction) {
 		const config = process.haroldConfig;
 		const row = new ActionRowBuilder()
@@ -12,6 +12,7 @@ module.exports = {
 					.setStyle('Danger')
 					.setCustomId('resolve'), // remove if style is LINK
 			);
+		if (!interaction.isButton()) return;
 		const button = interaction.client.buttons.get(interaction.customId);
 		if (!button) return interaction.reply({ content: 'Button not found.', flags: MessageFlags.Ephemeral });
 		if (button.permissions && interaction.guild !== null) {

@@ -1,11 +1,11 @@
-const button = require('./button.js');
-const selectMenu = require('./selectMenu.js');
-const slashCommand = require('./slashCommand.js');
-const autoComplete = require('./autocomplete.js');
-const { InteractionType } = require('discord.js');
+const button = require('../button.js');
+const selectMenu = require('../selectMenu.js');
+const slashCommand = require('../slashCommand.js');
+const autoComplete = require('../autocomplete.js');
+const { InteractionType, Events } = require('discord.js');
 
 module.exports = {
-	name: 'interactionCreate',
+	name: Events.InteractionCreate,
 	once: false,
 	async execute(interaction) {
 		try {
