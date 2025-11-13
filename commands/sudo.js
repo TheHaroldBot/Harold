@@ -1,4 +1,4 @@
-const { WebhookClient, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { WebhookClient, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType } = require('discord.js');
 
 module.exports = {
 	name: 'sudo', // command name
@@ -20,7 +20,7 @@ module.exports = {
 			option.setName('message')
 				.setRequired(true)
 				.setDescription('The message to send as the mentioned person.'))
-		.setDMPermission(false),
+		.setContexts(InteractionContextType.Guild),
 
 	async execute(interaction) { // inside here command stuff
 		try {

@@ -21,7 +21,7 @@
 		"prefix": "commandFile",
 		"description": "Template for a new command file.",
 		"body": [
-			"const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');",
+			"const { SlashCommandBuilder, PermissionFlagsBits, InteractionContextType } = require('discord.js');",
 			"",
 			"module.exports = {",
 			"\tname: '$1', // command name",
@@ -36,7 +36,7 @@
 			"\t\t.setName('$1')",
 			"\t\t.setDescription('$2')",
 			"\t\t.setDefaultMemberPermissions(${9:PermissionFlagsBits.something}) // Set permissions required, separate multiple with bitwise OR",
-			"\t\t.setDMPermission(${10:true}), // allow running in a DM",
+			"\t\t.setContexts(${10:InteractionContextType.Guild}), // Only allow in guilds, remove line if no",
 			"",
 			"\texecute(interaction) { // inside here command stuff",
 			"\t\t$0",	

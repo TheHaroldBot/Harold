@@ -13,7 +13,6 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('wordle')
 		.setDescription('Generates a list of possible words solutions')
-		.setDMPermission(true) // allow running in a DM
 		.addStringOption(option =>
 			option.setName('greenletters')
 				.setRequired(true)

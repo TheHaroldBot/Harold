@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, InteractionContextType } = require('discord.js');
 
 module.exports = {
 	name: 'slowmode', // command name
@@ -17,7 +17,7 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The slowmode in seconds.'))
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-		.setDMPermission(false),
+		.setContexts(InteractionContextType.Guild),
 
 	async execute(interaction) { // inside here command stuff
 		try {

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+const { PermissionFlagsBits, InteractionContextType } = require('discord.js');
 
 module.exports = {
 	name: 'args-info', // command name
@@ -16,7 +16,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('example')
 		.setDescription('A command template')
-		.setDMPermission(false)
+		.setContexts(InteractionContextType.Guild) // Remove to allow in DMs
 		.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers | PermissionFlagsBits.BanMembers)
 		.addStringOption(option =>
 			option.setName('option1')

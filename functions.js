@@ -1,7 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { EmbedBuilder } = require('discord.js');
-const { response } = require('express');
+const { EmbedBuilder } = require('@discordjs/builders');
 
 /**
 	* Logs a command usage to the usage file.
@@ -96,7 +95,7 @@ async function getRedditPost(subreddit, allowNSFW) {
 	const redditembed = new EmbedBuilder()
 		.setTitle(title)
 		.setURL(url)
-		.setColor('Random')
+		.setColor(Math.floor(Math.random() * 0xffffff))
 		.setFooter({ text: footer })
 		.setTimestamp(posttime)
 		.setAuthor({ name: author, iconURL: `https://www.redditstatic.com/avatars/defaults/v2/avatar_default_${Math.floor(Math.random() * 7)}.png`, url: `https://reddit.com/${author}` });

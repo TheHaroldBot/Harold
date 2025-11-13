@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType } = require('discord.js');
 
 module.exports = {
 	name: 'serverinfo', // command name
@@ -14,7 +14,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('serverinfo')
 		.setDescription('Gets the server info')
-		.setDMPermission(false),
+		.setContexts(InteractionContextType.Guild),
 
 	async execute(interaction) { // inside here command stuff
 		const targetGuild = await interaction.guild.fetch();

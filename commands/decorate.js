@@ -1,6 +1,5 @@
 const config = require('../config.json');
-const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder } = require('discord.js');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, StringSelectMenuBuilder, InteractionContextType } = require('discord.js');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'redgreen', 'clear'];
 
 module.exports = {
@@ -16,12 +15,12 @@ module.exports = {
 		.setName('decorate')
 		.setDescription('Decorate channels with fancy emojis!')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-		.setDMPermission(false),
+		.setContexts(InteractionContextType.Guild),
 
 	async execute(interaction) { // inside here command stuff
 		const row = new ActionRowBuilder()
 			.addComponents(
-				new SelectMenuBuilder()
+				new StringSelectMenuBuilder()
 					.setCustomId('decoratemenu')
 					.setPlaceholder('Pick a theme!')
 					.addOptions([
