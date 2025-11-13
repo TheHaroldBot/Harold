@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits, InteractionContextType } = require('discord.js');
+const { PermissionFlagsBits, InteractionContextType, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'args-info', // command name

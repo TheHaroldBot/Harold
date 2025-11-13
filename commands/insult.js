@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits, SlashCommandBuilder, Colors } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, Colors, EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -24,9 +23,9 @@ module.exports = {
 				.then((res) => {
 					insult = new EmbedBuilder()
 						.setTitle('Here\'s your insult:')
-						.setDescription(res.insult + ` - *${res.createdby == "" ? 'Unknown' : res.createdby}*`)
+						.setDescription(res.insult)
 						.setFooter({ text: 'Insults provided by evilinsult.com' })
-						.setColor(Math.floor(Math.random() * 0xffffff));
+						.setColor('Random');
 				})
 				.catch(err => {
 					throw new Error(err.stack);

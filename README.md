@@ -9,4 +9,4 @@ You can vote for Harold at [discordbotlist](https://discordbotlist.com/bots/haro
 To Do:
 
 - [ ] Use more buttons and select menus in commands. Add reroll buttons to some commands.
-- [ ] Update EmbedBuilders for djs v14
+- [x] Update EmbedBuilders for djs v14

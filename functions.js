@@ -95,7 +95,7 @@ async function getRedditPost(subreddit, allowNSFW) {
 	const redditembed = new EmbedBuilder()
 		.setTitle(title)
 		.setURL(url)
-		.setColor(Math.floor(Math.random() * 0xffffff))
+		.setColor('Random')
 		.setFooter({ text: footer })
 		.setTimestamp(posttime)
 		.setAuthor({ name: author, iconURL: `https://www.redditstatic.com/avatars/defaults/v2/avatar_default_${Math.floor(Math.random() * 7)}.png`, url: `https://reddit.com/${author}` });
