@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -58,7 +58,7 @@ module.exports = {
 						}
 						catch (error) {
 							console.log(error);
-							interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
+							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
 						}
 					});
 			}
@@ -75,9 +75,9 @@ module.exports = {
 			else {
 				targetComic = parseInt(interaction.options.getString('comicnumber'));
 			}
-			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
-			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', ephemeral: true }));
-			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', ephemeral: true }));
+			if (!targetComic) return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
+			if (typeof targetComic !== 'number') return (interaction.reply({ content: 'Comic must be a number, or must be \'latest\'.', flags: MessageFlags.Ephemeral }));
+			if (targetComic > maxComic) return (interaction.reply({ content: 'Latest comic is ' + maxComic + ', try a lower number.', flags: MessageFlags.Ephemeral }));
 			if (targetComic === 404) return (interaction.reply({ content: 'Not found.' }));
 			try {
 				await fetch(`https://xkcd.com/${targetComic}/info.0.json`, { method: 'Get' })
@@ -94,7 +94,7 @@ module.exports = {
 						}
 						catch (error) {
 							console.log(error);
-							interaction.reply({ content: 'Oops, something went wrong, try again!', ephemeral: true });
+							interaction.reply({ content: 'Oops, something went wrong, try again!', flags: MessageFlags.Ephemeral });
 						}
 					});
 			}

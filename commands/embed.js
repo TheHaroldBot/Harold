@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'embed', // command name
@@ -21,7 +21,7 @@ module.exports = {
 		try {
 			const embedjson = await JSON.parse(data);
 			await interaction.channel.send(embedjson);
-			await interaction.reply({ content: 'Sent!', ephemeral: true });
+			await interaction.reply({ content: 'Sent!', flags: MessageFlags.Ephemeral });
 		}
 		catch (error) {
 			console.log('Failed to send a custom embed!');
@@ -33,7 +33,7 @@ module.exports = {
 					{ name: 'Error Message', value: `>>> ${error.toString()}` },
 				])
 				.setColor('#ff0000');
-			await interaction.reply({ embeds: [errorembed], ephemeral: true });
+			await interaction.reply({ embeds: [errorembed], flags: MessageFlags.Ephemeral });
 		}
 	},
 };

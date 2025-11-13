@@ -1,6 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 
 /**
 	* Logs a command usage to the usage file.

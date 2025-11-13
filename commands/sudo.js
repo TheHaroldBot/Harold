@@ -1,4 +1,4 @@
-const { WebhookClient, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType } = require('discord.js');
+const { WebhookClient, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'sudo', // command name
@@ -36,7 +36,7 @@ module.exports = {
 							avatarURL: interaction.options.getUser('target').avatarURL(),
 							content: interaction.options.getString('message'),
 						});
-						await interaction.reply({ content: 'Done!', ephemeral: true });
+						await interaction.reply({ content: 'Done!', flags: MessageFlags.Ephemeral });
 						await webhook.delete();
 					}
 					catch (error) {

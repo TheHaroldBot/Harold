@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
 				})
 				.catch(err => {
 					console.log(err);
-					interaction.reply({ content: 'There was an error completing your request, try again later!', ephemeral: true });
+					interaction.reply({ content: 'There was an error completing your request, try again later!', flags: MessageFlags.Ephemeral });
 				});
 		}
 		catch (error) {

@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'reload', // command name
@@ -93,7 +93,7 @@ module.exports = {
 				interaction.reply(`Command \`${newCommand.name}\` was reloaded!`);
 			}
 			catch (error) {
-				interaction.reply({ content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``, ephemeral: true });
+				interaction.reply({ content: `There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}
 		}
@@ -113,7 +113,7 @@ module.exports = {
 				interaction.reply(`Button \`${newButton.customId}\` was reloaded!`);
 			}
 			catch (error) {
-				interaction.reply({ content: `There was an error while reloading a button \`${button.name}\`:\n\`${error.message}\``, ephemeral: true });
+				interaction.reply({ content: `There was an error while reloading a button \`${button.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}
 		}
@@ -133,7 +133,7 @@ module.exports = {
 				interaction.reply(`Select menu \`${newSelectMenu.customId}\` was reloaded!`);
 			}
 			catch (error) {
-				interaction.reply({ content: `There was an error while reloading a select menu \`${selectMenu.name}\`:\n\`${error.message}\``, ephemeral: true });
+				interaction.reply({ content: `There was an error while reloading a select menu \`${selectMenu.name}\`:\n\`${error.message}\``, flags: MessageFlags.Ephemeral });
 				throw new Error(error.stack);
 			}
 		}

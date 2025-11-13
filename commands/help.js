@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 const ownerids = require('../config.json').ownerids;
 
 module.exports = {
@@ -55,7 +55,7 @@ module.exports = {
 				.setAuthor({ name: 'Harold!!', iconURL: interaction.client.user.avatarURL(), url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 			try {
-				await interaction.reply({ embeds: [helpembed], ephemeral: true });
+				await interaction.reply({ embeds: [helpembed], flags: MessageFlags.Ephemeral });
 			}
 			catch (error) {
 				throw new error(error.stack);
@@ -66,7 +66,7 @@ module.exports = {
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
 		if (!command) {
-			return interaction.reply({ content: 'That\'s not a valid command!', ephemeral: true });
+			return interaction.reply({ content: 'That\'s not a valid command!', flags: MessageFlags.Ephemeral });
 		}
 		if (command.description) data.push(`**Description:** ${command.description}`);
 		if (command.usage) data.push(`**Usage:** /${command.name} ${command.usage}`);
@@ -83,7 +83,7 @@ module.exports = {
 		}
 
 		try {
-			await interaction.reply({ embeds: [helpembed], ephemeral: true });
+			await interaction.reply({ embeds: [helpembed], flags: MessageFlags.Ephemeral });
 		}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };

@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js');
 const { getRedditPost } = require('../functions');
 
 module.exports = {
@@ -39,6 +39,6 @@ module.exports = {
 			}
 			count = count + 1;
 		}
-		if (count >= 5) await interaction.editReply({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
+		if (count >= 5) await interaction.editReply({ content: 'Something went wrong! Try again or try another subreddit.', flags: MessageFlags.Ephemeral });
 	},
 };

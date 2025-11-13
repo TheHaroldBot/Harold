@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { makeid, refreshShortUrls } = require('../functions.js');
 const validUrl = require('valid-url');
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'shorten', // command name
@@ -25,7 +25,7 @@ module.exports = {
 
 	execute(interaction) { // inside here command stuff
 		if (!validUrl.isWebUri(interaction.options.getString('url'))) {
-			return interaction.reply({ content: 'Invalid URL.', ephemeral: true });
+			return interaction.reply({ content: 'Invalid URL.', flags: MessageFlags.Ephemeral });
 		}
 		const urlList = JSON.parse(fs.readFileSync('././shorturls.json'));
 		let done = false;
@@ -37,6 +37,6 @@ module.exports = {
 		urlList[id] = interaction.options.getString('url');
 		fs.writeFileSync('././shorturls.json', JSON.stringify(urlList, null, 4));
 		refreshShortUrls();
-		interaction.reply({ content: 'http://theharoldbot.com/shorts?id=' + id, ephemeral: true });
+		interaction.reply({ content: 'http://theharoldbot.com/shorts?id=' + id, flags: MessageFlags.Ephemeral });
 	},
 };

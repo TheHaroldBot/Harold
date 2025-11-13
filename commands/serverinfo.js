@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'serverinfo', // command name
@@ -62,7 +62,7 @@ module.exports = {
 				.setColor('Random')
 				.setThumbnail(targetGuild.iconURL({ dynamic: true, size: 512 }) ? targetGuild.iconURL({ dynamic: true, size: 512 }) : 'https://i.imgflip.com/69ocml.jpg')
 				.setTimestamp();
-			await interaction.reply({ embeds: [serverInfoEmbed], ephemeral: true });
+			await interaction.reply({ embeds: [serverInfoEmbed], flags: MessageFlags.Ephemeral });
 		}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: false, myMessage: 'Uh-oh, something went wrong!' };

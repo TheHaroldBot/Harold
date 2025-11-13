@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'formatting', // command name
@@ -29,7 +29,7 @@ module.exports = {
 			])
 			.setColor('Random');
 		try {
-			await interaction.reply({ embeds: [formatembed], ephemeral: true });
+			await interaction.reply({ embeds: [formatembed], flags: MessageFlags.Ephemeral });
 		}
 		catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const { client } = require ('../client.js');
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.error(error);
-			interaction.reply({ content: 'Thats an error there buddy!', ephemeral: true });
+			interaction.reply({ content: 'Thats an error there buddy!', flags: MessageFlags.Ephemeral });
 		}
 	},
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 const { words } = require('../resources/wordleWords.json');
 
 module.exports = {
@@ -119,6 +119,6 @@ module.exports = {
 			.setDescription(stage3.join('\n').substring(0, 4096))
 			.setColor('Random');
 
-		interaction.reply({ embeds: [results], ephemeral: true });
+		interaction.reply({ embeds: [results], flags: MessageFlags.Ephemeral });
 	},
 };

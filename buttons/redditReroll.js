@@ -1,4 +1,5 @@
 const { getRedditPost } = require('../functions');
+const { MessageFlags } = require('discord.js');
 
 module.exports = {
 	customId: 'redditreroll',
@@ -28,7 +29,7 @@ module.exports = {
 				}
 				count = count + 1;
 			}
-			if (count >= 5) await interaction.message.edit({ content: 'Something went wrong! Try again or try another subreddit.', ephemeral: true });
+			if (count >= 5) await interaction.message.edit({ content: 'Something went wrong! Try again or try another subreddit.', flags: MessageFlags.Ephemeral });
 		}
 		catch (error) {
 			if (error.myMessage) throw error;

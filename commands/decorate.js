@@ -1,5 +1,5 @@
 const config = require('../config.json');
-const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, StringSelectMenuBuilder, InteractionContextType } = require('discord.js');
+const { SelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, StringSelectMenuBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 const options = ['summer', 'fall', 'winter', 'spring', 'christmas', 'halloween', 'easter', 'hanukkah', 'redgreen', 'clear'];
 
 module.exports = {
@@ -76,6 +76,6 @@ module.exports = {
 						},
 					]),
 			);
-		interaction.reply({ components: [row], ephemeral: true });
+		interaction.reply({ components: [row], flags: MessageFlags.Ephemeral });
 	},
 };

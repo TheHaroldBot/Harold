@@ -1,6 +1,6 @@
 // const Discord = require('discord.js');
 
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	customId: 'decoratemenu',
@@ -56,7 +56,7 @@ module.exports = {
 			interaction.update({ content: 'Decorating for ' + interaction.values, components: [] });
 		}
 		else {
-			interaction.reply({ content: 'You did not start this command, run it yourself!', ephemeral: true });
+			interaction.reply({ content: 'You did not start this command, run it yourself!', flags: MessageFlags.Ephemeral });
 		}
 
 	},
