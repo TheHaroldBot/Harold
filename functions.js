@@ -121,4 +121,26 @@ async function getRedditPost(subreddit, allowNSFW) {
 	return returnPost;
 }
 
-module.exports = { logUsage, makeid, refreshShortUrls, refreshConfig, getRedditPost };
+function isValidURL(string) {
+	try {
+		new URL(string);
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+function isValidImageURL(string) {
+	if (!isValidURL(string)) return false;
+	return /\.(png|jpe?g|gif|webp|bmp)$/i.test(string);
+}
+
+module.exports = {
+	logUsage,
+	makeid,
+	refreshShortUrls,
+	refreshConfig,
+	getRedditPost,
+	isValidURL,
+	isValidImageURL,
+};
