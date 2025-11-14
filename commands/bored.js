@@ -7,7 +7,6 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 1, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['imbored'],
 	data: new SlashCommandBuilder()
 		.setName('bored')
 		.setDescription('Gives you a suggestion of something to do.'),

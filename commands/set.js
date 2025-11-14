@@ -8,7 +8,6 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
-	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('set')
 		.setDescription('Sets the bot\'s status')

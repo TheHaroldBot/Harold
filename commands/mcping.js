@@ -8,7 +8,6 @@ module.exports = {
 	cooldown: 10, // cooldown in seconds, defaults to 3
 	permissions: [], // permissions required for command
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['pingmc'],
 	data: new SlashCommandBuilder()
 		.setName('mcping')
 		.setDescription('Pings a minecraft server')

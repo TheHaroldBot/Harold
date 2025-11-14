@@ -8,7 +8,6 @@ module.exports = {
 	usage: '<url>', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['urlexpand'],
 	data: new SlashCommandBuilder()
 		.setName('expand')
 		.setDescription('Expand a URL')

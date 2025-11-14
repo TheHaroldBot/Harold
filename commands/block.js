@@ -10,7 +10,6 @@ module.exports = {
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	disabled: false,
-	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('block')
 		.setDescription('Blocks or unblocks a user from using the bot.')

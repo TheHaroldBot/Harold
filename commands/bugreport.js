@@ -8,7 +8,6 @@ module.exports = {
 	usage: '<message>',
 	cooldown: 60,
 	myPermissions: [PermissionFlagsBits.SendMessages],
-	aliases: ['messagedevs', 'telldevs', 'suggest', 'reportbug', 'bug', 'feedback', 'report'],
 	data: new SlashCommandBuilder()
 		.setName('bugreport')
 		.setDescription('Contact the developers regarding a bug, exploit, feature request, feedback, or just to talk')

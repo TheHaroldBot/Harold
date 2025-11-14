@@ -8,7 +8,6 @@ module.exports = {
 	args: true,
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
-	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('reload')
 		.setDescription('Reloads a command')
@@ -75,8 +74,7 @@ module.exports = {
 	async execute(interaction) {
 		if (interaction.options.getString('type') === 'command') {
 			const commandName = interaction.options.getString('name');
-			const command = interaction.client.commands.get(commandName)
-				|| interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+			const command = interaction.client.commands.get(commandName);
 
 			if (!command) {
 				const returnError = { message: 'invalid command supplied', stack: 'reload command not found', code: 404, report: false, myMessage: 'That doesen\'t seem to be a command!' };

@@ -10,7 +10,6 @@ module.exports = {
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions required for bot
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
-	aliases: ['guildinfo'],
 	data: new SlashCommandBuilder()
 		.setName('serverinfo')
 		.setDescription('Gets the server info')

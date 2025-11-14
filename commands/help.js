@@ -61,7 +61,7 @@ module.exports = {
 			return;
 		}
 		const name = interaction.options.getString('command').toLowerCase();
-		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+		const command = commands.get(name);
 
 		if (!command) {
 			return interaction.reply({ content: 'That\'s not a valid command!', flags: MessageFlags.Ephemeral });

@@ -11,7 +11,6 @@ module.exports = {
 	myPermissions: [PermissionFlagsBits.KickMembers, PermissionFlagsBits.BanMembers], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
 	disabled: true, // command disabled to all? delete line if no
-	aliases: ['args', 'arguments', 'argument-info', 'arguments-info'],
 	data: new SlashCommandBuilder()
 		.setName('example')
 		.setDescription('A command template')

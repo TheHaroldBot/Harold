@@ -6,7 +6,6 @@ module.exports = {
 	usage: '', // usage instructions w/o command name and prefix
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['pfp', 'profileimage', 'whois', 'userinfo'],
 	data: new SlashCommandBuilder()
 		.setName('profile')
 		.setDescription('Gets a user\'s profile information.')

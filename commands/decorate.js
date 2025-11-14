@@ -10,7 +10,6 @@ module.exports = {
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 300, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels], // permissions bot needs for command
-	aliases: ['decor'],
 	data: new SlashCommandBuilder()
 		.setName('decorate')
 		.setDescription('Decorate channels with fancy emojis!')

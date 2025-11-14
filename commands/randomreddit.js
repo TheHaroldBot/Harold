@@ -10,7 +10,6 @@ module.exports = {
 	usage: '<subreddit without the r/>', // usage instructions w/o command name and prefix
 	cooldown: 0.5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['redditpost', 'reddit', 'rr'],
 	data: new SlashCommandBuilder()
 		.setName('randomreddit')
 		.setDescription('Gets random post from a specified subreddit.')

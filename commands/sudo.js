@@ -8,7 +8,6 @@ module.exports = {
 	guildOnly: true, // execute in a guild only? remove line if no
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageWebhooks], // permissions bot needs for command
-	aliases: [],
 	data: new SlashCommandBuilder()
 		.setName('sudo')
 		.setDescription('Immitate people')

@@ -11,7 +11,6 @@ module.exports = {
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
 	ownerOnly: false, // need to be the owner? delete line if no
 	disabled: false, // command disabled to all? delete line if no
-	aliases: ['randomxkcd', 'rnxkcd', 'comic', 'randomcomic', 'rncomic'],
 	data: new SlashCommandBuilder()
 		.setName('xkcd')
 		.setDescription('Gets a random (or latest) xkcd comic')

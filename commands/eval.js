@@ -10,7 +10,6 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	myPermissions: [], // permissions bot needs for command
 	ownerOnly: true, // need to be the owner? delete line if no
-	aliases: ['run', 'code', 'script'],
 	data: new SlashCommandBuilder()
 		.setName('eval')
 		.setDescription('Evaluate a string into code and run it.')

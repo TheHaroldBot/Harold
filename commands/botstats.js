@@ -8,7 +8,6 @@ module.exports = {
 	cooldown: 5, // cooldown in seconds, defaults to 3
 	disabled: false, // whether the command is disabled
 	myPermissions: [PermissionFlagsBits.SendMessages], // permissions bot needs for command
-	aliases: ['vote'],
 	data: new SlashCommandBuilder()
 		.setName('botstats')
 		.setDescription('Get bot stats, ping, invite, and other info.'),
