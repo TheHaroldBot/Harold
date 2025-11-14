@@ -100,7 +100,7 @@ module.exports = {
 				console.error(error);
 				const errorembed = await new EmbedBuilder()
 					.setTitle('Error!')
-					.setDescription('\nSomething went wrong! There are a few possible issues:\n1. You tried to put text in a link option (Like putting \'hello\' in the image option, or \'never gonna give you up\' in the thumbnail option.)\n2. You didn\'t actually include an embed. \n3. Something else\nI\'ll attatch the error below.\nIf this issue seems like a bug, use the /bugreport command to report it.')
+					.setDescription('\nSomething went wrong! There are a few possible issues:\n1. A URL option is invalid (like putting \'hello\' in the image option, or \'never gonna give you up\' in the URL option). If using the guided mode, make sure the autocomplete shows your input.\n2. You didn\'t actually put anything in the embed. \n3. Something else\nI\'ll attatch the error below.\nIf this issue seems like a bug, use the /bugreport command to report it.')
 					.addFields([
 						{ name: 'Error Message', value: `>>> ${error.toString()}` },
 					])
