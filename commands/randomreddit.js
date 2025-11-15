@@ -42,7 +42,7 @@ module.exports = {
 	},
 
 	async execute(interaction) { // inside here command stuff
-		interaction.deferReply();
+		await interaction.deferReply();
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
