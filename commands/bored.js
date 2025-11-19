@@ -1,5 +1,6 @@
 const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 const fetch = require('node-fetch');
+const { HaroldError } = require('../functions');
 
 module.exports = {
 	name: 'bored', // command name
@@ -20,7 +21,8 @@ module.exports = {
 			await fetch(boredurl, boredsettings) // im bored
 				.then(response => {
 					if (response.status !== 200) {
-						throw { message: 'http error ' + response.status, code: response.status, report: false, myMessage: 'Uh-oh, looks like this isn\'t available right now, sorry about that!' };
+						const returnError = new HaroldError('http error' + response.status, response.status, false, 'Uh-oh, looks like this isn\'t available right now, sorry about that!');
+						throw returnError;
 					}
 					return response;
 				})

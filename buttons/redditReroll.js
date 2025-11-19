@@ -1,4 +1,4 @@
-const { getRedditPost } = require('../functions');
+const { getRedditPost, HaroldError } = require('../functions');
 const { MessageFlags } = require('discord.js');
 
 module.exports = {
@@ -29,8 +29,7 @@ module.exports = {
 			}
 			if (count >= 5) await interaction.message.edit({ content: 'Something went wrong! Try again or try another subreddit.', flags: MessageFlags.Ephemeral });
 		} catch (error) {
-			if (error.myMessage) throw error;
-			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Error completing your request, we reported this error and will look in to it.' };
+			const returnError = new HaroldError(error.message, error.stack, 500, true, 'Error completing your request, we reported this error and will look into it.');
 			throw returnError;
 		}
 	},

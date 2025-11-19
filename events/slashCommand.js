@@ -73,9 +73,23 @@ module.exports = {
 			console.error(`Error executing ${command.name}:\n${error?.stack ?? error}`);
 			if (config.ownerids.includes(interaction.user.id)) errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);
 			try {
-				await interaction.reply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
+				try {
+					await interaction.reply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
+				} catch {
+					await interaction.editReply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
+				}
 			} catch {
-				await interaction.editReply({ flags: MessageFlags.Ephemeral, embeds: [errorEmbed] });
+				try {
+					if (interaction.deferred === false && interaction.replied === false) {
+						await interaction.reply({ content: 'An error occurred, and I was unable to send the error message.', flags: MessageFlags.Ephemeral });
+					} else if (interaction.deferred === true && interaction.replied === false) {
+						await interaction.editReply({ content: 'An error occurred, and I was unable to send the error message.' });
+					} else if (interaction.replied === true) {
+						await interaction.followUp({ content: 'An error occurred, and I was unable to send the error message.', flags: MessageFlags.Ephemeral });
+					}
+				} catch {
+					console.error('Failed twice to send an error message to the user.');
+				}
 			}
 			if (error.report !== false) {
 				errorEmbed.setDescription(`An error occured while executing the command ${command.name}\n\n\`\`\`error\n${error?.stack ?? error.message}\n\`\`\``);

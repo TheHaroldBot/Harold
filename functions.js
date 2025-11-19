@@ -135,6 +135,17 @@ function isValidImageURL(string) {
 	return /\.(png|jpe?g|gif|webp|bmp)$/i.test(string);
 }
 
+class HaroldError extends Error {
+	constructor(message, stack = null, code = 500, report = false, friendlyMessage = null) {
+		super(message, stack);
+		this.name = 'HaroldError';
+		this.stack = stack;
+		this.code = code;
+		this.report = report;
+		this.friendlyMessage = friendlyMessage;
+	}
+}
+
 module.exports = {
 	logUsage,
 	makeid,
@@ -143,4 +154,5 @@ module.exports = {
 	getRedditPost,
 	isValidURL,
 	isValidImageURL,
+	HaroldError,
 };
