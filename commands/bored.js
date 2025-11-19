@@ -13,7 +13,8 @@ module.exports = {
 
 	async execute(interaction) { // inside here command stuff
 		try {
-			const boredurl = 'https://bored-api.appbrewery.com/random';
+			// Previous: https://bored-api.appbrewery.com/random
+			const boredurl = 'https://apis.scrimba.com/bored/api/activity';
 			const boredsettings = { method: 'Get' };
 			let boredembed = null;
 			await fetch(boredurl, boredsettings) // im bored
@@ -25,9 +26,12 @@ module.exports = {
 				})
 				.then(response => response.json())
 				.then(async data => {
+					let description = `${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`;
+					description += data.link ? `\nLink: ${data.link}` : '';
+					description += `\nAccessibility: ${data.accessibility * 10}/10`;
 					boredembed = new EmbedBuilder()
 						.setTitle('Bored? Try this:')
-						.setDescription(`${data.activity}\nType: ${data.type}\nParticipants: ${data.participants}\nPrice: ${data.price * 10}/10`)
+						.setDescription(description)
 						.setColor('Random');
 					try {
 						await interaction.reply({ embeds: [boredembed] });
