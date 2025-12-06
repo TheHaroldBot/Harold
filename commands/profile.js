@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	name: 'profile', // command name
@@ -56,6 +56,6 @@ module.exports = {
 				` },
 			]);
 		}
-		interaction.reply({ embeds: [pfpembed] });
+		await interaction.reply({ embeds: [pfpembed], flags: MessageFlags.Ephemeral });
 	},
 };
