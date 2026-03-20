@@ -112,11 +112,18 @@ module.exports = {
 
 		// stage 3 complete, we now have a list of words that do contain the green letters in the right places.
 
-		const results = new EmbedBuilder()
-			.setTitle('The results are in!')
-			.setDescription(stage3.join('\n').substring(0, 4096))
-			.setColor('Random');
+		const stage4 = stage3.slice(0, 800); // Only first 800 results, because of embed char limit.
 
-		interaction.reply({ embeds: [results], flags: MessageFlags.Ephemeral });
+		try {
+			const results = new EmbedBuilder()
+				.setTitle('The results are in!')
+				.setDescription(stage4.join('\n') || 'No possible words found! Try changing your criteria?')
+				.setColor('Random');
+			interaction.reply({ embeds: [results], flags: MessageFlags.Ephemeral });
+		} catch (error) {
+			interaction.reply('oops!');
+			console.error(error);
+		}
+
 	},
 };
