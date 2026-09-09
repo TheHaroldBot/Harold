@@ -19,13 +19,20 @@ module.exports = {
 			headless: true,
 		});
 		const page = await browser.newPage();
-		while (true) {
+		let count = 0;
+		while (count < 5) {
 			try {
 				await page.goto(yomamaurl, {
 					waitUntil: 'networkidle0',
 				});
 				const jsonText = await page.$eval('#joke', el => el.textContent);
-				joke = JSON.parse(jsonText).joke;
+				try {
+					joke = JSON.parse(jsonText).joke;
+				} catch (error) {
+					console.error('Error parsing JSON:', error);
+					count++;
+					continue; // Skip this iteration and try again
+				}
 				if (joke.startsWith('Yo mama\'s like') || joke.startsWith('Yo mama is like')) {
 					continue;
 				} else {
