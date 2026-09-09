@@ -8,6 +8,7 @@
     "express-rate-limit": "^6.4.0",
     "node": "^17.7.2",
     "node-fetch": "^2.6.7",
+    "puppeteer": "^25.10.0",
     "tall": "^5.0.0",
     "topgg-autoposter": "^2.0.1",
     "valid-url": "^1.0.9"

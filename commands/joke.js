@@ -12,7 +12,7 @@ module.exports = {
 		.setDescription('Tells you a joke.'),
 
 	async execute(interaction) { // inside here command stuff
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 		const jokesettings = { method: 'Get' };
 		const jokeurl = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit,racist&type=twopart'; // random joke api
 		try {
@@ -24,7 +24,7 @@ module.exports = {
 						.setDescription(json.delivery)
 						.setColor('Random')
 						.setFooter({ text: 'jokeapi.dev' });
-					await interaction.editReply({ embeds: [jokeembed], ephemeral: false });
+					await interaction.editReply({ embeds: [jokeembed] });
 				});
 		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong! The joke server may be down, or we might have a bug. This error has been reported to the devs.' };

@@ -1,5 +1,5 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
-const fetch = require('node-fetch');
+const { PermissionFlagsBits, SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const puppeteer = require('puppeteer');
 
 module.exports = {
 	name: 'yomama', // command name
@@ -12,14 +12,38 @@ module.exports = {
 		.setDescription('Insults your mom.'),
 
 	async execute(interaction) { // inside here command stuff
-		const yomamasettings = { method: 'Get' };
-		const yomamaurl = 'https://www.yomama-jokes.com/api/random'; // yo mama api
-		try {
-			await fetch(yomamaurl, yomamasettings)
-				.then(res => res.json())
-				.then(res => {
-					interaction.reply(res.joke);
+		const yomamaurl = 'https://kemosaf.github.io/yomama-api/'; // yo mama api
+		let joke = '';
+		await interaction.deferReply();
+		const browser = await puppeteer.launch({
+			headless: true,
+		});
+		const page = await browser.newPage();
+		while (true) {
+			try {
+				await page.goto(yomamaurl, {
+					waitUntil: 'networkidle0',
 				});
+				const jsonText = await page.$eval('#joke', el => el.textContent);
+				joke = JSON.parse(jsonText).joke;
+				if (joke.startsWith('Yo mama\'s like') || joke.startsWith('Yo mama is like')) {
+					continue;
+				} else {
+					break;
+				}
+			} catch (error) {
+				const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+				throw returnError;
+			}
+		}
+		await browser.close();
+		try {
+			const jokeembed = new EmbedBuilder()
+				.setTitle('Yo Mama Joke')
+				.setDescription(joke)
+				.setFooter({ text: 'From kemosaf on GitHub' })
+				.setColor('Random');
+			await interaction.editReply({ embeds: [jokeembed] });
 		} catch (error) {
 			const returnError = { message: error.message, stack: error.stack, code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
 			throw returnError;
