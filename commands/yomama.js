@@ -44,6 +44,10 @@ module.exports = {
 			}
 		}
 		await browser.close();
+		if (count === 5) {
+			const returnError = { message: 'Failed to fetch a valid joke after 5 attempts.', stack: '', code: 500, report: true, myMessage: 'Uh-oh, something went wrong!' };
+			throw returnError;
+		}
 		try {
 			const jokeembed = new EmbedBuilder()
 				.setTitle('Yo Mama Joke')
